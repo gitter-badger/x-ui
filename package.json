@@ -1,0 +1,101 @@
+{
+  "name": "experience-ui",
+  "version": "1.0.0",
+  "distDirs": {
+    "stencil": "dist",
+    "storybook": "docs/storybook"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "scripts": {
+    "npm:install": "npm install",
+    "--- development ---": "---------------",
+    "start": "concurrently -n storybook,stencil,proxy -c \"bgMagenta.bold,bgBlue.bold,bgCyan.bold\" \"npm:watch:storybook\" \"npm:watch:stencil\" \"npm:watch:proxy\"",
+    "watch:storybook": "start-storybook -p 3001 --ci --quiet",
+    "watch:stencil": "stencil build --dev --watch --serve --port 3002",
+    "watch:proxy": "wait-on http://localhost:3001/ && wait-on http://localhost:3002/ && node ./scripts/proxy.js",
+    "new": "stencil generate",
+    "--- production ---": "---------------",
+    "build": "run-s build:stencil build:storybook",
+    "build:stencil": "stencil build --docs",
+    "build:storybook": "build-storybook --output-dir ./docs/storybook --static-dir ./dist/experience-ui",
+    "--- misc ---": "---------------",
+    "test": "stencil test --spec --e2e --coverage",
+    "lint": "run-p lint:js lint:css",
+    "lint:js": "eslint src/**/*{.ts,.tsx}",
+    "lint:css": "stylelint 'src/**/*.scss' --allow-empty-input",
+    "lint:husky": "lint-staged",
+    "chromatic": "run-s build:stencil chromatic:publish",
+    "chromatic:publish": "npx chromatic --project-token <REPLACE-WITH-YOUR-TOKEN> --build-script-name build:storybook"
+  },
+  "husky": {
+    "hooks": {
+      "disabledXpre-commit": "npm run lint:husky"
+    }
+  },
+  "dependencies": {
+    "@ionic/core": "^5.5.0",
+    "@stencil/core": "^2.3.0",
+    "@stencil/sass": "^1.3.2",
+    "@stencil/store": "^1.3.0",
+    "@storybook/web-components": "^6.1.6",
+    "lit-html": "^1.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@stencil/eslint-plugin": "^0.3.1",
+    "@storybook/addon-actions": "^6.1.6",
+    "@storybook/addon-essentials": "^6.1.6",
+    "@storybook/addon-links": "^6.1.6",
+    "@storybook/addon-notes": "^5.3.21",
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.2",
+    "@types/puppeteer": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "babel-loader": "^8.1.0",
+    "bootstrap-scss": "^4.2.1",
+    "chalk": "^4.1.0",
+    "concurrently": "^5.3.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-typescript": "^10.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.2",
+    "gh-pages": "^3.1.0",
+    "http-proxy-middleware": "^1.0.5",
+    "husky": "^4.3.0",
+    "jest": "^26.4.2",
+    "jest-cli": "^26.4.2",
+    "jsx-dom": "^6.4.23",
+    "lint-staged": "^10.4.2",
+    "node-fetch": "^2.6.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.2",
+    "puppeteer": "^5.3.1",
+    "react-is": "^16.13.1",
+    "stylelint": "^13.7.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "ts-dedent": "^2.0.0",
+    "typescript": "^4.0.3",
+    "wait-on": "^5.2.0",
+    "write-file-webpack-plugin": "^4.5.1"
+  },
+  "jest": {
+    "preset": "@stencil/core/testing"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-sass-guidelines"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
