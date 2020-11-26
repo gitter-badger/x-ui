@@ -1,7 +1,9 @@
 import { Component, h, Prop, Element, Listen, State, Host } from '@stencil/core';
 import { RouteService, MatchResults } from "../../services/route.service";
-import { state, session, logger } from '../../services';
+import { state } from '../../services';
 import { DoRuleService } from '../../services/rule.service';
+import { DATA_PROVIDER } from '../../services/provider.factory';
+import { IDataProvider } from '../../types/interfaces';
 
 @Component({
   tag: 'x-do',
@@ -26,6 +28,7 @@ export class XDo {
 
   whenRule: DoRuleService;
   route: RouteService;
+  session: IDataProvider;
 
   get parentUrl() {
     return this.el.parentElement.getAttribute('url');
@@ -36,7 +39,8 @@ export class XDo {
   }
 
   componentWillLoad() {
-    logger.debug(`Do ${this.url} will load`);
+    this.session = state.providerFactory.getProvider(DATA_PROVIDER.SESSION);
+    state.logger.debug(`Do ${this.url} will load`);
     const self = this;
     this.route = new RouteService(
       state.router,
@@ -52,14 +56,15 @@ export class XDo {
   }
 
   async componentDidUpdate() {
-    logger.debug(`Do ${this.url} did update`);
+    //logger.debug(`Do ${this.url} did update`);
     await this.route.loadCompleted();
   }
 
   async componentWillRender() {
-    logger.debug(`Do ${this.url} will render`);
+    //logger.debug(`Do ${this.url} will render`);
+
     // before evaluating the condition, check if we already did this
-    let hasDone = await session.get(this.urlKey);
+    let hasDone = await this.session.get(this.urlKey);
     if(hasDone != null)
       this.done = true;
     else
@@ -69,12 +74,12 @@ export class XDo {
         this.whenProvider,
         done => {
           this.done = done;
-          logger.debug(`Do ${this.url} done callback: ${this.done}`);
+          state.logger.debug(`Do ${this.url} done callback: ${this.done}`);
         }
       );
 
     if(this.match?.isExact) {
-      logger.debug(`Do ${this.url} has matched route`);
+      state.logger.debug(`Do ${this.url} has matched route`);
     }
     await this.route.loadCompleted();
   }
@@ -85,7 +90,7 @@ export class XDo {
   })
   onComplete() {
     if(this.route.match.isExact) {
-      session.set(this.urlKey, "true");
+      this.session.set(this.urlKey, "true");
       this.done = true;
       state.router.history.push(this.parentUrl);
     }
@@ -93,11 +98,11 @@ export class XDo {
 
   disconnectedCallback() {
     //this.route.unload();
-    logger.debug(`Do ${this.url} was disconnected`);
+    //logger.debug(`Do ${this.url} was disconnected`);
   }
 
   render() {
-    logger.debug(`Do ${this.url} is rendering`);
+    //logger.debug(`Do ${this.url} is rendering`);
     const classes = `overlay ${this.transition || state.router.transition}`;
 
     return (this.match?.isExact
@@ -109,11 +114,11 @@ export class XDo {
   }
 
   componentDidRender() {
-    logger.debug(`Do ${this.url} did render`);
+    //logger.debug(`Do ${this.url} did render`);
   }
 
 
   componentDidLoad() {
-    logger.debug(`Do ${this.url} did load`);
+    //logger.debug(`Do ${this.url} did load`);
   }
 }

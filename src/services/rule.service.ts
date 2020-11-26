@@ -1,4 +1,4 @@
-import { logger, valueProviderFactory } from './';
+import { state } from ".";
 
 export class DoRuleService {
 
@@ -15,22 +15,22 @@ export class DoRuleService {
   async evaluateWhen(): Promise<boolean> {
 
     if(this.whenProvider && this.whenKey) {
-      let provider = valueProviderFactory.getProvider(this.whenProvider);
+      let provider = state.providerFactory.getProvider(this.whenProvider);
       let value = await provider.get(this.whenKey);
 
       if (this.when == undefined) {
         let result = (value !== undefined && value !== null);
-        logger.debug(` expression: ${this.when}} is defined = ${result}`);
+        state.logger.debug(` expression: ${this.when}} is defined = ${result}`);
         return result;
       }
 
       try {
         let expressionFunc = new Function("x", `return (${this.when})`);
         let result = expressionFunc(value) == true;
-        logger.debug(` expression: ${this.when} = ${result}`);
+        state.logger.debug(` expression: ${this.when} = ${result}`);
         return result;
       } catch (err) {
-        logger.debug(` expression: ${this.when} threw an error: ${err}`);
+        state.logger.debug(` expression: ${this.when} threw an error: ${err}`);
       }
     }
     return false;

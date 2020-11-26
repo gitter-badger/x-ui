@@ -21,7 +21,7 @@ export class RouteService {
     matchSetter: (m: MatchResults) => void
   ) {
     let self = this;
-    this.router.onRouteChange(() => {
+    this.router?.onRouteChange(() => {
       self.match = self.router.matchPath({
         path: self.url,
         exact: self.exact,

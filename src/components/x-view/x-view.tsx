@@ -1,5 +1,5 @@
 import { Component, h, Prop, Host, Element, State } from '@stencil/core';
-import { logger, state } from '../../services';
+import { state } from '../../services';
 import { RouteService, MatchResults } from "../../services/route.service";
 
 @Component({
@@ -34,15 +34,15 @@ export class XView {
   }
 
   connectedCallback() {
-    logger.debug(`View ${this.url} was connected`);
+    //logger.debug(`View ${this.url} was connected`);
   }
 
   disconnectedCallback() {
-    logger.debug(`View ${this.url} was disconnected`);
+    //logger.debug(`View ${this.url} was disconnected`);
   }
 
   componentWillLoad() {
-    logger.debug(`View ${this.url} will load.`);
+    //logger.debug(`View ${this.url} will load.`);
 
     const self = this;
     this.route = new RouteService(
@@ -59,17 +59,17 @@ export class XView {
   }
 
   async componentDidUpdate() {
-    logger.debug(`View ${this.url} did update.`);
+    //logger.debug(`View ${this.url} did update.`);
     await this.route.loadCompleted();
   }
 
   async componentDidLoad() {
-    logger.debug(`View ${this.url} did load.`);
+    //logger.debug(`View ${this.url} did load.`);
     await this.route.loadCompleted();
   }
 
   componentWillRender() {
-    logger.debug(`View ${this.url} will render.`);
+    //logger.debug(`View ${this.url} will render.`);
 
     if(this.match) {
 
@@ -87,10 +87,10 @@ export class XView {
     }
 
     if (this.match?.isExact) {
-      logger.debug(`View ${this.url} has a matched route`);
+      //logger.debug(`View ${this.url} has a matched route`);
       let nextDo = this.doTasks.find(d => d.done == false);
       if (nextDo) {
-        logger.debug(`View ${this.url}: Go to Do: ${nextDo.url}`);
+        state.logger.debug(`View ${this.url}: Go to Do: ${nextDo.url}`);
         state.router.history.push(nextDo.url);
       }
     }
@@ -98,7 +98,7 @@ export class XView {
 
   render() {
 
-    logger.debug(`View ${this.url} is rendering with exact match: ${this.match?.isExact||false}.`);
+    //logger.debug(`View ${this.url} is rendering with exact match: ${this.match?.isExact||false}.`);
     if(!state.router || !this.route) return null;
 
     const classes = this.match

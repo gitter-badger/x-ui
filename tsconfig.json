@@ -17,5 +17,5 @@
     "stripInternal": true
   },
   "include": ["src", "types/jsx.d.ts", "./typings.d.ts", "./stencil.config.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*X.tsx"]
 }

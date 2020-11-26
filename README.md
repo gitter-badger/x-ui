@@ -14,15 +14,12 @@ These components use a convention over configuration approach to guide user beha
 
 
 * Guided Navigation!
-  - Path or Hash Routing 
-  
+  - Path or Hash Routing
   - Animated Transitions
   - Expression-based Rules 
   - Simple Convention for Complex Routing
-  - Wizards
-  - Quizzes
-  - Questionnaires
-  - Automatically pick up where a user left-off
+  - Perfect for Learning
+  - Automatically picks up where the user left-off
 * Built for Presentations!
   - Queued, Timed & Event-based Actions
   - Automatic Navigation

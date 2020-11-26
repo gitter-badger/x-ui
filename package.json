@@ -24,7 +24,8 @@
     "build:stencil": "stencil build --docs",
     "build:storybook": "build-storybook --output-dir ./docs/storybook --static-dir ./dist/experience-ui",
     "--- misc ---": "---------------",
-    "test": "stencil test --spec --e2e --coverage",
+    "test": "stencil test --spec",
+    "test:full": "stencil test --spec --e2e --coverage",
     "lint": "run-p lint:js lint:css",
     "lint:js": "eslint src/**/*{.ts,.tsx}",
     "lint:css": "stylelint 'src/**/*.scss' --allow-empty-input",
@@ -71,7 +72,7 @@
     "http-proxy-middleware": "^1.0.5",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "jest-cli": "^26.4.2",
+    "jest-cli": "^26.6.3",
     "jsx-dom": "^6.4.23",
     "lint-staged": "^10.4.2",
     "node-fetch": "^2.6.1",
@@ -84,7 +85,8 @@
     "ts-dedent": "^2.0.0",
     "typescript": "^4.0.3",
     "wait-on": "^5.2.0",
-    "write-file-webpack-plugin": "^4.5.1"
+    "write-file-webpack-plugin": "^4.5.1",
+    "yargs": "^16.1.1"
   },
   "jest": {
     "preset": "@stencil/core/testing"

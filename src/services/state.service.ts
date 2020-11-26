@@ -1,7 +1,11 @@
 import { createStore } from "@stencil/store";
 import { RouterService } from "./router.service";
+import { LoggingService } from './logging.service';
+import { ProviderFactory } from './provider.factory';
 
 class StateModel {
+  logger: LoggingService;
+  providerFactory: ProviderFactory;
   router: RouterService;
   debug: boolean;
   theme: 'light' | 'dark' | string;
@@ -11,6 +15,8 @@ class StateModel {
 }
 
 const { state, onChange } = createStore<StateModel>({
+  logger: new LoggingService(),
+  providerFactory: new ProviderFactory(),
   router: null,
   debug: false,
   theme: localStorage.getItem('theme') || null,
