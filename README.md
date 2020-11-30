@@ -6,47 +6,39 @@
 # view.DO Experience UI Framework
 
 
-The view.DO Experience UI is the first content navigation tool built specifically for rich, interactive experiences. 
+view.DO's Experience UI is the first tool-set built specifically for rich, low-code, interactive web experiences. 
 
-These web-components extend HTML to create engaging experiences with minimal scripting with built-in guided navigation, timed-audio, sequenced-video and hooks for animations you can create amazing new ways to engage your users.
+This set of inter-working web-components extend HTML, allowing for the declarative expression for web-developers to create engaging experiences with guided navigation, timed-audio, timed/sequenced-video, hooks for animations and much more.
 
-These components use a convention over configuration approach to guide user behavior in a rule-based, presentation format.  
-
-
-* Guided Navigation!
-  - Path or Hash Routing
-  - Animated Transitions
-  - Expression-based Rules 
-  - Simple Convention for Complex Routing
-  - Perfect for Learning
-  - Automatically picks up where the user left-off
-* Built for Presentations!
-  - Queued, Timed & Event-based Actions
-  - Automatic Navigation
-  - Ambient Audio 
-  - Voice-Over Audio
-  - Animations
-  - Sequenced / Interactive Videos
-* Built-in Analytics & Behavior Tracking
-* Sequenced Inputs for Surveys & Quizzes
-* Value Provider System to easily connect your data
-* Storage Provider System to easily capture data
+These components use a convention-over-configuration approach to guide user behavior with your content in a rule-based, presentation format.  
 
 
+#### Automatic Guided Navigation
+* Sequenced Content: present, educate, inform
+* Sequenced Input: surveys, quiz and display results
+* Sequenced Video: interactive video story-telling
+* Simple Conventions: complex routing, simply
+* Browser or Hash Routing: #/ or /
+* Declarative: Expression-based Conditions  
+* Stateful: pick up where a user left-off
 
-#### Notable Attributes
+#### Built for Presentations 
+* Queued, Timed & Event-based Actions
+* Animated Transitions
+* Automatic Navigation
+* Timed Ambient & Voice-Over Audio 
+* Animation Hooks
 
-- [Accessible][accessibility] to all via ARIA roles/states/properties and keyboard support
-- Mobile-first Design works brilliantly on all devices
-- Style anything you want with [CSS variables][css-vars]
-- Default light and dark themes are included.
-- Proudly Features the [Vime.js media-player][vime-player]
-- Fast rendering with pre-connections and lazy loading components
-  and media
-- Lightweight and lightening fast!
-- Built with TypeScript so you can enjoy completely typed components
-- Simple HTML/CSS/JS with [web components][web-components]
+##### PLUS:
+* **Fast:** Lightweight and lightening fast. No framework!
+* **Trackable:** Support Analytics & Behavior Tracking
+* **Extensible:** Data Provider System to easily connect with your data
+* **Accessible:** [Accessible][accessibility]to all via ARIA roles/states/properties and ke**yboard support
+* **Typed:** Built with TypeScript so you can enjoy completely typed components
+* **Portable:** Simple HTML/CSS/JS with [web components][web-components]
 
+## Vime.js
+Proudly Features the [Vime.js media-player][vime-player] for audio & video.
 
 [web-components]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 [accessibility]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
