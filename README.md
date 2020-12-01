@@ -3,7 +3,7 @@
 
 ![Coming Soon](https://static.view.do/viewdo/coming-soon.jpg)
 
-# view.DO Experience UI Framework
+# view.DO Experience UI
 
 
 view.DO's Experience UI is the first tool-set built specifically for rich, low-code, interactive web experiences. 

@@ -5,170 +5,37 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { HistoryType } from "./services/routing/types";
+import { ProviderRegistration } from "./services/data-provider/provider-factory";
 export namespace Components {
-    interface XContainer {
-        "audio": boolean;
-        /**
-          * @type {HistoryType}
-          * @memberof XContainer
-         */
-        "historyType": HistoryType;
-        /**
-          * @type {string}
-          * @memberof XContainer
-         */
-        "root": string;
-        "scrollTopOffset"?: number;
-        "startUrl": string;
-        "titleSuffix": string;
-        "transition": string;
-    }
-    interface XDo {
-        "done": boolean;
-        "pageTitle": string;
-        "root"?: string;
-        "scrollTopOffset"?: number;
-        "transition": string;
-        "url"?: string;
-        "when": string;
-        "whenKey": string;
-        "whenProvider": string;
-    }
-    interface XLink {
-        "activeClass": string;
-        "anchorClass"?: string;
-        "anchorId"?: string;
-        "anchorRole"?: string;
-        "anchorTabIndex"?: string;
-        "anchorTitle"?: string;
-        "ariaHaspopup"?: string;
-        "ariaLabel"?: string;
-        "ariaPosinset"?: string;
-        "ariaSetsize"?: number;
-        /**
-          * Custom tag to use instead of an anchor
-         */
-        "custom": string;
-        "exact": boolean;
-        "strict": boolean;
-        "url": string;
-    }
-    interface XView {
-        "exact": boolean;
-        "pageTitle": string;
-        "root"?: string;
-        "scrollTopOffset"?: number;
-        "templateId": string;
-        "transition"?: string;
-        "url"?: string;
+    interface XDataProvider {
+        "get": (key: string) => Promise<string>;
+        "set": (key: string, value: string) => Promise<void>;
     }
 }
 declare global {
-    interface HTMLXContainerElement extends Components.XContainer, HTMLStencilElement {
+    interface HTMLXDataProviderElement extends Components.XDataProvider, HTMLStencilElement {
     }
-    var HTMLXContainerElement: {
-        prototype: HTMLXContainerElement;
-        new (): HTMLXContainerElement;
-    };
-    interface HTMLXDoElement extends Components.XDo, HTMLStencilElement {
-    }
-    var HTMLXDoElement: {
-        prototype: HTMLXDoElement;
-        new (): HTMLXDoElement;
-    };
-    interface HTMLXLinkElement extends Components.XLink, HTMLStencilElement {
-    }
-    var HTMLXLinkElement: {
-        prototype: HTMLXLinkElement;
-        new (): HTMLXLinkElement;
-    };
-    interface HTMLXViewElement extends Components.XView, HTMLStencilElement {
-    }
-    var HTMLXViewElement: {
-        prototype: HTMLXViewElement;
-        new (): HTMLXViewElement;
+    var HTMLXDataProviderElement: {
+        prototype: HTMLXDataProviderElement;
+        new (): HTMLXDataProviderElement;
     };
     interface HTMLElementTagNameMap {
-        "x-container": HTMLXContainerElement;
-        "x-do": HTMLXDoElement;
-        "x-link": HTMLXLinkElement;
-        "x-view": HTMLXViewElement;
+        "x-data-provider": HTMLXDataProviderElement;
     }
 }
 declare namespace LocalJSX {
-    interface XContainer {
-        "audio"?: boolean;
-        /**
-          * @type {HistoryType}
-          * @memberof XContainer
-         */
-        "historyType"?: HistoryType;
-        "onXui:theme-changed"?: (event: CustomEvent<any>) => void;
-        /**
-          * @type {string}
-          * @memberof XContainer
-         */
-        "root"?: string;
-        "scrollTopOffset"?: number;
-        "startUrl"?: string;
-        "titleSuffix"?: string;
-        "transition"?: string;
-    }
-    interface XDo {
-        "done"?: boolean;
-        "pageTitle"?: string;
-        "root"?: string;
-        "scrollTopOffset"?: number;
-        "transition"?: string;
-        "url"?: string;
-        "when"?: string;
-        "whenKey": string;
-        "whenProvider"?: string;
-    }
-    interface XLink {
-        "activeClass"?: string;
-        "anchorClass"?: string;
-        "anchorId"?: string;
-        "anchorRole"?: string;
-        "anchorTabIndex"?: string;
-        "anchorTitle"?: string;
-        "ariaHaspopup"?: string;
-        "ariaLabel"?: string;
-        "ariaPosinset"?: string;
-        "ariaSetsize"?: number;
-        /**
-          * Custom tag to use instead of an anchor
-         */
-        "custom"?: string;
-        "exact"?: boolean;
-        "strict"?: boolean;
-        "url": string;
-    }
-    interface XView {
-        "exact"?: boolean;
-        "pageTitle"?: string;
-        "root"?: string;
-        "scrollTopOffset"?: number;
-        "templateId"?: string;
-        "transition"?: string;
-        "url"?: string;
+    interface XDataProvider {
+        "onRegister"?: (event: CustomEvent<ProviderRegistration>) => void;
     }
     interface IntrinsicElements {
-        "x-container": XContainer;
-        "x-do": XDo;
-        "x-link": XLink;
-        "x-view": XView;
+        "x-data-provider": XDataProvider;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "x-container": LocalJSX.XContainer & JSXBase.HTMLAttributes<HTMLXContainerElement>;
-            "x-do": LocalJSX.XDo & JSXBase.HTMLAttributes<HTMLXDoElement>;
-            "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
-            "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;
+            "x-data-provider": LocalJSX.XDataProvider & JSXBase.HTMLAttributes<HTMLXDataProviderElement>;
         }
     }
 }

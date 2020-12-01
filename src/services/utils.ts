@@ -1,20 +1,7 @@
-const operators = ['=', '+', '-', '*', '/', '>', '<', '>=', '<=', '==', '!=']
-export function isOp(v) {
-    for (var i = 0; i < operators.length; i++) {
-        if (operators[i] == v) return true
-    }
-    return false
-}
-
-export function isNum(v) {
-  return !isNaN(parseFloat(v)) && isFinite(v)
-}
-
+/* eslint-disable no-bitwise */
 export function requireValue(value: string, name: string): void {
-  if(value == undefined || value == '')
-    throw new Error(`A value for ${name} was not provided.`)
+  if (value === undefined || value === '') throw new Error(`A value for ${name} was not provided.`);
 }
-
 
 /**
    * wraps a promise in a timeout, allowing the promise to reject if not resolve with a specific period of time
@@ -31,30 +18,26 @@ export function requireValue(value: string, name: string): void {
    * @returns {Promise} resolves as normal if not timed-out, otherwise rejects
    */
 export function promiseTimeout(ms: number, promise: Promise<any>): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // create a timeout to reject promise if not resolved
+    const timer = setTimeout(() => {
+      reject(new Error('Promise Timed Out'));
+    }, ms);
 
-    return new Promise(function (resolve, reject) {
-
-        // create a timeout to reject promise if not resolved
-        const timer = setTimeout(function () {
-            reject(new Error('Promise Timed Out'));
-        }, ms);
-
-        promise.then(function (res) {
-            clearTimeout(timer);
-            resolve(res);
-        })
-            .catch(function (err) {
-                clearTimeout(timer);
-                reject(err);
-            });
-    });
+    promise.then((res) => {
+      clearTimeout(timer);
+      resolve(res);
+    })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
 }
 
-
-export function sleep(ms: number)  {
-  return new Promise(resolve => setTimeout(resolve, ms));
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 
 /**
    * Returns the hash of string (slightly compressed)
@@ -62,17 +45,15 @@ export function sleep(ms: number)  {
    * @returns {string} hash of the value
    */
 export function stringToHash(value: string): string {
+  let hash = 0;
 
-    let hash = 0;
+  if (value.length === 0) return hash.toString();
 
-    if (value.length === 0) return hash.toString();
+  for (let i = 0, l = value.length; i < l; i++) {
+    const char = value.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash &= hash; // Convert to 32bit integer
+  }
 
-    for (let i = 0, l = value.length; i < l; i++) {
-        const char = value.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-
-    return hash.toString();
+  return hash.toString();
 }
-
