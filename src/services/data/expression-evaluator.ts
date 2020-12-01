@@ -1,14 +1,20 @@
 import { Parser } from 'expr-eval';
-import { requireValue } from '../utils';
+import { requireValue, toBoolean } from '../utils';
 import { getProvider } from './provider-factory';
+import { ExpressionContext } from './interfaces';
 
 const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?}/g;
 const expressionEvaluator = new Parser();
 
-export async function evaluate(expression: string): Promise<any> {
-  return expressionEvaluator.evaluate(expression, {});
-}
-
+/**
+ * This function replaces all {provider:key} values with the actual values
+ * from the expressed provider & key. This is used by {evaluateExpression}
+ * before it is sent to {evaluate} for calculation.
+ *
+ * @export resolveExpression
+ * @param {string} valueExpression
+ * @return {*}  {(Promise<string|null>)}
+ */
 export async function resolveExpression(valueExpression: string): Promise<string|null> {
   requireValue(valueExpression, 'valueExpression');
 
@@ -47,12 +53,42 @@ export async function resolveExpression(valueExpression: string): Promise<string
   return result || null;
 }
 
-export async function evaluateExpression(expression: string): Promise<any> {
-  const detokenizedExpression = await resolveExpression(expression);
-  return expressionEvaluator.evaluate(detokenizedExpression, {});
+/**
+ * This base expression parsing is performed by the library: expr-eval
+ * Documentation: https://github.com/silentmatt/expr-eval
+ *
+ * @export evaluate
+ * @param {string} expression A js-based expression for value comparisons or calculations
+ * @param {object} context An object holding any variables for the expression.
+ */
+export function evaluate(expression: string, context:ExpressionContext = {}): number|boolean|string {
+  return expressionEvaluator.evaluate(expression, context);
 }
 
-export async function evaluatePredicate(expression: string): Promise<boolean> {
-  const result = await evaluateExpression(expression) === true;
-  return result === true;
+/**
+ * This function first resolves any data-tokens, then passes the response to the
+ * {evaluate} function.
+ *
+ * @export evaluateExpression
+ * @param {string} expression
+ * @param {*} [context={}]
+ * @return {*}  {Promise<any>}
+ */
+export async function evaluateExpression(expression: string, context: ExpressionContext = {}): Promise<any> {
+  const detokenizedExpression = await resolveExpression(expression);
+  return evaluate(detokenizedExpression, context);
+}
+
+/**
+ * This function first resolves any data-tokens, then passes the response to the
+ * {evaluate} function, but uses the value to determine a true/false.
+ *
+ * @export
+ * @param {string} expression
+ * @param {ExpressionContext} [context={}]
+ * @return {*}  {Promise<boolean>}
+ */
+export async function evaluatePredicate(expression: string, context:ExpressionContext = {}): Promise<boolean> {
+  const result = await evaluateExpression(expression, context);
+  return toBoolean(result);
 }

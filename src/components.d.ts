@@ -5,37 +5,75 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ProviderRegistration } from "./services/data-provider/provider-factory";
+import { ProviderRegistration } from "./services/data/provider-factory";
 export namespace Components {
-    interface XDataProvider {
-        "get": (key: string) => Promise<string>;
-        "set": (key: string, value: string) => Promise<void>;
+    interface XDataProviderSample {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug": boolean;
+    }
+    interface XDataValue {
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+         */
+        "class": string;
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+         */
+        "expression": string;
     }
 }
 declare global {
-    interface HTMLXDataProviderElement extends Components.XDataProvider, HTMLStencilElement {
+    interface HTMLXDataProviderSampleElement extends Components.XDataProviderSample, HTMLStencilElement {
     }
-    var HTMLXDataProviderElement: {
-        prototype: HTMLXDataProviderElement;
-        new (): HTMLXDataProviderElement;
+    var HTMLXDataProviderSampleElement: {
+        prototype: HTMLXDataProviderSampleElement;
+        new (): HTMLXDataProviderSampleElement;
+    };
+    interface HTMLXDataValueElement extends Components.XDataValue, HTMLStencilElement {
+    }
+    var HTMLXDataValueElement: {
+        prototype: HTMLXDataValueElement;
+        new (): HTMLXDataValueElement;
     };
     interface HTMLElementTagNameMap {
-        "x-data-provider": HTMLXDataProviderElement;
+        "x-data-provider-sample": HTMLXDataProviderSampleElement;
+        "x-data-value": HTMLXDataValueElement;
     }
 }
 declare namespace LocalJSX {
-    interface XDataProvider {
+    interface XDataProviderSample {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug"?: boolean;
+        /**
+          * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
+         */
         "onRegister"?: (event: CustomEvent<ProviderRegistration>) => void;
     }
+    interface XDataValue {
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+         */
+        "class": string;
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+         */
+        "expression": string;
+    }
     interface IntrinsicElements {
-        "x-data-provider": XDataProvider;
+        "x-data-provider-sample": XDataProviderSample;
+        "x-data-value": XDataValue;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "x-data-provider": LocalJSX.XDataProvider & JSXBase.HTMLAttributes<HTMLXDataProviderElement>;
+            "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
+            "x-data-value": LocalJSX.XDataValue & JSXBase.HTMLAttributes<HTMLXDataValueElement>;
         }
     }
 }

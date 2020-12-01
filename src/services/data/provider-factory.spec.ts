@@ -1,5 +1,4 @@
-import { addProvider, getProvider } from './provider-factory';
-import { InMemoryProvider } from "./provider-memory";
+import { addProvider, getProvider, InMemoryProvider } from '.';
 
 describe('provider-factory', () => {
 

@@ -1,14 +1,18 @@
-/* eslint-disable no-bitwise */
+/**
+ * Throws an error if the value parameter is not defined.
+ * @param {string} value the value that should not be null
+ * @param {string} name the name of the parameter/variable to use in the error
+ */
 export function requireValue(value: string, name: string): void {
   if (value === undefined || value === '') throw new Error(`A value for ${name} was not provided.`);
 }
 
 /**
-   * wraps a promise in a timeout, allowing the promise to reject if not resolve with a specific period of time
+   * Wraps a promise in a timeout, allowing the promise to reject if not resolve with a specific period of time
    * @param {integer} ms - milliseconds to wait before rejecting promise if not resolved
    * @param {Promise} promise to monitor
    * @example
-   *  promiseTimeout(1000, fetch('https://courseof.life/johndoherty.json'))
+   *  promiseTimeout(1000, fetch('https://path/to.json'))
    *      .then(function(cvData){
    *          alert(cvData);
    *      })
@@ -35,6 +39,11 @@ export function promiseTimeout(ms: number, promise: Promise<any>): Promise<any> 
   });
 }
 
+/**
+ * Wait ('await') for a specified amount of time.
+ * @param {number} ms time in milliseconds to wait
+ * @return {void}
+ */
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -51,9 +60,28 @@ export function stringToHash(value: string): string {
 
   for (let i = 0, l = value.length; i < l; i++) {
     const char = value.charCodeAt(i);
+    // eslint-disable-next-line no-bitwise
     hash = ((hash << 5) - hash) + char;
+    // eslint-disable-next-line no-bitwise
     hash &= hash; // Convert to 32bit integer
   }
 
   return hash.toString();
+}
+
+/**
+ * Turns 'truthy' values into true and 'falsy' into false.
+ * @param {any} value
+ * @return {boolean}
+ */
+export function toBoolean(value: any) {
+  if (typeof value === 'string') {
+    const stringResult = value.slice().toLocaleLowerCase();
+    if (['false', 'no', 'off'].includes(stringResult)) return false;
+    if (['true', 'yes', 'on'].includes(stringResult)) return true;
+  } else {
+    if ([false, -1, 0, null].includes(value)) return false;
+    if ([true, 1].includes(value)) return true;
+  }
+  return Boolean(value);
 }

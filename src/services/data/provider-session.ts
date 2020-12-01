@@ -1,10 +1,7 @@
-import { logger } from '..';
 import { IDataProvider } from './interfaces';
 
 export class SessionProvider implements IDataProvider {
-  constructor(private sessionStorage = window.sessionStorage) {
-    if (sessionStorage === undefined) logger.warn('No sessionStorage found.');
-  }
+  constructor(private sessionStorage = window.sessionStorage) {}
 
   async get(key: string): Promise<string|null> {
     return this.sessionStorage?.getItem(key) || null;
