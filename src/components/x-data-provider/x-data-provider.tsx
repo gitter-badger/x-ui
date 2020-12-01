@@ -1,30 +1,13 @@
-import { Component, Event, EventEmitter, Method } from '@stencil/core';
-import { ACTIONS, ProviderRegistration } from '../../services/data-provider/provider-factory';
-import { IDataProvider } from '../../services/data-provider/interfaces';
-import { InMemoryProvider } from '../../services/data-provider/provider-memory';
+import { Component, Event, EventEmitter } from '@stencil/core';
+import { ACTIONS, ProviderRegistration } from '../../services/data/provider-factory';
+import { InMemoryProvider } from '../../services/data/provider-memory';
 
 @Component({
   tag: 'x-data-provider',
   shadow: true,
 })
-export class XDataProvider implements IDataProvider {
+export class XDataProvider {
   private data = new InMemoryProvider();
-
-  /**
-   *
-   */
-  @Method()
-  async get(key: string): Promise<string> {
-    return this.data.get(key);
-  }
-
-  /**
-   *
-   */
-  @Method()
-  async set(key: string, value: string): Promise<void> {
-    this.data.set(key, value);
-  }
 
   /**
    *
@@ -36,7 +19,7 @@ export class XDataProvider implements IDataProvider {
   componentDidLoad() {
     this.register.emit({
       name: 'memory',
-      provider: this,
+      provider: this.data,
     });
   }
 
