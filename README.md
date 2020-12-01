@@ -30,16 +30,22 @@ These components use a convention-over-configuration approach to guide user beha
 * Animation Hooks
 
 ##### PLUS:
-* **Fast:** Lightweight and lightening fast. No framework!
-* **Trackable:** Support Analytics & Behavior Tracking
-* **Extensible:** Data Provider System to easily connect with your data
-* **Accessible:** [Accessible][accessibility]to all via ARIA roles/states/properties and ke**yboard support
+* **Fast:** Lightweight and lightening fast: [No Framework][stencil-js] & [Lazy Loaded][lazy-loading]
+* **Themeable:** Themeable using [CSS Vars][css-vars] with light & dark support
+* **Extensible:** Data Provider System to easily connect your data
+* **Accessible:** [Accessible][accessibility]to all via ARIA roles/states/properties and keyboard support
 * **Typed:** Built with TypeScript so you can enjoy completely typed components
 * **Portable:** Simple HTML/CSS/JS with [web components][web-components]
+* **Trackable:** Support Analytics & Behavior Tracking
+* **Extensible:** Data Provider System to easily connect with your data
 
-## Vime.js
-Proudly Features the [Vime.js media-player][vime-player] for audio & video.
+#### Thanks to
+* **Stencil.js** [SDK][stencil-js] for the best way to create web-components
+* **Vime.js** [media-player][vime-player] for the awesome video player
+* **SilentMatt** [expression evaluator][expr-eval] for view condition expressions
 
+[stencil-js]: [https://stenciljs.com/l]
+[expr-eval]: [https://github.com/silentmatt/expr-eval]
 [web-components]: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 [accessibility]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
 [css-vars]: https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
