@@ -1,10 +1,10 @@
-
-![MIT](https://img.shields.io/github/license/viewdo/experience-ui) ![Built With View.DO](https://img.shields.io/badge/view.DO-Experience_UI_v0.1-1c6d9a)
-
 ![Coming Soon](https://static.view.do/viewdo/coming-soon.jpg)
 
 # view.DO Experience UI
 
+![MIT](https://img.shields.io/github/license/viewdo/experience-ui) ![Built With View.DO](https://img.shields.io/badge/view.DO-Experience_UI_v0.1-1c6d9a)
+
+---
 
 view.DO's Experience UI is the first tool-set built specifically for rich, low-code, interactive web experiences. 
 
@@ -36,10 +36,30 @@ These components use a convention-over-configuration approach to guide user beha
 * **Accessible:** [Accessible][accessibility]to all via ARIA roles/states/properties and keyboard support
 * **Typed:** Built with TypeScript so you can enjoy completely typed components
 * **Portable:** Simple HTML/CSS/JS with [web components][web-components]
-* **Trackable:** Support Analytics & Behavior Tracking
+* **Trackable:** Analytics & Behavior Tracking Plugins
 * **Extensible:** Data Provider System to easily connect with your data
 
-#### Thanks to
+---
+## Usage
+
+### CDN
+
+
+### Node / NPM
+
+````node
+  npm i -D @viewdo/experience-ui  
+````
+
+## Documentation
+
+
+---
+## Contributing
+
+
+**Huge thanks to:**
+
 * **Stencil.js** [SDK][stencil-js] for the best way to create web-components
 * **Vime.js** [media-player][vime-player] for the awesome video player
 * **SilentMatt** [expression evaluator][expr-eval] for view condition expressions

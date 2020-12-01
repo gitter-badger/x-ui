@@ -1,4 +1,16 @@
 {
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/jsx.d.ts",
+    "./typings.d.ts",
+    "./stencil.config.ts"],
+  "exclude": [
+    "node_modules",
+    "**/*X.tsx",
+    "**/ig-*/**",
+    "**/__mocks__/**"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
@@ -15,7 +27,5 @@
     "preserveConstEnums": true,
     "resolveJsonModule": true,
     "stripInternal": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "types/jsx.d.ts", "./typings.d.ts", "./stencil.config.ts"],
-  "exclude": ["node_modules", "**/*X.tsx", "**/ig-*/**"]
+  }
 }
