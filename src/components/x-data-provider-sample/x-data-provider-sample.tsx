@@ -1,13 +1,14 @@
 /* eslint-disable no-return-assign */
 import { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
-import { ACTIONS, ProviderRegistration } from '../../services/data/provider-factory';
+import { ActionEvent } from '../../services/actions';
+import { TOPIC, COMMANDS, ProviderRegistration } from '../../services/data/provider-listener';
 import { InMemoryProvider } from '../../services/data/provider-memory';
 
 @Component({
   tag: 'x-data-provider-sample',
   shadow: false,
 })
-export class XDataProvider {
+export class XDataProviderSample {
   private customProvider = new InMemoryProvider();
   private inputKeyEl: HTMLInputElement;
   private inputValueEl: HTMLInputElement;
@@ -19,26 +20,34 @@ export class XDataProvider {
   @Prop() debug = false;
 
   /**
+   *Customize the name used for this sample data provider.
+   */
+  @Prop() name = 'memory';
+
+  /**
    * This event is raised when the component loads.
    * The data-provider system should capture this event
    * and register the provider for use in expressions.
    */
   @Event({
-    eventName: ACTIONS.RegisterDataProvider,
-  }) register: EventEmitter<ProviderRegistration>;
+    eventName: TOPIC,
+  }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
 
-  @State() data = {};
+  @State() keys = [];
 
   componentDidLoad() {
     this.register.emit({
-      name: 'memory',
-      provider: this.customProvider,
+      command: COMMANDS.RegisterDataProvider,
+      data: {
+        name: this.name,
+        provider: this.customProvider,
+      },
     });
   }
 
   private remove(key: string): void {
     delete this.customProvider.data[key];
-    this.data = this.customProvider.data;
+    this.keys = [...Object.keys(this.customProvider.data)];
   }
 
   private async add(): Promise<void> {
@@ -47,31 +56,30 @@ export class XDataProvider {
     if (key && value) {
       await this.customProvider.set(key, value);
       this.formEl.reset();
-      this.data = this.customProvider.data;
+      this.keys = [...Object.keys(this.customProvider.data)];
     }
   }
 
   render() {
     if (this.debug === false) return null;
 
-    const keys = Object.keys(this.customProvider.data);
     return (
-      <table>
-        <thead>
-          <th>Key</th>
-          <th colSpan={2}>Value</th>
-        </thead>
-        <tbody>
-          { keys.map((key) => (
-            <tr>
-              <td>{ key }</td>
-              <td>{ this.customProvider.data[key] }</td>
-              <td><button type="button" onClick={() => this.remove(key)}>X</button></td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <form ref={(el) => this.formEl = el as HTMLFormElement}>
+      <form ref={(el) => this.formEl = el as HTMLFormElement}>
+        <table class="table">
+          <thead>
+            <th>Key</th>
+            <th colSpan={2}>Value</th>
+          </thead>
+          <tbody>
+            { this.keys.map((key) => (
+              <tr>
+                <td>{ key }</td>
+                <td>{ this.customProvider.data[key] }</td>
+                <td><button class="button" type="button" onClick={() => this.remove(key)}>X</button></td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
             <td>
               <input ref={(el) => this.inputKeyEl = el as HTMLInputElement} required pattern="[\w]*"/>
             </td>
@@ -79,11 +87,11 @@ export class XDataProvider {
               <input ref={(el) => this.inputValueEl = el as HTMLInputElement} required />
             </td>
             <td>
-              <button type="button" onClick={() => this.add()}>X</button>
+              <button class="button" type="button" onClick={() => this.add()}>+</button>
             </td>
-          </form>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </form>
     );
   }
 }

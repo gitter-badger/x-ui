@@ -9,20 +9,21 @@ export const config: Config = {
   buildEs5: false,
   taskQueue: 'async',
   plugins: [
-    sass({
-      //injectGlobalPaths: [scssVariables],
-    }),
+    sass(),
   ],
-  globalStyle: 'src/index.scss',
+  globalStyle: 'src/global/app.scss',
+  globalScript: 'src/global/app.ts',
   devServer: {
-    reloadStrategy: 'hmr',
     openBrowser: false,
+    reloadStrategy: 'hmr',
+    port: 3333,
   },
   outputTargets: [
     // creates /dist dir
     {
       type: 'dist',
       dir: distDirs.stencil,
+      esmLoaderPath: 'loader',
       // copy: [
       //   // copy fonts into static for storybook and stencil build
       //   { src: 'fonts' },
@@ -37,10 +38,19 @@ export const config: Config = {
     {
       type: 'docs-readme',
     },
+    // creates readme.md for components in the documentation folder
+    {
+      type: 'docs-readme',
+      dir: 'documentation',
+    },
     // create components(.d.ts|json) into dist
     {
       type: 'docs-json',
       file: `${distDirs.stencil}/components.json`,
+    },
+    {
+      type: 'www',
+      serviceWorker: null, // disable service workers
     },
   ],
 };

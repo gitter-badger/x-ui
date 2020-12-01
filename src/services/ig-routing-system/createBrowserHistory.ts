@@ -1,7 +1,7 @@
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
 import { createLocation, createKey } from './utils/location-utils';
-import { RouterHistory, LocationSegments } from './types';
+import { RouterHistory, LocationSegments } from './interfaces';
 import { warning } from './utils/log-if';
 import {
   addLeadingSlash,

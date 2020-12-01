@@ -2,22 +2,24 @@ import { Component, Host, h, Prop, State } from '@stencil/core';
 import { resolveExpression } from '../../services';
 
 @Component({
-  tag: 'x-data-value',
-  styleUrl: 'x-data-value.scss',
+  tag: 'x-data-display',
+  styleUrl: 'x-data-display.scss',
   shadow: false,
 })
-export class XDataValue {
+export class XDataDisplay {
   private timer: number;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
+   @example {session:user.name}
+   @default null
    */
-  @Prop() expression!: string;
+  @Prop() from!: string;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
    */
-  @Prop() class!: string;
+  @Prop() class: string = null;
 
   @State() value: string;
 
@@ -33,7 +35,7 @@ export class XDataValue {
   }
 
   private async resolveExpression() {
-    const result = await resolveExpression(this.expression);
+    const result = await resolveExpression(this.from);
     if (result !== this.value) this.value = result;
   }
 

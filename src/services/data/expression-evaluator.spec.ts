@@ -110,16 +110,27 @@ describe('evaluateExpression', () => {
 
   it('evaluates simple expression with data-provider values', async () => {
     await session.set('rate', '1');
-    await session.set('vintage', '1985')
+    await session.set('vintage', '1985');
     let value = await evaluateExpression('{session:rate} + {session:vintage}');
     expect(value).toBe(1986);
   });
 
   it('evaluates array in expression', async () => {
-    await session.set('items', '["foo","boo"]')
-    await session.set('item', 'foo')
+    await session.set('items', '["foo","boo"]');
+    await session.set('item', 'foo');
     let value = await evaluateExpression('"{session:item}" in {session:items}');
     expect(value).toBe(true);
+  });
+
+
+  it('evaluates default values', async () => {
+    let value = await evaluateExpression('"{bad:value?default}"');
+    expect(value).toBe('default');
+  });
+
+  it('evaluates default values unquoted', async () => {
+    let value = await evaluateExpression('{bad:value?default}');
+    expect(value).toBe('default');
   });
 
 });
@@ -187,6 +198,21 @@ describe('evaluatePredicate', () => {
     await session.set('a', 'foo');
     let value = await evaluatePredicate('"d" in "{session:a}"');
     expect(value).toBe(false);
+  });
+
+  it('evaluates string "true" to be true', async () => {
+    let value = await evaluatePredicate('true');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates string "True" to be true', async () => {
+    let value = await evaluatePredicate('True');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates string "value" to be true', async () => {
+    let value = await evaluatePredicate('"value"');
+    expect(value).toBe(true);
   });
 
 

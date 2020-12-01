@@ -5,75 +5,152 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ProviderRegistration } from "./services/data/provider-factory";
+import { ActionEvent } from "./services/actions";
+import { CookieConsent, ProviderRegistration } from "./services/data/provider-listener";
 export namespace Components {
-    interface XDataProviderSample {
-        /**
-          * When debug is true, a reactive table of values is displayed.
-         */
-        "debug": boolean;
-    }
-    interface XDataValue {
+    interface XDataDisplay {
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
          */
         "class": string;
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
+          * @example {session:user.name}
+          * @default null
          */
-        "expression": string;
+        "from": string;
+    }
+    interface XDataProviderCookie {
+        /**
+          * An expression that tells this component how to determine if the user has previously consented.
+          * @example {storage:consented}
+         */
+        "hideWhen": string;
+        /**
+          * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
+         */
+        "skipConsent": boolean;
+    }
+    interface XDataProviderSample {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug": boolean;
+        /**
+          * Customize the name used for this sample data provider.
+         */
+        "name": string;
+    }
+    interface XDataShow {
+        /**
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+          * @default null
+         */
+        "when": string;
     }
 }
 declare global {
+    interface HTMLXDataDisplayElement extends Components.XDataDisplay, HTMLStencilElement {
+    }
+    var HTMLXDataDisplayElement: {
+        prototype: HTMLXDataDisplayElement;
+        new (): HTMLXDataDisplayElement;
+    };
+    interface HTMLXDataProviderCookieElement extends Components.XDataProviderCookie, HTMLStencilElement {
+    }
+    var HTMLXDataProviderCookieElement: {
+        prototype: HTMLXDataProviderCookieElement;
+        new (): HTMLXDataProviderCookieElement;
+    };
     interface HTMLXDataProviderSampleElement extends Components.XDataProviderSample, HTMLStencilElement {
     }
     var HTMLXDataProviderSampleElement: {
         prototype: HTMLXDataProviderSampleElement;
         new (): HTMLXDataProviderSampleElement;
     };
-    interface HTMLXDataValueElement extends Components.XDataValue, HTMLStencilElement {
+    interface HTMLXDataShowElement extends Components.XDataShow, HTMLStencilElement {
     }
-    var HTMLXDataValueElement: {
-        prototype: HTMLXDataValueElement;
-        new (): HTMLXDataValueElement;
+    var HTMLXDataShowElement: {
+        prototype: HTMLXDataShowElement;
+        new (): HTMLXDataShowElement;
     };
     interface HTMLElementTagNameMap {
+        "x-data-display": HTMLXDataDisplayElement;
+        "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-provider-sample": HTMLXDataProviderSampleElement;
-        "x-data-value": HTMLXDataValueElement;
+        "x-data-show": HTMLXDataShowElement;
     }
 }
 declare namespace LocalJSX {
+    interface XDataDisplay {
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+         */
+        "class"?: string;
+        /**
+          * The data expression to obtain a value for rendering as inner-text for this element.
+          * @example {session:user.name}
+          * @default null
+         */
+        "from": string;
+    }
+    interface XDataProviderCookie {
+        /**
+          * An expression that tells this component how to determine if the user has previously consented.
+          * @example {storage:consented}
+         */
+        "hideWhen"?: string;
+        /**
+          * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
+         */
+        "onDidConsent"?: (event: CustomEvent<ActionEvent<CookieConsent>>) => void;
+        /**
+          * This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions.
+         */
+        "onRegister"?: (event: CustomEvent<ActionEvent<ProviderRegistration>>) => void;
+        /**
+          * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
+         */
+        "skipConsent"?: boolean;
+    }
     interface XDataProviderSample {
         /**
           * When debug is true, a reactive table of values is displayed.
          */
         "debug"?: boolean;
         /**
+          * Customize the name used for this sample data provider.
+         */
+        "name"?: string;
+        /**
           * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
          */
-        "onRegister"?: (event: CustomEvent<ProviderRegistration>) => void;
+        "onRegister"?: (event: CustomEvent<ActionEvent<ProviderRegistration>>) => void;
     }
-    interface XDataValue {
+    interface XDataShow {
         /**
-          * The data expression to obtain a value for rendering as inner-text for this element.
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+          * @default null
          */
-        "class": string;
-        /**
-          * The data expression to obtain a value for rendering as inner-text for this element.
-         */
-        "expression": string;
+        "when": string;
     }
     interface IntrinsicElements {
+        "x-data-display": XDataDisplay;
+        "x-data-provider-cookie": XDataProviderCookie;
         "x-data-provider-sample": XDataProviderSample;
-        "x-data-value": XDataValue;
+        "x-data-show": XDataShow;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
+            "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
-            "x-data-value": LocalJSX.XDataValue & JSXBase.HTMLAttributes<HTMLXDataValueElement>;
+            "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
         }
     }
 }

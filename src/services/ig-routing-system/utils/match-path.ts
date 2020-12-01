@@ -1,5 +1,5 @@
 import { Key, Path, pathToRegexp } from './path-to-regex';
-import { MatchOptions, MatchResults } from '../types';
+import { MatchOptions, MatchResults } from '../interfaces';
 import { valueEqual } from './location-utils';
 
 interface CompileOptions {

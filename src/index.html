@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>view.DO Experience UI</title>
+    <meta http-equiv="x-ua-compatible" content="IE=Edge">
+    <meta name="description" content="New web components to put some do in your view">
+    <meta name="og:title" content=""/>
+    <meta name="og:description" content=""/>
+    <meta name="og:image" content=""/>
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#16161d">
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+
+    <!-- Replace w/npm unpkg paths -->
+    <script type="module" src="/build/experience-ui.esm.js"></script>
+    <script nomodule src="/build/experience-ui.js"></script>
+
+    <link rel="stylesheet" href="/build/experience-ui.css"/>
+    <base href="/" />
+  </head>
+  <body>
+    <ion-app>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+              <ion-button  click="openNav()" size="large">
+                <ion-icon slot="icon-only" name="menu"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+          <ion-title>view.DO Web Components</ion-title>
+          <ion-buttons slot="end">
+            <x-preferences></x-preferences>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content id="main" class="ion-justify-center ion-padding">
+
+
+        <x-data-provider-cookie hide-when="true">
+          <p>This site uses cookies.</p>
+          <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </x-data-provider-cookie>
+
+        <x-data-show when="true">
+          <p>This content should show.</p>
+          <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </x-data-show>
+        
+        <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+
+      </ion-content>
+
+    </ion-app>
+
+
+  </body>
+</html>

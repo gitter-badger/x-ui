@@ -1,13 +1,5 @@
-import { LoggingService } from './logging-service';
-import { state, onChange } from './state-service';
-
-export * from './data';
 export * from './actions';
-
-const logger = new LoggingService();
-
-export {
-  state,
-  onChange,
-  logger,
-};
+export * from './data';
+export * from './logging';
+export * from './state';
+export * from './utils';

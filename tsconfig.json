@@ -10,7 +10,9 @@
     "node_modules",
     "**/*X.tsx",
     "**/ig-*/**",
-    "**/__mocks__/**"],
+    "**/__mocks__/**",
+    "./scratch"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,

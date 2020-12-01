@@ -1,11 +1,12 @@
 
 
-import { ACTIONS, getProvider, ProviderRegistration, clearProviders } from './provider-factory';
-import { ProviderListener } from './provider-listener';
+import { getProvider, clearProviders } from './provider-factory';
+import { TOPIC, COMMANDS, ProviderListener, ProviderRegistration } from './provider-listener';
 import { IDataProvider } from './interfaces';
 import { InMemoryProvider } from './provider-memory';
+import { ActionEvent } from '..';
 
-type Listener = (ev:{ type: string, detail: ProviderRegistration}) => void
+type Listener = (ev:{ type: string, detail: ActionEvent<ProviderRegistration>}) => void
 
 describe('data-provider-listener', () => {
   let subject: ProviderListener = null;
@@ -18,11 +19,11 @@ describe('data-provider-listener', () => {
     mockWindow = {};
     mockWindow.document = {};
     mockWindow.document.addEventListener = (evt:string, func:Listener, _opts) => {
-      expect(evt).toBe(ACTIONS.RegisterDataProvider);
+      expect(evt).toBe(TOPIC);
       listeners.push(func);
     };
     mockWindow.document.removeEventListener = (evt:string, func: Listener, _opts) => {
-      expect(evt).toBe(ACTIONS.RegisterDataProvider);
+      expect(evt).toBe(TOPIC);
       listeners = listeners.filter(f => f !== func);
     };
     mockDataProvider = new InMemoryProvider();
@@ -68,13 +69,16 @@ describe('data-provider-listener', () => {
     mockWindow.localStorage = mockDataProvider;
     subject.initialize(mockWindow);
     expect(listeners.length).toBe(1);
-    const event = new CustomEvent<ProviderRegistration>(
-      ACTIONS.RegisterDataProvider,
+    const event = new CustomEvent<ActionEvent<ProviderRegistration>>(
+      TOPIC,
       {
         detail: {
-          name: 'mock',
-          provider: mockDataProvider,
-        },
+          command: COMMANDS.RegisterDataProvider,
+          data: {
+            name: 'mock',
+            provider: mockDataProvider,
+          },
+        }
       });
 
     let listener = listeners[0];

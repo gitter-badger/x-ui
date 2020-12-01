@@ -2,7 +2,7 @@
 
 # view.DO Experience UI
 
-![MIT](https://img.shields.io/github/license/viewdo/experience-ui) ![Built With View.DO](https://img.shields.io/badge/view.DO-Experience_UI_v0.1-1c6d9a)
+![MIT](https://img.shields.io/github/license/viewdo/experience-ui) ![Built With View.DO](https://img.shields.io/badge/view.DO_UI-v0.1-1c6d9a)
 
 ---
 
@@ -39,26 +39,8 @@ These components use a convention-over-configuration approach to guide user beha
 * **Trackable:** Analytics & Behavior Tracking Plugins
 * **Extensible:** Data Provider System to easily connect with your data
 
----
-## Usage
 
-### CDN
-
-
-### Node / NPM
-
-````node
-  npm i -D @viewdo/experience-ui  
-````
-
-## Documentation
-
-
----
-## Contributing
-
-
-**Huge thanks to:**
+##### Attribution
 
 * **Stencil.js** [SDK][stencil-js] for the best way to create web-components
 * **Vime.js** [media-player][vime-player] for the awesome video player

@@ -1,0 +1,15 @@
+{
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "cSpell.words": [
+    "HTMLX",
+    "Themeable",
+    "automerge",
+    "delimeters",
+    "hashbang",
+    "loadash",
+    "noslash"
+  ],
+  "stencilTools.style.extension": "scss"
+}

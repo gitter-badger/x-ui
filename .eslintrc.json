@@ -7,13 +7,22 @@
     "airbnb-typescript",
     "plugin:@stencil/recommended"
   ],
-  "ignorePatterns": ["**/*.spec.*", "**/*.e2e.*", "src/tests/*", "./storybook", "./stencil.config.js", "**/ig-*"],
+  "ignorePatterns": [
+    "**/*.spec.*",
+    "**/*.e2e.*",
+    "src/tests/*",
+    "./storybook",
+    "./stencil.config.js",
+    "**/ig-*",
+    "**/__*"
+  ],
   "rules": {
     "@stencil/required-jsdoc": 1,
     "@stencil/strict-boolean-conditions": 0,
     "@typescript-eslint/naming-convention": 0,
     "@typescript-eslint/lines-between-class-members": 0,
     "react/react-in-jsx-scope": 0,
+    "react/self-closing-comp": 0,
     "react/no-unescaped-entities": 0,
     "react/no-unknown-property": 0,
     "react/jsx-no-bind": 0,
@@ -31,6 +40,7 @@
     "object-curly-newline": 0,
     "import/no-extraneous-dependencies": 0,
     "no-plusplus": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "no-undef": 0
   }
 }

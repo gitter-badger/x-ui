@@ -5,7 +5,7 @@ const chalk = require('chalk');
 
 // Export a function. Accept the base config as the only param.
 module.exports = {
-  stories: ['../src/components/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: ['../src/**/*.stories.@(ts|tsx|mdx)'],
   addons: ['@storybook/addon-links', '@storybook/addon-docs', '@storybook/addon-essentials'],
   webpackFinal: async (config, { configType }) => {
     // watch:storybook configType === 'DEVELOPMENT'
@@ -25,10 +25,10 @@ const doProd = (config) => {
 
   // override HtmlWebpackPlugin to inject stencil into storybook prod
   // template default: @storybook/core/dist/server/templates/index.ejs
-  //config.plugins[1].options = {
-  //  ...config.plugins[1].options,
-  //  template: path.resolve(__dirname, 'index.override.ejs'),
-  //};
+  config.plugins[1].options = {
+    ...config.plugins[1].options,
+    template: path.resolve(__dirname, 'index.override.ejs'),
+  };
   // no stencil build exists
   if (!fs.existsSync(mainJs)) {
     console.error(chalk.black.bgRed(`---------------------------------`));

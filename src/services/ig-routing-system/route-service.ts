@@ -1,6 +1,6 @@
-import { RouteViewOptions, MatchResults } from './types';
+import { RouteViewOptions, MatchResults } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
-import { RouterService } from './router.service';
+import { RouterService } from './router-service';
 
 export { MatchResults };
 export class RouteService {

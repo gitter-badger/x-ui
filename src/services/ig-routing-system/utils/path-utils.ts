@@ -1,4 +1,4 @@
-import { LocationSegments } from '../types';
+import { LocationSegments } from '../interfaces';
 
 export const hasBasename = (path: string, prefix: string) => {
   return (new RegExp('^' + prefix + '(\\/|\\?|#|$)', 'i')).test(path);

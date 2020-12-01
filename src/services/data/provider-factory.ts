@@ -5,15 +5,6 @@ export type Providers = {
   [key: string]: IDataProvider;
 };
 
-export enum ACTIONS {
-  RegisterDataProvider = 'xui:data-providers:add-provider'
-}
-
-export type ProviderRegistration = {
-  name: string;
-  provider: IDataProvider
-};
-
 const providers: Providers = {};
 
 export function addProvider(name: string, provider:IDataProvider) {

@@ -14,11 +14,11 @@ export function action (compName, eventNames) {
     (function(){
       const comp = document.querySelector('${compName}');
       ${eventNames.map((eventName) => `
-        comp.addEventListener('${eventName}', () => {
-          var evt = new MouseEvent('on${capitalize(eventName)}', {
+        comp.addEventListener('${eventName}', (e) => {
+          var evt = new CustomEvent('on${capitalize(eventName)}', {
             bubbles: true,
             cancelable: true,
-            view: window
+            view: window,
           });
           comp.dispatchEvent(evt);
         });

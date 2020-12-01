@@ -1,7 +1,7 @@
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
 import { warning } from './utils/log-if';
-import { LocationSegments, Prompt } from './types';
+import { LocationSegments, Prompt } from './interfaces';
 
 
 const createTransitionManager = () => {

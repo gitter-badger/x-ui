@@ -1,6 +1,3 @@
-import { ActionEvent } from './action-event';
-
+export * from './action-event';
 export * from './interfaces';
-export {
-  ActionEvent,
-};
+export * from './registry';

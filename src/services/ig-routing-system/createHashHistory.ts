@@ -1,7 +1,7 @@
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
 import { createLocation, locationsAreEqual, createKey } from './utils/location-utils';
-import { RouterHistory, LocationSegments, Prompt } from './types';
+import { RouterHistory, LocationSegments, Prompt } from './interfaces';
 import { warning } from './utils/log-if';
 import {
   addLeadingSlash,

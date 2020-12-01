@@ -1,6 +1,7 @@
 import { IDataProvider } from './interfaces';
 
 export class SessionProvider implements IDataProvider {
+  name: 'session';
   constructor(private sessionStorage = window.sessionStorage) {}
 
   async get(key: string): Promise<string|null> {

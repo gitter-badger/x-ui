@@ -1,0 +1,13 @@
+x-data-show {
+  /**
+   * @prop --x-display: Display value for this component.
+   */
+  --xui-show: inline;
+}
+
+:host {
+  /*
+    The CSS display value that should be applied to this element.
+  */
+  display: var(--xui-show);
+}

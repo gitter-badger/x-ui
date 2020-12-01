@@ -2,8 +2,9 @@ import { Parser } from 'expr-eval';
 import { requireValue, toBoolean } from '../utils';
 import { getProvider } from './provider-factory';
 import { ExpressionContext } from './interfaces';
+import { warn } from '../logging';
 
-const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?}/g;
+const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?(?:\?([\w_.]*))?}/g;
 const expressionEvaluator = new Parser();
 
 /**
@@ -26,6 +27,8 @@ export async function resolveExpression(valueExpression: string): Promise<string
   // make a copy to avoid side effects
   let result = valueExpression.slice();
 
+  if (result == null || '') return result;
+
   // replace each match
   let match: string | RegExpExecArray;
   // eslint-disable-next-line no-cond-assign
@@ -34,6 +37,7 @@ export async function resolveExpression(valueExpression: string): Promise<string
     const providerKey = match[1];
     const dataKey = match[2];
     const propKey = match[3] || null;
+    const defaultValue = match[4] || '';
     const provider = getProvider(providerKey);
     // eslint-disable-next-line no-await-in-loop
     let value = await provider?.get(dataKey);
@@ -48,7 +52,9 @@ export async function resolveExpression(valueExpression: string): Promise<string
         value = `${node}`;
       }
       result = result.replace(expression, value);
-    } else result = null;
+    } else {
+      result = result.replace(expression, defaultValue);
+    }
   }
   return result || null;
 }
@@ -62,7 +68,13 @@ export async function resolveExpression(valueExpression: string): Promise<string
  * @param {object} context An object holding any variables for the expression.
  */
 export function evaluate(expression: string, context:ExpressionContext = {}): number|boolean|string {
-  return expressionEvaluator.evaluate(expression, context);
+  requireValue(expression, 'expression');
+  try {
+    return expressionEvaluator.evaluate(expression.toLowerCase(), context);
+  } catch (err) {
+    warn(`An exception was raised evaluating expression '${expression}': ${err}`, err);
+    return expression;
+  }
 }
 
 /**
@@ -75,6 +87,7 @@ export function evaluate(expression: string, context:ExpressionContext = {}): nu
  * @return {*}  {Promise<any>}
  */
 export async function evaluateExpression(expression: string, context: ExpressionContext = {}): Promise<any> {
+  requireValue(expression, 'expression');
   const detokenizedExpression = await resolveExpression(expression);
   return evaluate(detokenizedExpression, context);
 }

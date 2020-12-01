@@ -1,6 +1,4 @@
-import { LoggingService } from '../logging-service';
-
 export interface IActionEventListener {
-  initialize(win: Window, logger: LoggingService): void;
+  initialize(win: Window): void;
   destroy(): void;
 }

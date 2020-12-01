@@ -1,5 +1,4 @@
-export class ActionEvent {
+export class ActionEvent<T> {
   command: string;
-  data: { [index: string]: string; };
-  event: CustomEvent;
+  data: T;
 }

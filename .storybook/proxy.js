@@ -33,9 +33,13 @@ app.use(/\/iframe\.html\?*/, async (req, res, next) => {
     .replace(
       '<head>',
       `<head>
-        <script type="module" src="/${distDirs.stencil}/${name}/${name}.esm.js"></script>
-        <link rel="stylesheet" href="/${distDirs.stencil}/${name}/${name}.css" />
-        `,
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+        <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+        <script type="module" src="/${distDirs.stencil}/${name}/${name}.esm.js"></script>`,
+        //<link rel="stylesheet" href="/${distDirs.stencil}/${name}/${name}.css" />
+
     )
     .replace(
       '</body>',
