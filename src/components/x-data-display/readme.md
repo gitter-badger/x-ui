@@ -23,9 +23,21 @@ Providers:
 
 **Usage:**
 
+Simple values:
+
 ````html
   <x-data-display
-    from="<any expression or value to render to the page>">
+    expression="<any expression or value to render to the page>">
+  </x-data-display>
+````
+
+Complex HTML:
+
+````html
+  <x-data-display data-name="Jason Wicker" data-color="red">    
+    <template>
+      <h1 style="color:{{color}}">Hello {{name}}!</h1>      
+    </template>
   </x-data-display>
 ````
 
@@ -39,7 +51,7 @@ Providers:
 | Property            | Attribute | Description                                                                         | Type     | Default     |
 | ------------------- | --------- | ----------------------------------------------------------------------------------- | -------- | ----------- |
 | `class`             | `class`   | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `null`      |
-| `from` _(required)_ | `from`    | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `undefined` |
+| `expression` _(required)_ | `expression`    | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `undefined` |
 
 
 ## CSS Custom Properties

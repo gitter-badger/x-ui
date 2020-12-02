@@ -85,11 +85,11 @@ function writeValue(value: string): string {
   return value.replace(/;/g, '%3B');
 }
 
-export function encode(key: string, value: string, attributes: CookieAttributes): string {
+function encode(key: string, value: string, attributes: CookieAttributes): string {
   return `${writeValue(key).replace(/=/g, '%3D')}=${writeValue(value)}${stringifyAttributes(attributes)}`;
 }
 
-export function parse(cookieString: string): { [name: string]: string } {
+function parse(cookieString: string): { [name: string]: string } {
   const result: { [name: string]: string } = {};
   const cookies = cookieString ? cookieString.split('; ') : [];
 

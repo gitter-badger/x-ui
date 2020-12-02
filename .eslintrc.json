@@ -10,9 +10,6 @@
   "ignorePatterns": [
     "**/*.spec.*",
     "**/*.e2e.*",
-    "src/tests/*",
-    "./storybook",
-    "./stencil.config.js",
     "**/ig-*",
     "**/__*"
   ],

@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, State } from '@stencil/core';
-import { resolveExpression } from '../../services';
+import { Element, Component, h, Prop, State, Host, Fragment } from '@stencil/core';
+import { evaluateHTML, getTokens, resolveExpression, warn } from '../../services';
 
 @Component({
   tag: 'x-data-display',
@@ -7,6 +7,7 @@ import { resolveExpression } from '../../services';
   shadow: false,
 })
 export class XDataDisplay {
+  @Element() el;
   private timer: number;
 
   /**
@@ -14,7 +15,7 @@ export class XDataDisplay {
    @example {session:user.name}
    @default null
    */
-  @Prop() from!: string;
+  @Prop() expression: string;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
@@ -22,6 +23,8 @@ export class XDataDisplay {
   @Prop() class: string = null;
 
   @State() value: string;
+
+  @State() childNodes: string;
 
   connectedCallback() {
     this.timer = window.setInterval(async () => {
@@ -35,14 +38,48 @@ export class XDataDisplay {
   }
 
   private async resolveExpression() {
-    const result = await resolveExpression(this.from);
-    if (result !== this.value) this.value = result;
+    if (this.expression) {
+      const result = await resolveExpression(this.expression);
+      if (result !== this.value) this.value = result;
+    }
+    await this.resolveInnerTemplate();
+  }
+
+  private async resolveInnerTemplate() {
+
+    let template = this.el.firstElementChild as HTMLTemplateElement;
+    if (template == undefined || !template.content) return;
+
+    try {
+      let data = {};
+      let tokens = getTokens(template.content);
+
+      // distinct token values; only the first part if there's dot-notation
+      let promises = [...new Set(tokens.filter(t => t.type == 1 || t.type == 2)
+        .map(t => t.value.split('.')[0]))]
+          .map(async v => {
+            let attr = this.el.getAttribute(`data-${v}`);
+            if (attr) {
+              let val = await resolveExpression(attr);
+              data[v] = val;
+            }
+            return null;
+          });
+
+      await Promise.all(promises);
+
+      this.childNodes = evaluateHTML(template.content, data);
+    } catch (error) {
+      warn(error)
+      window.clearInterval(this.timer);
+    }
   }
 
   render() {
     return (
-      <Host class={this.class}>
+      <Host>
         { this.value }
+        <div innerHTML={this.childNodes}></div>
       </Host>
     );
   }

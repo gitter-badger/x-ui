@@ -18,7 +18,7 @@ export namespace Components {
           * @example {session:user.name}
           * @default null
          */
-        "from": string;
+        "expression": string;
     }
     interface XDataProviderCookie {
         /**
@@ -93,7 +93,7 @@ declare namespace LocalJSX {
           * @example {session:user.name}
           * @default null
          */
-        "from": string;
+        "expression"?: string;
     }
     interface XDataProviderCookie {
         /**

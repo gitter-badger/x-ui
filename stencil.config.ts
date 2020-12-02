@@ -2,10 +2,10 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 // const scssVariables = 'src/scss/variables.scss';
-const { name, distDirs } = require('./package.json');
+const { distDirs } = require('./package.json');
 
 export const config: Config = {
-  namespace: name,
+  namespace: 'viewdo',
   buildEs5: false,
   taskQueue: 'async',
   plugins: [
@@ -38,11 +38,6 @@ export const config: Config = {
     {
       type: 'docs-readme',
     },
-    // creates readme.md for components in the documentation folder
-    {
-      type: 'docs-readme',
-      dir: 'documentation',
-    },
     // create components(.d.ts|json) into dist
     {
       type: 'docs-json',
@@ -51,6 +46,16 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null, // disable service workers
+    },
+     // creates /dist dir
+    {
+      type: 'dist',
+      dir: '.docz/dist',
+      esmLoaderPath: 'loader',
+      // copy: [
+      //   // copy fonts into static for storybook and stencil build
+      //   { src: 'fonts' },
+      // ],
     },
   ],
 };

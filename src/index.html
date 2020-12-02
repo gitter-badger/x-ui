@@ -13,6 +13,13 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <!-- Import theme -->
+    <link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
+
+    <!-- depend vue -->
+    <script src="//unpkg.com/vue"></script>
+    <script src="//unpkg.com/vuep"></script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
@@ -25,14 +32,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
 
     <!-- Replace w/npm unpkg paths -->
-    <script type="module" src="/build/experience-ui.esm.js"></script>
-    <script nomodule src="/build/experience-ui.js"></script>
+    <script type="module" src="/build/viewdo.esm.js"></script>
+    <script nomodule src="/build/viewdo.js"></script>
 
-    <link rel="stylesheet" href="/build/experience-ui.css"/>
     <base href="/" />
   </head>
   <body>
-    <ion-app>
+    <ion-app id="app">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -62,10 +68,17 @@
           <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
           <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
         </x-data-show>
-        
+
+        <x-data-display data-name="Jason Wicker" >
+          <template>
+            <h1>Hello {{name}}!</h1>
+          </template>
+        </x-data-display>
+
         <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
         <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
         <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+
 
       </ion-content>
 
