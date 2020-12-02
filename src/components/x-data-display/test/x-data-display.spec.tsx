@@ -44,13 +44,12 @@ describe('x-data-display', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <x-data-display data-name="Jason">
-        <template>
-          <p>Hello {{name}}!</p>
-        </template>
-        <p>Hello Jason}!</p>
+      <x-data-display data-name="Jason"><template>
+          <p>Hello {{name}}!</p></template>
+        <span><p>Hello Jason!</p></span>
       </x-data-display>
     `);
   });
+
 
 });

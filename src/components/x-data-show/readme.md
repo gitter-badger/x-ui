@@ -1,6 +1,12 @@
 # x-data-show
 
+This tag conditionally renders child elements based on the configured predicate applied to the value expression.
 
+````html
+<x-show when="<expression>">
+ ... contents ...
+</x-show>
+````
 
 <!-- Auto Generated Below -->
 

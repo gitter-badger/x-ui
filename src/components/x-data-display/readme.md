@@ -1,5 +1,6 @@
 # x-data-display
 
+
 Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.
 
 See [data expressions][data-expressions] for full documentation and how to add your own provider.
@@ -21,27 +22,31 @@ Providers:
 * Cookies: **cookie**
 
 
-**Usage:**
+## Usage
 
-Simple values:
+### Simple Values
 
 ````html
-  <x-data-display
-    expression="<any expression or value to render to the page>">
-  </x-data-display>
+<x-data-display
+  expression="<any expression or value to render to the page>">
+</x-data-display>
 ````
 
-Complex HTML:
+### Template Interpolation
+
+This component supports HTML string interpolation in an Angular format, but the variables must be set on the element using data-* tags. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.
 
 ````html
-  <x-data-display data-name="Jason Wicker" data-color="red">    
-    <template>
-      <h1 style="color:{{color}}">Hello {{name}}!</h1>      
-    </template>
-  </x-data-display>
+<x-data-display data-name="{session:name}">    
+  <template>
+    <h1>Hello {{name}}!</h1>      
+  </template>
+</x-data-display>
 ````
 
 [data-expressions]:[../data-expressions]
+
+!> This component only supports template parsing with the <template> tag. Any other tag will not be interpreted. 
 
 <!-- Auto Generated Below -->
 

@@ -1,5 +1,47 @@
-# x-data-provider-sample
+# Data Provider Specification
 
+Data Providers must expose a key-value system interface for getting and settings data-values.
+
+**Provider Interface:**
+
+    get(key:string) : Promise<string>
+    set(key: string, value: string) : Promise<void>
+
+## Sample Registration Component
+
+````jsx
+
+import { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
+
+@Component({
+  tag: 'x-data-provider-firebase',
+  shadow: false,
+})
+export class XDataProviderFirebase {
+  private customProvider = new MyFirebaseProvider();
+
+  /**
+   * This event is raised when the component loads.
+   * The data-provider system should capture this event
+   * and register the provider for use in expressions.
+   */
+  @Event({
+    eventName: 'xui:action-events:data',
+  }) raiseAction: EventEmitter<any>;
+
+  @State() keys = [];
+
+  componentDidLoad() {
+    this.raiseAction.emit({
+      command: 'register-provider',
+      data: {
+        name: this.name,
+        provider: this.customProvider,
+      },
+    });
+  }
+}
+````
 
 
 <!-- Auto Generated Below -->

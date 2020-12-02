@@ -1,4 +1,4 @@
-import { Element, Component, h, Prop, State, Host, Fragment } from '@stencil/core';
+import { Element, Component, h, Prop, State, Host } from '@stencil/core';
 import { evaluateHTML, getTokens, resolveExpression, warn } from '../../services';
 
 @Component({
@@ -79,7 +79,7 @@ export class XDataDisplay {
     return (
       <Host>
         { this.value }
-        <div innerHTML={this.childNodes}></div>
+        <span innerHTML={this.childNodes}></span>
       </Host>
     );
   }
