@@ -2,9 +2,11 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
+import createTransitionManager from './createTransitionManager';
+import createScrollHistory from './createScrollHistory';
 import { createLocation, createKey } from '../utils/location-utils';
 import { RouterHistory, LocationSegments } from '../interfaces';
-import { warning } from '../utils/log-if';
+import { warnIf } from '../../logging';
 import {
   addLeadingSlash,
   stripTrailingSlash,
@@ -12,14 +14,15 @@ import {
   stripBasename,
   createPath,
 } from '../utils/path-utils';
-import createTransitionManager from './createTransitionManager';
-import createScrollHistory from './createScrollHistory';
+
+import {
+  supportsPopStateOnHashChange,
+  isExtraneousPopstateEvent,
+} from '../utils/nav-utils';
 import {
   getConfirmation,
   supportsHistory,
-  supportsPopStateOnHashChange,
-  isExtraneousPopstateEvent,
-} from '../utils/dom-utils';
+} from '../../utils/dom-utils';
 
 export interface CreateBrowserHistoryOptions {
   getUserConfirmation?: (message: string, callback: (confirmed: boolean) => {}) => {};
@@ -71,7 +74,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
 
     let path = pathname + search + hash;
 
-    warning(
+    warnIf(
       (!basename || hasBasename(path, basename)),
       `${'You are attempting to use a basename on a page whose URL path does not begin '
       + 'with the basename. Expected path "'}${path}" to begin with "${basename}".`,
@@ -161,7 +164,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
   const createHref = (location: LocationSegments) => basename + createPath(location);
 
   const push = (path: string | LocationSegments, state: any) => {
-    warning(
+    warnIf(
       !(typeof path === 'object' && path.state !== undefined && state !== undefined),
       'You should avoid providing a 2nd state argument to push when the 1st '
       + 'argument is a location-like object that already has state; it is ignored',
@@ -193,7 +196,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
           setState({ action, location });
         }
       } else {
-        warning(
+        warnIf(
           state === undefined,
           'Browser history cannot push state in browsers that do not support HTML5 history',
         );
@@ -204,7 +207,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
   };
 
   const replace = (path: string | LocationSegments, state: any) => {
-    warning(
+    warnIf(
       !(typeof path === 'object' && path.state !== undefined && state !== undefined),
       'You should avoid providing a 2nd state argument to replace when the 1st '
       + 'argument is a location-like object that already has state; it is ignored',
@@ -236,7 +239,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
           setState({ action, location });
         }
       } else {
-        warning(
+        warnIf(
           state === undefined,
           'Browser history cannot replace state in browsers that do not support HTML5 history',
         );

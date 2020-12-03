@@ -45,9 +45,12 @@ export class RouteService {
     // If the only change to location is a hash change then do not scroll.
     if (this.match && !matchesAreEqual(this.match, this.previousMatch) && this.router.viewsUpdated) {
       this.router.viewsUpdated(routeViewOptions);
-
-      if (this.routeElement.ownerDocument && this.pageTitle) {
-        this.routeElement.ownerDocument.title = `${this.pageTitle}${this.router.titleSuffix || ''}`;
+      if (this.routeElement.ownerDocument) {
+        if (this.pageTitle) {
+          this.routeElement.ownerDocument.title = `${this.pageTitle} | ${this.router.appTitle || ''}`;
+        } else if (this.router.appTitle) {
+          this.routeElement.ownerDocument.title = `${this.router.appTitle}`;
+        }
       }
     }
   }

@@ -55,15 +55,7 @@ export class XView {
     return Array.from<HTMLXViewElement>(this.el.querySelectorAll('x-view'));
   }
 
-  async componentDidUpdate() {
-    await this.route.loadCompleted();
-  }
-
-  async componentDidLoad() {
-    await this.route.loadCompleted();
-  }
-
-  async componentWillLoad() {
+  componentWillLoad() {
     this.route = new RouteService(
       this.el,
       '',
@@ -92,9 +84,21 @@ export class XView {
     });
   }
 
-  async componentWillRender() {
+  async componentDidUpdate() {
+    await this.performViewViewUpdate();
+  }
+
+  async componentDidLoad() {
+    await this.performViewViewUpdate();
+  }
+
+  private async performViewViewUpdate() {
+    await this.route.loadCompleted();
     if (this.match?.isExact) {
-      const nextDo = await resolveNext(this.childViewDos);
+      const nextDo = await resolveNext(this.childViewDos.map((x) => {
+        const { when, visit, visited, url} = x;
+        return { when, visit, visited, url};
+      }));
       if (nextDo) {
         // eslint-disable-next-line no-console
         RouterService.instance.history.replace(nextDo.url, { parent: this.url });

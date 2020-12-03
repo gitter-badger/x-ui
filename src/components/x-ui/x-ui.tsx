@@ -1,5 +1,5 @@
 import { Component, h, Host, Element, Prop, State, writeTask } from '@stencil/core';
-import { HistoryType, IActionEventListener, LocationSegments, ProviderListener, RouterService } from "../../services";
+import { HistoryType, IActionEventListener, LocationSegments, log, ProviderListener, RouterService } from "../../services";
 import { RouteListener } from '../../services/routing/route-listener';
 @Component({
   tag: 'x-ui',
@@ -71,6 +71,7 @@ export class XUI {
 
 
   componentWillLoad() {
+    log('Initializing');
     const router = RouterService.initialize(
       writeTask,
       this.el,
@@ -92,7 +93,6 @@ export class XUI {
 
     this.addListener(new ProviderListener());
     this.addListener(new RouteListener());
-
   }
 
   private addListener(listener:IActionEventListener) {
@@ -112,6 +112,9 @@ export class XUI {
     }
   }
 
+  componentDidLoad() {
+    log('Initialized');
+  }
 
   render() {
     if(!this.location)

@@ -3,10 +3,11 @@
 
 import { createLocation, locationsAreEqual, createKey } from '../utils/location-utils';
 import { RouterHistory, LocationSegments, Prompt } from '../interfaces';
-import { warning } from '../utils/log-if';
+import { warnIf } from '../../logging';
 import { addLeadingSlash, stripLeadingSlash, stripTrailingSlash, hasBasename, stripBasename, createPath } from '../utils/path-utils';
+import { getConfirmation } from '../../utils/dom-utils';
+import { supportsGoWithoutReloadUsingHash } from '../utils/nav-utils';
 import createTransitionManager from './createTransitionManager';
-import { getConfirmation, supportsGoWithoutReloadUsingHash } from '../utils/dom-utils';
 
 export interface CreateHashHistoryOptions {
   getUserConfirmation?: (message: string, callback: (confirmed: boolean) => {}) => {};
@@ -68,7 +69,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   const getDOMLocation = () => {
     let path = decodePath(getHashPath());
 
-    warning(
+    warnIf(
       !basename || hasBasename(path, basename),
       `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
     );
@@ -170,7 +171,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   const createHref = (location: LocationSegments) => `#${encodePath(basename + createPath(location))}`;
 
   const push = (url: string | LocationSegments, state: any) => {
-    warning(state === undefined, 'Hash history cannot push state; it is ignored');
+    warnIf(state === undefined, 'Hash history cannot push state; it is ignored');
 
     const action = 'PUSH';
     const location = createLocation(url, undefined, createKey(keyLength), history.location);
@@ -199,7 +200,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
 
         setState({ action, location });
       } else {
-        warning(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack');
+        warnIf(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack');
 
         setState();
       }
@@ -207,7 +208,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   };
 
   const replace = (url: string | LocationSegments, state: any) => {
-    warning(state === undefined, 'Hash history cannot replace state; it is ignored');
+    warnIf(state === undefined, 'Hash history cannot replace state; it is ignored');
 
     const action = 'REPLACE';
     const location = createLocation(url, undefined, createKey(keyLength), history.location);
@@ -240,7 +241,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   };
 
   const go = (n: number) => {
-    warning(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser');
+    warnIf(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser');
 
     globalHistory.go(n);
   };

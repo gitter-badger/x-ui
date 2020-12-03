@@ -8,9 +8,7 @@ import { RouteService, MatchResults, state, IViewDo, RouterService, VisitStrateg
 })
 export class XViewDo implements IViewDo {
   private route: RouteService;
-
   @Element() el!: HTMLXViewDoElement;
-
   @State() match: MatchResults;
 
   /**
@@ -88,19 +86,12 @@ export class XViewDo implements IViewDo {
     await this.route.loadCompleted();
   }
 
-  async componentDidLoad() {
-    await this.route.loadCompleted();
+  componentWillLoad() {
     this.visited = (this.visited
       // eslint-disable-next-line eqeqeq
-      || sessionStorage.getItem(this.urlKey) == 'visited'
-      || state.visited.includes(this.urlKey));
-    // if we were just redirected here, return home
-    if (this.visited && RouterService.instance.location.state?.parent) {
-      RouterService.instance.history.replace(RouterService.instance.location.state.parent);
-    }
-  }
+      || state.sessionVisits.includes(this.urlKey)
+      || state.storedVisits.includes(this.urlKey));
 
-  async componentWillRender() {
     this.route = new RouteService(
       this.el,
       '',
@@ -114,11 +105,22 @@ export class XViewDo implements IViewDo {
         this.match = {...match};
       },
     );
+  }
+
+  async componentDidLoad() {
+    // if we were just redirected here, return home
+    if (this.visited && RouterService.instance.location.state?.parent) {
+      RouterService.instance.history.replace(RouterService.instance.location.state.parent);
+    }
+    await this.route.loadCompleted();
+  }
+
+  async componentWillRender() {
     if (this.match?.isExact) {
       if (this.visit === VisitStrategy.once) {
-        state.visited = [...new Set([...state.visited, this.urlKey])];
+        state.storedVisits = [...new Set([...state.storedVisits, this.urlKey])];
       }
-      sessionStorage.setItem(this.urlKey, 'visited');
+      state.sessionVisits = [...new Set([...state.sessionVisits, this.urlKey])];
       this.visited = true;
     }
   }

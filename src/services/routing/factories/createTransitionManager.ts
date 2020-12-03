@@ -1,6 +1,6 @@
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
-import { warning } from '../utils/log-if';
+import { warnIf } from '../../logging';
 import { LocationSegments, Prompt } from '../interfaces';
 
 const createTransitionManager = () => {
@@ -8,7 +8,7 @@ const createTransitionManager = () => {
   let listeners: Function[] = [];
 
   const setPrompt = (nextPrompt: Prompt | string | null) => {
-    warning(
+    warnIf(
       prompt == null,
       'A history supports only one prompt at a time',
     );
@@ -30,7 +30,7 @@ const createTransitionManager = () => {
         if (typeof getUserConfirmation === 'function') {
           getUserConfirmation(result, callback);
         } else {
-          warning(
+          warnIf(
             false,
             'A history needs a getUserConfirmation function in order to use a prompt message',
           );

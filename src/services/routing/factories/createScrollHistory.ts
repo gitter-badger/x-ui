@@ -1,4 +1,4 @@
-import { storageAvailable } from '../utils/dom-utils';
+import { storageAvailable } from '../../utils/dom-utils';
 
 const createScrollHistory = (win: Window, applicationScrollKey: string = 'scrollPositions') => {
   let scrollPositions = new Map<string, [number, number]>();

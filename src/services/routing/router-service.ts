@@ -25,8 +25,7 @@ export class RouterService {
   ) {
     this.history = HISTORIES[historyType]((rootElement.ownerDocument as any).defaultView);
     this.history.listen((location: LocationSegments) => {
-      // eslint-disable-next-line no-param-reassign
-      location = getLocation(location, root);
+      this.history.location = getLocation(location, root);
       this.location = getLocation(location, root);
     });
     this.location = getLocation(this.history.location, root);
@@ -45,7 +44,7 @@ export class RouterService {
 
   returnToParent() {
     if (this.history.location?.state && this.history.location.state?.parent) {
-      this.history.push(this.history.location.state.parent, {
+      this.history.replace(this.history.location.state.parent, {
         next: true,
       });
     }

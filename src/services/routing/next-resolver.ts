@@ -1,7 +1,7 @@
-import { findAsyncSequential } from '../utils';
+import { findAsyncSequential } from '../utils/promise-utils';
 import { evaluatePredicate } from '../data';
 import { IViewDo } from './interfaces';
-import { debug } from '../logging';
+// import { debug } from '../logging';
 
 async function shouldVisit(item:IViewDo) {
   if (item.when) {
@@ -12,8 +12,8 @@ async function shouldVisit(item:IViewDo) {
 
 export async function resolveNext(doList: Array<IViewDo>): Promise<IViewDo|null> {
   const filtered = doList.filter((d) => d.when || !d.visited);
-  debug(`Filtered: ${JSON.stringify(filtered)}`);
+  // debug(`Filtered: ${JSON.stringify(filtered)}`);
   const found = await findAsyncSequential(filtered, shouldVisit);
-  debug(`Found do: ${JSON.stringify(found)}`);
+  // debug(`Found do: ${JSON.stringify(found)}`);
   return found || null;
 }
