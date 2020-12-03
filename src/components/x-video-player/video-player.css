@@ -1,9 +1,0 @@
-:host {
-  max-width: 800px;
-  width: 80%;
-  --vm-media-z-index: 20;
-}
-
-@import "../../../node_modules/@vime/core/themes/default.css";
-@import "../../../node_modules/@vime/core/themes/light.css";
-
