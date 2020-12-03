@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+audio {
+  position: absolute;
+  right : 80px;
+  top: 20px
+}
