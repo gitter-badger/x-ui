@@ -2,8 +2,15 @@
   display: block;
 }
 
-x-data-provider-cookie {
-  button {
-    float: right;
-  }
+div {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  justify-content: center;
+  padding: 1em;
+  color: var(--xui-text-color, #000)
 }
+
+button {
+  float: right;
+  padding: 1em;
+}
+

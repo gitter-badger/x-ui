@@ -5,6 +5,7 @@ import { CookieProvider, evaluatePredicate } from '../../services';
 
 @Component({
   tag: 'x-data-provider-cookie',
+  styleUrl: 'x-data-provider-cookie.scss',
   shadow: true,
 })
 export class XDataProviderCookie {
@@ -44,7 +45,14 @@ export class XDataProviderCookie {
     eventName: DATA_TOPIC,
   }) didConsent: EventEmitter<ActionEvent<CookieConsent>>;
 
+  private consentKey = 'cookie-consent';
+
   async componentWillRender() {
+    const consented = await this.customProvider.get(this.consentKey);
+    if (consented) {
+      this.hide = true;
+      return;
+    }
     if (this.hideWhen) {
       this.hide = await evaluatePredicate(this.hideWhen);
     }
@@ -62,6 +70,7 @@ export class XDataProviderCookie {
           provider: this.customProvider,
         },
       });
+      this.customProvider.set(this.consentKey, 'true');
     }
     this.didConsent.emit({
       command: DATA_EVENTS.CookieConsentResponse,
@@ -75,8 +84,10 @@ export class XDataProviderCookie {
   render() {
     return (
       <Host hidden={this.hide}>
-        <button type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
-        <slot/>
+        <div>
+          <button type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
+          <slot/>
+        </div>
       </Host>
     );
   }
