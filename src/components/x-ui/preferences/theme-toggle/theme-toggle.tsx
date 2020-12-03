@@ -13,8 +13,6 @@ export class ThemeToggle {
       this.toggleDarkTheme(prefersDark.matches);
       prefersDark.addEventListener('change', (ev) => this.toggleDarkTheme(ev.matches));
       state.theme = prefersDark.matches ? 'dark' : 'light';
-    } else {
-      this.toggleDarkTheme(state.theme === 'dark');
     }
   }
 

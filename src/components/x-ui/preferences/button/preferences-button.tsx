@@ -1,5 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
 import { popoverController } from '@ionic/core';
+import { state } from '../../../..';
 
 @Component({
   tag: 'x-preferences',
@@ -12,6 +13,16 @@ export class PreferencesButton {
    *
    */
   @Prop() icon: string = 'settings-outline';
+
+  componentWillLoad() {
+    if (!state.theme) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+      state.theme = prefersDark.matches ? 'dark' : 'light';
+      document.body.classList.toggle('dark', prefersDark.matches);
+    } else {
+      document.body.classList.toggle('dark', state.theme === 'dark');
+    }
+  }
 
   private async presentPopover(ev) {
     const popover = await popoverController.create({
