@@ -1,0 +1,18 @@
+x-ui {
+  /* Component styles go here */
+
+}
+
+:host(.fill) {
+  bottom: 0;
+  contain: layout size style;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}

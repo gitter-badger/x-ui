@@ -1,0 +1,17 @@
+x-view-do {
+  --background-color: val(--ionic-background-color, #fff);
+  --color: val(--ionic-text-color, #000);
+  display: none;
+}
+
+:host(.overlay) {
+  background-color: var(--background-color);
+  bottom: 0;
+  color: var(--color);
+  display: flex;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}

@@ -1,0 +1,24 @@
+x-view {
+  --background-color: val(--ionic-background-color, #fff);
+  --color: val(--ionic-text-color, #000);
+
+}
+
+:host {
+  display: none;
+  bottom: 0;
+  contain: layout size style;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 0;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  z-index: 0;
+}
+
+:host(.active-route) {
+  display: flex;
+}
