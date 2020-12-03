@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+import { state } from "./state";
+
 const prefix = '%cview.DO UI%c ';
 
 const colors = {
@@ -26,7 +28,7 @@ export function log(message: string) {
 }
 
 export function debug(message: string) {
-  console.debug(prefix + message, ...colors.debug);
+  if (state.debug) console.debug(prefix + message, ...colors.debug);
 }
 
 export function warn(warning: string, ...params: any[]) {

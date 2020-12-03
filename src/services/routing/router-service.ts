@@ -19,7 +19,7 @@ export class RouterService {
     public rootElement: HTMLElement,
     public historyType: HistoryType,
     public root: string,
-    public titleSuffix: string,
+    public appTitle: string,
     public transition?: string,
     public scrollTopOffset = 0,
   ) {

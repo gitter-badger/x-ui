@@ -27,7 +27,7 @@ export class XDataDisplay {
   connectedCallback() {
     this.timer = window.setInterval(async () => {
       await this.resolveExpression();
-    }, 200);
+    }, 100);
     return this.resolveExpression();
   }
 

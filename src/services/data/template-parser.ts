@@ -1,3 +1,4 @@
+import { stringToHash } from '../utils';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const tokenTypes = {
   UNDEFINED: 0,
@@ -6,6 +7,8 @@ const tokenTypes = {
   IF: 3,
   ENDIF: 4,
 };
+
+const memoryCache = {};
 
 class Parser {
   parseToken(token: { type: string; value: any }, data: any) {
@@ -116,9 +119,13 @@ export function getTokens(content: { childNodes: any }) {
   return tokens;
 }
 
-export function evaluateHTML(content: { childNodes: any }, data: any) {
-  const tokens = getTokens(content);
+export function evaluateHTML(content: { childNodes: any }, data: any): string {
   let html = getRootNode(content).outerHTML;
+  const cacheKey = stringToHash(`${JSON.stringify(data)}:${html}`);
+
+  if (memoryCache[cacheKey]) return memoryCache[cacheKey];
+
+  const tokens = getTokens(content);
   let delta = 0; // when replacing tokens, increase/decrease delta length so next token would be replaced in correct position of html
   tokens.forEach((token) => {
     const replaceWith = parser.parseToken(token, data);
@@ -126,5 +133,7 @@ export function evaluateHTML(content: { childNodes: any }, data: any) {
     html = html.substr(0, token.startsAt - delta) + replaceWith + html.substr(token.endsAt - delta);
     delta += token.length - replaceWith.length;
   });
+
+  memoryCache[cacheKey] = html;
   return html;
 }

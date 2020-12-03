@@ -21,7 +21,7 @@ export class XDataShow {
   connectedCallback() {
     this.timer = window.setInterval(async () => {
       await this.evaluatePredicate();
-    }, 1000);
+    }, 100);
     return this.evaluatePredicate();
   }
 
