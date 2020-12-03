@@ -7,15 +7,14 @@ const { distDirs } = require('./package.json');
 export const config: Config = {
   namespace: 'viewdo',
   buildEs5: false,
-  taskQueue: 'async',
   plugins: [
     sass(),
   ],
   globalStyle: 'src/global/app.scss',
   globalScript: 'src/global/app.ts',
   devServer: {
-    openBrowser: false,
-    reloadStrategy: 'hmr',
+    openBrowser: true,
+    reloadStrategy: 'pageReload',
     port: 3333,
   },
   outputTargets: [
@@ -46,16 +45,6 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null, // disable service workers
-    },
-     // creates /dist dir
-    {
-      type: 'dist',
-      dir: '.docz/dist',
-      esmLoaderPath: 'loader',
-      // copy: [
-      //   // copy fonts into static for storybook and stencil build
-      //   { src: 'fonts' },
-      // ],
     },
   ],
 };

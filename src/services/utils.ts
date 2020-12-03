@@ -86,3 +86,26 @@ export function toBoolean(value: any) {
   }
   return Boolean(value);
 }
+
+/**
+ * A synchronous way to find an item in a array with
+ * an asynchronous predicate
+ *
+ * @export
+ * @template T
+ * @param {T[]} array
+ * @param {(t: T) => Promise<boolean>} predicate
+ * @return {*}  {(Promise<T | undefined>)}
+ */
+export async function findAsyncSequential<T>(
+  array: T[],
+  predicate: (t: T) => Promise<boolean>,
+): Promise<T | undefined> {
+  for (const t of array) {
+    // eslint-disable-next-line no-await-in-loop
+    if (await predicate(t)) {
+      return t;
+    }
+  }
+  return null;
+}

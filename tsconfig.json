@@ -1,13 +1,12 @@
 {
   "include": [
-    "src",
+    "./src/**/*.tsx",
+    "./src/**/*.ts",
     "types/jsx.d.ts",
     "./typings.d.ts",
     "./stencil.config.ts"],
   "exclude": [
     "node_modules",
-    "**/*X.tsx",
-    "**/ig-*/**",
     "**/__mocks__/**",
     "./scratch"
   ],

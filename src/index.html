@@ -12,14 +12,6 @@
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-
-    <!-- Import theme -->
-    <link rel="stylesheet" href="//unpkg.com/vuep/dist/vuep.css">
-
-    <!-- depend vue -->
-    <script src="//unpkg.com/vue"></script>
-    <script src="//unpkg.com/vuep"></script>
-
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
@@ -34,17 +26,26 @@
     <!-- Replace w/npm unpkg paths -->
     <script type="module" src="/build/viewdo.esm.js"></script>
     <script nomodule src="/build/viewdo.js"></script>
-
+    <link rel="stylesheet" href="/build/viewdo.css"/>
     <base href="/" />
   </head>
   <body>
-    <ion-app id="app">
+
+    <ion-app>
+    <x-ui
+      app-title=" || view.DO Web Components"
+      transition="fade-in"
+      start-url="/start"
+      audio
+      >
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-              <ion-button  click="openNav()" size="large">
-                <ion-icon slot="icon-only" name="menu"></ion-icon>
+            <x-view-link url="/start">
+              <ion-button size="large">
+                <ion-icon slot="icon-only" name="home"></ion-icon>
               </ion-button>
+            </x-view-link>
           </ion-buttons>
           <ion-title>view.DO Web Components</ion-title>
           <ion-buttons slot="end">
@@ -52,38 +53,137 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content id="main" class="ion-justify-center ion-padding">
 
+      <x-view url="/start"
+        page-title="Home">
+        <x-view-do url="/confirm-name"
+          when="'{storage:name}' == ''"
+          >
+          <ion-content class="ion-justify-center ion-padding">
+            <ion-card>
+              <ion-card-header>
+                <h2>What's your Name</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label>Name?</ion-label>
+                  <ion-input id="name" type="text" onchange="setValue(this)"></ion-input>
+                </ion-item>
+                <x-view-link url="/start">
+                <ion-button class="ion-float-right">
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                  Next
+                </ion-button>
+              </x-view-link>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+        <x-view-do url="/hello">
+          <ion-content class="ion-justify-center ion-padding">
+            <ion-card>
+              <ion-card-header>
+                <h2>Hello <x-data-display expression="{storage:name?you}" ></x-data-display>!</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <x-data-display data-name="{storage:name?mister}" >
+                  <template>
+                    <h1>SO glad you are here {{name}}!</h1>
+                  </template>
+                </x-data-display>
+                <x-view-link url="/start">
+                  <ion-button class="ion-float-right">
+                    <ion-icon name="caret-forward-outline"></ion-icon>
+                    Next
+                  </ion-button>
+                </x-view-link>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+        <ion-content class="ion-justify-center ion-padding">
+          <h1>Home</h1>
 
-        <x-data-provider-cookie hide-when="true">
-          <p>This site uses cookies.</p>
           <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
           <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
           <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
-        </x-data-provider-cookie>
-
-        <x-data-show when="true">
-          <p>This content should show.</p>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text></ion-skeleton-text>
+          <x-view-link url="/page1">Go to page1</x-view-link>
+          <x-data-provider-cookie hide-when="'{cookies:test}' == ''">
+            <p>This site uses cookies.</p>
+            <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          </x-data-provider-cookie>
+        </ion-content>
+      </x-view>
+      <x-view url="/page1"
+        page-title="Page 1">
+        <x-view-do url="/video-1">
+          <ion-content class="ion-justify-center ion-padding">
+            <h2>Just pretend this is a video... mmmkay?</h2>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-skeleton-text animated></ion-skeleton-text>
+            <div class="ion-float-right" >
+              <x-view-link url="/page1">
+                <ion-button onclick="complete(this)">
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                  Next
+                </ion-button>
+              </x-view-link>
+            </div>
+          </ion-content>
+        </x-view-do>
+        <ion-content class="ion-justify-center ion-padding">
+          <h1>Page 1</h1>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text></ion-skeleton-text>
+          <x-view-link url="/page2">Go to page 2</x-view-link>
           <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
           <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
           <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
-        </x-data-show>
 
-        <x-data-display data-name="Jason Wicker" >
-          <template>
-            <h1>Hello {{name}}!</h1>
-          </template>
-        </x-data-display>
+        </ion-content>
+      </x-view>
+      <x-view url="/page2"
+        page-title="Page 2">
+        <ion-content class="ion-justify-center ion-padding">
+          <h1>Page 2</h1>
+          <x-data-show when="true">
+            <p>This content should show.</p>
+            <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          </x-data-show>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text></ion-skeleton-text>
+          <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+        </ion-content>
+      </x-view>
 
-        <ion-skeleton-text style="width: 88%"></ion-skeleton-text>
-        <ion-skeleton-text style="width: 70%"></ion-skeleton-text>
-        <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+      <ion-footer>
+        <ion-toolbar class="ion-padding">
+        </ion-toolbar>
+      </ion-footer>
 
-
-      </ion-content>
-
-    </ion-app>
-
+    </x-ui>
+  </ion-app>
+    <script>
+      function setValue(el, key) {
+        console.dir(el);
+        localStorage.setItem('name', el.value);
+      }
+      function complete(el) {
+        el.dispatchEvent(new CustomEvent('x-u:routing:navigate-next'));;
+      }
+    </script>
 
   </body>
 </html>

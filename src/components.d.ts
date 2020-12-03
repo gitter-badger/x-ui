@@ -5,9 +5,28 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ActionActivationStrategy } from "./services/actions/interfaces";
 import { ActionEvent } from "./services/actions";
 import { CookieConsent, ProviderRegistration } from "./services/data/provider-listener";
+import { HistoryType, ProviderRegistration as ProviderRegistration1 } from "./services";
+import { VisitStrategy } from ".";
 export namespace Components {
+    interface XAction {
+    }
+    interface XActionActivator {
+        /**
+          * The activation strategy to use for the contained actions.
+         */
+        "activate": ActionActivationStrategy;
+        "eventName": string;
+    }
+    interface XAudioControl {
+    }
+    interface XAudioPlayer {
+    }
+    interface XAutoplayToggle {
+        "autoplay": boolean;
+    }
     interface XDataDisplay {
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
@@ -49,8 +68,156 @@ export namespace Components {
          */
         "when": string;
     }
+    interface XPreferences {
+        "icon": string;
+    }
+    interface XPreferencesList {
+    }
+    interface XSoundToggle {
+        "muted": boolean;
+    }
+    interface XTemplateAsync {
+        /**
+          * Template URL
+         */
+        "url"?: string;
+    }
+    interface XThemeToggle {
+    }
+    interface XUi {
+        /**
+          * When true, the analytics events are captured and delegated using Event Actions.
+         */
+        "analytics": boolean;
+        /**
+          * This is the application / site title. If the views or dos have titles, this is added as a suffix.
+         */
+        "appTitle": string;
+        /**
+          * When true, the global audio component is loaded and subscribed for Event Action requests to play sounds.
+         */
+        "audio": boolean;
+        /**
+          * Set this to false if you don't want the UI component to take up the full page size.   *
+         */
+        "fullPage": boolean;
+        /**
+          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
+         */
+        "historyType": HistoryType;
+        /**
+          * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
+         */
+        "root": string;
+        /**
+          * Header height or offset for scroll-top on this and all views.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * This is the start path a user should land on when they first land on this app.
+         */
+        "startUrl": string;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition": string;
+    }
+    interface XView {
+        /**
+          * The title for this view. This is prefixed before the app title configured in x-ui
+         */
+        "pageTitle": string;
+        /**
+          * Header height or offset for scroll-top on this view.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition"?: string;
+        /**
+          * The url for this route, including the parent's routes.
+         */
+        "url": string;
+    }
+    interface XViewDo {
+        /**
+          * The title for this view. This is prefixed before the app title configured in x-ui
+         */
+        "pageTitle": string;
+        /**
+          * Header height or offset for scroll-top on this view.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition"?: string;
+        /**
+          * The url for this route, including the parent's routes.
+         */
+        "url": string;
+        /**
+          * The visit strategy for this do. once: persist the visit and never force it again always: do not persist, but don't don't show again in-session optional: do not force this view-do ever. It will be available by URL
+         */
+        "visit": VisitStrategy;
+        /**
+          * A property that returns true if this route has already been visited. This will be used by the parent view to determine if this route should be part of a sequence.
+         */
+        "visited": boolean;
+        /**
+          * If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy
+         */
+        "when"?: string;
+    }
+    interface XViewLink {
+        "activeClass": string;
+        "anchorClass"?: string;
+        "anchorId"?: string;
+        "anchorRole"?: string;
+        "anchorTabIndex"?: string;
+        "anchorTitle"?: string;
+        "ariaHaspopup"?: string;
+        "ariaLabel"?: string;
+        "ariaPosinset"?: string;
+        "ariaSetsize"?: number;
+        "custom": string;
+        "exact": boolean;
+        "strict": boolean;
+        "url": string;
+    }
 }
 declare global {
+    interface HTMLXActionElement extends Components.XAction, HTMLStencilElement {
+    }
+    var HTMLXActionElement: {
+        prototype: HTMLXActionElement;
+        new (): HTMLXActionElement;
+    };
+    interface HTMLXActionActivatorElement extends Components.XActionActivator, HTMLStencilElement {
+    }
+    var HTMLXActionActivatorElement: {
+        prototype: HTMLXActionActivatorElement;
+        new (): HTMLXActionActivatorElement;
+    };
+    interface HTMLXAudioControlElement extends Components.XAudioControl, HTMLStencilElement {
+    }
+    var HTMLXAudioControlElement: {
+        prototype: HTMLXAudioControlElement;
+        new (): HTMLXAudioControlElement;
+    };
+    interface HTMLXAudioPlayerElement extends Components.XAudioPlayer, HTMLStencilElement {
+    }
+    var HTMLXAudioPlayerElement: {
+        prototype: HTMLXAudioPlayerElement;
+        new (): HTMLXAudioPlayerElement;
+    };
+    interface HTMLXAutoplayToggleElement extends Components.XAutoplayToggle, HTMLStencilElement {
+    }
+    var HTMLXAutoplayToggleElement: {
+        prototype: HTMLXAutoplayToggleElement;
+        new (): HTMLXAutoplayToggleElement;
+    };
     interface HTMLXDataDisplayElement extends Components.XDataDisplay, HTMLStencilElement {
     }
     var HTMLXDataDisplayElement: {
@@ -75,14 +242,98 @@ declare global {
         prototype: HTMLXDataShowElement;
         new (): HTMLXDataShowElement;
     };
+    interface HTMLXPreferencesElement extends Components.XPreferences, HTMLStencilElement {
+    }
+    var HTMLXPreferencesElement: {
+        prototype: HTMLXPreferencesElement;
+        new (): HTMLXPreferencesElement;
+    };
+    interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
+    }
+    var HTMLXPreferencesListElement: {
+        prototype: HTMLXPreferencesListElement;
+        new (): HTMLXPreferencesListElement;
+    };
+    interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
+    }
+    var HTMLXSoundToggleElement: {
+        prototype: HTMLXSoundToggleElement;
+        new (): HTMLXSoundToggleElement;
+    };
+    interface HTMLXTemplateAsyncElement extends Components.XTemplateAsync, HTMLStencilElement {
+    }
+    var HTMLXTemplateAsyncElement: {
+        prototype: HTMLXTemplateAsyncElement;
+        new (): HTMLXTemplateAsyncElement;
+    };
+    interface HTMLXThemeToggleElement extends Components.XThemeToggle, HTMLStencilElement {
+    }
+    var HTMLXThemeToggleElement: {
+        prototype: HTMLXThemeToggleElement;
+        new (): HTMLXThemeToggleElement;
+    };
+    interface HTMLXUiElement extends Components.XUi, HTMLStencilElement {
+    }
+    var HTMLXUiElement: {
+        prototype: HTMLXUiElement;
+        new (): HTMLXUiElement;
+    };
+    interface HTMLXViewElement extends Components.XView, HTMLStencilElement {
+    }
+    var HTMLXViewElement: {
+        prototype: HTMLXViewElement;
+        new (): HTMLXViewElement;
+    };
+    interface HTMLXViewDoElement extends Components.XViewDo, HTMLStencilElement {
+    }
+    var HTMLXViewDoElement: {
+        prototype: HTMLXViewDoElement;
+        new (): HTMLXViewDoElement;
+    };
+    interface HTMLXViewLinkElement extends Components.XViewLink, HTMLStencilElement {
+    }
+    var HTMLXViewLinkElement: {
+        prototype: HTMLXViewLinkElement;
+        new (): HTMLXViewLinkElement;
+    };
     interface HTMLElementTagNameMap {
+        "x-action": HTMLXActionElement;
+        "x-action-activator": HTMLXActionActivatorElement;
+        "x-audio-control": HTMLXAudioControlElement;
+        "x-audio-player": HTMLXAudioPlayerElement;
+        "x-autoplay-toggle": HTMLXAutoplayToggleElement;
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-provider-sample": HTMLXDataProviderSampleElement;
         "x-data-show": HTMLXDataShowElement;
+        "x-preferences": HTMLXPreferencesElement;
+        "x-preferences-list": HTMLXPreferencesListElement;
+        "x-sound-toggle": HTMLXSoundToggleElement;
+        "x-template-async": HTMLXTemplateAsyncElement;
+        "x-theme-toggle": HTMLXThemeToggleElement;
+        "x-ui": HTMLXUiElement;
+        "x-view": HTMLXViewElement;
+        "x-view-do": HTMLXViewDoElement;
+        "x-view-link": HTMLXViewLinkElement;
     }
 }
 declare namespace LocalJSX {
+    interface XAction {
+    }
+    interface XActionActivator {
+        /**
+          * The activation strategy to use for the contained actions.
+         */
+        "activate"?: ActionActivationStrategy;
+        "eventName": string;
+    }
+    interface XAudioControl {
+    }
+    interface XAudioPlayer {
+    }
+    interface XAutoplayToggle {
+        "autoplay"?: boolean;
+    }
     interface XDataDisplay {
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
@@ -136,21 +387,167 @@ declare namespace LocalJSX {
          */
         "when": string;
     }
+    interface XPreferences {
+        "icon"?: string;
+    }
+    interface XPreferencesList {
+    }
+    interface XSoundToggle {
+        "muted"?: boolean;
+    }
+    interface XTemplateAsync {
+        /**
+          * Template URL
+         */
+        "url"?: string;
+    }
+    interface XThemeToggle {
+    }
+    interface XUi {
+        /**
+          * When true, the analytics events are captured and delegated using Event Actions.
+         */
+        "analytics"?: boolean;
+        /**
+          * This is the application / site title. If the views or dos have titles, this is added as a suffix.
+         */
+        "appTitle"?: string;
+        /**
+          * When true, the global audio component is loaded and subscribed for Event Action requests to play sounds.
+         */
+        "audio"?: boolean;
+        /**
+          * Set this to false if you don't want the UI component to take up the full page size.   *
+         */
+        "fullPage"?: boolean;
+        /**
+          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
+         */
+        "historyType"?: HistoryType;
+        /**
+          * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
+         */
+        "root"?: string;
+        /**
+          * Header height or offset for scroll-top on this and all views.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * This is the start path a user should land on when they first land on this app.
+         */
+        "startUrl"?: string;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition"?: string;
+    }
+    interface XView {
+        /**
+          * The title for this view. This is prefixed before the app title configured in x-ui
+         */
+        "pageTitle"?: string;
+        /**
+          * Header height or offset for scroll-top on this view.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition"?: string;
+        /**
+          * The url for this route, including the parent's routes.
+         */
+        "url": string;
+    }
+    interface XViewDo {
+        /**
+          * The title for this view. This is prefixed before the app title configured in x-ui
+         */
+        "pageTitle"?: string;
+        /**
+          * Header height or offset for scroll-top on this view.
+         */
+        "scrollTopOffset"?: number;
+        /**
+          * Navigation transition between routes. This is a CSS animation class.
+         */
+        "transition"?: string;
+        /**
+          * The url for this route, including the parent's routes.
+         */
+        "url": string;
+        /**
+          * The visit strategy for this do. once: persist the visit and never force it again always: do not persist, but don't don't show again in-session optional: do not force this view-do ever. It will be available by URL
+         */
+        "visit"?: VisitStrategy;
+        /**
+          * A property that returns true if this route has already been visited. This will be used by the parent view to determine if this route should be part of a sequence.
+         */
+        "visited"?: boolean;
+        /**
+          * If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy
+         */
+        "when"?: string;
+    }
+    interface XViewLink {
+        "activeClass"?: string;
+        "anchorClass"?: string;
+        "anchorId"?: string;
+        "anchorRole"?: string;
+        "anchorTabIndex"?: string;
+        "anchorTitle"?: string;
+        "ariaHaspopup"?: string;
+        "ariaLabel"?: string;
+        "ariaPosinset"?: string;
+        "ariaSetsize"?: number;
+        "custom"?: string;
+        "exact"?: boolean;
+        "strict"?: boolean;
+        "url": string;
+    }
     interface IntrinsicElements {
+        "x-action": XAction;
+        "x-action-activator": XActionActivator;
+        "x-audio-control": XAudioControl;
+        "x-audio-player": XAudioPlayer;
+        "x-autoplay-toggle": XAutoplayToggle;
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-provider-sample": XDataProviderSample;
         "x-data-show": XDataShow;
+        "x-preferences": XPreferences;
+        "x-preferences-list": XPreferencesList;
+        "x-sound-toggle": XSoundToggle;
+        "x-template-async": XTemplateAsync;
+        "x-theme-toggle": XThemeToggle;
+        "x-ui": XUi;
+        "x-view": XView;
+        "x-view-do": XViewDo;
+        "x-view-link": XViewLink;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
+            "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
+            "x-audio-control": LocalJSX.XAudioControl & JSXBase.HTMLAttributes<HTMLXAudioControlElement>;
+            "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
+            "x-autoplay-toggle": LocalJSX.XAutoplayToggle & JSXBase.HTMLAttributes<HTMLXAutoplayToggleElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
             "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
+            "x-preferences": LocalJSX.XPreferences & JSXBase.HTMLAttributes<HTMLXPreferencesElement>;
+            "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
+            "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
+            "x-template-async": LocalJSX.XTemplateAsync & JSXBase.HTMLAttributes<HTMLXTemplateAsyncElement>;
+            "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
+            "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
+            "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;
+            "x-view-do": LocalJSX.XViewDo & JSXBase.HTMLAttributes<HTMLXViewDoElement>;
+            "x-view-link": LocalJSX.XViewLink & JSXBase.HTMLAttributes<HTMLXViewLinkElement>;
         }
     }
 }

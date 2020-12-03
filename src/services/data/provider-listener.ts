@@ -6,7 +6,7 @@ import { IActionEventListener } from '../actions/interfaces';
 import { ActionEvent } from '../actions';
 import { warn } from '../logging';
 
-export const TOPIC = 'xui:action-events:data';
+export const DATA_TOPIC = 'xui:action-events:data';
 
 export enum DATA_PROVIDER {
   SESSION = 'session',
@@ -14,11 +14,11 @@ export enum DATA_PROVIDER {
   COOKIE = 'cookie'
 }
 
-export enum COMMANDS {
+export enum DATA_COMMANDS {
   RegisterDataProvider = 'register-provider'
 }
 
-export enum EVENTS {
+export enum DATA_EVENTS {
   CookieConsentResponse = 'cookie-consent'
 }
 
@@ -33,12 +33,12 @@ export type CookieConsent = {
 
 export class ProviderListener implements IActionEventListener {
   document: HTMLDocument;
-  eventOptions: EventListenerOptions = { capture: true };
+  eventOptions: EventListenerOptions = { capture: false };
 
   public initialize(win:Window) {
     this.document = win.document;
     this.registerBrowserProviders(win);
-    this.addRegistrationListener();
+    this.listen();
   }
 
   registerBrowserProviders(win: Window) {
@@ -50,16 +50,16 @@ export class ProviderListener implements IActionEventListener {
     } else warn('"storage" data-provider not registered: not supported');
   }
 
-  addRegistrationListener() {
+  listen() {
     this.document.addEventListener(
-      TOPIC,
-      this.handleProviderEvent,
+      DATA_TOPIC,
+      this.handleEvent,
       this.eventOptions);
   }
 
-  handleProviderEvent(ev: CustomEvent<ActionEvent<ProviderRegistration>>) {
+  handleEvent(ev: CustomEvent<ActionEvent<ProviderRegistration>>) {
     const actionEvent = ev.detail;
-    if (actionEvent.command === COMMANDS.RegisterDataProvider) {
+    if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data;
       if (name && provider) {
         addProvider(name, provider as IDataProvider);
@@ -69,8 +69,8 @@ export class ProviderListener implements IActionEventListener {
 
   destroy(): void {
     this.document.removeEventListener(
-      TOPIC,
-      this.handleProviderEvent,
+      DATA_TOPIC,
+      this.handleEvent,
       this.eventOptions);
   }
 }

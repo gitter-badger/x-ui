@@ -9,7 +9,8 @@
     "delimeters",
     "hashbang",
     "loadash",
-    "noslash"
+    "noslash",
+    "unlisten"
   ],
   "stencilTools.style.extension": "scss"
 }
