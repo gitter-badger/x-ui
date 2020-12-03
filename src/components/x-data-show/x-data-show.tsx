@@ -8,6 +8,7 @@ import { evaluatePredicate } from '../..';
 })
 export class XDataShow {
   private timer: number;
+  @State() show = true;
 
   /**
    The data expression to obtain a predicate for conditionally rendering
@@ -16,8 +17,6 @@ export class XDataShow {
    @default null
    */
   @Prop() when!: string;
-
-  @State() show = true;
 
   connectedCallback() {
     this.timer = window.setInterval(async () => {

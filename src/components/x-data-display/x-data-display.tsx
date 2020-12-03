@@ -7,8 +7,10 @@ import { evaluateHTML, getTokens, resolveExpression, warn } from '../../services
   shadow: false,
 })
 export class XDataDisplay {
-  @Element() el;
   private timer: number;
+  @State() value: string;
+  @State() childNodes: string;
+  @Element() el;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
@@ -22,14 +24,10 @@ export class XDataDisplay {
    */
   @Prop() class: string = null;
 
-  @State() value: string;
-
-  @State() childNodes: string;
-
   connectedCallback() {
     this.timer = window.setInterval(async () => {
       await this.resolveExpression();
-    }, 1000);
+    }, 200);
     return this.resolveExpression();
   }
 
@@ -79,7 +77,9 @@ export class XDataDisplay {
     return (
       <Host>
         { this.value }
-        <span innerHTML={this.childNodes}></span>
+        { this.childNodes
+          ? <span innerHTML={this.childNodes}></span>
+          : null }
       </Host>
     );
   }

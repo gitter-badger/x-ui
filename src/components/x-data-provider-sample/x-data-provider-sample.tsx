@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 import { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
-import { TOPIC, COMMANDS, ProviderRegistration } from '../../services/data/provider-listener';
+import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration } from '../../services';
 import { InMemoryProvider } from '../../services/data/provider-memory';
 
 @Component({
@@ -13,6 +13,7 @@ export class XDataProviderSample {
   private inputKeyEl: HTMLInputElement;
   private inputValueEl: HTMLInputElement;
   private formEl: HTMLFormElement;
+  @State() keys = [];
 
   /**
    * When debug is true, a reactive table of values is displayed.
@@ -30,14 +31,12 @@ export class XDataProviderSample {
    * and register the provider for use in expressions.
    */
   @Event({
-    eventName: TOPIC,
+    eventName: DATA_TOPIC,
   }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
-
-  @State() keys = [];
 
   componentDidLoad() {
     this.register.emit({
-      command: COMMANDS.RegisterDataProvider,
+      command: DATA_COMMANDS.RegisterDataProvider,
       data: {
         name: this.name,
         provider: this.customProvider,

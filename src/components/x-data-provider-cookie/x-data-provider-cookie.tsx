@@ -1,6 +1,6 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
-import { TOPIC, COMMANDS, ProviderRegistration, EVENTS, CookieConsent } from '../../services/data/provider-listener';
+import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration, DATA_EVENTS, CookieConsent } from '../../services/data/provider-listener';
 import { CookieProvider, evaluatePredicate } from '../../services';
 
 @Component({
@@ -9,8 +9,8 @@ import { CookieProvider, evaluatePredicate } from '../../services';
 })
 export class XDataProviderCookie {
   private customProvider = new CookieProvider();
-
   @Element() el: HTMLXDataProviderCookieElement;
+  @State() hide = false;
 
   /**
    * An expression that tells this component how to determine if
@@ -25,8 +25,6 @@ export class XDataProviderCookie {
    */
   @Prop() skipConsent = false;
 
-  @State() hide = false;
-
   /**
    * This event is raised when the component obtains
    * consent from the user to use cookies.
@@ -34,7 +32,7 @@ export class XDataProviderCookie {
    * and register the provider for use in expressions.
    */
   @Event({
-    eventName: TOPIC,
+    eventName: DATA_TOPIC,
   }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
 
   /**
@@ -43,7 +41,7 @@ export class XDataProviderCookie {
    * and register the provider for use in expressions.
    */
   @Event({
-    eventName: TOPIC,
+    eventName: DATA_TOPIC,
   }) didConsent: EventEmitter<ActionEvent<CookieConsent>>;
 
   async componentWillRender() {
@@ -58,7 +56,7 @@ export class XDataProviderCookie {
   private handleConsentResponse(consented: boolean) {
     if (consented) {
       this.register.emit({
-        command: COMMANDS.RegisterDataProvider,
+        command: DATA_COMMANDS.RegisterDataProvider,
         data: {
           name: 'cookie',
           provider: this.customProvider,
@@ -66,7 +64,7 @@ export class XDataProviderCookie {
       });
     }
     this.didConsent.emit({
-      command: EVENTS.CookieConsentResponse,
+      command: DATA_EVENTS.CookieConsentResponse,
       data: {
         consented,
       },

@@ -53,10 +53,10 @@ This component supports HTML string interpolation in an Angular format, but the 
 
 ## Properties
 
-| Property            | Attribute | Description                                                                         | Type     | Default     |
-| ------------------- | --------- | ----------------------------------------------------------------------------------- | -------- | ----------- |
-| `class`             | `class`   | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `null`      |
-| `expression` _(required)_ | `expression`    | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `undefined` |
+| Property     | Attribute    | Description                                                                         | Type     | Default     |
+| ------------ | ------------ | ----------------------------------------------------------------------------------- | -------- | ----------- |
+| `class`      | `class`      | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `null`      |
+| `expression` | `expression` | The data expression to obtain a value for rendering as inner-text for this element. | `string` | `undefined` |
 
 
 ## CSS Custom Properties
