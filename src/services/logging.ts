@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-import { state } from "./state";
-
 const prefix = '%cview.DO UI%c ';
 
 const colors = {
@@ -28,7 +26,7 @@ export function log(message: string) {
 }
 
 export function debug(message: string) {
-  if (state.debug) console.debug(prefix + message, ...colors.debug);
+  console.debug(prefix + message, ...colors.debug);
 }
 
 export function warn(warning: string, ...params: any[]) {
@@ -38,3 +36,15 @@ export function warn(warning: string, ...params: any[]) {
 export function error(message: string, err?: Error) {
   console.error(prefix + message, ...colors.error, err);
 }
+
+export const warnIf = (value:boolean, message: any) => {
+  if (!value) {
+    warn(message);
+  }
+};
+
+export const logIf = (value:boolean, message: any) => {
+  if (!value) {
+    log(message);
+  }
+};

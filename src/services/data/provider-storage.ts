@@ -1,7 +1,7 @@
 import { IDataProvider } from './interfaces';
 
 export class StorageProvider implements IDataProvider {
-  name = 'storage';
+  public static KEY = 'storage';
   constructor(private localStorage = window.localStorage) {}
 
   async get(key: string): Promise<string|null> {

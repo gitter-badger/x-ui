@@ -1,4 +1,4 @@
-import { stringToHash } from '../utils';
+import { stringToHash } from '../utils/string-utils';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const tokenTypes = {
   UNDEFINED: 0,

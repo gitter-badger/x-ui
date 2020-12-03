@@ -5,6 +5,7 @@ import { DATA_TOPIC, DATA_COMMANDS, ProviderListener, ProviderRegistration } fro
 import { IDataProvider } from './interfaces';
 import { InMemoryProvider } from './provider-memory';
 import { ActionEvent } from '..';
+import { SessionProvider } from './provider-session';
 
 type Listener = (ev:{ type: string, detail: ActionEvent<ProviderRegistration>}) => void
 
@@ -29,6 +30,10 @@ describe('data-provider-listener', () => {
     mockDataProvider = new InMemoryProvider();
     listeners = [];
     clearProviders();
+  });
+
+  it('static keys', async () => {
+    expect(SessionProvider.KEY).toBe('session')
   });
 
   it('detects session', async () => {

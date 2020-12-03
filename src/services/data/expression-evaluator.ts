@@ -1,8 +1,9 @@
 import { Parser } from 'expr-eval';
-import { requireValue, toBoolean } from '../utils';
+import { requireValue } from '../utils/misc-utils';
 import { getProvider } from './provider-factory';
 import { ExpressionContext } from './interfaces';
 import { warn } from '../logging';
+import { toBoolean } from '../utils/string-utils';
 
 const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?(?:\?([\w_.]*))?}/g;
 const expressionEvaluator = new Parser();

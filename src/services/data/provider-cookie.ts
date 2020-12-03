@@ -2,7 +2,7 @@ import { IDataProvider } from './interfaces';
 import { getCookie, setCookie } from './cookies';
 
 export class CookieProvider implements IDataProvider {
-  name = 'cookie';
+  static KEY = 'cookie';
   constructor(private document = window.document) {}
 
   async get(key: string): Promise<string|null> {
