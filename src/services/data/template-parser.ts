@@ -1,5 +1,5 @@
-import { stringToHash } from '../utils/string-utils';
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { checksum } from '../utils/digest-utils';
+
 const tokenTypes = {
   UNDEFINED: 0,
   VAR: 1,
@@ -8,7 +8,7 @@ const tokenTypes = {
   ENDIF: 4,
 };
 
-const memoryCache = {};
+const memoryCache = new Map();
 
 class Parser {
   parseToken(token: { type: string; value: any }, data: any) {
@@ -38,12 +38,12 @@ class Parser {
   }
 
   // IF
-  parseToken3(_value: any, _data: any) {
+  parseToken3() {
     return 'if';
   }
 
   // ENDIF
-  parseToken4(_value: any, _data: any) {
+  parseToken4() {
     return 'endif';
   }
 }
@@ -107,6 +107,9 @@ function getNextToken(html: string, startAt = 0) {
 
 // get all the strings within {{ }} in template root node
 export function getTokens(content: { childNodes: any }) {
+  const cacheKey = `tokens:${checksum(content)}}`;
+  if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
+
   const node = getRootNode(content);
   let token: any = false;
   const tokens = [];
@@ -121,9 +124,9 @@ export function getTokens(content: { childNodes: any }) {
 
 export function evaluateHTML(content: { childNodes: any }, data: any): string {
   let html = getRootNode(content).outerHTML;
-  const cacheKey = stringToHash(`${JSON.stringify(data)}:${html}`);
+  const cacheKey = `${checksum(data)}:${checksum(html)}`;
 
-  if (memoryCache[cacheKey]) return memoryCache[cacheKey];
+  // if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
 
   const tokens = getTokens(content);
   let delta = 0; // when replacing tokens, increase/decrease delta length so next token would be replaced in correct position of html
@@ -134,6 +137,6 @@ export function evaluateHTML(content: { childNodes: any }, data: any): string {
     delta += token.length - replaceWith.length;
   });
 
-  memoryCache[cacheKey] = html;
+  memoryCache.set(cacheKey, html);
   return html;
 }

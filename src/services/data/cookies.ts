@@ -119,3 +119,17 @@ export function setCookie(document:HTMLDocument, key: string, value: string, att
 export function removeCookie(document, key: string, attributes?: CookieAttributes): void {
   setCookie(document, key, '', { ...attributes, expires: -1 });
 }
+
+export function listenCookieChange(callback: (res: { oldValue: string; newValue: string; }) => void, interval = 1000) {
+  let lastCookie = document.cookie;
+  setInterval(() => {
+    const {cookie} = document;
+    if (cookie !== lastCookie) {
+      try {
+        callback({oldValue: lastCookie, newValue: cookie});
+      } finally {
+        lastCookie = cookie;
+      }
+    }
+  }, interval);
+}

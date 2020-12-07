@@ -1,5 +1,14 @@
-import { Element, Component, h, Prop, State, Host } from '@stencil/core';
-import { evaluateHTML, getTokens, resolveExpression, warn } from '../../services';
+import { Element, Component, h, Prop, State, Host, Listen } from '@stencil/core';
+import { RouterService } from '../../services/routing/router-service';
+import {
+  DataEvent,
+  DATA_EVENTS,
+  debug,
+  evaluateHTML,
+  getTokens,
+  resolveExpression,
+  warn,
+} from '../../services';
 
 @Component({
   tag: 'x-data-display',
@@ -7,10 +16,9 @@ import { evaluateHTML, getTokens, resolveExpression, warn } from '../../services
   shadow: false,
 })
 export class XDataDisplay {
-  private timer: number;
   @State() value: string;
   @State() childNodes: string;
-  @Element() el;
+  @Element() el: HTMLXDataDisplayElement;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
@@ -24,15 +32,26 @@ export class XDataDisplay {
    */
   @Prop() class: string = null;
 
-  connectedCallback() {
-    this.timer = window.setInterval(async () => {
+  @Listen('xui:action-events:data', {
+    target: 'body',
+  })
+  async dataEvent(ev: CustomEvent<DataEvent>) {
+    // eslint-disable-next-line no-console
+    console.dir(ev);
+    if (ev.detail.type === DATA_EVENTS.DataChanged) {
+      debug('<x-data-display: <data-provider~changed>');
       await this.resolveExpression();
-    }, 100);
-    return this.resolveExpression();
+    }
   }
 
-  disconnectedCallback() {
-    window.clearInterval(this.timer);
+  componentWillLoad() {
+    RouterService.instance.onRouteChange(() => {
+      this.resolveExpression();
+    });
+  }
+
+  async componentWillRender() {
+    await this.resolveExpression();
   }
 
   private async resolveExpression() {
@@ -44,32 +63,30 @@ export class XDataDisplay {
   }
 
   private async resolveInnerTemplate() {
-
-    let template = this.el.firstElementChild as HTMLTemplateElement;
-    if (template == undefined || !template.content) return;
+    const template = this.el.firstElementChild as HTMLTemplateElement;
+    if (template === undefined || !template?.content) return;
 
     try {
-      let data = {};
-      let tokens = getTokens(template.content);
+      const data = {};
+      const tokens = getTokens(template.content);
 
       // distinct token values; only the first part if there's dot-notation
-      let promises = [...new Set(tokens.filter(t => t.type == 1 || t.type == 2)
-        .map(t => t.value.split('.')[0]))]
-          .map(async v => {
-            let attr = this.el.getAttribute(`data-${v}`);
-            if (attr) {
-              let val = await resolveExpression(attr);
-              data[v] = val;
-            }
-            return null;
-          });
+      const promises = [...new Set(tokens.filter((t) => t.type === 1 || t.type === 2)
+        .map((t: { value: string; }) => t.value.split('.')[0]))]
+        .map(async (v:string) => {
+          const attr = this.el.getAttribute(`data-${v}`);
+          if (attr) {
+            const val = await resolveExpression(attr);
+            data[v] = val;
+          }
+          return null;
+        });
 
       await Promise.all(promises);
 
       this.childNodes = evaluateHTML(template.content, data);
     } catch (error) {
-      warn(error)
-      window.clearInterval(this.timer);
+      warn(error);
     }
   }
 

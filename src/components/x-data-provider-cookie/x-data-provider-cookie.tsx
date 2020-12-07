@@ -1,6 +1,6 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
-import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration, DATA_EVENTS, CookieConsent } from '../../services/data/provider-listener';
+import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration, DATA_EVENTS, CookieConsent } from '../..';
 import { CookieProvider, evaluatePredicate } from '../../services';
 
 @Component({

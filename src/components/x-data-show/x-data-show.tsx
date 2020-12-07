@@ -1,5 +1,6 @@
-import { Prop, State, Component, Host, h } from '@stencil/core';
-import { evaluatePredicate } from '../..';
+import { Prop, State, Component, Host, h, Listen } from '@stencil/core';
+import { evaluatePredicate, RouterService } from '../..';
+import { DataEvent, DATA_EVENTS } from '../../services/data/interfaces';
 
 @Component({
   tag: 'x-data-show',
@@ -7,7 +8,6 @@ import { evaluatePredicate } from '../..';
   shadow: true,
 })
 export class XDataShow {
-  private timer: number;
   @State() show = true;
 
   /**
@@ -18,15 +18,21 @@ export class XDataShow {
    */
   @Prop() when!: string;
 
-  connectedCallback() {
-    this.timer = window.setInterval(async () => {
+  @Listen('xui:action-events:data')
+  async dataEvent(ev: DataEvent) {
+    if (ev.type === DATA_EVENTS.DataChanged) {
       await this.evaluatePredicate();
-    }, 100);
-    return this.evaluatePredicate();
+    }
   }
 
-  disconnectedCallback() {
-    window.clearInterval(this.timer);
+  componentWillLoad() {
+    RouterService.instance.onRouteChange(() => {
+      this.evaluatePredicate();
+    });
+  }
+
+  async componentWillRender() {
+    await this.evaluatePredicate();
   }
 
   private async evaluatePredicate() {

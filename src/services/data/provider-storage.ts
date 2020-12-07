@@ -1,8 +1,13 @@
-import { IDataProvider } from './interfaces';
+import { DATA_EVENTS, IDataProvider } from './interfaces';
+import { EventEmitter } from '../events';
 
 export class StorageProvider implements IDataProvider {
-  public static KEY = 'storage';
-  constructor(private localStorage = window.localStorage) {}
+  constructor(private localStorage = window.localStorage) {
+    this.changed = new EventEmitter();
+    window?.addEventListener('storage', () => {
+      this.changed.emit(DATA_EVENTS.DataChanged);
+    });
+  }
 
   async get(key: string): Promise<string|null> {
     return this.localStorage?.getItem(key) || null;
@@ -11,4 +16,6 @@ export class StorageProvider implements IDataProvider {
   async set(key: string, value: string) {
     this.localStorage?.setItem(key, value);
   }
+
+  changed:EventEmitter;
 }
