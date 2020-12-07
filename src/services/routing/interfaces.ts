@@ -37,7 +37,8 @@ export interface LocationSegments {
   hash?: string;
   state?: any;
   pathParts?: string[]
-  hashParts?: string[]
+  hashParts?: string[];
+  visited: boolean;
 }
 
 export type LocationSegmentPart = 'pathname' | 'search' | 'hash' | 'state' | 'key';

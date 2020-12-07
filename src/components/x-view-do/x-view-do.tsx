@@ -1,5 +1,5 @@
 import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
-import { RouteService, MatchResults, state, IViewDo, RouterService, VisitStrategy } from '../..';
+import { Route, MatchResults, state, IViewDo, RouterService, VisitStrategy } from '../..';
 
 @Component({
   tag: 'x-view-do',
@@ -7,7 +7,7 @@ import { RouteService, MatchResults, state, IViewDo, RouterService, VisitStrateg
   shadow: true,
 })
 export class XViewDo implements IViewDo {
-  private route: RouteService;
+  private route: Route;
   @Element() el!: HTMLXViewDoElement;
   @State() match: MatchResults;
 
@@ -92,7 +92,7 @@ export class XViewDo implements IViewDo {
       || state.sessionVisits.includes(this.urlKey)
       || state.storedVisits.includes(this.urlKey));
 
-    this.route = new RouteService(
+    this.route = new Route(
       this.el,
       this.url,
       true,

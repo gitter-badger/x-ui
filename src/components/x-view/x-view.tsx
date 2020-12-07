@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
-import { RouteService, RouterService, MatchResults, resolveNext } from '../..';
+import { Route, RouterService, MatchResults, resolveNext } from '../..';
 import { debug } from '../../services/logging';
 
 @Component({
@@ -10,7 +10,7 @@ import { debug } from '../../services/logging';
   shadow: true,
 })
 export class XView {
-  private route: RouteService;
+  private route: Route;
   @Element() el!: HTMLXViewElement;
   @State() match: MatchResults;
 
@@ -62,7 +62,7 @@ export class XView {
 
   componentWillLoad() {
     debug(`x-view: <x-view~loading> ${this.url}`);
-    this.route = new RouteService(
+    this.route = new Route(
       this.el,
       this.url,
       false,

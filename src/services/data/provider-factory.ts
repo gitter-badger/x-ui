@@ -1,10 +1,6 @@
-import { IDataProvider } from './interfaces';
+import { IDataProvider, Providers } from './interfaces';
 import { requireValue } from '../utils/misc-utils';
 import { debug } from '../logging';
-
-export type Providers = {
-  [key: string]: IDataProvider;
-};
 
 const providers: Providers = {};
 

@@ -1,5 +1,5 @@
 import { createStore } from '@stencil/store';
-import { getSessionVisits, getStoredVisits, setStoredVisits, setSessionVisits } from './visit-tracker';
+import { getSessionVisits, getStoredVisits, setStoredVisits, setSessionVisits } from './visits';
 
 class StateModel {
   debug: boolean;

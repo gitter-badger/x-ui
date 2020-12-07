@@ -37,6 +37,7 @@
       transition="fade-in"
       start-url="/start"
       audio
+      debug="true"
       >
       <ion-header>
         <ion-toolbar>
@@ -57,7 +58,7 @@
                 <ion-label><x-data-display expression="{storage:name}" ></ion-label>
               </ion-chip>
             </x-data-show>
-            <x-preferences></x-preferences>
+            <x-preferences-popover-button></x-preferences-popover-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -78,13 +79,15 @@
                   <ion-label>Name</ion-label>
                   <ion-input id="name" type="text" onchange="setValue(this)"></ion-input>
                 </ion-item>
-                <x-view-link url="/start">
-                <ion-button class="ion-float-right">
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                  Next
-                </ion-button>
-              </x-view-link>
               </ion-card-content>
+              <ion-item>
+                <x-view-link url="/start" slot="end">
+                  <ion-button>
+                    <ion-icon name="caret-forward-outline"></ion-icon>
+                    Next
+                  </ion-button>
+                </x-view-link>
+              </ion-item>
             </ion-card>
           </ion-content>
         </x-view-do>
@@ -108,13 +111,15 @@
                 <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
                 <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
                 <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
-                <x-view-link url="/start">
-                  <ion-button class="ion-float-right">
+              </ion-card-content>
+              <ion-item>
+                <x-view-link url="/start" slot="end">
+                  <ion-button>
                     <ion-icon name="caret-forward-outline"></ion-icon>
-                    Continue to Site
+                    Next
                   </ion-button>
                 </x-view-link>
-              </ion-card-content>
+              </ion-item>
             </ion-card>
           </ion-content>
         </x-view-do>
@@ -132,7 +137,6 @@
           <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
           <ion-skeleton-text></ion-skeleton-text>
           <x-view-link url="/page1">Go to page1</x-view-link>
-
         </ion-content>
       </x-view>
       <x-view url="/page1"
@@ -140,15 +144,19 @@
         <x-view-do url="/video-1">
           <ion-content class="ion-justify-center ion-padding">
             <h1>First, a video</h1>
-            <img src="https://via.placeholder.com/728x390.png?text=Pretend+this+is+a+video"/>
-            <div class="ion-float-right" >
-              <x-view-link url="/page1">
-                <ion-button onclick="complete(this)">
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                  Next
-                </ion-button>
-              </x-view-link>
-            </div>
+            <ion-card>
+              <ion-card-media>
+                <img src="https://via.placeholder.com/728x390.png?text=Pretend+this+is+a+video"/>
+              </ion-card-media>
+              <ion-item>
+                <x-view-link url="/page1"  class="ion-float-right">
+                  <ion-button class="ion-float-right">
+                    <ion-icon name="caret-forward-outline"></ion-icon>
+                    Continue to Site
+                  </ion-button>
+                </x-view-link>
+              </ion-item>
+            </ion-card>
           </ion-content>
         </x-view-do>
         <ion-content class="ion-justify-center ion-padding">
@@ -187,6 +195,7 @@
             <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
             <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
             <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+            <x-view-link url="/page2">Back</x-view-link>
           </ion-content>
         </x-view>
       </x-view>

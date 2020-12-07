@@ -3,6 +3,7 @@
   "less.validate": false,
   "scss.validate": false,
   "cSpell.words": [
+    "Delimeter",
     "HTMLX",
     "Themeable",
     "automerge",
@@ -10,6 +11,7 @@
     "hashbang",
     "loadash",
     "noslash",
+    "recalc",
     "unlisten"
   ],
   "stencilTools.style.extension": "scss"

@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // const scssVariables = 'src/scss/variables.scss';
 const { distDirs } = require('./package.json');
@@ -7,6 +8,11 @@ const { distDirs } = require('./package.json');
 export const config: Config = {
   namespace: 'viewdo',
   buildEs5: false,
+  rollupPlugins: {
+    after: [
+      nodePolyfills(),
+    ],
+  },
   plugins: [
     sass(),
   ],

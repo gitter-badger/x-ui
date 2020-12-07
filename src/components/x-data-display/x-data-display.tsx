@@ -36,8 +36,6 @@ export class XDataDisplay {
     target: 'body',
   })
   async dataEvent(ev: CustomEvent<DataEvent>) {
-    // eslint-disable-next-line no-console
-    console.dir(ev);
     if (ev.detail.type === DATA_EVENTS.DataChanged) {
       debug('<x-data-display: <data-provider~changed>');
       await this.resolveExpression();

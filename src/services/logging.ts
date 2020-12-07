@@ -37,14 +37,20 @@ export function error(message: string, err?: Error) {
   console.error(prefix + message, ...colors.error, err);
 }
 
-export const warnIf = (value:boolean, message: any) => {
-  if (!value) {
+export function warnIf(value:boolean, message: any) {
+  if (value) {
     warn(message);
   }
-};
+}
 
-export const logIf = (value:boolean, message: any) => {
-  if (!value) {
+export function logIf(value:boolean, message: any) {
+  if (value) {
     log(message);
   }
-};
+}
+
+export function debugIf(value:boolean, message: any) {
+  if (value) {
+    debug(message);
+  }
+}

@@ -6,6 +6,10 @@ export interface IDataProvider {
   changed: EventEmitter
 }
 
+export type Providers = {
+  [key: string]: IDataProvider;
+};
+
 export type ExpressionContext = {
   [key: string]: any;
 };

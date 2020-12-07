@@ -126,7 +126,7 @@ export function evaluateHTML(content: { childNodes: any }, data: any): string {
   let html = getRootNode(content).outerHTML;
   const cacheKey = `${checksum(data)}:${checksum(html)}`;
 
-  // if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
+  if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
 
   const tokens = getTokens(content);
   let delta = 0; // when replacing tokens, increase/decrease delta length so next token would be replaced in correct position of html

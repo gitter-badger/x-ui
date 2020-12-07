@@ -1,11 +1,10 @@
 
 
 import { getProvider, clearProviders } from './provider-factory';
-import { DATA_TOPIC, DATA_COMMANDS, ProviderListener, ProviderRegistration } from './provider-listener';
-import { IDataProvider } from './interfaces';
+import { ProviderListener } from './provider-listener';
+import { DATA_COMMANDS, DATA_TOPIC, IDataProvider, ProviderRegistration } from './interfaces';
 import { InMemoryProvider } from './provider-memory';
 import { ActionEvent } from '..';
-import { SessionProvider } from './provider-session';
 
 type Listener = (ev:{ type: string, detail: ActionEvent<ProviderRegistration>}) => void
 
@@ -32,9 +31,6 @@ describe('data-provider-listener', () => {
     clearProviders();
   });
 
-  it('static keys', async () => {
-    expect(SessionProvider.KEY).toBe('session')
-  });
 
   it('detects session', async () => {
     mockWindow.sessionStorage = mockDataProvider;

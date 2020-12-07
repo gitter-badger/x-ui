@@ -7,9 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionActivationStrategy } from "./services/actions/interfaces";
 import { ActionEvent } from "./services/actions";
-import { CookieConsent, ProviderRegistration } from "./services/data/provider-listener";
+import { CookieConsent, ProviderRegistration, VisitStrategy } from ".";
 import { HistoryType, ProviderRegistration as ProviderRegistration1 } from "./services";
-import { VisitStrategy } from ".";
+import { DataEvent } from "./services/data/interfaces";
 export namespace Components {
     interface XAction {
     }
@@ -68,10 +68,10 @@ export namespace Components {
          */
         "when": string;
     }
-    interface XPreferences {
-        "icon": string;
-    }
     interface XPreferencesList {
+    }
+    interface XPreferencesPopoverButton {
+        "icon": string;
     }
     interface XSoundToggle {
         "muted": boolean;
@@ -97,6 +97,10 @@ export namespace Components {
           * When true, the global audio component is loaded and subscribed for Event Action requests to play sounds.
          */
         "audio": boolean;
+        /**
+          * Turn on debugging to get helpful messages from the routing, data and action systems.
+         */
+        "debug": boolean;
         /**
           * Set this to false if you don't want the UI component to take up the full page size.   *
          */
@@ -242,17 +246,17 @@ declare global {
         prototype: HTMLXDataShowElement;
         new (): HTMLXDataShowElement;
     };
-    interface HTMLXPreferencesElement extends Components.XPreferences, HTMLStencilElement {
-    }
-    var HTMLXPreferencesElement: {
-        prototype: HTMLXPreferencesElement;
-        new (): HTMLXPreferencesElement;
-    };
     interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
     }
     var HTMLXPreferencesListElement: {
         prototype: HTMLXPreferencesListElement;
         new (): HTMLXPreferencesListElement;
+    };
+    interface HTMLXPreferencesPopoverButtonElement extends Components.XPreferencesPopoverButton, HTMLStencilElement {
+    }
+    var HTMLXPreferencesPopoverButtonElement: {
+        prototype: HTMLXPreferencesPopoverButtonElement;
+        new (): HTMLXPreferencesPopoverButtonElement;
     };
     interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
     }
@@ -306,8 +310,8 @@ declare global {
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-provider-sample": HTMLXDataProviderSampleElement;
         "x-data-show": HTMLXDataShowElement;
-        "x-preferences": HTMLXPreferencesElement;
         "x-preferences-list": HTMLXPreferencesListElement;
+        "x-preferences-popover-button": HTMLXPreferencesPopoverButtonElement;
         "x-sound-toggle": HTMLXSoundToggleElement;
         "x-template-async": HTMLXTemplateAsyncElement;
         "x-theme-toggle": HTMLXThemeToggleElement;
@@ -387,10 +391,10 @@ declare namespace LocalJSX {
          */
         "when": string;
     }
-    interface XPreferences {
-        "icon"?: string;
-    }
     interface XPreferencesList {
+    }
+    interface XPreferencesPopoverButton {
+        "icon"?: string;
     }
     interface XSoundToggle {
         "muted"?: boolean;
@@ -417,6 +421,10 @@ declare namespace LocalJSX {
          */
         "audio"?: boolean;
         /**
+          * Turn on debugging to get helpful messages from the routing, data and action systems.
+         */
+        "debug"?: boolean;
+        /**
           * Set this to false if you don't want the UI component to take up the full page size.   *
          */
         "fullPage"?: boolean;
@@ -424,6 +432,7 @@ declare namespace LocalJSX {
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
         "historyType"?: HistoryType;
+        "onXui:action-events:data"?: (event: CustomEvent<DataEvent>) => void;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
@@ -515,8 +524,8 @@ declare namespace LocalJSX {
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-provider-sample": XDataProviderSample;
         "x-data-show": XDataShow;
-        "x-preferences": XPreferences;
         "x-preferences-list": XPreferencesList;
+        "x-preferences-popover-button": XPreferencesPopoverButton;
         "x-sound-toggle": XSoundToggle;
         "x-template-async": XTemplateAsync;
         "x-theme-toggle": XThemeToggle;
@@ -539,8 +548,8 @@ declare module "@stencil/core" {
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
             "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
-            "x-preferences": LocalJSX.XPreferences & JSXBase.HTMLAttributes<HTMLXPreferencesElement>;
             "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
+            "x-preferences-popover-button": LocalJSX.XPreferencesPopoverButton & JSXBase.HTMLAttributes<HTMLXPreferencesPopoverButtonElement>;
             "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
             "x-template-async": LocalJSX.XTemplateAsync & JSXBase.HTMLAttributes<HTMLXTemplateAsyncElement>;
             "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;

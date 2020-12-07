@@ -33,6 +33,7 @@ export class RouterService {
 
   // eslint-disable-next-line consistent-return
   viewsUpdated = (options: RouteViewOptions = {}) => {
+    this.history.location.visited = true;
     if (this.history && options.scrollToId && this.historyType === 'browser') {
       const elm = this.history.win.document.getElementById(options.scrollToId);
       if (elm) {

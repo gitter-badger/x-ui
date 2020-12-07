@@ -2,7 +2,7 @@ import { RouteViewOptions, MatchResults } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
 import { RouterService } from './router-service';
 
-export class RouteService {
+export class Route {
   public match: MatchResults;
   public scrollOnNextRender: boolean = false;
   public previousMatch: MatchResults | null = null;
