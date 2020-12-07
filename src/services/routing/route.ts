@@ -18,12 +18,13 @@ export class Route {
   ) {
     this.router = RouterService.instance;
     this.router?.onRouteChange(() => {
-      const match = this.router.matchPath({
+      this.previousMatch = this.match;
+      this.match = this.router.matchPath({
         path: this.path,
         exact: this.exact,
         strict: true,
       });
-      matchSetter(match);
+      matchSetter(this.match);
     });
   }
 

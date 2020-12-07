@@ -5,10 +5,14 @@ The root component is the base container for the view-engine and its child compo
 ````html
 <x-ui
   app-title="view.DO Web Components"
-  root-path=""
+  root=""
+  start-url="/"
+  historyType="browser|hash"
   transition="fade-in"
+  scroll-top-offset="0"
+  full-page="false"
+  debug
   audio
-  analytics
   >
   ...
   <x-view ...></x-view>
@@ -24,6 +28,8 @@ It provides an entry-point for the guided-navigation system.
 * Content navigation settings & control actions
 * Document actions
 * Audio preference management & control actions
+
+> If you want to have a special page for routes that are not resolved. Add a **x-view-do**, with **url="*"**.
 
 <!-- Auto Generated Below -->
 

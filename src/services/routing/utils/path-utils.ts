@@ -35,7 +35,6 @@ export const parsePath = (path: string): LocationSegments => {
     hash: hash === '#' ? '' : hash,
     query: {},
     key: '',
-    visited: false,
   };
 };
 

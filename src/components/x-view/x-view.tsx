@@ -116,7 +116,7 @@ export class XView {
   }
 
   render() {
-    if (this.match?.path) {
+    if (this.match?.path || (this.url === '*' && !RouterService.instance.hasMatch)) {
       const classes = `active-route ${this.transition || RouterService.instance.transition || ''}`;
       return (
         <Host class={classes}>

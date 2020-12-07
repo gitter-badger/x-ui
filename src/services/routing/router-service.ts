@@ -13,7 +13,7 @@ const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
 export class RouterService {
   location: LocationSegments;
   history?: RouterHistory;
-
+  hasMatch = false;
   private constructor(
     private writeTask: (t:RafCallback) => void,
     public rootElement: HTMLElement,
@@ -25,6 +25,7 @@ export class RouterService {
   ) {
     this.history = HISTORIES[historyType]((rootElement.ownerDocument as any).defaultView);
     this.history.listen((location: LocationSegments) => {
+      this.hasMatch = false;
       this.history.location = getLocation(location, root);
       this.location = getLocation(location, root);
     });
@@ -33,7 +34,6 @@ export class RouterService {
 
   // eslint-disable-next-line consistent-return
   viewsUpdated = (options: RouteViewOptions = {}) => {
-    this.history.location.visited = true;
     if (this.history && options.scrollToId && this.historyType === 'browser') {
       const elm = this.history.win.document.getElementById(options.scrollToId);
       if (elm) {
@@ -71,7 +71,13 @@ export class RouterService {
   matchPath(options: MatchOptions = {}): MatchResults|null {
     if (!this.location) return null;
 
-    return matchPath(this.location.pathname, options);
+    const match = matchPath(this.location.pathname, options);
+
+    if (match) {
+      this.hasMatch = true;
+    }
+
+    return match;
   }
 
   getUrl(url:string, root: string) {

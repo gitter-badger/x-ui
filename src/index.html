@@ -33,11 +33,11 @@
 
     <ion-app>
     <x-ui
-      app-title="view.DO UI"
+      app-title="view.DO UI Components"
       transition="fade-in"
       start-url="/start"
       audio
-      debug="true"
+      debug
       >
       <ion-header>
         <ion-toolbar>
@@ -48,7 +48,6 @@
               </ion-button>
             </x-view-link>
           </ion-buttons>
-          <ion-title>view.DO UI</ion-title>
           <ion-buttons slot="end">
             <x-data-show when="'{storage:name}{session:name}' != ''">
               <ion-chip>
@@ -81,12 +80,10 @@
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <x-view-link url="/start" slot="end">
-                  <ion-button>
-                    <ion-icon name="caret-forward-outline"></ion-icon>
-                    Next
-                  </ion-button>
-                </x-view-link>
+                <ion-button onclick="complete(this)">
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                  Next
+                </ion-button>
               </ion-item>
             </ion-card>
           </ion-content>
@@ -161,7 +158,7 @@
         </x-view-do>
         <ion-content class="ion-justify-center ion-padding">
           <h1>Page 1</h1>
-          <ion-skeleton-text style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
           <ion-skeleton-text></ion-skeleton-text>
           <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
           <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
@@ -200,6 +197,11 @@
         </x-view>
       </x-view>
 
+      <x-view url="*">
+        <ion-content class="ion-justify-center ion-padding">
+          <h1>Not Found</h1>
+        </ion-content>
+      </x-view>
       <ion-footer>
         <ion-toolbar class="ion-padding">
         </ion-toolbar>
@@ -215,12 +217,9 @@
   </ion-app>
     <script>
       function setValue(el, key) {
-        console.dir(el);
         localStorage.setItem('name', el.value);
       }
-      function complete(el) {
-        el.dispatchEvent(new CustomEvent('x-u:routing:navigate-next'));;
-      }
+      
     </script>
 
   </body>

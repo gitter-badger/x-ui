@@ -43,7 +43,7 @@ export class XDataDisplay {
   }
 
   componentWillLoad() {
-    RouterService.instance.onRouteChange(() => {
+    RouterService.instance?.onRouteChange(() => {
       this.resolveExpression();
     });
   }

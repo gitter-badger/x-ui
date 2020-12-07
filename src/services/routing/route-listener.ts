@@ -1,4 +1,6 @@
 import { ActionEvent, IActionEventListener } from '../actions';
+import { warnIf } from '../logging';
+import { state } from '../state';
 import { RouterService } from './router-service';
 
 export const ROUTE_TOPIC = 'xui:action-events:routing';
@@ -37,6 +39,7 @@ export class RouteListener implements IActionEventListener {
 
   handleEvent(ev: CustomEvent<ActionEvent<NavigateTo|NavigateNext>>) {
     const actionEvent = ev.detail;
+    warnIf(state.debug, `navigation-listener: <navigation-event~${actionEvent.command}>`);
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
       RouterService.instance.returnToParent();
     }

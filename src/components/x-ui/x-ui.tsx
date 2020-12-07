@@ -75,12 +75,6 @@ export class XUI {
   @Prop() audio: boolean;
 
   /**
-   * When true, the analytics events are captured and
-   * delegated using Event Actions.
-   */
-  @Prop() analytics: boolean;
-
-  /**
    * Set this to false if you don't want the UI component
    * to take up the full page size.   *
    */
@@ -146,7 +140,7 @@ export class XUI {
   }
 
   render() {
-    // {this.audio ? <x-audio-player></x-audio-player> : null}
+    {this.audio ? <x-audio-player></x-audio-player> : null}
     return (
       <Host class={{ fill: this.fullPage }}>
         <slot></slot>

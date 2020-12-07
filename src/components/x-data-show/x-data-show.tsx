@@ -26,7 +26,7 @@ export class XDataShow {
   }
 
   componentWillLoad() {
-    RouterService.instance.onRouteChange(() => {
+    RouterService.instance?.onRouteChange(() => {
       this.evaluatePredicate();
     });
   }

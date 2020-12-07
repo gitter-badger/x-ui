@@ -86,10 +86,6 @@ export namespace Components {
     }
     interface XUi {
         /**
-          * When true, the analytics events are captured and delegated using Event Actions.
-         */
-        "analytics": boolean;
-        /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
          */
         "appTitle": string;
@@ -408,10 +404,6 @@ declare namespace LocalJSX {
     interface XThemeToggle {
     }
     interface XUi {
-        /**
-          * When true, the analytics events are captured and delegated using Event Actions.
-         */
-        "analytics"?: boolean;
         /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
          */
