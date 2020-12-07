@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
-import { RouteService, RouterService, MatchResults, resolveNext} from '../..';
+import { RouteService, RouterService, MatchResults, resolveNext } from '../..';
+import { debug } from '../../services/logging';
 
 @Component({
   tag: 'x-view',
@@ -47,18 +48,22 @@ export class XView {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  private get childViewDos() {
-    return Array.from<HTMLXViewDoElement>(this.el.querySelectorAll('x-view-do'));
+  private get childViewDos(): Array<HTMLXViewDoElement> {
+    if (!this.el.hasChildNodes()) return [];
+    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW-DO')
+      .map((v) => v as HTMLXViewDoElement);
   }
 
-  private get childViews() {
-    return Array.from<HTMLXViewElement>(this.el.querySelectorAll('x-view'));
+  private get childViews(): Array<HTMLXViewElement> {
+    if (!this.el.hasChildNodes()) return [];
+    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW')
+      .map((v) => v as HTMLXViewElement);
   }
 
   componentWillLoad() {
+    debug(`x-view: <x-view~loading> ${this.url}`);
     this.route = new RouteService(
       this.el,
-      '',
       this.url,
       false,
       this.pageTitle,
@@ -74,6 +79,7 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
+      debug(`x-view: <x-view~registered> ${c.url}`);
     });
 
     this.childViewDos.forEach((c) => {
@@ -81,14 +87,17 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
+      debug(`x-view: <x-view-do~registered> ${c.url}`);
     });
   }
 
   async componentDidUpdate() {
+    debug(`x-view: <x-view~changed> ${this.url}`);
     await this.performViewViewUpdate();
   }
 
   async componentDidLoad() {
+    debug(`x-view: <x-view~loaded> ${this.url}`);
     await this.performViewViewUpdate();
   }
 

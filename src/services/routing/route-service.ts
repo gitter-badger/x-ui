@@ -9,7 +9,6 @@ export class RouteService {
   private router: RouterService;
   constructor(
     public routeElement: HTMLElement,
-    public root: string,
     public path: string,
     public exact: boolean = false,
     public pageTitle: string,

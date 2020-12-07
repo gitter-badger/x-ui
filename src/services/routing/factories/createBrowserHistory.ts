@@ -75,7 +75,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
     let path = pathname + search + hash;
 
     warnIf(
-      (!basename || hasBasename(path, basename)),
+      !(!basename || hasBasename(path, basename)),
       `${'You are attempting to use a basename on a page whose URL path does not begin '
       + 'with the basename. Expected path "'}${path}" to begin with "${basename}".`,
     );
@@ -165,7 +165,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
 
   const push = (path: string | LocationSegments, state: any) => {
     warnIf(
-      !(typeof path === 'object' && path.state !== undefined && state !== undefined),
+      (typeof path === 'object' && path.state !== undefined && state !== undefined),
       'You should avoid providing a 2nd state argument to push when the 1st '
       + 'argument is a location-like object that already has state; it is ignored',
     );

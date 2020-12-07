@@ -4,6 +4,6 @@
 
 /* Works - pass "my-custom-class" in cssClass to increase specificity */
 .popover .popover-content {
-  z-index: 3;
   background: #222;
+  z-index: 3;
 }

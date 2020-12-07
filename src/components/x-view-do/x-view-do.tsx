@@ -94,7 +94,6 @@ export class XViewDo implements IViewDo {
 
     this.route = new RouteService(
       this.el,
-      '',
       this.url,
       true,
       this.pageTitle,

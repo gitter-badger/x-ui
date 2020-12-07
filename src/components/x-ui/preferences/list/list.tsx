@@ -2,7 +2,7 @@ import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'x-preferences-list',
-  styleUrl: 'preferences.css',
+  styleUrl: 'list.css',
   shadow: false,
 })
 export class PreferencesList {

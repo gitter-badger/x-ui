@@ -8,6 +8,10 @@ export enum ROUTE_COMMANDS {
   NavigateTo = 'navigate-to',
 }
 
+export enum ROUTE_EVENTS {
+  RouteChanged = 'route-changed',
+}
+
 export type NavigateTo = {
   url: string;
 };
