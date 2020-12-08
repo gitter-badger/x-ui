@@ -1,3 +1,5 @@
+jest.mock('../../../services/logging');
+
 import { newSpecPage } from '@stencil/core/testing';
 import { XTemplateAsync } from '../x-template-async';
 
@@ -10,7 +12,7 @@ describe('x-template-async', () => {
     expect(page.root).toEqualHtml(`
       <x-template-async>
         <mock:shadow-root>
-          <slot></slot>
+          <div></div>
         </mock:shadow-root>
       </x-template-async>
     `);

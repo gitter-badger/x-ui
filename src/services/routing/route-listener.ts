@@ -1,29 +1,14 @@
+import { ROUTE_TOPIC, NavigateTo, NavigateNext, ROUTE_COMMANDS } from './interfaces';
 import { ActionEvent, IActionEventListener } from '../actions';
 import { warnIf } from '../logging';
 import { state } from '../state';
 import { RouterService } from './router-service';
 
-export const ROUTE_TOPIC = 'xui:action-events:routing';
-
-export enum ROUTE_COMMANDS {
-  NavigateNext = 'navigate-next',
-  NavigateTo = 'navigate-to',
-}
-
-export enum ROUTE_EVENTS {
-  RouteChanged = 'route-changed',
-}
-
-export type NavigateTo = {
-  url: string;
-};
-
-export type NavigateNext = {
-};
-
 export class RouteListener implements IActionEventListener {
   document: HTMLDocument;
-  eventOptions: EventListenerOptions = { capture: false };
+  eventOptions: EventListenerOptions = {
+    capture: false,
+  };
 
   public initialize(win:Window) {
     this.document = win.document;
@@ -31,7 +16,7 @@ export class RouteListener implements IActionEventListener {
   }
 
   listen() {
-    this.document.addEventListener(
+    this.document.body.addEventListener(
       ROUTE_TOPIC,
       this.handleEvent,
       this.eventOptions);
@@ -41,16 +26,16 @@ export class RouteListener implements IActionEventListener {
     const actionEvent = ev.detail;
     warnIf(state.debug, `navigation-listener: <navigation-event~${actionEvent.command}>`);
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
-      RouterService.instance.returnToParent();
+      RouterService.instance?.returnToParent();
     }
     if (actionEvent.command === ROUTE_COMMANDS.NavigateTo) {
       const { data } = actionEvent as ActionEvent<NavigateTo>;
-      RouterService.instance.history.push(data.url);
+      RouterService.instance?.history.push(data.url);
     }
   }
 
   destroy(): void {
-    this.document.removeEventListener(
+    this.document?.body?.removeEventListener(
       ROUTE_TOPIC,
       this.handleEvent,
       this.eventOptions);

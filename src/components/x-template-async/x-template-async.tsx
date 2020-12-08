@@ -1,4 +1,5 @@
 import { Component, h, State, Prop } from '@stencil/core';
+import { warn } from '../../services/logging';
 
 @Component({
   tag: 'x-template-async',
@@ -15,13 +16,17 @@ export class XTemplateAsync {
   @Prop() url?: string;
 
   private async fetchNewContent(url: string) {
-    const response = await fetch(url);
-    const data = await response.text();
-    this.content = data;
+    try {
+      const response = await fetch(url);
+      const data = await response.text();
+      this.content = data;
+    } catch (error) {
+      warn(`x-template-async: Unable to retrieve from ${this.url}`);
+    }
   }
 
   async componentWillLoad() {
-    if (this.url != null) {
+    if (this.url) {
       await this.fetchNewContent(this.url);
     }
   }

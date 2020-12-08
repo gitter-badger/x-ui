@@ -7,18 +7,7 @@ export const storageAvailable = (win: any, type: 'localStorage' | 'sessionStorag
     storage.removeItem(x);
     return true;
   } catch (e) {
-    return e instanceof DOMException && (
-      // everything except Firefox
-      e.code === 22
-      // Firefox
-      || e.code === 1014
-      // test name field too, because code might not be present
-      // everything except Firefox
-      || e.name === 'QuotaExceededError'
-      // Firefox
-      || e.name === 'NS_ERROR_DOM_QUOTA_REACHED')
-      // acknowledge QuotaExceededError only if there's something already stored
-      && storage.length !== 0;
+    return false;
   }
 };
 
@@ -46,3 +35,9 @@ export const supportsHistory = (win: Window) => {
 export const getConfirmation = (win: Window, message: string, callback: (confirmed: boolean) => {}) => (
   callback(win.confirm(message))
 );
+
+export function removeAllChildNodes(parent: HTMLElement) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};

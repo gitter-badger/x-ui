@@ -1,3 +1,5 @@
+jest.mock('../../../services/logging');
+
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('x-template-async', () => {

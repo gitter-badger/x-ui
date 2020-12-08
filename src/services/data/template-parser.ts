@@ -1,4 +1,6 @@
+import { warn } from '../logging';
 import { checksum } from '../utils/digest-utils';
+import { resolveExpression } from './expression-evaluator';
 
 const tokenTypes = {
   UNDEFINED: 0,
@@ -50,18 +52,6 @@ class Parser {
 
 const parser = new Parser();
 
-function getRootNode(content: { childNodes: any }) {
-  const nodes = content.childNodes;
-  const l = nodes.length;
-  for (let k = 0; k < l; k++) {
-    const node = nodes[k];
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      return node;
-    }
-  }
-  throw new SyntaxError('Template has no root element node');
-}
-
 function getTokenTypeByValue(value: string | string[]) {
   if (value.indexOf('if') === 0) {
     return tokenTypes.IF;
@@ -83,17 +73,17 @@ function getTokenTypeByValue(value: string | string[]) {
 //   endsAt: position of }}
 //   length: total length of expression starting from the first "{" and ending with last "}"
 // }
-function getNextToken(html: string, startAt = 0) {
-  let startPos = html.indexOf('{{', startAt);
+function getNextToken(template: string, startAt = 0) {
+  let startPos = template.indexOf('{{', startAt);
   if (startPos === -1) {
     return false;
   }
-  let endPos = html.indexOf('}}', startPos);
+  let endPos = template.indexOf('}}', startPos);
   if (endPos === -1) {
     throw new SyntaxError('Template expression is not closed with }}');
   }
   startPos += 2;
-  const value = html.substr(startPos, endPos - startPos).trim();
+  const value = template.substr(startPos, endPos - startPos).trim();
   startPos -= 2;
   endPos += 2;
   return {
@@ -106,37 +96,62 @@ function getNextToken(html: string, startAt = 0) {
 }
 
 // get all the strings within {{ }} in template root node
-export function getTokens(content: { childNodes: any }) {
-  const cacheKey = `tokens:${checksum(content)}}`;
+function getTokens(template: string) {
+  const cacheKey = `tokens:${checksum(template)}}`;
+
   if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
 
-  const node = getRootNode(content);
   let token: any = false;
   const tokens = [];
   let startAt = 0;
   // eslint-disable-next-line no-cond-assign
-  while (token = getNextToken(node.outerHTML, startAt)) {
+  while (token = getNextToken(template, startAt)) {
     tokens.push(token);
     startAt = token.endsAt;
   }
   return tokens;
 }
 
-export function evaluateHTML(content: { childNodes: any }, data: any): string {
-  let html = getRootNode(content).outerHTML;
-  const cacheKey = `${checksum(data)}:${checksum(html)}`;
+export function resolveTemplate(template: string, data: any): string {
+  let results = template.slice();
+  const cacheKey = `${checksum(data)}:${checksum(results)}`;
 
   if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
 
-  const tokens = getTokens(content);
+  const tokens = getTokens(results);
   let delta = 0; // when replacing tokens, increase/decrease delta length so next token would be replaced in correct position of html
   tokens.forEach((token) => {
     const replaceWith = parser.parseToken(token, data);
     // eslint-disable-next-line no-param-reassign
-    html = html.substr(0, token.startsAt - delta) + replaceWith + html.substr(token.endsAt - delta);
+    results = results.substr(0, token.startsAt - delta) + replaceWith + results.substr(token.endsAt - delta);
     delta += token.length - replaceWith.length;
   });
 
-  memoryCache.set(cacheKey, html);
-  return html;
+  memoryCache.set(cacheKey, results);
+  return results;
+}
+
+export async function resolveTemplateFromElementData(
+  element: HTMLElement,
+  template: string): Promise<string> {
+  if (template === undefined || template === '') return <string>null;
+
+  const data = {};
+  const tokens = getTokens(template);
+
+  // distinct token values; only the first part if there's dot-notation
+  const promises = [...new Set(tokens.filter((t) => t.type === 1 || t.type === 2)
+    .map((t: { value: string; }) => t.value.split('.')[0]))]
+    .map(async (v:string) => {
+      const attr = element.getAttribute(`data-${v}`);
+      if (attr) {
+        const val = await resolveExpression(attr);
+        data[v] = val;
+      }
+      return null;
+    });
+
+  await Promise.all(promises);
+
+  return resolveTemplate(template, data);
 }

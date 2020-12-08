@@ -24,6 +24,8 @@ export class RouterService {
     public scrollTopOffset = 0,
   ) {
     this.history = HISTORIES[historyType]((rootElement.ownerDocument as any).defaultView);
+    if (!this.history) return;
+
     this.history.listen((location: LocationSegments) => {
       this.hasMatch = false;
       this.history.location = getLocation(location, root);
@@ -35,7 +37,7 @@ export class RouterService {
   // eslint-disable-next-line consistent-return
   viewsUpdated = (options: RouteViewOptions = {}) => {
     if (this.history && options.scrollToId && this.historyType === 'browser') {
-      const elm = this.history.win.document.getElementById(options.scrollToId);
+      const elm = this.history?.win.document.getElementById(options.scrollToId);
       if (elm) {
         return elm.scrollIntoView();
       }
@@ -44,8 +46,11 @@ export class RouterService {
   };
 
   returnToParent() {
-    if (this.history.location?.state && this.history.location.state?.parent) {
-      this.history.replace(this.history.location.state.parent, {
+    const {history} = this;
+    if (!history) return;
+
+    if (history.location?.state && history.location.state?.parent) {
+      history.replace(history.location.state.parent, {
         next: true,
       });
     }
@@ -53,6 +58,7 @@ export class RouterService {
 
   scrollTo(scrollToLocation?: number) {
     const {history} = this;
+    if (!history) return;
 
     if (scrollToLocation == null || !history) {
       return;
@@ -89,7 +95,7 @@ export class RouterService {
   }
 
   onRouteChange(listener: () => void) {
-    this.history.listen(listener);
+    this.history?.listen(listener);
     listener();
   }
 

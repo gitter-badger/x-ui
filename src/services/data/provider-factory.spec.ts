@@ -1,3 +1,5 @@
+jest.mock('../logging');
+
 import { addProvider, getProvider, InMemoryProvider } from '.';
 
 describe('provider-factory', () => {

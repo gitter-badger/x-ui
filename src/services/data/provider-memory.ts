@@ -6,6 +6,7 @@ export class InMemoryProvider implements IDataProvider {
   constructor() {
     this.changed = new EventEmitter();
   }
+
   async get(key: string): Promise<string|null> {
     return this.data[key] || null;
   }

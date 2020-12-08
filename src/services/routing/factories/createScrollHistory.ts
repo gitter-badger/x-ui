@@ -30,7 +30,7 @@ const createScrollHistory = (win: Window, applicationScrollKey: string = 'scroll
       : scrollPositions;
   }
 
-  if ('scrollRestoration' in win.history) {
+  if ('scrollRestoration' in win?.history) {
     window.history.scrollRestoration = 'manual';
   }
 

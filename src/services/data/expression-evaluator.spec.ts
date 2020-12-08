@@ -1,3 +1,5 @@
+jest.mock('../logging');
+
 import { evaluate, evaluateExpression, evaluatePredicate, resolveExpression  } from './expression-evaluator';
 import { InMemoryProvider } from './provider-memory';
 import { addProvider } from './provider-factory';
@@ -212,6 +214,22 @@ describe('evaluatePredicate', () => {
 
   it('evaluates string "value" to be true', async () => {
     let value = await evaluatePredicate('"value"');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates empty strings', async () => {
+    await session.set('a', '');
+    let value = await evaluatePredicate('"{session:a}" == empty');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates null session values', async () => {
+    let value = await evaluatePredicate('{session:bad} == null');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates null session values as empty', async () => {
+    let value = await evaluatePredicate('"{session:bad}" == empty');
     expect(value).toBe(true);
   });
 

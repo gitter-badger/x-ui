@@ -1,17 +1,44 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, Method, Prop } from '@stencil/core';
+import { ActionEvent, debugIf, state } from '../..';
 
 @Component({
   tag: 'x-action',
   shadow: true,
 })
 export class XAction {
+  /**
+  *
+  */
+  @Prop() topic: string;
+  /**
+  *
+  */
+  @Prop() command: string;
+  /**
+  *
+  */
+  @Prop() data: string;
+  /**
+  *
+  */
+  @Method()
+  async getAction(): Promise<{ topic: string, action: ActionEvent<any>}> {
+    return {
+      topic: this.topic,
+      action: {
+        command: this.command,
+        data: this.data,
+      },
+    };
+  }
+
+  componentWillLoad() {
+    debugIf(state.debug, `x-action: <x-action~loading> ${this.topic} ${this.command}`);
+  }
 
   render() {
     return (
-      <Host>
-        <slot></slot>
-      </Host>
+      <Host hidden></Host>
     );
   }
-
 }

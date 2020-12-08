@@ -1,14 +1,13 @@
-import { Element, Component, h, Prop, State, Host, Listen } from '@stencil/core';
+import { Element, Component, h, Prop, State, Fragment, Listen } from '@stencil/core';
 import { RouterService } from '../../services/routing/router-service';
 import {
   DataEvent,
   DATA_EVENTS,
   debug,
-  evaluateHTML,
-  getTokens,
   resolveExpression,
-  warn,
+  resolveTemplateFromElementData,
 } from '../../services';
+import { removeAllChildNodes } from '../../services/utils/dom-utils';
 
 @Component({
   tag: 'x-data-display',
@@ -16,8 +15,9 @@ import {
   shadow: false,
 })
 export class XDataDisplay {
+  private innerTemplate: any;
   @State() value: string;
-  @State() childNodes: string;
+  @State() resolvedHtml: string;
   @Element() el: HTMLXDataDisplayElement;
 
   /**
@@ -43,6 +43,11 @@ export class XDataDisplay {
   }
 
   componentWillLoad() {
+    const template = this.el.firstElementChild as HTMLTemplateElement;
+    this.innerTemplate = template?.innerHTML;
+
+    removeAllChildNodes(this.el);
+
     RouterService.instance?.onRouteChange(() => {
       this.resolveExpression();
     });
@@ -54,48 +59,26 @@ export class XDataDisplay {
 
   private async resolveExpression() {
     if (this.expression) {
-      const result = await resolveExpression(this.expression);
-      if (result !== this.value) this.value = result;
+      this.value = await resolveExpression(this.expression);
     }
-    await this.resolveInnerTemplate();
-  }
-
-  private async resolveInnerTemplate() {
-    const template = this.el.firstElementChild as HTMLTemplateElement;
-    if (template === undefined || !template?.content) return;
-
-    try {
-      const data = {};
-      const tokens = getTokens(template.content);
-
-      // distinct token values; only the first part if there's dot-notation
-      const promises = [...new Set(tokens.filter((t) => t.type === 1 || t.type === 2)
-        .map((t: { value: string; }) => t.value.split('.')[0]))]
-        .map(async (v:string) => {
-          const attr = this.el.getAttribute(`data-${v}`);
-          if (attr) {
-            const val = await resolveExpression(attr);
-            data[v] = val;
-          }
-          return null;
-        });
-
-      await Promise.all(promises);
-
-      this.childNodes = evaluateHTML(template.content, data);
-    } catch (error) {
-      warn(error);
+    if (this.innerTemplate) {
+      this.resolvedHtml = await resolveTemplateFromElementData(this.el, this.innerTemplate);
     }
   }
 
   render() {
-    return (
-      <Host>
-        { this.value }
-        { this.childNodes
-          ? <span innerHTML={this.childNodes}></span>
-          : null }
-      </Host>
-    );
+    if (this.resolvedHtml) {
+      return (
+        <div class={this.class} innerHTML={this.resolvedHtml}>
+          { this.value }
+        </div>
+      );
+    }
+
+    if (this.value) {
+      return <Fragment>{ this.value }</Fragment>;
+    }
+
+    return null;
   }
 }

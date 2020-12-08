@@ -22,10 +22,10 @@
 ### Graph
 ```mermaid
 graph TD;
-  x-preferences --> ion-button
-  x-preferences --> ion-icon
+  x-preferences-popover-button --> ion-button
+  x-preferences-popover-button --> ion-icon
   ion-button --> ion-ripple-effect
-  style x-preferences fill:#f9f,stroke:#333,stroke-width:4px
+  style x-preferences-popover-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

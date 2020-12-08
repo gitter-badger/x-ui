@@ -1,4 +1,4 @@
-
+jest.mock('../logging');
 
 import { getProvider, clearProviders } from './provider-factory';
 import { ProviderListener } from './provider-listener';
@@ -8,6 +8,15 @@ import { ActionEvent } from '..';
 
 type Listener = (ev:{ type: string, detail: ActionEvent<ProviderRegistration>}) => void
 
+class MockDataProvider extends InMemoryProvider {
+  setItem(x,y) {
+    this.set(x, y);
+  }
+  removeItem(_x) {
+    delete this.data[_x];
+  }
+}
+
 describe('data-provider-listener', () => {
   let subject: ProviderListener = null;
   let mockWindow:any;
@@ -15,31 +24,36 @@ describe('data-provider-listener', () => {
   let listeners:Array<Listener> = [];
 
   beforeEach(() => {
-    subject = new ProviderListener();
-    mockWindow = {};
-    mockWindow.document = {};
-    mockWindow.document.addEventListener = (evt:string, func:Listener, _opts) => {
-      expect(evt).toBe(DATA_TOPIC);
-      listeners.push(func);
-    };
-    mockWindow.document.removeEventListener = (evt:string, func: Listener, _opts) => {
-      expect(evt).toBe(DATA_TOPIC);
-      listeners = listeners.filter(f => f !== func);
-    };
-    mockDataProvider = new InMemoryProvider();
-    listeners = [];
+    mockDataProvider = new MockDataProvider();
     clearProviders();
+    listeners = [];
+    subject = new ProviderListener();
+    mockWindow = {
+      document:{
+        addEventListener: (evt:string, func:Listener, _opts) => {
+          expect(evt).toBe(DATA_TOPIC);
+          listeners.push(func);
+        },
+        removeEventListener: (evt:string, func: Listener, _opts) => {
+          expect(evt).toBe(DATA_TOPIC);
+          listeners = listeners.filter(f => f !== func);
+        }
+      },
+      sessionStorage: mockDataProvider,
+      localStorage: mockDataProvider,
+    };
   });
 
 
   it('detects session', async () => {
-    mockWindow.sessionStorage = mockDataProvider;
     subject.initialize(mockWindow);
     const session = getProvider('session');
     expect(session).toBeDefined();
   });
 
+
   it('detects session failed', async () => {
+    delete mockWindow.sessionStorage;
     subject.initialize(mockWindow);
     const session = getProvider('session');
     expect(session).toBeNull();
@@ -47,7 +61,6 @@ describe('data-provider-listener', () => {
 
 
   it('detects storage', async () => {
-    mockWindow.localStorage = mockDataProvider;
     subject.initialize(mockWindow);
     const storage = getProvider('storage');
     expect(storage).toBeDefined();
@@ -55,19 +68,18 @@ describe('data-provider-listener', () => {
 
 
   it('detects storage failed', async () => {
+    delete mockWindow.localStorage;
     subject.initialize(mockWindow);
     const storage = getProvider('storage');
     expect(storage).toBeNull();
   });
 
   it('eventListener: registers listeners events', async () => {
-    mockWindow.localStorage = mockDataProvider;
     subject.initialize(mockWindow);
     expect(listeners.length).toBe(1);
   });
 
   it('eventListener: handles listeners events', async () => {
-    mockWindow.localStorage = mockDataProvider;
     subject.initialize(mockWindow);
     expect(listeners.length).toBe(1);
     const event = new CustomEvent<ActionEvent<ProviderRegistration>>(
@@ -83,7 +95,7 @@ describe('data-provider-listener', () => {
       });
 
     let listener = listeners[0];
-    listener.call(this, event);
+    listener.call(subject, event);
 
     const mock = getProvider('mock');
     expect(mock).toBeDefined();

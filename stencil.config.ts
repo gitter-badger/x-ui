@@ -19,7 +19,7 @@ export const config: Config = {
   globalStyle: 'src/global/app.scss',
   globalScript: 'src/global/app.ts',
   devServer: {
-    openBrowser: true,
+    openBrowser: false,
     reloadStrategy: 'pageReload',
     port: 3333,
   },

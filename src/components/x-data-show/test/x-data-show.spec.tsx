@@ -1,3 +1,5 @@
+jest.mock('../../../services/logging');
+
 import { newSpecPage } from '@stencil/core/testing';
 import { XDataShow } from '../x-data-show';
 
@@ -6,12 +8,10 @@ describe('x-data-show', () => {
     const page = await newSpecPage({
       components: [XDataShow],
       html: `<x-data-show when="false"><p>Hide Me</p></x-data-show>`,
+      supportsShadowDom: false
     });
     expect(page.root).toEqualHtml(`
       <x-data-show when="false" hidden="">
-        <mock:shadow-root>
-          <slot></slot>
-        </mock:shadow-root>
         <p>
           Hide Me
         </p>
@@ -23,12 +23,10 @@ describe('x-data-show', () => {
     const page = await newSpecPage({
       components: [XDataShow],
       html: `<x-data-show when="true"><p>Show Me</p></x-data-show>`,
+      supportsShadowDom: false
     });
     expect(page.root).toEqualHtml(`
       <x-data-show when="true">
-        <mock:shadow-root>
-          <slot></slot>
-        </mock:shadow-root>
         <p>
           Show Me
         </p>

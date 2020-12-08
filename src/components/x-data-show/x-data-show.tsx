@@ -5,7 +5,7 @@ import { DataEvent, DATA_EVENTS } from '../../services/data/interfaces';
 @Component({
   tag: 'x-data-show',
   styleUrl: 'x-data-show.scss',
-  shadow: true,
+  shadow: false,
 })
 export class XDataShow {
   @State() show = true;
@@ -18,7 +18,9 @@ export class XDataShow {
    */
   @Prop() when!: string;
 
-  @Listen('xui:action-events:data')
+  @Listen('xui:action-events:data', {
+    target: 'body',
+  })
   async dataEvent(ev: DataEvent) {
     if (ev.type === DATA_EVENTS.DataChanged) {
       await this.evaluatePredicate();

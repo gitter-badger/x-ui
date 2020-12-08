@@ -68,6 +68,15 @@
           page-title="Welcome New User"
           when="'{storage:name}{session:name}' == ''"
           >
+          <x-action-activator
+            activate="onEvent"
+            element-query="#next"
+            event-name="click">
+            <x-action
+              topic="xui:action-events:routing"
+              command="navigate-next"
+            ></x-action>
+          </x-action-activator>
           <ion-content class="ion-justify-center ion-padding">
             <ion-card>
               <ion-card-header>
@@ -80,7 +89,7 @@
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <ion-button onclick="complete(this)">
+                <ion-button id="next">
                   <ion-icon name="caret-forward-outline"></ion-icon>
                   Next
                 </ion-button>
@@ -176,11 +185,20 @@
             <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
             <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
           </x-data-show>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <ion-skeleton-text></ion-skeleton-text>
           <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
           <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
           <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+          <x-data-display data-favorite="{session:favorite?Unknown}" >
+            <template>
+              <h3>Favorite thing: {{favorite}}</h3>
+              <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+              <ion-skeleton-text></ion-skeleton-text>
+              <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+            </template>
+          </x-data-display>
+
           <x-view-link url="/page2/info">Go to Nested Info</x-view-link>
         </ion-content>
         <x-view url="/info"
@@ -202,6 +220,7 @@
           <h1>Not Found</h1>
         </ion-content>
       </x-view>
+
       <ion-footer>
         <ion-toolbar class="ion-padding">
         </ion-toolbar>
@@ -219,7 +238,7 @@
       function setValue(el, key) {
         localStorage.setItem('name', el.value);
       }
-      
+
     </script>
 
   </body>

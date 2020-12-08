@@ -5,20 +5,28 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy } from "./services/actions/interfaces";
-import { ActionEvent } from "./services/actions";
-import { CookieConsent, ProviderRegistration, VisitStrategy } from ".";
+import { ActionActivationStrategy, ActionEvent, CookieConsent, ProviderRegistration, VisitStrategy } from ".";
+import { ActionEvent as ActionEvent1 } from "./services/actions";
 import { HistoryType, ProviderRegistration as ProviderRegistration1 } from "./services";
 import { DataEvent } from "./services/data/interfaces";
 export namespace Components {
     interface XAction {
+        "command": string;
+        "data": string;
+        "getAction": () => Promise<{ topic: string; action: ActionEvent<any>; }>;
+        "topic": string;
     }
     interface XActionActivator {
         /**
           * The activation strategy to use for the contained actions.
          */
         "activate": ActionActivationStrategy;
-        "eventName": string;
+        /**
+          * The element to watch for events or visibility,
+         */
+        "elementQuery"?: string;
+        "eventName"?: string;
+        "time"?: number;
     }
     interface XAudioControl {
     }
@@ -319,13 +327,22 @@ declare global {
 }
 declare namespace LocalJSX {
     interface XAction {
+        "command"?: string;
+        "data"?: string;
+        "topic"?: string;
     }
     interface XActionActivator {
         /**
           * The activation strategy to use for the contained actions.
          */
-        "activate"?: ActionActivationStrategy;
-        "eventName": string;
+        "activate": ActionActivationStrategy;
+        /**
+          * The element to watch for events or visibility,
+         */
+        "elementQuery"?: string;
+        "eventName"?: string;
+        "onNavigationEvents"?: (event: CustomEvent<ActionEvent<any>>) => void;
+        "time"?: number;
     }
     interface XAudioControl {
     }

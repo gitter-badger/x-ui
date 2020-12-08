@@ -1,4 +1,6 @@
-import {  newSpecPage } from '@stencil/core/testing';
+jest.mock('../../../services/logging');
+
+import { newSpecPage } from '@stencil/core/testing';
 import { XUI } from '../x-ui';
 
 describe('x-ui', () => {

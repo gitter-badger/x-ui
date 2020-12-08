@@ -31,9 +31,9 @@ export class Route {
   async loadCompleted() {
     let routeViewOptions: RouteViewOptions = {};
 
-    if (this.router.history && this.router.history.location.hash) {
+    if (this.router?.history && this.router?.history.location.hash) {
       routeViewOptions = {
-        scrollToId: this.router.history.location.hash.substr(1),
+        scrollToId: this.router?.history.location.hash.substr(1),
       };
     } else if (this.scrollTopOffset) {
       routeViewOptions = {

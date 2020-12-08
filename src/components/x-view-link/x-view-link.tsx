@@ -1,5 +1,6 @@
 import { Element, Component, State, Prop, h } from '@stencil/core';
 import { MatchResults } from '../..';
+import { Route } from '../../services/routing/route';
 import { RouterService } from '../../services/routing/router-service';
 
 @Component({
@@ -8,7 +9,7 @@ import { RouterService } from '../../services/routing/router-service';
   shadow: true,
 })
 export class XViewLink {
-  private router: RouterService;
+  private route: Route;
   @Element() el!: HTMLXViewLinkElement;
   @State() match: MatchResults | null = null;
 
@@ -83,25 +84,27 @@ export class XViewLink {
   @Prop() ariaLabel?: string;
 
   componentWillLoad() {
-    this.router = RouterService.instance;
-    if (this.router) {
-      this.router.onRouteChange(() => {
-        this.match = this.router.matchPath({
-          path: this.url,
-          exact: this.exact,
-          strict: this.strict,
-        });
-      });
-    }
+    this.route = new Route(
+      this.el,
+      this.url,
+      this.exact,
+      null,
+      null,
+      null,
+      (m) => {
+        this.match = m;
+      },
+    );
   }
 
   private handleClick(e: MouseEvent) {
-    if (this.router.isModifiedEvent(e) || !this.router.history || !this.url || !this.router.root) {
+    const router = RouterService.instance;
+    if (!router || router?.isModifiedEvent(e) || !router?.history || !this.url || !router?.root) {
       return;
     }
 
     e.preventDefault();
-    this.router.history.push(this.router.getUrl(this.url, this.router.root));
+    router.history?.push(router.getUrl(this.url, router.root));
   }
 
   // Get the URL for this route link without the root from the router

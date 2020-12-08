@@ -1,5 +1,13 @@
 import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
-import { Route, MatchResults, state, IViewDo, RouterService, VisitStrategy } from '../..';
+import {
+  Route,
+  MatchResults,
+  state,
+  IViewDo,
+  RouterService,
+  VisitStrategy,
+  debugIf,
+} from '../..';
 
 @Component({
   tag: 'x-view-do',
@@ -70,16 +78,20 @@ export class XViewDo implements IViewDo {
    */
   @Prop() visited = false;
 
+  private get parent(): HTMLXViewElement {
+    return this.el.parentElement as HTMLXViewElement;
+  }
+
   get parentUrl() {
-    return this.el.parentElement.getAttribute('url');
+    return this.parent?.getAttribute('url');
   }
 
   get root() {
-    return this.el.parentElement.getAttribute('root');
+    return this.parent?.getAttribute('root');
   }
 
   get urlKey() {
-    return `${window.location.href}`;
+    return `${window?.location?.href || 'fake'}`;
   }
 
   async componentDidUpdate() {
@@ -87,6 +99,11 @@ export class XViewDo implements IViewDo {
   }
 
   componentWillLoad() {
+    debugIf(state.debug, `x-view-do: <x-view-do~loading> ${this.url}`);
+    if (this.transition === undefined) {
+      this.transition = this.parent?.transition;
+    }
+
     this.visited = (this.visited
       // eslint-disable-next-line eqeqeq
       || state.sessionVisits.includes(this.urlKey)
@@ -97,7 +114,7 @@ export class XViewDo implements IViewDo {
       this.url,
       true,
       this.pageTitle,
-      this.transition || RouterService.instance.transition,
+      this.transition,
       this.scrollTopOffset,
       // eslint-disable-next-line no-return-assign
       (match) => {
@@ -107,9 +124,10 @@ export class XViewDo implements IViewDo {
   }
 
   async componentDidLoad() {
+    debugIf(state.debug, `x-view-do: <x-view-do~loaded> ${this.url}`);
     // if we were just redirected here, return home
-    if (this.visited && RouterService.instance.location.state?.parent) {
-      RouterService.instance.history.replace(RouterService.instance.location.state.parent);
+    if (this.visited && RouterService.instance?.location.state?.parent) {
+      RouterService.instance?.history.replace(RouterService.instance.location.state.parent);
     }
     await this.route.loadCompleted();
   }
@@ -125,7 +143,7 @@ export class XViewDo implements IViewDo {
   }
 
   render() {
-    const classes = `overlay ${this.transition || RouterService.instance.transition}`;
+    const classes = `overlay ${this.transition}`;
 
     if (this.match?.isExact) {
       return (

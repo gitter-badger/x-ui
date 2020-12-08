@@ -7,10 +7,19 @@
 
 ## Properties
 
-| Property                 | Attribute    | Description                                               | Type                                                                                                                                                                                      | Default                            |
-| ------------------------ | ------------ | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `activate`               | `activate`   | The activation strategy to use for the contained actions. | `ActionActivationStrategy.onElementEvent \| ActionActivationStrategy.onEnter \| ActionActivationStrategy.onExit \| ActionActivationStrategy.onTime \| ActionActivationStrategy.onUIEvent` | `ActionActivationStrategy.onEnter` |
-| `eventName` _(required)_ | `event-name` |                                                           | `string`                                                                                                                                                                                  | `undefined`                        |
+| Property                | Attribute       | Description                                               | Type                                                                                                                                                                               | Default     |
+| ----------------------- | --------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `activate` _(required)_ | `activate`      | The activation strategy to use for the contained actions. | `ActionActivationStrategy.onEnter \| ActionActivationStrategy.onEvent \| ActionActivationStrategy.onExit \| ActionActivationStrategy.onTime \| ActionActivationStrategy.onVisible` | `undefined` |
+| `elementQuery`          | `element-query` | The element to watch for events or visibility,            | `string`                                                                                                                                                                           | `undefined` |
+| `eventName`             | `event-name`    |                                                           | `string`                                                                                                                                                                           | `undefined` |
+| `time`                  | `time`          |                                                           | `number`                                                                                                                                                                           | `undefined` |
+
+
+## Events
+
+| Event              | Description | Type                                                   |
+| ------------------ | ----------- | ------------------------------------------------------ |
+| `navigationEvents` |             | `CustomEvent<ActionEvent<NavigateTo \| NavigateNext>>` |
 
 
 ----------------------------------------------

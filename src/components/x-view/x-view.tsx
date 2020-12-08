@@ -1,8 +1,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
-import { Route, RouterService, MatchResults, resolveNext } from '../..';
-import { debug } from '../../services/logging';
+import {
+  debugIf,
+  Route,
+  RouterService,
+  MatchResults,
+  resolveNext,
+  state,
+} from '../..';
 
 @Component({
   tag: 'x-view',
@@ -48,6 +54,10 @@ export class XView {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
+  private get parent(): HTMLXViewElement | HTMLXUiElement {
+    return this.el.parentElement as HTMLXViewElement | HTMLXUiElement;
+  }
+
   private get childViewDos(): Array<HTMLXViewDoElement> {
     if (!this.el.hasChildNodes()) return [];
     return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW-DO')
@@ -61,13 +71,17 @@ export class XView {
   }
 
   componentWillLoad() {
-    debug(`x-view: <x-view~loading> ${this.url}`);
+    debugIf(state.debug, `x-view: <x-view~loading> ${this.url}`);
+    if (this.transition === undefined) {
+      this.transition = this.parent.transition;
+    }
+
     this.route = new Route(
       this.el,
       this.url,
       false,
       this.pageTitle,
-      this.transition || RouterService.instance.transition,
+      this.transition,
       this.scrollTopOffset,
       (match) => {
         this.match = {...match};
@@ -79,7 +93,7 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
-      debug(`x-view: <x-view~registered> ${c.url}`);
+      debugIf(state.debug, `x-view: <x-view~registered> ${c.url}`);
     });
 
     this.childViewDos.forEach((c) => {
@@ -87,21 +101,20 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
-      debug(`x-view: <x-view-do~registered> ${c.url}`);
+      debugIf(state.debug, `x-view: <x-view-do~registered> ${c.url}`);
     });
   }
 
   async componentDidUpdate() {
-    debug(`x-view: <x-view~changed> ${this.url}`);
-    await this.performViewViewUpdate();
+    await this.performViewUpdate();
   }
 
   async componentDidLoad() {
-    debug(`x-view: <x-view~loaded> ${this.url}`);
-    await this.performViewViewUpdate();
+    debugIf(state.debug, `x-view: <x-view~loaded> ${this.url}`);
+    await this.performViewUpdate();
   }
 
-  private async performViewViewUpdate() {
+  private async performViewUpdate() {
     await this.route.loadCompleted();
     if (this.match?.isExact) {
       const nextDo = await resolveNext(this.childViewDos.map((x) => {
@@ -110,14 +123,14 @@ export class XView {
       }));
       if (nextDo) {
         // eslint-disable-next-line no-console
-        RouterService.instance.history.replace(nextDo.url, { parent: this.url });
+        RouterService.instance?.history.replace(nextDo.url, { parent: this.url });
       }
     }
   }
 
   render() {
     if (this.match?.path || (this.url === '*' && !RouterService.instance.hasMatch)) {
-      const classes = `active-route ${this.transition || RouterService.instance.transition || ''}`;
+      const classes = `active-route ${this.transition}`;
       return (
         <Host class={classes}>
           <slot></slot>

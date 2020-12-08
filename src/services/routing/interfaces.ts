@@ -1,9 +1,27 @@
+export const ROUTE_TOPIC = 'xui:action-events:routing';
+
+export enum ROUTE_COMMANDS {
+  NavigateNext = 'navigate-next',
+  NavigateTo = 'navigate-to',
+}
+
+export enum ROUTE_EVENTS {
+  RouteChanged = 'route-changed',
+}
+
+export type NavigateTo = {
+  url: string;
+};
+
+export type NavigateNext = {
+};
+
 export type Path = string | RegExp | Array<string | RegExp>;
 
-export interface ActiveRouter {
-  subscribe: (location: LocationSegments, nextListeners: RouteSubscription[], routeSubscription: RouteSubscription) => Listener
-  dispatch: (location: LocationSegments, nextListeners: RouteSubscription[]) => void;
-}
+// export interface ActiveRouter {
+//   subscribe: (location: LocationSegments, nextListeners: RouteSubscription[], routeSubscription: RouteSubscription) => Listener
+//   dispatch: (location: LocationSegments, nextListeners: RouteSubscription[]) => void;
+// }
 
 export type Prompt = (location: LocationSegments, action: string) => string;
 

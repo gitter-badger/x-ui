@@ -71,6 +71,8 @@ export async function resolveExpression(valueExpression: string): Promise<string
 export function evaluate(expression: string, context:ExpressionContext = {}): number|boolean|string {
   requireValue(expression, 'expression');
   try {
+    context.null = null;
+    context.empty = '';
     return expressionEvaluator.evaluate(expression.toLowerCase(), context);
   } catch (err) {
     warn(`An exception was raised evaluating expression '${expression}': ${err}`, err);
@@ -103,6 +105,11 @@ export async function evaluateExpression(expression: string, context: Expression
  * @return {*}  {Promise<boolean>}
  */
 export async function evaluatePredicate(expression: string, context:ExpressionContext = {}): Promise<boolean> {
-  const result = await evaluateExpression(expression, context);
-  return toBoolean(result);
+  try {
+    const result = await evaluateExpression(expression, context);
+    return toBoolean(result);
+  } catch (error) {
+    warn(`expression-evaluator: ${error}`);
+    return false;
+  }
 }

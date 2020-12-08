@@ -1,3 +1,5 @@
+jest.mock('../../../services/logging');
+
 import { newSpecPage } from '@stencil/core/testing';
 import { XDataProviderSample } from '../x-data-provider-sample';
 
