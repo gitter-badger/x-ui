@@ -1,7 +1,5 @@
 import { Element, Component, State, Prop, h } from '@stencil/core';
-import { MatchResults } from '../..';
-import { Route } from '../../services/routing/route';
-import { RouterService } from '../../services/routing/router-service';
+import { MatchResults, RouterService } from '../..';
 
 @Component({
   tag: 'x-view-link',
@@ -9,7 +7,6 @@ import { RouterService } from '../../services/routing/router-service';
   shadow: true,
 })
 export class XViewLink {
-  private route: Route;
   @Element() el!: HTMLXViewLinkElement;
   @State() match: MatchResults | null = null;
 
@@ -84,17 +81,12 @@ export class XViewLink {
   @Prop() ariaLabel?: string;
 
   componentWillLoad() {
-    this.route = new Route(
-      this.el,
-      this.url,
-      this.exact,
-      null,
-      null,
-      null,
-      (m) => {
-        this.match = m;
-      },
-    );
+    RouterService.instance?.onRouteChange(() => {
+      this.match = RouterService.instance.matchPath({
+        path: this.url,
+        exact: this.exact,
+      });
+    });
   }
 
   private handleClick(e: MouseEvent) {

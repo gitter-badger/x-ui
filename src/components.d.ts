@@ -37,15 +37,19 @@ export namespace Components {
     }
     interface XDataDisplay {
         /**
-          * The data expression to obtain a value for rendering as inner-text for this element.
+          * The class to put on the containing div element.
          */
-        "class": string;
+        "class"?: string;
+        /**
+          * The data predicate to obtain a boolean for rendering this element. If left blank, the expression property is used.
+         */
+        "condition"?: string;
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}
           * @default null
          */
-        "expression": string;
+        "expression"?: string;
     }
     interface XDataProviderCookie {
         /**
@@ -341,7 +345,6 @@ declare namespace LocalJSX {
          */
         "elementQuery"?: string;
         "eventName"?: string;
-        "onNavigationEvents"?: (event: CustomEvent<ActionEvent<any>>) => void;
         "time"?: number;
     }
     interface XAudioControl {
@@ -353,9 +356,13 @@ declare namespace LocalJSX {
     }
     interface XDataDisplay {
         /**
-          * The data expression to obtain a value for rendering as inner-text for this element.
+          * The class to put on the containing div element.
          */
         "class"?: string;
+        /**
+          * The data predicate to obtain a boolean for rendering this element. If left blank, the expression property is used.
+         */
+        "condition"?: string;
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}

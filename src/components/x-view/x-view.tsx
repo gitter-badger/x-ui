@@ -123,14 +123,14 @@ export class XView {
       }));
       if (nextDo) {
         // eslint-disable-next-line no-console
-        RouterService.instance?.history.replace(nextDo.url, { parent: this.url });
+        RouterService.instance?.history.push(nextDo.url, { parent: this.url });
       }
     }
   }
 
   render() {
     if (this.match?.path || (this.url === '*' && !RouterService.instance.hasMatch)) {
-      const classes = `active-route ${this.transition}`;
+      const classes = `${this.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
         <Host class={classes}>
           <slot></slot>

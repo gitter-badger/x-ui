@@ -1,7 +1,7 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
 import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration, DATA_EVENTS, CookieConsent } from '../..';
-import { CookieProvider, evaluatePredicate } from '../../services';
+import { CookieProvider, debugIf, evaluatePredicate, state } from '../../services';
 
 @Component({
   tag: 'x-data-provider-cookie',
@@ -34,6 +34,9 @@ export class XDataProviderCookie {
    */
   @Event({
     eventName: DATA_TOPIC,
+    bubbles: true,
+    composed: true,
+    cancelable: true,
   }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
 
   /**
@@ -43,11 +46,15 @@ export class XDataProviderCookie {
    */
   @Event({
     eventName: DATA_TOPIC,
+    bubbles: true,
+    composed: true,
+    cancelable: true,
   }) didConsent: EventEmitter<ActionEvent<CookieConsent>>;
 
   private consentKey = 'cookie-consent';
 
-  async componentWillRender() {
+  async componentWillLoad() {
+    debugIf(state.debug, 'cookie-data-provider: loading');
     const consented = await this.customProvider.get(this.consentKey);
     if (consented) {
       this.hide = true;

@@ -12,7 +12,7 @@ import {
   IActionEventListener,
   LocationSegments,
   log,
-  debug,
+  debugIf,
   ProviderListener,
   RouterService,
   state } from '../../services';
@@ -94,7 +94,7 @@ export class XUI {
   }) dataEvent: EventEmitter<DataEvent>;
 
   componentWillLoad() {
-    this.debug ? log('Initializing in debug mode') : log('Initializing');
+    this.debug ? log('xui: initializing <debug>') : log('xui: initializing');
 
     state.debug = this.debug;
 
@@ -110,15 +110,16 @@ export class XUI {
 
     const dataListener = new ProviderListener();
     dataListener.changed.on(DATA_EVENTS.DataChanged, () => {
-      debug(`x-ui: <data-provider~changed>`)
+      debugIf(state.debug, `x-ui: <data-provider~changed>`)
       this.dataEvent.emit({ type: DATA_EVENTS.DataChanged })
     });
 
-    this.addListener(dataListener);
-    this.addListener(new RouteListener());
+    this.addListener('data', dataListener);
+    this.addListener('route', new RouteListener());
   }
 
-  private addListener(listener: IActionEventListener) {
+  private addListener(name: string, listener: IActionEventListener) {
+    debugIf(state.debug, `x-ui: <${name}-listener~registered>`);
     listener.initialize(window);
     this.listeners.push(listener);
   }
@@ -136,7 +137,7 @@ export class XUI {
   }
 
   componentDidLoad() {
-    log('Initialized');
+    log('x-xui: initialized');
   }
 
   render() {

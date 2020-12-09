@@ -1,17 +1,22 @@
-x-view-do {
-  --background-color: val(--ionic-background-color, #fff);
-  --color: val(--ionic-text-color, #000);
-  display: none;
-}
+:host {
+  --padding: 0;
+  --padding-bottom: 16px;
+  --padding-top: 16px;
+  --background-color: #fff;
+  --color: #000;
 
-:host(.overlay) {
   background-color: var(--background-color);
-  bottom: 0;
   color: var(--color);
   display: flex;
-  left: 0;
+  height: 100%;
+  overflow: auto;
+  padding: val(--padding);
+  padding-bottom: val(--padding-bottom);
+  padding-inline-end: var(--padding);
+  padding-inline-start: var(--padding);
+  padding-top: val(--padding-top);
   position: absolute;
-  right: 0;
-  top: 0;
+  width: 100%;
   z-index: 1;
 }
+

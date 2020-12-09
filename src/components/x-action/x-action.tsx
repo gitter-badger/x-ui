@@ -27,7 +27,7 @@ export class XAction {
       topic: this.topic,
       action: {
         command: this.command,
-        data: this.data,
+        data: JSON.parse(this.data || '{}'),
       },
     };
   }

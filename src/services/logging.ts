@@ -29,8 +29,8 @@ export function debug(message: string) {
   console.debug(prefix + message, ...colors.debug);
 }
 
-export function warn(warning: string, ...params: any[]) {
-  console.warn(prefix + warning, ...colors.warn, params);
+export function warn(warning: string) {
+  console.warn(prefix + warning, ...colors.warn);
 }
 
 export function error(message: string, err?: Error) {

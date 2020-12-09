@@ -9,6 +9,7 @@ describe('audio-player', () => {
       components: [AudioPlayer],
       html: `<x-audio-player></x-audio-player>`,
     });
+    expect(page.root).toBeDefined();
     // TODO: Audio player
     // expect(page.root).toEqualHtml(`
     //   <audio-player>

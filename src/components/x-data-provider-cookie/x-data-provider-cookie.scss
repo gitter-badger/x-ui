@@ -1,12 +1,14 @@
 :host {
+  --background-color: #fff;
+  --color: #000;
   display: block;
 }
 
 div {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: val(--background-color);
+  color: val(--color);
   justify-content: center;
   padding: 1em;
-  color: var(--xui-text-color, #000)
 }
 
 button {

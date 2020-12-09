@@ -1,5 +1,3 @@
-import { warn } from '../logging';
-import { checksum } from '../utils/digest-utils';
 import { resolveExpression } from './expression-evaluator';
 
 const tokenTypes = {
@@ -9,8 +7,6 @@ const tokenTypes = {
   IF: 3,
   ENDIF: 4,
 };
-
-const memoryCache = new Map();
 
 class Parser {
   parseToken(token: { type: string; value: any }, data: any) {
@@ -22,7 +18,7 @@ class Parser {
     if (data[value] === undefined) {
       return '';
     }
-    return data[value].toString();
+    return data[value]?.toString();
   }
 
   // NESTED_VAR
@@ -96,11 +92,7 @@ function getNextToken(template: string, startAt = 0) {
 }
 
 // get all the strings within {{ }} in template root node
-function getTokens(template: string) {
-  const cacheKey = `tokens:${checksum(template)}}`;
-
-  if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
-
+export function getTokens(template: string) {
   let token: any = false;
   const tokens = [];
   let startAt = 0;
@@ -114,32 +106,20 @@ function getTokens(template: string) {
 
 export function resolveTemplate(template: string, data: any): string {
   let results = template.slice();
-  const cacheKey = `${checksum(data)}:${checksum(results)}`;
-
-  if (memoryCache.has(cacheKey)) return memoryCache.get(cacheKey);
-
   const tokens = getTokens(results);
   let delta = 0; // when replacing tokens, increase/decrease delta length so next token would be replaced in correct position of html
   tokens.forEach((token) => {
     const replaceWith = parser.parseToken(token, data);
     // eslint-disable-next-line no-param-reassign
     results = results.substr(0, token.startsAt - delta) + replaceWith + results.substr(token.endsAt - delta);
-    delta += token.length - replaceWith.length;
+    delta += token.length - replaceWith?.length || 0;
   });
-
-  memoryCache.set(cacheKey, results);
   return results;
 }
 
-export async function resolveTemplateFromElementData(
-  element: HTMLElement,
-  template: string): Promise<string> {
-  if (template === undefined || template === '') return <string>null;
-
-  const data = {};
-  const tokens = getTokens(template);
-
+export async function getDataFromElement(tokens: any, element: HTMLElement) {
   // distinct token values; only the first part if there's dot-notation
+  const data = { $hasValue: false };
   const promises = [...new Set(tokens.filter((t) => t.type === 1 || t.type === 2)
     .map((t: { value: string; }) => t.value.split('.')[0]))]
     .map(async (v:string) => {
@@ -147,11 +127,22 @@ export async function resolveTemplateFromElementData(
       if (attr) {
         const val = await resolveExpression(attr);
         data[v] = val;
+        data.$hasValue = (data.$hasValue || val != null);
+      } else {
+        data[v] = null;
       }
       return null;
     });
-
   await Promise.all(promises);
+  return data;
+}
 
+export async function resolveTemplateFromElementData(
+  element: HTMLElement,
+  template: string): Promise<string> {
+  if (template === undefined || template === '') return <string>null;
+
+  const tokens = getTokens(template);
+  const data = getDataFromElement(tokens, element);
   return resolveTemplate(template, data);
 }

@@ -4,8 +4,10 @@ import {
   MatchResults,
   state,
   IViewDo,
-  RouterService,
   VisitStrategy,
+  RouterService,
+  resolveExpression,
+  hasExpression,
   debugIf,
 } from '../..';
 
@@ -121,19 +123,46 @@ export class XViewDo implements IViewDo {
         this.match = {...match};
       },
     );
+
+    const nextElement = this.el?.querySelector('#next');
+    const next = (element:string, eventName: string) => {
+      debugIf(state.debug, `x-view-do: next element ${element} ${eventName} detected`);
+      RouterService.instance?.returnToParent();
+    };
+
+    // Attach next()
+    debugIf(state.debug && nextElement != null, `x-view-do: found next element ${nextElement?.localName}, attaching click-handler`);
+    nextElement?.addEventListener('click', () => {
+      next(nextElement?.localName, 'clicked');
+    });
+
+    const inputElements = this.el.querySelectorAll('input');
+    if (inputElements) {
+      const lastInput = inputElements[inputElements.length - 1];
+      lastInput?.addEventListener('keypress', (ev:KeyboardEvent) => {
+        if (ev.key === 'Enter') {
+          next(lastInput.localName, 'enter-key');
+        }
+      });
+    }
   }
 
   async componentDidLoad() {
     debugIf(state.debug, `x-view-do: <x-view-do~loaded> ${this.url}`);
-    // if we were just redirected here, return home
-    if (this.visited && RouterService.instance?.location.state?.parent) {
-      RouterService.instance?.history.replace(RouterService.instance.location.state.parent);
-    }
     await this.route.loadCompleted();
   }
 
   async componentWillRender() {
     if (this.match?.isExact) {
+      const valueElements = this.el.querySelectorAll('*[value-from]');
+      valueElements.forEach(async (el) => {
+        const expression = el.getAttribute('value-from');
+        if (hasExpression(expression)) {
+          const value = await resolveExpression(expression);
+          el.setAttribute('value', value);
+        }
+      });
+
       if (this.visit === VisitStrategy.once) {
         state.storedVisits = [...new Set([...state.storedVisits, this.urlKey])];
       }

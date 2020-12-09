@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>view.DO UI</title>
-    <meta http-equiv="x-ua-compatible" content="IE=Edge">
-    <meta name="description" content="New web components to put some do in your view">
-    <meta name="og:title" content=""/>
-    <meta name="og:description" content=""/>
-    <meta name="og:image" content=""/>
 
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#16161d">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>view.DO UI</title>
+  <meta http-equiv="x-ua-compatible" content="IE=Edge">
+  <meta name="description" content="New web components to put some do in your view">
+  <meta name="og:title" content="" />
+  <meta name="og:description" content="" />
+  <meta name="og:image" content="" />
 
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
-    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"/>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#16161d">
 
-    <!-- Replace w/npm unpkg paths -->
-    <script type="module" src="/build/viewdo.esm.js"></script>
-    <script nomodule src="/build/viewdo.js"></script>
-    <link rel="stylesheet" href="/build/viewdo.css"/>
-    <base href="/" />
-  </head>
-  <body>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
 
-    <ion-app>
+  <!-- Replace w/npm unpkg paths -->
+  <script type="module" src="/build/viewdo.esm.js"></script>
+  <script nomodule src="/build/viewdo.js"></script>
+  <link rel="stylesheet" href="/build/viewdo.css" />
+  <base href="/" />
+</head>
+
+<body>
+
+  <ion-app>
     <x-ui
       app-title="view.DO UI Components"
       transition="fade-in"
       start-url="/start"
-      audio
-      debug
-      >
+      audio debug>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
@@ -49,12 +50,14 @@
             </x-view-link>
           </ion-buttons>
           <ion-buttons slot="end">
-            <x-data-show when="'{storage:name}{session:name}' != ''">
+            <x-data-show when="'{storage:name}{session:name}' != empty" condition>
               <ion-chip>
                 <ion-avatar>
-                  <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                  <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                 </ion-avatar>
-                <ion-label><x-data-display expression="{storage:name}" ></ion-label>
+                <ion-label>
+                  <x-data-display expression="{storage:name}">
+                </ion-label>
               </ion-chip>
             </x-data-show>
             <x-preferences-popover-button></x-preferences-popover-button>
@@ -62,21 +65,15 @@
         </ion-toolbar>
       </ion-header>
 
-      <x-view url="/start"
+      <!-- Start Routes -->
+      <x-view
+        url="/start"
         page-title="Home">
-        <x-view-do url="/confirm-name"
+
+        <x-view-do
+          url="/confirm-name"
           page-title="Welcome New User"
-          when="'{storage:name}{session:name}' == ''"
-          >
-          <x-action-activator
-            activate="onEvent"
-            element-query="#next"
-            event-name="click">
-            <x-action
-              topic="xui:action-events:routing"
-              command="navigate-next"
-            ></x-action>
-          </x-action-activator>
+          when="'{storage:name}' == empty">
           <ion-content class="ion-justify-center ion-padding">
             <ion-card>
               <ion-card-header>
@@ -85,161 +82,339 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label>Name</ion-label>
-                  <ion-input id="name" type="text" onchange="setValue(this)"></ion-input>
+                  <ion-input id="name" type="text"
+                    onblur="localStorage.setItem('name', this.value)"
+                    onchange="localStorage.setItem('name', this.value)"></ion-input>
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <ion-button id="next">
-                  <ion-icon name="caret-forward-outline"></ion-icon>
+                <ion-button slot="end" id="next">
                   Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
                 </ion-button>
               </ion-item>
             </ion-card>
           </ion-content>
         </x-view-do>
-        <x-view-do url="/hello"
+
+        <x-view-do
+          url="/hello"
           page-title="What's New"
           visit="always">
+          <x-action-activator
+            activate="onEvent"
+            element-query="#foo"
+            event-name="click">
+            <x-action
+              topic="xui:action-events:routing"
+              command="navigate-to"
+              data='{"url": "info"}'></x-action>
+          </x-action-activator>
           <ion-content class="ion-justify-center ion-padding">
-            <h1>Welcome <x-data-display expression="{storage:name?you}" ></x-data-display>!</h1>
             <ion-card>
               <ion-card-header>
                 <h2>What's Good?</h2>
               </ion-card-header>
               <ion-card-content>
-                <x-data-display data-name="{storage:name?friend}" >
+                <h1>Welcome <x-data-display expression="{storage:name?you}"></x-data-display>!</h1>
+                <x-data-display data-name="{storage:name?friend}">
                   <template>
                     <h3>We are glad you are here {{name}}!</h3>
+                    <p><span id="foo">SEE MORE INFO!</span> Clicking this triggers an action to change the URL.</span>
                   </template>
                 </x-data-display>
                 <h4>How this all works:</h4>
-                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-                <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
-                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-                <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+                <ion-text color="secondary">
+                  <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                  <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+                  <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                  <ion-skeleton-text animated style="width: 60%;"></ion-skeleton-text>
+                </ion-text>
               </ion-card-content>
               <ion-item>
-                <x-view-link url="/start" slot="end">
-                  <ion-button>
-                    <ion-icon name="caret-forward-outline"></ion-icon>
-                    Next
-                  </ion-button>
-                </x-view-link>
+                <ion-button slot="end" id="next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
               </ion-item>
             </ion-card>
           </ion-content>
         </x-view-do>
-        <ion-content class="ion-justify-center ion-padding">
-          <h1>Home</h1>
-          <img src="https://via.placeholder.com/728x90.png?text=Hero+Image"/>
-          <x-data-display data-name="{storage:name?You}" >
-            <template>
-              <h3>Content for {{name}}</h3>
-            </template>
-          </x-data-display>
-          <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <ion-skeleton-text></ion-skeleton-text>
-          <x-view-link url="/page1">Go to page1</x-view-link>
+
+        <ion-content class="ion-padding">
+          <ion-card>
+            <ion-card-media>
+              <ion-img src="https://via.placeholder.com/728x390.png?text=Home" />
+            </ion-card-media>
+            <ion-card-content>
+              <h2>Home</h2>
+              <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+              <ion-skeleton-text></ion-skeleton-text>
+              <x-data-display
+                condition="'{storage:name}' != empty"
+                data-name="{storage:name}">
+                <template>
+                  <h3>Content for {{name}}</h3>
+                  <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                  <ion-skeleton-text></ion-skeleton-text>
+                </template>
+              </x-data-display>
+            </ion-card-content>
+            <ion-item>
+              <x-view-link slot='end' url="/page1">
+                <ion-button>
+                   Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </x-view-link>
+            </ion-item>
+          </ion-card>
         </ion-content>
       </x-view>
-      <x-view url="/page1"
+
+       <!-- Page 1 Routes -->
+      <x-view
+        url="/page1"
         page-title="Page 1">
+
         <x-view-do url="/video-1">
           <ion-content class="ion-justify-center ion-padding">
-            <h1>First, a video</h1>
             <ion-card>
               <ion-card-media>
-                <img src="https://via.placeholder.com/728x390.png?text=Pretend+this+is+a+video"/>
+                <ion-img src="https://via.placeholder.com/728x390.png?text=Video" />
               </ion-card-media>
+              <ion-card-content>
+                <h2>First, a video</h2>
+              </ion-card-content>
               <ion-item>
-                <x-view-link url="/page1"  class="ion-float-right">
-                  <ion-button class="ion-float-right">
-                    <ion-icon name="caret-forward-outline"></ion-icon>
-                    Continue to Site
-                  </ion-button>
-                </x-view-link>
+                <ion-button slot="end" id="next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
               </ion-item>
             </ion-card>
           </ion-content>
         </x-view-do>
-        <ion-content class="ion-justify-center ion-padding">
-          <h1>Page 1</h1>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <ion-skeleton-text></ion-skeleton-text>
-          <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <x-view-link url="/page2">Go to page 2</x-view-link>
-        </ion-content>
-      </x-view>
-      <x-view url="/page2"
-        page-title="Page 2">
-        <ion-content class="ion-justify-center ion-padding">
-          <h1>Page 2</h1>
-          <x-data-show when="true">
-            <p>This conditional content should show.</p>
-            <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-            <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-            <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          </x-data-show>
-          <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-          <x-data-display data-favorite="{session:favorite?Unknown}" >
-            <template>
-              <h3>Favorite thing: {{favorite}}</h3>
+
+        <x-view-do
+          url="/confirm-fave"
+          when="'{session:favorite}' == empty"
+          page-title="Getting to know you: fave">
+          <ion-content class="ion-justify-center ion-padding">
+            <ion-card>
+              <ion-card-header>
+                <h2>What is your favorite thing?</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label>Favorite</ion-label>
+                  <ion-input type="text"
+                    onblur="sessionStorage.setItem('favorite', this.value)"
+                    onchange="sessionStorage.setItem('favorite', this.value)"
+                    value-from="{storage:animal? }"></ion-input>
+                </ion-item>
+              </ion-card-content>
+              <ion-item>
+                <ion-button slot="end" id="next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+
+        <x-view-do
+          url="/confirm-animal"
+          page-title="Getting to know you: animal"
+          when="'{storage:animal}' == empty">
+          <ion-content class="ion-justify-center ion-padding">
+            <ion-card>
+              <ion-card-header>
+                <h2>What is your spirit animal?</h2>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label>Animal</ion-label>
+                  <ion-input type="text"
+                    onblur="localStorage.setItem('animal', this.value)"
+                    onchange="localStorage.setItem('animal', this.value)"
+                    value-from="{storage:animal? }"></ion-input>
+                </ion-item>
+              </ion-card-content>
+              <ion-item>
+                <ion-button slot="end" id="next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+
+        <ion-content class="ion-padding">
+          <ion-card>
+            <ion-card-media>
+              <ion-img src="https://via.placeholder.com/728x390.png?text=Page+1" />
+            </ion-card-media>
+            <ion-card-content>
+              <h2>Page 1</h2>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text></ion-skeleton-text>
               <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-            </template>
-          </x-data-display>
 
-          <x-view-link url="/page2/info">Go to Nested Info</x-view-link>
+              <x-data-display
+                condition="'{session:favorite}' != empty"
+                data-favorite="{session:favorite}" >
+                <template>
+                  <h3>Favorite thing: <x-view-link url="/page1/confirm-fave">{{favorite}}</x-view-link> </h3>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                  <ion-skeleton-text></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                </template>
+              </x-data-display>
+
+              <x-data-display
+                condition="'{storage:animal}' != empty"
+                data-animal="{storage:animal}">
+                <template>
+                  <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{{animal}}</x-view-link> </h3>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                  <ion-skeleton-text></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                  <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                </template>
+              </x-data-display>
+            </ion-card-content>
+            <ion-item>
+              <x-view-link slot='start' url="/start">
+                <ion-button>
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+              </x-view-link>
+              <x-view-link slot='end' url="/page2">
+                <ion-button>
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </x-view-link>
+            </ion-item>
+          </ion-card>
         </ion-content>
-        <x-view url="/info"
-          page-title="Page 2 Info">
+      </x-view>
+
+       <!-- Page 2 Routes -->
+      <x-view
+        url="/page2"
+        page-title="Page 2">
+        <ion-content class="ion-padding">
+          <ion-card>
+            <ion-card-media>
+              <ion-img src="https://via.placeholder.com/728x390.png?text=Page+2" />
+            </ion-card-media>
+            <ion-card-content>
+              <h1>Page 2</h1>
+              <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+
+              <h2>What a page!</h2>
+              <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+              <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+
+              <x-data-show when="'{session:favorite}' != empty">
+                <h2>A word about favorite things</h2>
+                <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                <blockquote>
+                  This conditional content should show if you provided a favorite.
+                </blockquote>
+                <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+              </x-data-show>
+            </ion-card-content>
+            <ion-item>
+              <x-view-link slot='start' url="/page1">
+                <ion-button>
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+              </x-view-link>
+              <x-view-link slot='end' url="/page2/info">
+                <ion-button>
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </x-view-link>
+            </ion-item>
+          </ion-card>
+        </ion-content>
+
+        <x-view url="/info" page-title="Page 2 Info">
           <ion-content class="ion-justify-center ion-padding">
-            <h1>DEEP Nesting</h1>
-            <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-            <ion-skeleton-text></ion-skeleton-text>
-            <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-            <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-            <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-            <x-view-link url="/page2">Back</x-view-link>
+            <ion-card>
+              <ion-card-media>
+                <ion-img src="https://via.placeholder.com/728x390.png?text=Diagram" />
+              </ion-card-media>
+              <ion-card-content>
+                <h1>More Info</h1>
+                <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+                <ion-skeleton-text></ion-skeleton-text>
+                <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+                <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+              </ion-card-content>
+              <ion-item>
+                <x-view-link slot='start' url="/page2">
+                  <ion-button>
+                    <ion-icon name="caret-back-outline"></ion-icon>
+                    Back
+                  </ion-button>
+                </x-view-link>
+              </ion-item>
+            </ion-card>
           </ion-content>
         </x-view>
       </x-view>
 
+       <!-- Not Found Route -->
       <x-view url="*">
-        <ion-content class="ion-justify-center ion-padding">
-          <h1>Not Found</h1>
+        <ion-content class="ion-padding">
+          <ion-card>
+            <ion-card-media>
+              <ion-img src="https://via.placeholder.com/728x290.png?text=So+Sorry!" />
+            </ion-card-media>
+            <ion-card-content>
+              <h1>Not Found</h1>
+            </ion-card-content>
+          </ion-card>
         </ion-content>
       </x-view>
 
-      <ion-footer>
-        <ion-toolbar class="ion-padding">
-        </ion-toolbar>
-        <x-data-provider-cookie>
-          <h3>This site uses cookies.</h3>
-          <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-          <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-        </x-data-provider-cookie>
-      </ion-footer>
-
+      <x-data-provider-cookie>
+        <h3>This site uses cookies.</h3>
+        <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+      </x-data-provider-cookie>
     </x-ui>
   </ion-app>
-    <script>
-      function setValue(el, key) {
-        localStorage.setItem('name', el.value);
-      }
 
-    </script>
 
-  </body>
+</body>
+
 </html>

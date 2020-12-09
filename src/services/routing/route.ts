@@ -43,7 +43,7 @@ export class Route {
 
     // If this is an independent route and it matches then routes have updated.
     // If the only change to location is a hash change then do not scroll.
-    if (this.match && !matchesAreEqual(this.match, this.previousMatch) && this.router.viewsUpdated) {
+    if (this.match?.isExact && !matchesAreEqual(this.match, this.previousMatch) && this.router.viewsUpdated) {
       this.router.viewsUpdated(routeViewOptions);
       if (this.routeElement.ownerDocument) {
         if (this.pageTitle) {

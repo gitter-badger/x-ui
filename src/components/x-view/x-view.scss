@@ -1,24 +1,43 @@
-x-view {
-  --background-color: val(--ionic-background-color, #fff);
-  --color: val(--ionic-text-color, #000);
-
-}
 
 :host {
-  display: none;
-  bottom: 0;
-  contain: layout size style;
+  --padding: 16px;
+  --padding-bottom: 16px;
+  --padding-top: 16px;
+  --background-color: #fff;
+  --color: #000;
+
+  background-color: var(--background-color);
+  color: var(--color);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  left: 0;
+  height: 100%;
   overflow: auto;
-  position: absolute;
-  right: 0;
-  top: 40px;
-  z-index: 0;
+  padding: val(--padding);
+  padding-bottom: val(--padding-bottom);
+  padding-top: val(--padding-top);
+  position: relative;
 }
 
-:host(.active-route) {
-  display: flex;
+::slotted(x-view) {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
+
+:host(.xui-active-route) {
+  visibility: hidden;
+
+  > x-view,
+  > x-view-do {
+    visibility: visible;
+  }
+
+}
+
+:host(.xui-active-route-exact) {
+  visibility: visible !important;
+}
+
+

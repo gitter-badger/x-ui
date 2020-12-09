@@ -8,14 +8,16 @@ const { distDirs } = require('./package.json');
 export const config: Config = {
   namespace: 'viewdo',
   buildEs5: false,
-  rollupPlugins: {
-    after: [
-      nodePolyfills(),
-    ],
-  },
   plugins: [
     sass(),
   ],
+  rollupPlugins: {
+    after: [
+      nodePolyfills({
+        include: 'crypto',
+      }),
+    ],
+  },
   globalStyle: 'src/global/app.scss',
   globalScript: 'src/global/app.ts',
   devServer: {

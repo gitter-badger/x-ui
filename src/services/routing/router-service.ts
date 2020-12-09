@@ -50,9 +50,16 @@ export class RouterService {
     if (!history) return;
 
     if (history.location?.state && history.location.state?.parent) {
-      history.replace(history.location.state.parent, {
+      history.push(history.location.state.parent, {
         next: true,
       });
+    } else {
+      const parentSegments = history.location?.pathParts.slice(0, history.location?.pathParts.length - 1);
+      if (parentSegments == null) {
+        history.goBack();
+      } else {
+        history.push(parentSegments.join('/'));
+      }
     }
   }
 

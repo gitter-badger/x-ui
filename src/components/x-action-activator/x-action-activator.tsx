@@ -1,9 +1,8 @@
-import { Component, Element, Prop, h, Event, EventEmitter, Host } from '@stencil/core';
+import { Component, Element, Prop, h, Host } from '@stencil/core';
 import {
   ActionActivationStrategy,
   ActionEvent,
   state,
-  ROUTE_TOPIC,
   debugIf,
 } from '../..';
 
@@ -35,16 +34,6 @@ export class XActionActivator {
    */
   @Prop() time?: number;
 
-  /**
-   *
-  */
-  @Event({
-    eventName: ROUTE_TOPIC,
-    composed: true,
-    bubbles: true,
-    cancelable: true,
-  }) navigationEvents: EventEmitter<ActionEvent<any>>;
-
   private get parent(): HTMLXViewDoElement {
     return this.el.closest('x-view-do') as HTMLXViewDoElement;
   }
@@ -73,7 +62,15 @@ export class XActionActivator {
       this.actions.forEach((actions, topic) => {
         actions.forEach((action) => {
           debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${topic}, command:${action?.command} }`);
-          this.navigationEvents.emit(action);
+          const event = new CustomEvent(topic, {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+              command: action.command,
+              data: action.data,
+            },
+          });
+          this.el.dispatchEvent(event);
         });
       });
     });
@@ -81,7 +78,6 @@ export class XActionActivator {
 
   componentWillRender() {
     this.attachHandler();
-    // this.el.addEventListener(this.eventName, this.activateActions);
   }
 
   render() {

@@ -21,7 +21,8 @@ describe('next-resolver', () => {
       visit: VisitStrategy.always,
       when: '"{session:name}" != empty',
       visited: false,
-      path: 'me'
+      path: 'me',
+      url: 'home'
     };
 
     toDos.push(todo);
@@ -37,7 +38,8 @@ describe('next-resolver', () => {
       visit: VisitStrategy.always,
       when: '"{session:name}" !== empty',
       visited: true,
-      path: 'me'
+      path: 'me',
+      url: 'home'
     };
 
     toDos.push(todo);
@@ -53,7 +55,8 @@ describe('next-resolver', () => {
       visit: VisitStrategy.always,
       when: '"{session:name}" != empty',
       visited: true,
-      path: 'me'
+      path: 'me',
+      url: 'home'
     };
 
     toDos.push(todo1);
@@ -70,11 +73,13 @@ describe('next-resolver', () => {
 
     const todo1 = {
       visit: VisitStrategy.always,
-      visited: false
+      visited: false,
+      url: 'foo'
     };
     const todo2 = {
       visit: VisitStrategy.always,
-      visited: false
+      visited: false,
+      url: 'boo'
     };
 
     toDos.push(todo1, todo2);
@@ -87,11 +92,13 @@ describe('next-resolver', () => {
 
     const todo1 = {
       visit: VisitStrategy.optional,
-      visited: false
+      visited: false,
+      url: 'home'
     };
     const todo2 = {
       visit: VisitStrategy.always,
-      visited: false
+      visited: false,
+      url: 'profile'
     };
 
     toDos.push(todo1, todo2);
@@ -104,11 +111,13 @@ describe('next-resolver', () => {
 
     const todo1 = {
       visit: VisitStrategy.optional,
-      visited: false
+      visited: false,
+      url: 'home'
     };
     const todo2 = {
       visit: VisitStrategy.optional,
-      visited: false
+      visited: false,
+      url: 'profile'
     };
 
     toDos.push(todo1, todo2);

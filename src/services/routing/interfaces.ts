@@ -99,5 +99,6 @@ export interface IViewDo {
   visit: VisitStrategy;
   when?: string;
   visited: boolean;
+  url: string;
   [key: string]: any;
 }

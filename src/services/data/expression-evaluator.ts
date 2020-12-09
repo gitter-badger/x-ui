@@ -8,6 +8,10 @@ import { toBoolean } from '../utils/string-utils';
 const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?(?:\?([\w_.]*))?}/g;
 const expressionEvaluator = new Parser();
 
+export function hasExpression(valueExpression: string) {
+  return valueExpression.match(expressionRegEx);
+}
+
 /**
  * This function replaces all {provider:key} values with the actual values
  * from the expressed provider & key. This is used by {evaluateExpression}
@@ -20,6 +24,8 @@ const expressionEvaluator = new Parser();
 export async function resolveExpression(valueExpression: string): Promise<string|null> {
   requireValue(valueExpression, 'valueExpression');
 
+  if (valueExpression == null || valueExpression === '') return valueExpression;
+
   // if this expression doesn't match, leave it alone
   if (!valueExpression.match(expressionRegEx)) {
     return valueExpression;
@@ -27,8 +33,6 @@ export async function resolveExpression(valueExpression: string): Promise<string
 
   // make a copy to avoid side effects
   let result = valueExpression.slice();
-
-  if (result == null || '') return result;
 
   // replace each match
   let match: string | RegExpExecArray;
@@ -75,7 +79,7 @@ export function evaluate(expression: string, context:ExpressionContext = {}): nu
     context.empty = '';
     return expressionEvaluator.evaluate(expression.toLowerCase(), context);
   } catch (err) {
-    warn(`An exception was raised evaluating expression '${expression}': ${err}`, err);
+    warn(`An exception was raised evaluating expression '${expression}': ${err}`);
     return expression;
   }
 }
