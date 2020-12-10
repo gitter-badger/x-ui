@@ -27,10 +27,12 @@
 }
 
 :host(.xui-active-route) {
-  visibility: hidden;
+  ::slotted(*:not(x-view):not(x-view-do)) {
+    visibility: hidden;
+  }
 
-  > x-view,
-  > x-view-do {
+  ::slotted(x-view),
+  ::slotted(x-view-do) {
     visibility: visible;
   }
 

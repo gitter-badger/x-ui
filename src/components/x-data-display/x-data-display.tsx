@@ -1,14 +1,11 @@
-import { Host, Element, Component, h, Prop, State, Fragment, Listen } from '@stencil/core';
+import { Host, Element, Component, h, Prop, State, Listen, Fragment } from '@stencil/core';
 import {
   DataEvent,
   DATA_EVENTS,
   debug,
-  evaluatePredicate,
-  getDataFromElement,
-  getTokens,
   resolveExpression,
-  resolveTemplate,
   RouterService,
+  warn,
 } from '../../services';
 import { removeAllChildNodes } from '../../services/utils/dom-utils';
 
@@ -18,8 +15,6 @@ import { removeAllChildNodes } from '../../services/utils/dom-utils';
   shadow: false,
 })
 export class XDataDisplay {
-  private hidden = false;
-  @State() data: {[key: string]: any } = [];
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
   @State() value: string;
@@ -30,76 +25,52 @@ export class XDataDisplay {
    @example {session:user.name}
    @default null
    */
-  @Prop() expression?: string;
-
-  /**
-   The class to put on the containing div element.
-   */
-  @Prop() class?: string = null;
-
-  /**
-   The data predicate to obtain a boolean for rendering this element.
-   If left blank, the expression property is used.
-   */
-  @Prop() condition?: string = null;
+  @Prop() text?: string;
 
   @Listen('xui:action-events:data', {
     target: 'body',
   })
   async dataEvent(ev: CustomEvent<DataEvent>) {
     if (ev.detail.type === DATA_EVENTS.DataChanged) {
-      debug('<x-data-display: <data-provider~changed>');
-      await this.resolveData();
+      debug('x-data-display: data-provider~changed');
+      await this.resolveTemplate();
     }
   }
 
   async componentWillLoad() {
     const template = this.el.firstElementChild as HTMLTemplateElement;
-    this.innerTemplate = template?.innerHTML;
+    if (template !== null && template.tagName !== 'TEMPLATE') {
+      warn(`x-data-display: The only allowed child is a single <template>. Found ${template.localName} `);
+      return;
+    }
+    if (template == null) return;
+    this.innerTemplate = template.innerHTML?.slice();
     removeAllChildNodes(this.el);
   }
 
   componentDidLoad() {
     RouterService.instance?.onRouteChange(async () => {
-      await this.resolveData();
       await this.resolveTemplate();
     });
   }
 
   async componentWillRender() {
-    await this.resolveData();
     await this.resolveTemplate();
   }
 
-  private async resolveData() {
-    if (this.innerTemplate) {
-      const tokens = getTokens(this.innerTemplate);
-      this.data = await getDataFromElement(tokens, this.el);
-    }
-  }
-
   private async resolveTemplate() {
-    if (this.condition === '') {
-      this.hidden = (!this.data?.$hasValue || !this.value);
-    } else if (this.condition) {
-      this.hidden = !evaluatePredicate(this.condition);
-    }
-    if (this.expression) {
-      this.value = await resolveExpression(this.expression);
+    if (this.text) {
+      this.value = await resolveExpression(this.text);
     }
     if (this.innerTemplate) {
-      this.resolvedTemplate = resolveTemplate(this.innerTemplate, this.data);
+      this.resolvedTemplate = await resolveExpression(this.innerTemplate);
     }
   }
 
   render() {
-    if (this.hidden) {
-      return <Host hidden></Host>;
-    }
-
     if (this.resolvedTemplate) {
       return (
-        <div class={this.class} innerHTML={this.resolvedTemplate}>
+        <div innerHTML={this.resolvedTemplate}>
           { this.value }
         </div>
       );

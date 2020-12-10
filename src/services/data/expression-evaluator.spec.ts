@@ -224,8 +224,13 @@ describe('evaluatePredicate', () => {
   });
 
   it('evaluates null session values', async () => {
-    let value = await evaluatePredicate('{session:bad} == null');
-    expect(value).toBe(true);
+    let value = await evaluatePredicate('{session:bad}');
+    expect(value).toBe(false);
+  });
+
+  it('evaluates not null session values', async () => {
+    let value = await evaluatePredicate('"{session:bad}" != empty');
+    expect(value).toBe(false);
   });
 
   it('evaluates null session values as empty', async () => {
@@ -233,5 +238,9 @@ describe('evaluatePredicate', () => {
     expect(value).toBe(true);
   });
 
+  it('evaluates with ! for true on empty', async () => {
+    let value = await evaluatePredicate('!{session:bad}');
+    expect(value).toBe(true);
+  });
 
 });

@@ -30,6 +30,81 @@
   <script nomodule src="/build/viewdo.js"></script>
   <link rel="stylesheet" href="/build/viewdo.css" />
   <base href="/" />
+  <style>
+  body {
+    --ion-background-color: #fff;
+    --ion-background-color-rgb: 255,255,255;
+    --ion-text-color: #000;
+    --ion-text-color-rgb: 0,0,0;
+  }
+
+  .dark {
+    --ion-background-color: #2f2f2f;
+    --ion-background-color-rgb: 18,18,18;
+    --ion-text-color: #fff;
+    --ion-text-color-rgb: 255,255,255;
+    --ion-border-color: #525151;
+    --ion-item-background: #363636;
+    --ion-toolbar-background: #464646;
+    --ion-tab-bar-background: #000;
+    --ion-card-background: #414141;
+    --ion-color-primary: #428cff;
+    --ion-color-primary-rgb: 66, 140, 255;
+    --ion-color-primary-contrast: #fff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #3a7be0;
+    --ion-color-primary-tint: #5598ff;
+    --ion-color-secondary: #50c8ff;
+    --ion-color-secondary-rgb: 80, 200, 255;
+    --ion-color-secondary-contrast: #fff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #46b0e0;
+    --ion-color-secondary-tint: #62ceff;
+    --ion-color-tertiary: #6a64ff;
+    --ion-color-tertiary-rgb: 106, 100, 255;
+    --ion-color-tertiary-contrast: #fff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #5d58e0;
+    --ion-color-tertiary-tint: #7974ff;
+    --ion-color-success: #2fdf75;
+    --ion-color-success-rgb: 47, 223, 117;
+    --ion-color-success-contrast: #000;
+    --ion-color-success-contrast-rgb: 0, 0, 0;
+    --ion-color-success-shade: #29c467;
+    --ion-color-success-tint: #44e283;
+    --ion-color-warning: #ffd534;
+    --ion-color-warning-rgb: 255, 213, 52;
+    --ion-color-warning-contrast: #000;
+    --ion-color-war-ning-contrast-rgb: 0, 0, 0;
+    --ion-color-warning-shade: #e0bb2e;
+    --ion-color-warning-tint: #ffd948;
+    --ion-color-danger: #ff4961;
+    --ion-color-danger-rgb: 255, 73, 97;
+    --ion-color-danger-contrast: #fff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #e04055;
+    --ion-color-danger-tint: #ff5b71;
+    --ion-color-dark: #f4f5f8;
+    --ion-color-dark-rgb: 244, 245, 248;
+    --ion-color-dark-contrast: #000;
+    --ion-color-dark-contrast-rgb: 0, 0, 0;
+    --ion-color-dark-shade: #d7d8da;
+    --ion-color-dark-tint: #f5f6f9;
+    --ion-color-medium: #989aa2;
+    --ion-color-medium-rgb: 152, 154, 162;
+    --ion-color-medium-contrast: #000;
+    --ion-color-medium-contrast-rgb: 0, 0, 0;
+    --ion-color-medium-shade: #86888f;
+    --ion-color-medium-tint: #a2a4ab;
+    --ion-color-light: #222428;
+    --ion-color-light-rgb: 34, 36, 40;
+    --ion-color-light-contrast: #fff;
+    --ion-color-light-contrast-rgb: 255, 255, 255;
+    --ion-color-light-shade: #1e2023;
+    --ion-color-light-tint: #383a3e;
+  }
+
+  </style>
 </head>
 
 <body>
@@ -50,19 +125,20 @@
             </x-view-link>
           </ion-buttons>
           <ion-buttons slot="end">
-            <x-data-show when="'{storage:name}{session:name}' != empty" condition>
+            <x-data-show when="{storage:name}">
               <ion-chip>
                 <ion-avatar>
                   <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                 </ion-avatar>
                 <ion-label>
-                  <x-data-display expression="{storage:name}">
+                  <x-data-display text="{storage:name}" show-when="{storage:name}">
                 </ion-label>
               </ion-chip>
             </x-data-show>
             <x-preferences-popover-button></x-preferences-popover-button>
           </ion-buttons>
         </ion-toolbar>
+
       </ion-header>
 
       <!-- Start Routes -->
@@ -74,7 +150,7 @@
           url="/confirm-name"
           page-title="Welcome New User"
           when="'{storage:name}' == empty">
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
                 <h2>What should we call you?</h2>
@@ -110,16 +186,16 @@
               command="navigate-to"
               data='{"url": "info"}'></x-action>
           </x-action-activator>
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
                 <h2>What's Good?</h2>
               </ion-card-header>
               <ion-card-content>
-                <h1>Welcome <x-data-display expression="{storage:name?you}"></x-data-display>!</h1>
-                <x-data-display data-name="{storage:name?friend}">
+                <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
+                <x-data-display>
                   <template>
-                    <h3>We are glad you are here {{name}}!</h3>
+                    <h3>We are glad you are here {storage:name?friend}!</h3>
                     <p><span id="foo">SEE MORE INFO!</span> Clicking this triggers an action to change the URL.</span>
                   </template>
                 </x-data-display>
@@ -153,11 +229,9 @@
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text></ion-skeleton-text>
-              <x-data-display
-                condition="'{storage:name}' != empty"
-                data-name="{storage:name}">
+              <x-data-display condition="{storage:name}">
                 <template>
-                  <h3>Content for {{name}}</h3>
+                  <h3>Content for {storage:name}</h3>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
                   <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
@@ -184,7 +258,7 @@
         page-title="Page 1">
 
         <x-view-do url="/video-1">
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-media>
                 <ion-img src="https://via.placeholder.com/728x390.png?text=Video" />
@@ -206,7 +280,7 @@
           url="/confirm-fave"
           when="'{session:favorite}' == empty"
           page-title="Getting to know you: fave">
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
                 <h2>What is your favorite thing?</h2>
@@ -234,7 +308,7 @@
           url="/confirm-animal"
           page-title="Getting to know you: animal"
           when="'{storage:animal}' == empty">
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
                 <h2>What is your spirit animal?</h2>
@@ -271,11 +345,9 @@
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
 
-              <x-data-display
-                condition="'{session:favorite}' != empty"
-                data-favorite="{session:favorite}" >
+              <x-data-display condition="'{session:favorite}' != empty">
                 <template>
-                  <h3>Favorite thing: <x-view-link url="/page1/confirm-fave">{{favorite}}</x-view-link> </h3>
+                  <h3>Favorite thing: <x-view-link url="/page1/confirm-fave">{session:favorite}</x-view-link> </h3>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                   <ion-skeleton-text></ion-skeleton-text>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -284,11 +356,9 @@
                 </template>
               </x-data-display>
 
-              <x-data-display
-                condition="'{storage:animal}' != empty"
-                data-animal="{storage:animal}">
+              <x-data-display  condition="'{storage:animal}' != empty">
                 <template>
-                  <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{{animal}}</x-view-link> </h3>
+                  <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{storage:animal}</x-view-link> </h3>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                   <ion-skeleton-text></ion-skeleton-text>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -365,7 +435,7 @@
         </ion-content>
 
         <x-view url="/info" page-title="Page 2 Info">
-          <ion-content class="ion-justify-center ion-padding">
+          <ion-content class="ion-padding">
             <ion-card>
               <ion-card-media>
                 <ion-img src="https://via.placeholder.com/728x390.png?text=Diagram" />

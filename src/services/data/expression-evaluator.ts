@@ -109,11 +109,17 @@ export async function evaluateExpression(expression: string, context: Expression
  * @return {*}  {Promise<boolean>}
  */
 export async function evaluatePredicate(expression: string, context:ExpressionContext = {}): Promise<boolean> {
+  const detokenizedExpression = await resolveExpression(expression);
   try {
-    const result = await evaluateExpression(expression, context);
+    if (!detokenizedExpression) return false;
+    if (detokenizedExpression === '!') return true;
+    context.null = null;
+    context.empty = '';
+    const result = expressionEvaluator.evaluate(detokenizedExpression.toLowerCase(), context);
+    if (typeof result === 'boolean') return result;
+    if (typeof result === 'number') return result > 0;
     return toBoolean(result);
   } catch (error) {
-    warn(`expression-evaluator: ${error}`);
-    return false;
+    return toBoolean(detokenizedExpression);
   }
 }

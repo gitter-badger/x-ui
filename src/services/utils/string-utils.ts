@@ -3,14 +3,10 @@
  * @param {any} value
  * @return {boolean}
  */
-export function toBoolean(value: any) {
-  if (typeof value === 'string') {
-    const stringResult = value.slice().toLocaleLowerCase();
-    if (['false', 'no', 'off'].includes(stringResult)) return false;
-    if (['true', 'yes', 'on'].includes(stringResult)) return true;
-  } else {
-    if ([false, -1, 0, null].includes(value)) return false;
-    if ([true, 1].includes(value)) return true;
-  }
-  return Boolean(value);
+export function toBoolean(value: string) {
+  if (!value) return false;
+  const stringResult = value.slice();
+  if (['false', 'no', 'off', '!'].includes(stringResult.toLocaleLowerCase().trim())) return false;
+  if (['true', 'yes', 'on'].includes(stringResult.toLocaleLowerCase().trim())) return true;
+  return value !== '';
 }

@@ -7,4 +7,3 @@ export * from './provider-listener';
 export * from './provider-memory';
 export * from './provider-session';
 export * from './provider-storage';
-export * from './template-parser';

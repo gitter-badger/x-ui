@@ -37,19 +37,11 @@ export namespace Components {
     }
     interface XDataDisplay {
         /**
-          * The class to put on the containing div element.
-         */
-        "class"?: string;
-        /**
-          * The data predicate to obtain a boolean for rendering this element. If left blank, the expression property is used.
-         */
-        "condition"?: string;
-        /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}
           * @default null
          */
-        "expression"?: string;
+        "text"?: string;
     }
     interface XDataProviderCookie {
         /**
@@ -356,19 +348,11 @@ declare namespace LocalJSX {
     }
     interface XDataDisplay {
         /**
-          * The class to put on the containing div element.
-         */
-        "class"?: string;
-        /**
-          * The data predicate to obtain a boolean for rendering this element. If left blank, the expression property is used.
-         */
-        "condition"?: string;
-        /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}
           * @default null
          */
-        "expression"?: string;
+        "text"?: string;
     }
     interface XDataProviderCookie {
         /**
