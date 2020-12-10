@@ -1,4 +1,4 @@
-import { Host, Element, Component, h, Prop, State, Listen, Fragment } from '@stencil/core';
+import { Element, Component, h, Prop, State, Listen, Fragment } from '@stencil/core';
 import {
   DataEvent,
   DATA_EVENTS,
@@ -44,7 +44,7 @@ export class XDataDisplay {
       return;
     }
     if (template == null) return;
-    this.innerTemplate = template.innerHTML?.slice();
+    this.innerTemplate = template.innerHTML;
     removeAllChildNodes(this.el);
   }
 

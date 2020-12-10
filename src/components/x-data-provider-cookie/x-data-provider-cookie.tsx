@@ -92,8 +92,8 @@ export class XDataProviderCookie {
     return (
       <Host hidden={this.hide}>
         <div>
-          <button type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
           <slot/>
+          <button type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
         </div>
       </Host>
     );

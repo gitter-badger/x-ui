@@ -1,5 +1,32 @@
 # x-data-provider-cookie
 
+## Cookie Data Provider Registration Component
+
+This component enabled the **Cookie Data Provider**.
+
+This store is long-lived from the same browser, but for very small data items. This provider enables you to use cookie data in your HTML.
+
+Provider Key: '**cookie**'
+
+ ```{cookie:(key)} ```
+
+When included on the page, this component automatically shows a banner to collect consent from the user with an 'Accept' button.
+
+```html
+<x-data-provider-cookie>
+  <p>Cookies help us track your every move.</p>
+</x-data-provider-cookie>
+
+````
+
+> The HTML inside the element is shown directly on the banner. Use it to display your terms, privacy policy and explanation for using the cookie.
+
+
+Alternatively, you can skip this by including the 'skip-consent' attribute.
+
+```html
+<x-data-provider--cookie skip-consent></x-data-provider--cookie>
+````
 
 
 <!-- Auto Generated Below -->

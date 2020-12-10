@@ -13,10 +13,10 @@ describe('x-data-provider-cookie', () => {
       <x-data-provider-cookie>
         <mock:shadow-root>
           <div>
+            <slot></slot>
             <button type="button">
               Accept
             </button>
-            <slot></slot>
           </div>
         </mock:shadow-root>
       </x-data-provider-cookie>
