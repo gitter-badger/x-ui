@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
+import { hasVisited } from '../../services/visits';
 import {
   debugIf,
   Route,
@@ -71,7 +72,7 @@ export class XView {
   }
 
   componentWillLoad() {
-    debugIf(state.debug, `x-view: <x-view~loading> ${this.url}`);
+    debugIf(state.debug, `x-view: loading ${this.url}`);
     if (this.transition === undefined) {
       this.transition = this.parent.transition;
     }
@@ -93,7 +94,7 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
-      debugIf(state.debug, `x-view: <x-view~registered> ${c.url}`);
+      debugIf(state.debug, `x-view: registered x-view ${c.url}`);
     });
 
     this.childViewDos.forEach((c) => {
@@ -101,7 +102,7 @@ export class XView {
         // eslint-disable-next-line @typescript-eslint/quotes
         c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
       }
-      debugIf(state.debug, `x-view: <x-view-do~registered> ${c.url}`);
+      debugIf(state.debug, `x-view: registered x-view-do ${c.url}`);
     });
   }
 
@@ -110,7 +111,7 @@ export class XView {
   }
 
   async componentDidLoad() {
-    debugIf(state.debug, `x-view: <x-view~loaded> ${this.url}`);
+    debugIf(state.debug, `x-view: loaded ${this.url}`);
     await this.performViewUpdate();
   }
 
@@ -118,7 +119,8 @@ export class XView {
     await this.route.loadCompleted();
     if (this.match?.isExact) {
       const nextDo = await resolveNext(this.childViewDos.map((x) => {
-        const { when, visit, visited, url} = x;
+        const { when, visit, url} = x;
+        const visited = hasVisited(url);
         return { when, visit, visited, url};
       }));
       if (nextDo) {
