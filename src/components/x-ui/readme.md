@@ -1,16 +1,18 @@
-# Routing & Page Base x-ui
-
+# X-UI Component
 The root component is the base container for the view-engine and its child components.  This element should contain root-level HTML that is global to every view along with x-view components placed within any global-html.
+
+## Routing
+
 
 ````html
 <x-ui
   app-title="view.DO Web Components"
-  root=""
-  start-url="/"
-  historyType="browser|hash"
-  transition="fade-in"
+  history-type="browser|hash"
   scroll-top-offset="0"
+  transition="fade-in"
   full-page="false"
+  start-url="/"
+  root=""
   debug
   audio
   >
@@ -29,7 +31,10 @@ It provides an entry-point for the guided-navigation system.
 * Document actions
 * Audio preference management & control actions
 
-> If you want to have a special page for routes that are not resolved. Add a **x-view-do**, with **url="*"**.
+> If you want to have a special page for routes that are not resolved. Add a single **\<x-view\>**, with **url="*"**.
+
+
+
 
 <!-- Auto Generated Below -->
 
