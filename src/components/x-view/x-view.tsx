@@ -115,6 +115,10 @@ export class XView {
     await this.performViewUpdate();
   }
 
+  async componentWillRender() {
+    await this.performViewUpdate();
+  }
+
   private async performViewUpdate() {
     await this.route.loadCompleted();
     if (this.match?.isExact) {

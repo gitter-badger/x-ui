@@ -1,5 +1,4 @@
 import { createStore } from '@stencil/store';
-import { getSessionVisits, getStoredVisits, setStoredVisits, setSessionVisits } from './visits';
 
 class StateModel {
   debug: boolean;
@@ -24,18 +23,6 @@ const { state, onChange } = createStore<StateModel>({
 onChange('theme', (t) => localStorage.setItem('theme', t.toString()));
 onChange('muted', (m) => localStorage.setItem('muted', m.toString()));
 onChange('autoplay', (a) => localStorage.setItem('autoplay', a.toString()));
-
-onChange('storedVisits', async (a) => setStoredVisits(a));
-onChange('sessionVisits', async (a) => setSessionVisits(a));
-getStoredVisits()
-  .then((v) => {
-    state.storedVisits = v;
-  });
-
-getSessionVisits()
-  .then((v) => {
-    state.sessionVisits = v;
-  });
 
 export {
   state,

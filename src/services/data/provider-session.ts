@@ -6,8 +6,8 @@ export class SessionProvider implements IDataProvider {
     this.changed = new EventEmitter();
   }
 
-  async get(key: string): Promise<string|null> {
-    return this.sessionStorage?.getItem(key) || null;
+  async get(key: string): Promise<string> {
+    return this.sessionStorage?.getItem(key);
   }
 
   async set(key: string, value: any) {

@@ -1,7 +1,7 @@
 import { EventEmitter } from '../events';
 
 export interface IDataProvider {
-  get(key: string): Promise<string | null>;
+  get(key: string): Promise<string>;
   set(key: string, value: string): Promise<void>;
   changed: EventEmitter
 }

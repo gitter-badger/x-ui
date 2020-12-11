@@ -142,12 +142,9 @@
       </ion-header>
 
       <!-- Start Routes -->
-      <x-view
-        url="/start"
+      <x-view url="/start"
         page-title="Home">
-
-        <x-view-do
-          url="/confirm-name"
+        <x-view-do  url="/confirm-name"
           page-title="Welcome New User"
           when="'{storage:name}' == empty">
           <ion-content class="ion-padding">
@@ -158,9 +155,10 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label>Name</ion-label>
-                  <ion-input id="name" type="text"
+                  <ion-input id="name" type="text" required
                     onblur="localStorage.setItem('name', this.value)"
-                    onchange="localStorage.setItem('name', this.value)"></ion-input>
+                    onchange="localStorage.setItem('name', this.value)"
+                    value-from="{storage:name}"></ion-input>
                 </ion-item>
               </ion-card-content>
               <ion-item>
@@ -173,8 +171,7 @@
           </ion-content>
         </x-view-do>
 
-        <x-view-do
-          url="/hello"
+        <x-view-do url="/hello"
           page-title="What's New"
           visit="always">
           <x-action-activator
@@ -229,7 +226,7 @@
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text></ion-skeleton-text>
-              <x-data-display condition="{storage:name}">
+              <x-data-display show-when="{storage:name}">
                 <template>
                   <h3>Content for {storage:name}</h3>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -253,8 +250,7 @@
       </x-view>
 
        <!-- Page 1 Routes -->
-      <x-view
-        url="/page1"
+      <x-view url="/page1"
         page-title="Page 1">
 
         <x-view-do url="/video-1">
@@ -279,7 +275,7 @@
         <x-view-do
           url="/confirm-fave"
           when="'{session:favorite}' == empty"
-          page-title="Getting to know you: fave">
+          page-title="Getting to know you: Favorite!">
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
@@ -288,10 +284,10 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label>Favorite</ion-label>
-                  <ion-input type="text"
+                  <ion-input type="text" required
                     onblur="sessionStorage.setItem('favorite', this.value)"
                     onchange="sessionStorage.setItem('favorite', this.value)"
-                    value-from="{storage:animal? }"></ion-input>
+                    value-from="{session:favorite}"></ion-input>
                 </ion-item>
               </ion-card-content>
               <ion-item>
@@ -306,7 +302,7 @@
 
         <x-view-do
           url="/confirm-animal"
-          page-title="Getting to know you: animal"
+          page-title="Getting to know you: Animal"
           when="'{storage:animal}' == empty">
           <ion-content class="ion-padding">
             <ion-card>
@@ -316,10 +312,10 @@
               <ion-card-content>
                 <ion-item>
                   <ion-label>Animal</ion-label>
-                  <ion-input type="text"
+                  <ion-input type="text" required
                     onblur="localStorage.setItem('animal', this.value)"
                     onchange="localStorage.setItem('animal', this.value)"
-                    value-from="{storage:animal? }"></ion-input>
+                    value-from="{storage:animal}"></ion-input>
                 </ion-item>
               </ion-card-content>
               <ion-item>
@@ -345,7 +341,7 @@
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
 
-              <x-data-display condition="'{session:favorite}' != empty">
+              <x-data-display show-when="{session:favorite}">
                 <template>
                   <h3>Favorite thing: <x-view-link url="/page1/confirm-fave">{session:favorite}</x-view-link> </h3>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
@@ -356,7 +352,7 @@
                 </template>
               </x-data-display>
 
-              <x-data-display  condition="'{storage:animal}' != empty">
+              <x-data-display  show-when="{storage:animal}">
                 <template>
                   <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{storage:animal}</x-view-link> </h3>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
@@ -404,7 +400,7 @@
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
 
-              <x-data-show when="'{session:favorite}' != empty">
+              <x-data-show when="{session:favorite}">
                 <h2>A word about favorite things</h2>
                 <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
                 <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>

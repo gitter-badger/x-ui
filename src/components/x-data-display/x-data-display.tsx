@@ -1,13 +1,11 @@
 import { Element, Component, h, Prop, State, Listen, Fragment } from '@stencil/core';
 import {
-  DataEvent,
-  DATA_EVENTS,
+  removeAllChildNodes,
   debug,
   resolveExpression,
   RouterService,
   warn,
 } from '../../services';
-import { removeAllChildNodes } from '../../services/utils/dom-utils';
 
 @Component({
   tag: 'x-data-display',
@@ -15,10 +13,11 @@ import { removeAllChildNodes } from '../../services/utils/dom-utils';
   shadow: false,
 })
 export class XDataDisplay {
+  @Element() el: HTMLXDataDisplayElement;
+
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
   @State() value: string;
-  @Element() el: HTMLXDataDisplayElement;
 
   /**
    The data expression to obtain a value for rendering as inner-text for this element.
@@ -30,11 +29,9 @@ export class XDataDisplay {
   @Listen('xui:action-events:data', {
     target: 'body',
   })
-  async dataEvent(ev: CustomEvent<DataEvent>) {
-    if (ev.detail.type === DATA_EVENTS.DataChanged) {
-      debug('x-data-display: data-provider~changed');
-      await this.resolveTemplate();
-    }
+  async dataEvent() {
+    debug('x-data-display: data-provider~changed');
+    await this.resolveTemplate();
   }
 
   async componentWillLoad() {

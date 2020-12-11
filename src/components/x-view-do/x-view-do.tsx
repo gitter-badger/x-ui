@@ -3,7 +3,6 @@ import {
   Route,
   MatchResults,
   state,
-  IViewDo,
   VisitStrategy,
   RouterService,
   resolveExpression,
@@ -16,7 +15,7 @@ import {
   styleUrl: 'x-view-do.scss',
   shadow: true,
 })
-export class XViewDo implements IViewDo {
+export class XViewDo {
   private route: Route;
   @Element() el!: HTMLXViewDoElement;
   @State() match: MatchResults;
@@ -72,14 +71,6 @@ export class XViewDo implements IViewDo {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  /**
-   *  A property that returns true if this route has
-   *  already been visited. This will be used by
-   *  the parent view to determine if this route
-   *  should be part of a sequence.
-   */
-  @Prop() visited = false;
-
   private get parent(): HTMLXViewElement {
     return this.el.parentElement as HTMLXViewElement;
   }
@@ -92,10 +83,6 @@ export class XViewDo implements IViewDo {
     return this.parent?.getAttribute('root');
   }
 
-  get urlKey() {
-    return `${window?.location?.href || 'fake'}`;
-  }
-
   async componentDidUpdate() {
     await this.route.loadCompleted();
   }
@@ -105,11 +92,6 @@ export class XViewDo implements IViewDo {
     if (this.transition === undefined) {
       this.transition = this.parent?.transition;
     }
-
-    this.visited = (this.visited
-      // eslint-disable-next-line eqeqeq
-      || state.sessionVisits.includes(this.urlKey)
-      || state.storedVisits.includes(this.urlKey));
 
     this.route = new Route(
       this.el,
@@ -127,7 +109,17 @@ export class XViewDo implements IViewDo {
     const nextElement = this.el?.querySelector('#next');
     const next = (element:string, eventName: string) => {
       debugIf(state.debug, `x-view-do: next element ${element} ${eventName} detected`);
-      RouterService.instance?.returnToParent();
+      const inputElements = this.el.querySelectorAll('input');
+      let valid = true;
+      inputElements.forEach((i) => {
+        i.blur();
+        if (i.reportValidity() === false) {
+          valid = false;
+        }
+      });
+      if (valid) {
+        RouterService.instance?.returnToParent();
+      }
     };
 
     // Attach next()
@@ -148,7 +140,6 @@ export class XViewDo implements IViewDo {
   }
 
   async componentDidLoad() {
-    debugIf(state.debug, `x-view-do: <x-view-do~loaded> ${this.url}`);
     await this.route.loadCompleted();
   }
 
@@ -164,10 +155,9 @@ export class XViewDo implements IViewDo {
       });
 
       if (this.visit === VisitStrategy.once) {
-        state.storedVisits = [...new Set([...state.storedVisits, this.urlKey])];
+        state.storedVisits = [...new Set([...state.storedVisits, this.url])];
       }
-      state.sessionVisits = [...new Set([...state.sessionVisits, this.urlKey])];
-      this.visited = true;
+      state.sessionVisits = [...new Set([...state.sessionVisits, this.url])];
     }
   }
 

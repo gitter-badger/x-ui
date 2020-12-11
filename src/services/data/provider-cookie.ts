@@ -10,7 +10,7 @@ export class CookieProvider implements IDataProvider {
     });
   }
 
-  async get(key: string): Promise<string|null> {
+  async get(key: string): Promise<string> {
     return getCookie(this.document, key);
   }
 

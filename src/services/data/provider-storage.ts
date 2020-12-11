@@ -10,7 +10,7 @@ export class StorageProvider implements IDataProvider {
   }
 
   async get(key: string): Promise<string|null> {
-    return this.localStorage?.getItem(key) || null;
+    return this.localStorage?.getItem(key);
   }
 
   async set(key: string, value: string) {

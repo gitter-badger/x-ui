@@ -41,27 +41,24 @@ export async function resolveExpression(valueExpression: string): Promise<string
     const expression = match[0];
     const providerKey = match[1];
     const dataKey = match[2];
-    const propKey = match[3] || null;
+    const propKey = match[3] || '';
     const defaultValue = match[4] || '';
     const provider = getProvider(providerKey);
     // eslint-disable-next-line no-await-in-loop
-    let value = await provider?.get(dataKey);
-    if (value != null) {
-      if (propKey) {
-        const obj = JSON.parse(value || '{}');
-        const propSegments = propKey.split('.');
-        let node = obj;
-        propSegments.forEach((property) => {
-          node = node[property];
-        });
-        value = `${node}`;
-      }
-      result = result.replace(expression, value);
-    } else {
-      result = result.replace(expression, defaultValue);
+    let value = await provider?.get(dataKey) || defaultValue;
+
+    if (propKey) {
+      const obj = JSON.parse(value || '{}');
+      const propSegments = propKey.split('.');
+      let node = obj;
+      propSegments.forEach((property) => {
+        node = node[property];
+      });
+      value = `${node}`;
     }
+    result = result.replace(expression, value);
   }
-  return result || null;
+  return result;
 }
 
 /**

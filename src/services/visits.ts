@@ -1,4 +1,5 @@
 import { warnIf } from './logging';
+import { onChange, state } from './state';
 import { storageAvailable } from './utils/dom-utils';
 
 const supportsSession = storageAvailable(window, 'sessionStorage');
@@ -44,4 +45,21 @@ export async function setStoredVisits(visits: Array<string>) {
   } else {
     memoryState = [...new Set([...visits, memoryState])];
   }
+}
+
+onChange('storedVisits', async (a) => setStoredVisits(a));
+onChange('sessionVisits', async (a) => setSessionVisits(a));
+
+getStoredVisits()
+  .then((v) => {
+    state.storedVisits = v;
+  });
+
+getSessionVisits()
+  .then((v) => {
+    state.sessionVisits = v;
+  });
+
+export function hasVisited(url: string) {
+  return state.sessionVisits.includes(url) || state.storedVisits.includes(url);
 }

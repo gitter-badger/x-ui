@@ -18,8 +18,8 @@ describe('resolveExpression', () => {
   });
 
   it('returns null for non-existent value', async () => {
-    let value = await resolveExpression('{session:name}');
-    expect(value).toBe(null);
+    let value = await resolveExpression('{session:name}') || '';
+    expect(value).toBe('');
   });
 
   it('returns the literal string if no expression is detected', async () => {

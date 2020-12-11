@@ -166,10 +166,6 @@ export namespace Components {
          */
         "visit": VisitStrategy;
         /**
-          * A property that returns true if this route has already been visited. This will be used by the parent view to determine if this route should be part of a sequence.
-         */
-        "visited": boolean;
-        /**
           * If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy
          */
         "when"?: string;
@@ -489,10 +485,6 @@ declare namespace LocalJSX {
           * The visit strategy for this do. once: persist the visit and never force it again always: do not persist, but don't don't show again in-session optional: do not force this view-do ever. It will be available by URL
          */
         "visit"?: VisitStrategy;
-        /**
-          * A property that returns true if this route has already been visited. This will be used by the parent view to determine if this route should be part of a sequence.
-         */
-        "visited"?: boolean;
         /**
           * If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy
          */

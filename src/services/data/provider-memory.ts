@@ -7,8 +7,8 @@ export class InMemoryProvider implements IDataProvider {
     this.changed = new EventEmitter();
   }
 
-  async get(key: string): Promise<string|null> {
-    return this.data[key] || null;
+  async get(key: string): Promise<string> {
+    return this.data[key];
   }
   async set(key: string, value: string): Promise<void> {
     this.data[key] = value;
