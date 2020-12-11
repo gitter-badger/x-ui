@@ -63,3 +63,11 @@ getSessionVisits()
 export function hasVisited(url: string) {
   return state.sessionVisits.includes(url) || state.storedVisits.includes(url);
 }
+
+export function markVisit(url: string) {
+  state.sessionVisits = [...new Set([...state.sessionVisits, url])];
+}
+
+export function storeVisit(url: string) {
+  state.storedVisits = [...new Set([...state.storedVisits, url])];
+}

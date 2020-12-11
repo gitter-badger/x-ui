@@ -253,14 +253,61 @@
       <x-view url="/page1"
         page-title="Page 1">
 
-        <x-view-do url="/video-1">
+        <x-view-do url="/video"
+          visit="always"
+          next-after="30"
+          progress-element="#progress">
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-media>
                 <ion-img src="https://via.placeholder.com/728x390.png?text=Video" />
               </ion-card-media>
+              <ion-progress-bar color="primary"
+                x-percentage-to="value"
+                value=""></ion-progress-bar>
               <ion-card-content>
                 <h2>First, a video</h2>
+              </ion-card-content>
+              <ion-item>
+                <ion-button slot="end" id="next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+
+        <x-view-do url="/animation"
+          visit="always"
+          next-after="30">
+          <x-action-activator
+            activate="onEnter">
+            <x-action
+              on="enter"
+              at="15"
+              topic="xui:action-events:doc"
+              command="hide-element"
+              data='{"id": "#step1"}'/>
+          </x-action-activator>
+          <ion-content class="ion-padding">
+            <ion-card>
+              <ion-card-media>
+                <ion-img id="step1" x-in-time="10" x-in-class="hide"
+                  src="https://via.placeholder.com/728x390.png?text=Step+1" />
+                <ion-img id="step2" class="hide"
+                  x-out-time="10" x-out-class="hide"
+                  x-in-time="20" x-in-class="hide"
+                  src="https://via.placeholder.com/728x390.png?text=Step+2" />
+                <ion-img id="step3" class="hide"
+                  x-out-time="20" x-out-class="hide"
+                  src="https://via.placeholder.com/728x390.png?text=Step+2" />
+              </ion-card-media>
+              <ion-progress-bar color="primary"
+                x-percentage-to="value"
+                value=""></ion-progress-bar>
+              <ion-card-content>
+                <h2>First, an Animation</h2>
               </ion-card-content>
               <ion-item>
                 <ion-button slot="end" id="next">
@@ -352,7 +399,7 @@
                 </template>
               </x-data-display>
 
-              <x-data-display  show-when="{storage:animal}">
+              <x-data-display>
                 <template>
                   <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{storage:animal}</x-view-link> </h3>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
@@ -362,6 +409,7 @@
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                 </template>
               </x-data-display>
+              <h5 hidden show-when="'{storage:animal}' == 'dog'">I only show up when animals is dog</h5>
             </ion-card-content>
             <ion-item>
               <x-view-link slot='start' url="/start">

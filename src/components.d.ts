@@ -146,6 +146,10 @@ export namespace Components {
     }
     interface XViewDo {
         /**
+          * Automatically progress after X seconds.
+         */
+        "nextAfter"?: number;
+        /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
         "pageTitle": string;
@@ -465,6 +469,10 @@ declare namespace LocalJSX {
         "url": string;
     }
     interface XViewDo {
+        /**
+          * Automatically progress after X seconds.
+         */
+        "nextAfter"?: number;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */

@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
-import { hasVisited } from '../../services/visits';
+import { Component, h, Prop, Host, Element, State, Watch, Listen, forceUpdate } from '@stencil/core';
 import {
   debugIf,
   Route,
@@ -9,6 +8,8 @@ import {
   MatchResults,
   resolveNext,
   state,
+  resolveElementVisibility,
+  hasVisited,
 } from '../..';
 
 @Component({
@@ -46,6 +47,7 @@ export class XView {
    *
   */
   @Prop() url!: string;
+
   @Watch('url')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validatePath(newValue: string, _oldValue: string) {
@@ -55,8 +57,23 @@ export class XView {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
+  @Listen('xui:action-events:data', {
+    target: 'body',
+  })
+  async dataEvent() {
+    forceUpdate(this.el);
+  }
+
   private get parent(): HTMLXViewElement | HTMLXUiElement {
     return this.el.parentElement as HTMLXViewElement | HTMLXUiElement;
+  }
+
+  get parentUrl() {
+    return this.parent?.getAttribute('url');
+  }
+
+  get root() {
+    return this.parent?.getAttribute('root');
   }
 
   private get childViewDos(): Array<HTMLXViewDoElement> {
@@ -86,6 +103,7 @@ export class XView {
       this.scrollTopOffset,
       (match) => {
         this.match = {...match};
+        forceUpdate(this.el);
       },
     );
 
@@ -106,21 +124,19 @@ export class XView {
     });
   }
 
-  async componentDidUpdate() {
-    await this.performViewUpdate();
+  async componentDidLoad() {
+    await this.route.loadCompleted();
   }
 
-  async componentDidLoad() {
-    debugIf(state.debug, `x-view: loaded ${this.url}`);
-    await this.performViewUpdate();
+  async componentDidUpdate() {
+    await this.route.loadCompleted();
   }
 
   async componentWillRender() {
-    await this.performViewUpdate();
+    await this.resolveTemplate();
   }
 
-  private async performViewUpdate() {
-    await this.route.loadCompleted();
+  private async resolveTemplate() {
     if (this.match?.isExact) {
       const nextDo = await resolveNext(this.childViewDos.map((x) => {
         const { when, visit, url} = x;
@@ -130,6 +146,8 @@ export class XView {
       if (nextDo) {
         // eslint-disable-next-line no-console
         RouterService.instance?.history.push(nextDo.url, { parent: this.url });
+      } else {
+        resolveElementVisibility(this.el);
       }
     }
   }
