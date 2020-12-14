@@ -22,13 +22,11 @@ export class XAction {
   *
   */
   @Method()
-  async getAction(): Promise<{ topic: string, action: ActionEvent<any>}> {
+  async getAction(): Promise<ActionEvent<any>> {
     return {
       topic: this.topic,
-      action: {
-        command: this.command,
-        data: JSON.parse(this.data || '{}'),
-      },
+      command: this.command,
+      data: JSON.parse(this.data || '{}'),
     };
   }
 

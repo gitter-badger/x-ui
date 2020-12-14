@@ -13,7 +13,7 @@ export namespace Components {
     interface XAction {
         "command": string;
         "data": string;
-        "getAction": () => Promise<{ topic: string; action: ActionEvent<any>; }>;
+        "getAction": () => Promise<ActionEvent<any>>;
         "topic": string;
     }
     interface XActionActivator {

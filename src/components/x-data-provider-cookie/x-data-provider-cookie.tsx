@@ -71,6 +71,7 @@ export class XDataProviderCookie {
   private handleConsentResponse(consented: boolean) {
     if (consented) {
       this.register.emit({
+        topic: DATA_TOPIC,
         command: DATA_COMMANDS.RegisterDataProvider,
         data: {
           name: 'cookie',
@@ -80,6 +81,7 @@ export class XDataProviderCookie {
       this.customProvider.set(this.consentKey, 'true');
     }
     this.didConsent.emit({
+      topic: DATA_TOPIC,
       command: DATA_EVENTS.CookieConsentResponse,
       data: {
         consented,

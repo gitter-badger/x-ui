@@ -11,7 +11,7 @@ import {
   shadow: true,
 })
 export class XActionActivator {
-  private actions = new Map<string, Array<ActionEvent<any>>>();
+  private actions: Array<ActionEvent<any>> = [];
   @Element() el: HTMLXActionActivatorElement;
 
   /**
@@ -41,19 +41,17 @@ export class XActionActivator {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async activateActions() {
     // activate children
-    this.actions.forEach((actions, topic) => {
-      actions.forEach((action) => {
-        debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${topic}, command:${action?.command} }`);
-        const event = new CustomEvent(topic, {
-          bubbles: true,
-          cancelable: true,
-          detail: {
-            command: action.command,
-            data: action.data,
-          },
-        });
-        this.el.dispatchEvent(event);
+    this.actions.forEach((action) => {
+      debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${action?.topic}, command:${action?.command} }`);
+      const event = new CustomEvent(action.topic, {
+        bubbles: true,
+        cancelable: true,
+        detail: {
+          command: action.command,
+          data: action.data,
+        },
       });
+      this.el.dispatchEvent(event);
     });
   }
 
@@ -72,9 +70,8 @@ export class XActionActivator {
     this.childActions.forEach(async (a) => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
-      debugIf(state.debug, `x-action-activator: <x-action~registered> ${action.topic} ${action.action?.command}`);
-      const topicList = this.actions[action.topic] || [];
-      this.actions.set(action.topic, [...topicList, action.action]);
+      debugIf(state.debug, `x-action-activator: <x-action~registered> ${action.topic} ${action.command}`);
+      this.actions.push(action);
     });
   }
 

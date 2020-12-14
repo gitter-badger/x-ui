@@ -36,6 +36,7 @@ export class XDataProviderSample {
 
   componentDidLoad() {
     this.register.emit({
+      topic: DATA_TOPIC,
       command: DATA_COMMANDS.RegisterDataProvider,
       data: {
         name: this.name,
