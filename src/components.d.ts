@@ -21,6 +21,7 @@ export namespace Components {
           * The activation strategy to use for the contained actions.
          */
         "activate": ActionActivationStrategy;
+        "activateActions": () => Promise<void>;
         /**
           * The element to watch for events or visibility,
          */
@@ -146,9 +147,13 @@ export namespace Components {
     }
     interface XViewDo {
         /**
-          * Automatically progress after X seconds.
+          * To debug timed elements, set this value to true.
          */
-        "nextAfter"?: number;
+        "debug": boolean;
+        /**
+          * Set a duration for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+         */
+        "duration"?: number;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
@@ -470,9 +475,13 @@ declare namespace LocalJSX {
     }
     interface XViewDo {
         /**
-          * Automatically progress after X seconds.
+          * To debug timed elements, set this value to true.
          */
-        "nextAfter"?: number;
+        "debug"?: boolean;
+        /**
+          * Set a duration for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+         */
+        "duration"?: number;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */

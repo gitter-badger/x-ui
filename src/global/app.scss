@@ -17,18 +17,6 @@ body {
 .hide,
 [hidden] {
   visibility: hidden;
-  display: none;
-}
-
-/**
- * ----------------------------------------
- * animation slide-in-blurred-left
- * ----------------------------------------
- */
-
-.slide-in-blurred-left {
-  animation: slide-in-blurred-left 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
-  animation: slide-in-blurred-left 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 /**
@@ -39,35 +27,23 @@ body {
 
 .fade-in {
   animation: fadeIn ease 1s;
-  animation: fadeIn ease 1s;
-  animation: fadeIn ease 1s;
-  animation: fadeIn ease 1s;
-  animation: fadeIn ease 1s;
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  opacity: 1;
 }
 @keyframes fadeIn {
   0% {opacity: 0;}
   100% {opacity: 1;}
 }
 
-dxp-experience {
-  bottom: 1em;
-  left: 50%;
-  margin-left: -100px;
-  width: 100px;
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+.fade-out {
+  animation: fadeOut ease 1s;
+  display: none;
+}
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }

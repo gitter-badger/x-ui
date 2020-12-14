@@ -25,63 +25,76 @@ This component can be configured with a “when” attribute, that declares an e
 
 This evaluation has to take place before the route is activated as the underlying data can change in the previous Do components.  If the component is deemed unnecessary (the predicate returns false), the component marks itself ‘complete’ and returns control to the parent view, without revealing its contents.
 
+#### Special Next & Back Classes
+To make guided-navigation easy, you can add these simple classes to any child elements and this component will attach click-handlers to automatically set-up next and back navigation.
+
+#### Next Class: x-next
+
+````html
+<any class="x-next" />
+````
+
+#### Back Class: x-back
+
+````html
+<any class="x-back" />
+````
+
 ### Child Attribute Detection & Resolution
 
 The following attributes are queried to resolve certain data-values or show/hide conditions for all child elements. 
 
-#### Next:  .x-next
-
-````html
-<any class=".x-next" />
-````
-
-#### Back:  .x-back
-
-````html
-<any class=".x-back" />
-````
-
-#### Hide When:  [hide-when]
+#### [x-hide-when]
 
 For each child element with this attribute, the value of the attribute is evaluated for a predicate – and if TRUE, the element is hidden. This evaluation occurs whenever data-changes.
 
 ````html
-<any hide-when="predicate" />
+<any x-hide-when="predicate" />
 ````
 
-#### Show When:  [show-when]
+#### [x-show-when]
 
 For each child element with this attribute, the value of the attribute is evaluated for a predicate – and if FALSE, the element is shown. This evaluation occurs whenever data-changes. 
 
 ````html
-<any show-when="predicate" hidden/>
+<any x-show-when="predicate" hidden/>
 ````
 
 > ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.
 
-#### In Time:  [x-in-time]
+### Time-Presentation Child Attribute Resolution
+The **\<x-view-do\>** element is always keeping track of time once its route is active. As such, you can create timed-based actions using special attributes placed on any child element.
+
+> ℹ️) If a video element is detected, its time is used, allowing pause & play.
+
+#### [x-in-time] & [x-in-class]
+This attribute removes the 'hidden' attribute if present at the specified time in seconds.
+
 
 ````html
-<any x-in-time="1" />
+<any hidden x-in-time="1" />
 ````
 
 > ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.
 
-#### In Class:  [x-in-class]
+When used with x-in-class, this attribute adds the specified class and removes the 'hidden' attribute if present at the specified time in seconds.
 
 ````html
-<any x-in-class="fade-in" />
+<any hidden x-in-time="1" x-in-class="fade-in" />
 ````
-#### Out Time:  [x-out-time]
+
+####  [x-out-time] & [x-out-class]
+This attribute adds the 'hidden' attribute if  no x-out-class attribute is present at the specified time in seconds. 
 
 ````html
 <any x-out-time="1" />
 ````
+> ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.
 
-#### Out Class:  [x-out-class]
+When used with x-out-class, this attribute adds the specified class and removes the 'hidden' attribute if present at the specified time out seconds.
 
 ````html
-<any x-out-class="fade-in" />
+<any x-out-time="1" x-out-class="fade-out" />
 ````
 
 #### Time To:  [x-time-to]

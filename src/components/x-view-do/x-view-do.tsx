@@ -8,9 +8,13 @@ import {
   VisitStrategy,
   RouterService,
   debugIf,
+  captureElementChildTimedNodes,
   resolveElementVisibility,
+  resolveElementChildTimedNodesByTime,
   resolveElementValues,
+  TimedNode,
 } from '../..';
+import { ActionActivationStrategy, forEachAsync } from '../../services';
 
 @Component({
   tag: 'x-view-do',
@@ -19,9 +23,8 @@ import {
 })
 export class XViewDo implements ComponentInterface {
   private route: Route;
-  private timedNodes = [];
-  private timer;
-  private lastTime;
+  private timedNodes: Array<TimedNode> = [];
+  private timer: NodeJS.Timeout;
   private timeEvent: EventEmitter;
   @Element() el!: HTMLXViewDoElement;
   @State() match: MatchResults;
@@ -70,9 +73,15 @@ export class XViewDo implements ComponentInterface {
   @Prop() when?: string;
 
   /**
-  * Automatically progress after X seconds.
+  * Set a duration for this view. When this value exists, the page will
+  * automatically progress when the duration in seconds has passed.
   */
-  @Prop() nextAfter?: number;
+  @Prop() duration?: number;
+
+  /**
+  * To debug timed elements, set this value to true.
+  */
+  @Prop() debug: boolean = false;
 
   @Watch('url')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -86,7 +95,7 @@ export class XViewDo implements ComponentInterface {
   @Listen('xui:action-events:data', {
     target: 'body',
   })
-  async dataEvent() {
+  dataEvent() {
     forceUpdate(this.el);
   }
 
@@ -107,9 +116,47 @@ export class XViewDo implements ComponentInterface {
     return this.el.querySelector('video');
   }
 
+  private get actionActivators(): Array<HTMLXActionActivatorElement> {
+    if (!this.el.hasChildNodes()) return [];
+    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-ACTION-ACTIVATOR')
+      .map((v) => v as HTMLXActionActivatorElement);
+  }
+
+  private async next(element:string, eventName: string) {
+    debugIf(state.debug, `x-view-do: next element ${element} ${eventName} detected`);
+    const inputElements = this.el.querySelectorAll('input');
+    let valid = true;
+    inputElements.forEach((i) => {
+      i.blur();
+      if (i.reportValidity() === false) {
+        valid = false;
+      }
+    });
+    if (valid) {
+      markVisit(this.url);
+      if (this.visit === VisitStrategy.once) {
+        storeVisit(this.url);
+      }
+      clearInterval(this.timer);
+
+      await forEachAsync(
+        this.actionActivators
+          .filter((activator) => activator.activate === ActionActivationStrategy.onExit),
+        async (activator) => {
+          await activator.activateActions();
+        });
+
+      RouterService.instance?.returnToParent();
+    }
+  }
+
   componentWillLoad() {
     if (this.transition === undefined) {
       this.transition = this.parent?.transition;
+    }
+
+    if (this.childVideo) {
+      this.duration = this.childVideo.duration;
     }
 
     this.route = new Route(
@@ -126,26 +173,10 @@ export class XViewDo implements ComponentInterface {
       },
     );
 
-    const next = (element:string, eventName: string) => {
-      debugIf(state.debug, `x-view-do: next element ${element} ${eventName} detected`);
-      const inputElements = this.el.querySelectorAll('input');
-      let valid = true;
-      inputElements.forEach((i) => {
-        i.blur();
-        if (i.reportValidity() === false) {
-          valid = false;
-        }
-      });
-      if (valid) {
-        clearInterval(this.timer);
-        RouterService.instance?.returnToParent();
-      }
-    };
-
     // Attach next
     const nextElement = this.el?.querySelector('.x-next');
     nextElement?.addEventListener('click', (e) => {
-      next(nextElement?.localName, 'clicked');
+      this.next(nextElement?.localName, 'clicked');
       e.preventDefault();
     });
 
@@ -153,7 +184,7 @@ export class XViewDo implements ComponentInterface {
     const backElement = this.el?.querySelector('.x-back');
     backElement?.addEventListener('click', (e) => {
       e.preventDefault();
-      RouterService.instance?.returnToParent();
+      RouterService.instance?.history?.goBack();
     });
 
     // Attach enter-key for next
@@ -162,22 +193,15 @@ export class XViewDo implements ComponentInterface {
       const lastInput = inputElements[inputElements.length - 1];
       lastInput?.addEventListener('keypress', (ev:KeyboardEvent) => {
         if (ev.key === 'Enter') {
-          next(lastInput.localName, 'enter-key');
+          this.next(lastInput.localName, 'enter-key');
         }
       });
     }
 
     // Capture timed nodes
-    const timedElements = this.el.querySelectorAll('*[x-in-time], *[x-out-time]');
-    timedElements.forEach((el) => {
-      this.timedNodes.push({
-        start: parseFloat(el.getAttribute('x-in-time')),
-        end: parseFloat(el.getAttribute('x-out-time')),
-        classIn: el.getAttribute('x-in-class'),
-        classOut: el.getAttribute('x-out-class'),
-        element: el,
-      });
-    });
+    this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
+    debugIf(this.debug && this.timedNodes.length > 0,
+      `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
   }
 
   async componentDidLoad() {
@@ -193,82 +217,67 @@ export class XViewDo implements ComponentInterface {
   }
 
   private async resolveTemplate() {
-    const timeUpdateEvent = 'timeupdate';
     clearInterval(this.timer);
     if (this.match?.isExact) {
-      const video = this.childVideo;
-      this.timeEvent = new EventEmitter();
-      this.lastTime = 0;
-      if (video) {
-        video.addEventListener(timeUpdateEvent, () => {
-          this.timeEvent.emit(timeUpdateEvent, video.currentTime);
+      await forEachAsync(
+        this.actionActivators
+          .filter((activator) => activator.activate === ActionActivationStrategy.onEnter),
+        async (activator) => {
+          await activator.activateActions();
         });
-        this.nextAfter = video.duration;
-      } else {
-        let time = 0;
-        this.timer = setInterval(() => {
-          time += 0.1;
-          this.timeEvent.emit(timeUpdateEvent, time);
-        }, 100);
-      }
+
+      this.setupTimer();
       resolveElementValues(this.el);
       resolveElementVisibility(this.el);
-      markVisit(this.url);
-
-      if (this.visit === VisitStrategy.once) {
-        storeVisit(this.url);
-      }
-      this.timeEvent.on(timeUpdateEvent, (time) => {
-        this.handleTimeUpdate(time);
-
-        // monitor next-when
-        if ((this.nextAfter > 0) && (time > this.nextAfter)) {
-          clearInterval(this.timer);
-          RouterService.instance?.returnToParent();
-        }
-      });
     }
   }
 
-  private handleTimeUpdate(time: number) {
-    const classIn = 'x-class-in';
-    const classOut = 'x-class-out';
-    this.timedNodes.forEach((node) => {
-      if (Math.abs(time - this.lastTime) < 0.1) {
-        return;
-      }
-      this.lastTime = time;
-      if ((!node.element.classList.contains(classIn))
-        && (time >= node.start)
-        && (node.end ? time < node.end : true)) {
-        node.element.classList.remove(classOut);
-        node.element.classList.remove(node.classOut);
-        node.element.classList.add(node.classIn);
-        node.element.classList.add(classIn);
-      } else if ((node.element.classList.contains(classIn))
-        && ((time < node.start) || (node.end ? time >= node.end : false))) {
-        node.element.classList.remove(node.classIn);
-        node.element.classList.remove(classIn);
-        node.element.classList.add(classOut);
-        node.element.classList.add(node.classOut);
-      }
-    });
+  private setupTimer() {
+    const timeUpdateEvent = 'timeupdate';
+    const video = this.childVideo;
+    this.timeEvent = new EventEmitter();
 
-    const timeValueElements = this.el.querySelectorAll('*[x-time-to]');
-    timeValueElements.forEach((el) => {
-      const attributeName = el.getAttribute('x-time-to');
-      if (attributeName) {
-        el.setAttribute(attributeName, time.toString());
-      }
-    });
+    if (video) {
+      video.addEventListener(timeUpdateEvent, () => {
+        this.timeEvent.emit(timeUpdateEvent, video.currentTime);
+      });
+      video.addEventListener('click', () => {
+        this.childVideo.play();
+      });
+    } else {
+      let time = 0;
+      this.timer = setInterval(() => {
+        time = Math.ceil(time += 0.1);
+        debugIf(this.debug, `x-view-do: ${time}`);
+        this.timeEvent.emit(timeUpdateEvent, time);
+      }, 1000);
+    }
 
-    const timePercentageValueElements = this.el.querySelectorAll('*[x-percentage-to]');
-    timePercentageValueElements.forEach((el) => {
-      const attributeName = el.getAttribute('x-percentage-to');
-      // const timeRemaining = this.nextAfter - time;
-      const percentage = (time / this.nextAfter);
-      if (attributeName) {
-        el.setAttribute(attributeName, percentage.toString());
+    this.timeEvent.on(timeUpdateEvent, async (time) => {
+      const { debug, el, timedNodes, timer, duration } = this;
+
+      await forEachAsync(
+        this.actionActivators
+          .filter((activator) => activator.activate === ActionActivationStrategy.onTime
+             && activator.time === time),
+        async (activator) => {
+          await activator.activateActions();
+        });
+
+      // monitor next-when
+      if ((duration > 0) && (time >= duration)) {
+        clearInterval(timer);
+        debugIf(debug, `x-view-do: presentation ended at ${time} [not redirecting]`);
+        if (!debug) {
+          this.next('timer', timeUpdateEvent);
+        }
+      } else {
+        resolveElementChildTimedNodesByTime(
+          el,
+          timedNodes,
+          time,
+          duration,
+          debug);
       }
     });
   }

@@ -5,7 +5,6 @@ export interface IActionEventListener {
 
 export enum ActionActivationStrategy {
   onEvent,
-  onVisible,
   onEnter,
   onExit,
   onTime,

@@ -150,7 +150,7 @@
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
-                <h2>What should we call you?</h2>
+                <h1>What should we call you?</h1>
               </ion-card-header>
               <ion-card-content>
                 <ion-item>
@@ -162,7 +162,11 @@
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <ion-button slot="end" id="next">
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
                   Next
                   <ion-icon name="caret-forward-outline"></ion-icon>
                 </ion-button>
@@ -186,7 +190,7 @@
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
-                <h2>What's Good?</h2>
+                <h1>What's Good?</h1>
               </ion-card-header>
               <ion-card-content>
                 <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
@@ -196,7 +200,7 @@
                     <p><span id="foo">SEE MORE INFO!</span> Clicking this triggers an action to change the URL.</span>
                   </template>
                 </x-data-display>
-                <h4>How this all works:</h4>
+                <h1>How this all works:</h1>
                 <ion-text color="secondary">
                   <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
                   <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
@@ -205,7 +209,11 @@
                 </ion-text>
               </ion-card-content>
               <ion-item>
-                <ion-button slot="end" id="next">
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
                   Next
                   <ion-icon name="caret-forward-outline"></ion-icon>
                 </ion-button>
@@ -220,7 +228,7 @@
               <ion-img src="https://via.placeholder.com/728x390.png?text=Home" />
             </ion-card-media>
             <ion-card-content>
-              <h2>Home</h2>
+              <h1>Home</h1>
               <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
@@ -239,10 +247,7 @@
             </ion-card-content>
             <ion-item>
               <x-view-link slot='end' url="/page1">
-                <ion-button>
-                   Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
+                Page 1
               </x-view-link>
             </ion-item>
           </ion-card>
@@ -252,72 +257,6 @@
        <!-- Page 1 Routes -->
       <x-view url="/page1"
         page-title="Page 1">
-
-        <x-view-do url="/video"
-          visit="always"
-          next-after="30"
-          progress-element="#progress">
-          <ion-content class="ion-padding">
-            <ion-card>
-              <ion-card-media>
-                <ion-img src="https://via.placeholder.com/728x390.png?text=Video" />
-              </ion-card-media>
-              <ion-progress-bar color="primary"
-                x-percentage-to="value"
-                value=""></ion-progress-bar>
-              <ion-card-content>
-                <h2>First, a video</h2>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="end" id="next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
-          </ion-content>
-        </x-view-do>
-
-        <x-view-do url="/animation"
-          visit="always"
-          next-after="30">
-          <x-action-activator
-            activate="onEnter">
-            <x-action
-              on="enter"
-              at="15"
-              topic="xui:action-events:doc"
-              command="hide-element"
-              data='{"id": "#step1"}'/>
-          </x-action-activator>
-          <ion-content class="ion-padding">
-            <ion-card>
-              <ion-card-media>
-                <ion-img id="step1" x-in-time="10" x-in-class="hide"
-                  src="https://via.placeholder.com/728x390.png?text=Step+1" />
-                <ion-img id="step2" class="hide"
-                  x-out-time="10" x-out-class="hide"
-                  x-in-time="20" x-in-class="hide"
-                  src="https://via.placeholder.com/728x390.png?text=Step+2" />
-                <ion-img id="step3" class="hide"
-                  x-out-time="20" x-out-class="hide"
-                  src="https://via.placeholder.com/728x390.png?text=Step+2" />
-              </ion-card-media>
-              <ion-progress-bar color="primary"
-                x-percentage-to="value"
-                value=""></ion-progress-bar>
-              <ion-card-content>
-                <h2>First, an Animation</h2>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="end" id="next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
-          </ion-content>
-        </x-view-do>
 
         <x-view-do
           url="/confirm-fave"
@@ -338,7 +277,11 @@
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <ion-button slot="end" id="next">
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
                   Next
                   <ion-icon name="caret-forward-outline"></ion-icon>
                 </ion-button>
@@ -354,7 +297,7 @@
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
-                <h2>What is your spirit animal?</h2>
+                <h1>What is your spirit animal?</h1>
               </ion-card-header>
               <ion-card-content>
                 <ion-item>
@@ -366,7 +309,11 @@
                 </ion-item>
               </ion-card-content>
               <ion-item>
-                <ion-button slot="end" id="next">
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
                   Next
                   <ion-icon name="caret-forward-outline"></ion-icon>
                 </ion-button>
@@ -381,16 +328,16 @@
               <ion-img src="https://via.placeholder.com/728x390.png?text=Page+1" />
             </ion-card-media>
             <ion-card-content>
-              <h2>Page 1</h2>
+              <h1>Page 1</h1>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               <ion-skeleton-text></ion-skeleton-text>
               <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
 
-              <x-data-display show-when="{session:favorite}">
+              <x-data-display when="{session:favorite}">
                 <template>
-                  <h3>Favorite thing: <x-view-link url="/page1/confirm-fave">{session:favorite}</x-view-link> </h3>
+                  <h2>Favorite thing: <x-view-link url="/page1/confirm-fave">{session:favorite}</x-view-link> </h2>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                   <ion-skeleton-text></ion-skeleton-text>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -401,7 +348,7 @@
 
               <x-data-display>
                 <template>
-                  <h3>Spirit Animal: <x-view-link url="/page1/confirm-animal">{storage:animal}</x-view-link> </h3>
+                  <h2>Spirit Animal: <x-view-link url="/page1/confirm-animal">{storage:animal}</x-view-link> </h2>
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                   <ion-skeleton-text></ion-skeleton-text>
                   <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -409,20 +356,16 @@
                   <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
                 </template>
               </x-data-display>
-              <h5 hidden show-when="'{storage:animal}' == 'dog'">I only show up when animals is dog</h5>
+              <h2 hidden x-show-when="'{storage:animal}' == 'dog'">
+                I only show up when your spirit-animal is 'dog'
+              </h2>
             </ion-card-content>
             <ion-item>
               <x-view-link slot='start' url="/start">
-                <ion-button>
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
+                Home
               </x-view-link>
               <x-view-link slot='end' url="/page2">
-                <ion-button>
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
+                Page 2
               </x-view-link>
             </ion-item>
           </ion-card>
@@ -433,6 +376,100 @@
       <x-view
         url="/page2"
         page-title="Page 2">
+        <x-view-do url="/video"
+          visit="always">
+          <ion-content class="ion-padding">
+            <ion-card>
+              <ion-card-media>
+                <video autoplay src="https://cdn.videvo.net/videvo_files/video/free/2014-06/small_watermarked/Blue_Sky_and_Clouds_Timelapse_0892__Videvo_preview.webm"></video>
+              </ion-card-media>
+              <ion-progress-bar color="primary"
+                x-percentage-to="value"></ion-progress-bar>
+              <ion-card-content>
+                <h1>First, a video</h1>
+              </ion-card-content>
+              <ion-item>
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+
+        <x-view-do url="/animation"
+          visit="always"
+          duration="30">
+          <x-action-activator
+            activate="onEnter">
+            <x-action
+              on="enter"
+              at="15"
+              topic="xui:action-events:doc"
+              command="hide-element"
+              data='{"id": "#step1"}'/>
+          </x-action-activator>
+          <ion-content class="ion-padding">
+            <ion-card>
+              <ion-card-media>
+                <ion-img id="step1"
+                  x-out-time="9"
+                  src="https://via.placeholder.com/728x390.png?text=Step+1"></ion-img>
+                <ion-img id="step2" hidden
+                  x-in-time="10"
+                  x-out-time="19"
+                  src="https://via.placeholder.com/728x390.png?text=Step+2"></ion-img>
+                <ion-img id="step3" hidden
+                  x-in-time="20"
+                  src="https://via.placeholder.com/728x390.png?text=Step+3"></ion-img>
+              </ion-card-media>
+              <ion-progress-bar color="primary"
+                x-percentage-to="value"></ion-progress-bar>
+              <ion-card-content>
+                <h2>First, an Animation using simple attributes:</h2>
+                <p>Progress: <span x-percentage-to></span></p>
+                <div hidden
+                  x-int-time="0" x-in-class="fade-in"
+                  x-out-time="9" x-out-class="fade-out"
+                  >
+                  <h1>Step 1 Stuff</h1>
+                  <p>Fake Step 1 copy. </p>
+                </div>
+                <div hidden
+                  x-in-time="10" x-in-class="fade-in"
+                  x-out-time="19" x-out-class="fade-out"
+                  >
+                  <h1>Step 2 Stuff</h1>
+                  <p>Fake Step 2 copy. </p>
+                </div>
+                <div hidden
+                  x-in-time="20" x-in-class="fade-in"
+                  x-out-time="30" x-out-class="fade-out"
+                  >
+                  <h1>Step 3 Stuff</h1>
+                  <p>Fake Step 3 copy. </p>
+                </div>
+
+              </ion-card-content>
+              <ion-item>
+                <ion-button slot="start" class="x-back">
+                  <ion-icon name="caret-back-outline"></ion-icon>
+                  Back
+                </ion-button>
+                <ion-button slot="end" class="x-next">
+                  Next
+                  <ion-icon name="caret-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-card>
+          </ion-content>
+        </x-view-do>
+
         <ion-content class="ion-padding">
           <ion-card>
             <ion-card-media>
@@ -446,6 +483,9 @@
               <h2>What a page!</h2>
               <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
               <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
+              <x-view-link url="/page2/info">
+                ℹ️ More info
+              </x-view-link>
               <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
 
               <x-data-show when="{session:favorite}">
@@ -460,19 +500,11 @@
                 <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
                 <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
               </x-data-show>
+
             </ion-card-content>
             <ion-item>
               <x-view-link slot='start' url="/page1">
-                <ion-button>
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-              </x-view-link>
-              <x-view-link slot='end' url="/page2/info">
-                <ion-button>
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
+                Page 1
               </x-view-link>
             </ion-item>
           </ion-card>

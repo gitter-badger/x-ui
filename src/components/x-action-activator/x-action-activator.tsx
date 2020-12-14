@@ -1,4 +1,4 @@
-import { Component, Element, Prop, h, Host } from '@stencil/core';
+import { Component, Element, Prop, h, Host, Method } from '@stencil/core';
 import {
   ActionActivationStrategy,
   ActionEvent,
@@ -34,6 +34,29 @@ export class XActionActivator {
    */
   @Prop() time?: number;
 
+  /**
+  *
+  */
+  @Method()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async activateActions() {
+    // activate children
+    this.actions.forEach((actions, topic) => {
+      actions.forEach((action) => {
+        debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${topic}, command:${action?.command} }`);
+        const event = new CustomEvent(topic, {
+          bubbles: true,
+          cancelable: true,
+          detail: {
+            command: action.command,
+            data: action.data,
+          },
+        });
+        this.el.dispatchEvent(event);
+      });
+    });
+  }
+
   private get parent(): HTMLXViewDoElement {
     return this.el.closest('x-view-do') as HTMLXViewDoElement;
   }
@@ -57,22 +80,9 @@ export class XActionActivator {
 
   private attachHandler() {
     const element = this.parent?.querySelector(this.elementQuery);
-    element?.addEventListener(this.eventName, () => {
+    element?.addEventListener(this.eventName, async () => {
       debugIf(state.debug, `x-action-activator: <${this.elementQuery}~${this.eventName}>`);
-      this.actions.forEach((actions, topic) => {
-        actions.forEach((action) => {
-          debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${topic}, command:${action?.command} }`);
-          const event = new CustomEvent(topic, {
-            bubbles: true,
-            cancelable: true,
-            detail: {
-              command: action.command,
-              data: action.data,
-            },
-          });
-          this.el.dispatchEvent(event);
-        });
-      });
+      await this.activateActions();
     });
   }
 
