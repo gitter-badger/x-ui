@@ -25,6 +25,7 @@ export const config: Config = {
     reloadStrategy: 'pageReload',
     port: 3333,
   },
+  watch: true,
   outputTargets: [
     // creates /dist dir
     {
@@ -53,6 +54,10 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null, // disable service workers
+      copy: [
+        { src: '**/*.md' },
+        { src: '**/*.html' },
+      ],
     },
   ],
 };

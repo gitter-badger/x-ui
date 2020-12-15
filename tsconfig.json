@@ -3,6 +3,7 @@
     "src",
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/**/*.md",
     "types/jsx.d.ts",
     "./typings.d.ts",
   ],
