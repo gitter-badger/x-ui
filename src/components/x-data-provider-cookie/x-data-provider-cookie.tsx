@@ -1,6 +1,6 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
-import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration, DATA_EVENTS, CookieConsent } from '../..';
+import { DATA_TOPIC, DATA_COMMANDS, DataProviderRegistration, DATA_EVENTS, CookieConsent } from '../..';
 import { CookieProvider, debugIf, evaluatePredicate, state } from '../../services';
 
 @Component({
@@ -37,7 +37,7 @@ export class XDataProviderCookie {
     bubbles: true,
     composed: true,
     cancelable: true,
-  }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
+  }) register: EventEmitter<ActionEvent<DataProviderRegistration>>;
 
   /**
    * This event is raised when the component loads.

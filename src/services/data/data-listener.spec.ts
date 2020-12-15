@@ -1,12 +1,12 @@
 jest.mock('../logging');
 
 import { getProvider, clearProviders } from './provider-factory';
-import { ProviderListener } from './provider-listener';
-import { DATA_COMMANDS, DATA_TOPIC, IDataProvider, ProviderRegistration } from './interfaces';
+import { DataListener } from './data-listener';
+import { DATA_COMMANDS, DATA_TOPIC, IDataProvider, DataProviderRegistration } from './interfaces';
 import { InMemoryProvider } from './provider-memory';
 import { ActionEvent } from '..';
 
-type Listener = (ev:{ type: string, detail: ActionEvent<ProviderRegistration>}) => void
+type Listener = (ev:{ type: string, detail: ActionEvent<DataProviderRegistration>}) => void
 
 class MockDataProvider extends InMemoryProvider {
   setItem(x,y) {
@@ -18,7 +18,7 @@ class MockDataProvider extends InMemoryProvider {
 }
 
 describe('data-provider-listener', () => {
-  let subject: ProviderListener = null;
+  let subject: DataListener = null;
   let mockWindow:any;
   let mockDataProvider: IDataProvider;
   let listeners:Array<Listener> = [];
@@ -27,7 +27,7 @@ describe('data-provider-listener', () => {
     mockDataProvider = new MockDataProvider();
     clearProviders();
     listeners = [];
-    subject = new ProviderListener();
+    subject = new DataListener();
     mockWindow = {
       document:{
         addEventListener: (evt:string, func:Listener, _opts) => {
@@ -82,10 +82,11 @@ describe('data-provider-listener', () => {
   it('eventListener: handles listeners events', async () => {
     subject.initialize(mockWindow);
     expect(listeners.length).toBe(1);
-    const event = new CustomEvent<ActionEvent<ProviderRegistration>>(
+    const event = new CustomEvent<ActionEvent<DataProviderRegistration>>(
       DATA_TOPIC,
       {
         detail: {
+          topic: DATA_TOPIC,
           command: DATA_COMMANDS.RegisterDataProvider,
           data: {
             name: 'mock',

@@ -4,20 +4,20 @@ import {
   Element,
   Prop,
   State,
-  writeTask,
-  Event,
-  EventEmitter } from '@stencil/core';
+  writeTask } from '@stencil/core';
 import {
   HistoryType,
   IActionEventListener,
   LocationSegments,
   log,
   debugIf,
-  ProviderListener,
+  DataListener,
   RouterService,
-  state } from '../../services';
-import { RouteListener } from '../../services/routing/route-listener';
-import { DataEvent, DATA_EVENTS } from '../../services/data/interfaces';
+  state,
+  DocumentListener,
+  RouteListener
+} from '../../services';
+
 @Component({
   tag: 'x-ui',
   styleUrl: 'x-ui.scss',
@@ -86,20 +86,12 @@ export class XUI {
    */
   @Prop() debug: boolean = false;
 
-  @Event({
-    eventName: 'xui:action-events:data',
-    composed: true,
-    cancelable: true,
-    bubbles: true,
-  }) dataEvent: EventEmitter<DataEvent>;
-
   componentWillLoad() {
     this.debug ? log('xui: initializing <debug>') : log('xui: initializing');
 
     state.debug = this.debug;
 
     const router = RouterService.initialize(writeTask, this.el, this.historyType, this.root, this.appTitle, this.transition, this.scrollTopOffset);
-
     router.onRouteChange(() => {
       this.location = router.location;
     });
@@ -108,18 +100,18 @@ export class XUI {
       router.history.replace(this.startUrl);
     }
 
-    const dataListener = new ProviderListener();
-    dataListener.changed.on(DATA_EVENTS.DataChanged, () => {
-      debugIf(state.debug, `x-ui: <data-provider~changed>`)
-      this.dataEvent.emit({ type: DATA_EVENTS.DataChanged })
-    });
-
+    const dataListener = new DataListener();
     this.addListener('data', dataListener);
-    this.addListener('route', new RouteListener());
+
+    const routeListener = new RouteListener();
+    this.addListener('route', routeListener);
+
+    const documentListener = new DocumentListener();
+    this.addListener('document', documentListener);
   }
 
   private addListener(name: string, listener: IActionEventListener) {
-    debugIf(state.debug, `x-ui: <${name}-listener~registered>`);
+    debugIf(state.debug, `x-ui: ${name}-listener registered`);
     listener.initialize(window);
     this.listeners.push(listener);
   }

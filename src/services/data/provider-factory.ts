@@ -1,8 +1,12 @@
-import { IDataProvider, Providers } from './interfaces';
+import { IDataProvider } from './interfaces';
 import { requireValue } from '../utils/misc-utils';
 import { debug } from '../logging';
 
-const providers: Providers = {};
+type DataProviders = {
+  [key: string]: IDataProvider;
+};
+
+const providers: DataProviders = {};
 
 export function addProvider(name: string, provider:IDataProvider) {
   requireValue(name, 'provider name');

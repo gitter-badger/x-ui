@@ -1,7 +1,7 @@
 /* eslint-disable no-return-assign */
 import { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import { ActionEvent } from '../../services/actions';
-import { DATA_TOPIC, DATA_COMMANDS, ProviderRegistration } from '../../services';
+import { DATA_TOPIC, DATA_COMMANDS, DataProviderRegistration } from '../../services';
 import { InMemoryProvider } from '../../services/data/provider-memory';
 
 @Component({
@@ -32,7 +32,7 @@ export class XDataProviderSample {
    */
   @Event({
     eventName: DATA_TOPIC,
-  }) register: EventEmitter<ActionEvent<ProviderRegistration>>;
+  }) register: EventEmitter<ActionEvent<DataProviderRegistration>>;
 
   componentDidLoad() {
     this.register.emit({

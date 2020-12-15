@@ -3,7 +3,7 @@ export * from './cookies';
 export * from './interfaces';
 export * from './provider-cookie';
 export * from './provider-factory';
-export * from './provider-listener';
+export * from './data-listener';
 export * from './provider-memory';
 export * from './provider-session';
 export * from './provider-storage';

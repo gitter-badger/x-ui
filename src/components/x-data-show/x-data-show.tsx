@@ -14,7 +14,6 @@ export class XDataShow {
    The data expression to obtain a predicate for conditionally rendering
    the inner-contents of this element.
    @example {session:user.name}
-   @default null
    */
   @Prop() when!: string;
 
