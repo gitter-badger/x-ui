@@ -63,7 +63,6 @@ export async function findAsyncSequential<T>(
   return null;
 }
 
-
 /**
  * A synchronous way to find an item in a array with
  * an asynchronous predicate

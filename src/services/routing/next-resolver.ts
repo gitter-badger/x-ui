@@ -1,5 +1,5 @@
 import { findAsyncSequential } from '../utils/promise-utils';
-import { evaluatePredicate } from '../data';
+import { evaluatePredicate } from '../data/expression-evaluator';
 import { IViewDo, VisitStrategy } from './interfaces';
 
 async function shouldVisit(item:IViewDo) {

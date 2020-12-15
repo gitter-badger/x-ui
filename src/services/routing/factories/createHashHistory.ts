@@ -5,7 +5,7 @@ import { createLocation, locationsAreEqual, createKey } from '../utils/location-
 import { RouterHistory, LocationSegments, Prompt } from '../interfaces';
 import { warnIf } from '../../logging';
 import { addLeadingSlash, stripLeadingSlash, stripTrailingSlash, hasBasename, stripBasename, createPath } from '../utils/path-utils';
-import { getConfirmation } from '../../utils/dom-utils';
+import { getConfirmation } from '../utils/dom-utils';
 import { supportsGoWithoutReloadUsingHash } from '../utils/nav-utils';
 import createTransitionManager from './createTransitionManager';
 

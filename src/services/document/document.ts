@@ -1,5 +1,5 @@
-import { evaluatePredicate, hasExpression, resolveExpression } from './data/expression-evaluator';
-import { debugIf } from './logging';
+import { evaluatePredicate, hasExpression, resolveExpression } from '../data/expression-evaluator';
+import { debugIf } from '../logging';
 
 export type TimedNode = {
   start: number;
@@ -59,7 +59,7 @@ export function resolveElementChildTimedNodesByTime(
   timedNodes: Array<TimedNode>,
   time:number,
   duration: number,
-  debug: boolean,) {
+  debug: boolean) {
   timedNodes.forEach((node) => {
     if (node.start > -1
       && (time >= node.start)

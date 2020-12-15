@@ -178,15 +178,6 @@
         <x-view-do url="/hello"
           page-title="What's New"
           visit="always">
-          <x-action-activator
-            activate="onEvent"
-            element-query="#foo"
-            event-name="click">
-            <x-action
-              topic="xui:action-events:routing"
-              command="navigate-to"
-              data='{"url": "info"}'></x-action>
-          </x-action-activator>
           <ion-content class="ion-padding">
             <ion-card>
               <ion-card-header>
@@ -535,6 +526,25 @@
             </ion-card>
           </ion-content>
         </x-view>
+      </x-view>
+
+      <x-view url="/actions"
+        page-title="Using Actions">
+
+        <x-view-do url="Using Element Events"
+          >
+          <x-action-activator
+            activate="onEvent"
+            element-query="#foo"
+            event-name="click">
+            <x-action
+              topic="xui:action-events:routing"
+              command="navigate-to"
+              data='{"url": "info"}'></x-action>
+          </x-action-activator>
+        </x-view-do>
+
+
       </x-view>
 
        <!-- Not Found Route -->

@@ -6,7 +6,7 @@ export * from './logging';
 export * from './routing';
 export * from './state';
 export * from './visits';
-export * from './utils/dom-utils';
+export * from './routing/utils/dom-utils';
 export * from './utils/misc-utils';
 export * from './utils/promise-utils';
 export * from './utils/string-utils';

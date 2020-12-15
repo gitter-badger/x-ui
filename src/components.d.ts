@@ -5,10 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, ActionEvent, CookieConsent, ProviderRegistration, VisitStrategy } from ".";
+import { ActionActivationStrategy, ActionEvent, CookieConsent, DataProviderRegistration, VisitStrategy } from ".";
 import { ActionEvent as ActionEvent1 } from "./services/actions";
-import { HistoryType, ProviderRegistration as ProviderRegistration1 } from "./services";
-import { DataEvent } from "./services/data/interfaces";
+import { DataProviderRegistration as DataProviderRegistration1, HistoryType } from "./services";
 export namespace Components {
     interface XAction {
         "command": string;
@@ -69,7 +68,6 @@ export namespace Components {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
           * @example {session:user.name}
-          * @default null
          */
         "when": string;
     }
@@ -372,7 +370,7 @@ declare namespace LocalJSX {
         /**
           * This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions.
          */
-        "onRegister"?: (event: CustomEvent<ActionEvent<ProviderRegistration>>) => void;
+        "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
         /**
           * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
          */
@@ -390,13 +388,12 @@ declare namespace LocalJSX {
         /**
           * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
          */
-        "onRegister"?: (event: CustomEvent<ActionEvent<ProviderRegistration>>) => void;
+        "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
     }
     interface XDataShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
           * @example {session:user.name}
-          * @default null
          */
         "when": string;
     }
@@ -437,7 +434,6 @@ declare namespace LocalJSX {
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
         "historyType"?: HistoryType;
-        "onXui:action-events:data"?: (event: CustomEvent<DataEvent>) => void;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */

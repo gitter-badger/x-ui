@@ -22,7 +22,7 @@ import {
 import {
   getConfirmation,
   supportsHistory,
-} from '../../utils/dom-utils';
+} from '../utils/dom-utils';
 
 export interface CreateBrowserHistoryOptions {
   getUserConfirmation?: (message: string, callback: (confirmed: boolean) => {}) => {};
