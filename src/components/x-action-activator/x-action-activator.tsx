@@ -66,11 +66,11 @@ export class XActionActivator {
   }
 
   componentWillLoad() {
-    debugIf(state.debug, `x-action-activator: <x-action-activator~loading> ${this.parent?.url}`);
+    debugIf(state.debug, `x-action-activator: [${this.parent?.url}] loading`);
     this.childActions.forEach(async (a) => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
-      debugIf(state.debug, `x-action-activator: <x-action~registered> ${action.topic} ${action.command}`);
+      debugIf(state.debug, `x-action-activator: [x-action:${this.activate}:${action.topic}:${action.command}] registered`);
       this.actions.push(action);
     });
   }
@@ -78,7 +78,7 @@ export class XActionActivator {
   private attachHandler() {
     const element = this.parent?.querySelector(this.elementQuery);
     element?.addEventListener(this.eventName, async () => {
-      debugIf(state.debug, `x-action-activator: <${this.elementQuery}~${this.eventName}>`);
+      debugIf(state.debug, `x-action-activator: [${this.elementQuery}:${this.eventName}] listening`);
       await this.activateActions();
     });
   }

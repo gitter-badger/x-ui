@@ -141,7 +141,7 @@ export class XViewDo implements ComponentInterface {
 
       await forEachAsync(
         this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.onExit),
+          .filter((activator) => activator.activate === ActionActivationStrategy.OnExit),
         async (activator) => {
           await activator.activateActions();
         });
@@ -221,7 +221,7 @@ export class XViewDo implements ComponentInterface {
     if (this.match?.isExact) {
       await forEachAsync(
         this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.onEnter),
+          .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter),
         async (activator) => {
           await activator.activateActions();
         });
@@ -258,7 +258,7 @@ export class XViewDo implements ComponentInterface {
 
       await forEachAsync(
         this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.onTime
+          .filter((activator) => activator.activate === ActionActivationStrategy.AtTime
              && activator.time === time),
         async (activator) => {
           await activator.activateActions();

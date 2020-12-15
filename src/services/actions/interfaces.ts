@@ -4,8 +4,9 @@ export interface IActionEventListener {
 }
 
 export enum ActionActivationStrategy {
-  onEvent,
-  onEnter,
-  onExit,
-  onTime,
+  OnEvent = 'OnEvent',
+  OnElementEvent = 'OnElementEvent',
+  OnEnter = 'OnEnter',
+  OnExit = 'OnExit',
+  AtTime = 'AtTime',
 }
