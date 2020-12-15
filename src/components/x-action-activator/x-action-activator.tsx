@@ -3,6 +3,7 @@ import {
   ActionActivationStrategy,
   ActionEvent,
   state,
+  warn,
   debugIf,
 } from '../..';
 
@@ -42,7 +43,7 @@ export class XActionActivator {
   async activateActions() {
     // activate children
     this.actions.forEach((action) => {
-      debugIf(state.debug, `x-action-activator: sending ActionEvent { topic:${action?.topic}, command:${action?.command} }`);
+      debugIf(state.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate}:${action?.topic}:${action?.command}}`);
       const event = new CustomEvent(action.topic, {
         bubbles: true,
         cancelable: true,
@@ -66,11 +67,15 @@ export class XActionActivator {
   }
 
   componentWillLoad() {
-    debugIf(state.debug, `x-action-activator: [${this.parent?.url}] loading`);
+    debugIf(state.debug, `x-action-activator: ${this.parent?.url} loading`);
+    if (this.childActions.length === 0) {
+      warn(`x-action-activator: ${this.parent?.url} No children actions detected.`);
+      return;
+    }
     this.childActions.forEach(async (a) => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
-      debugIf(state.debug, `x-action-activator: [x-action:${this.activate}:${action.topic}:${action.command}] registered`);
+      debugIf(state.debug, `x-action-activator: ${this.parent?.url} registered: [x-action:${this.activate}:${action.topic}:${action.command}] `);
       this.actions.push(action);
     });
   }
@@ -78,7 +83,7 @@ export class XActionActivator {
   private attachHandler() {
     const element = this.parent?.querySelector(this.elementQuery);
     element?.addEventListener(this.eventName, async () => {
-      debugIf(state.debug, `x-action-activator: [${this.elementQuery}:${this.eventName}] listening`);
+      debugIf(state.debug, `x-action-activator:  ${this.parent?.url} listening: ${this.elementQuery}~${this.eventName}`);
       await this.activateActions();
     });
   }

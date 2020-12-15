@@ -10,10 +10,22 @@ import { ActionEvent as ActionEvent1 } from "./services/actions";
 import { DataProviderRegistration as DataProviderRegistration1, HistoryType } from "./services";
 export namespace Components {
     interface XAction {
+        /**
+          * The command to execute.
+         */
         "command": string;
+        /**
+          * The JSON serializable data payload the command requires.
+         */
         "data": string;
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
         "getAction": () => Promise<ActionEvent<any>>;
-        "topic": string;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "topic": 'data'|'routing'|'document';
     }
     interface XActionActivator {
         /**
@@ -327,9 +339,18 @@ declare global {
 }
 declare namespace LocalJSX {
     interface XAction {
+        /**
+          * The command to execute.
+         */
         "command"?: string;
+        /**
+          * The JSON serializable data payload the command requires.
+         */
         "data"?: string;
-        "topic"?: string;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "topic"?: 'data'|'routing'|'document';
     }
     interface XActionActivator {
         /**
