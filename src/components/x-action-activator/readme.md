@@ -7,19 +7,25 @@
 
 ## Properties
 
-| Property                | Attribute       | Description                                               | Type                                                                                                                                                                               | Default     |
-| ----------------------- | --------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `activate` _(required)_ | `activate`      | The activation strategy to use for the contained actions. | `ActionActivationStrategy.onEnter \| ActionActivationStrategy.onEvent \| ActionActivationStrategy.onExit \| ActionActivationStrategy.onTime \| ActionActivationStrategy.onVisible` | `undefined` |
-| `elementQuery`          | `element-query` | The element to watch for events or visibility,            | `string`                                                                                                                                                                           | `undefined` |
-| `eventName`             | `event-name`    |                                                           | `string`                                                                                                                                                                           | `undefined` |
-| `time`                  | `time`          |                                                           | `number`                                                                                                                                                                           | `undefined` |
+| Property                | Attribute       | Description                                               | Type                                                                                                                                                                                    | Default     |
+| ----------------------- | --------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `activate` _(required)_ | `activate`      | The activation strategy to use for the contained actions. | `ActionActivationStrategy.AtTime \| ActionActivationStrategy.OnElementEvent \| ActionActivationStrategy.OnEnter \| ActionActivationStrategy.OnEvent \| ActionActivationStrategy.OnExit` | `undefined` |
+| `elementQuery`          | `element-query` | The element to watch for events or visibility,            | `string`                                                                                                                                                                                | `undefined` |
+| `eventName`             | `event-name`    |                                                           | `string`                                                                                                                                                                                | `undefined` |
+| `time`                  | `time`          |                                                           | `number`                                                                                                                                                                                | `undefined` |
 
 
-## Events
+## Methods
 
-| Event              | Description | Type                                                   |
-| ------------------ | ----------- | ------------------------------------------------------ |
-| `navigationEvents` |             | `CustomEvent<ActionEvent<NavigateTo \| NavigateNext>>` |
+### `activateActions() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ----------------------------------------------

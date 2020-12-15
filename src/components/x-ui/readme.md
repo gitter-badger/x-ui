@@ -54,13 +54,6 @@ It provides an entry-point for the guided-navigation system.
 | `transition`      | `transition`        | Navigation transition between routes. This is a CSS animation class.                                                         | `string`              | `'fade-in'` |
 
 
-## Events
-
-| Event                    | Description | Type                                  |
-| ------------------------ | ----------- | ------------------------------------- |
-| `xui:action-events:data` |             | `CustomEvent<{ type: DATA_EVENTS; }>` |
-
-
 ## Dependencies
 
 ### Depends on

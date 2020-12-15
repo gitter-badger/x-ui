@@ -1,14 +1,14 @@
 {
   "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts",
+    "src",
     "types/jsx.d.ts",
     "./typings.d.ts",
-    "./stencil.config.ts"],
+  ],
   "exclude": [
     "node_modules",
     "**/__mocks__/**",
-    "./scratch"
+    "./scratch",
+    "stencil.config.ts"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

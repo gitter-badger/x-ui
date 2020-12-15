@@ -57,9 +57,9 @@ export class XDataProviderFirebase {
 
 ## Events
 
-| Event      | Description                                                                                                                                         | Type                                             |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `register` | This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<ActionEvent<ProviderRegistration>>` |
+| Event      | Description                                                                                                                                         | Type                                                 |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `register` | This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<ActionEvent<DataProviderRegistration>>` |
 
 
 ----------------------------------------------

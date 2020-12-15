@@ -42,10 +42,10 @@ Alternatively, you can skip this by including the 'skip-consent' attribute.
 
 ## Events
 
-| Event        | Description                                                                                                                                                                                | Type                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
-| `didConsent` | This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.                                        | `CustomEvent<ActionEvent<CookieConsent>>`        |
-| `register`   | This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<ActionEvent<ProviderRegistration>>` |
+| Event        | Description                                                                                                                                                                                | Type                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- |
+| `didConsent` | This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.                                        | `CustomEvent<ActionEvent<CookieConsent>>`            |
+| `register`   | This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<ActionEvent<DataProviderRegistration>>` |
 
 
 ----------------------------------------------

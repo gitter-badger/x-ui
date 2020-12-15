@@ -16,13 +16,13 @@
 
 ## Methods
 
-### `getAction() => Promise<{ topic: string; action: ActionEvent<any>; }>`
+### `getAction() => Promise<ActionEvent<any>>`
 
 
 
 #### Returns
 
-Type: `Promise<{ topic: string; action: ActionEvent<any>; }>`
+Type: `Promise<ActionEvent<any>>`
 
 
 
