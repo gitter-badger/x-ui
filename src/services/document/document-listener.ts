@@ -1,4 +1,6 @@
 import { ActionEvent, IActionEventListener } from '../actions';
+import { debugIf } from '../logging';
+import { state } from '../state';
 import { DOCUMENT_TOPIC, DOCUMENT_COMMANDS, IDocumentProvider } from './interfaces';
 import { setProvider } from './provider-factory';
 
@@ -20,6 +22,8 @@ export class DocumentListener implements IActionEventListener {
 
   handleEvent(ev: CustomEvent<ActionEvent<any>>) {
     const actionEvent = ev.detail;
+    debugIf(state.debug, `document-listener: command ${actionEvent.command} received`);
+
     if (actionEvent.command === DOCUMENT_COMMANDS.RegisterProvider) {
       const { name, provider } = actionEvent.data;
       if (name && provider) {

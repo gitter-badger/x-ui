@@ -123,7 +123,7 @@ export class XViewDo implements ComponentInterface {
   }
 
   private async next(element:string, eventName: string) {
-    debugIf(state.debug, `x-view-do: next element ${element} ${eventName} detected`);
+    debugIf(state.debug, `x-view-do: next fired from ${element}:${eventName}`);
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
     inputElements.forEach((i) => {
