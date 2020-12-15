@@ -71,6 +71,13 @@ export namespace Components {
          */
         "when": string;
     }
+    interface XHtml {
+        /**
+          * Remote Template URL
+          * @required
+         */
+        "url": string;
+    }
     interface XPreferencesList {
     }
     interface XPreferencesPopoverButton {
@@ -78,12 +85,6 @@ export namespace Components {
     }
     interface XSoundToggle {
         "muted": boolean;
-    }
-    interface XTemplateAsync {
-        /**
-          * Template URL
-         */
-        "url"?: string;
     }
     interface XThemeToggle {
     }
@@ -249,6 +250,12 @@ declare global {
         prototype: HTMLXDataShowElement;
         new (): HTMLXDataShowElement;
     };
+    interface HTMLXHtmlElement extends Components.XHtml, HTMLStencilElement {
+    }
+    var HTMLXHtmlElement: {
+        prototype: HTMLXHtmlElement;
+        new (): HTMLXHtmlElement;
+    };
     interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
     }
     var HTMLXPreferencesListElement: {
@@ -266,12 +273,6 @@ declare global {
     var HTMLXSoundToggleElement: {
         prototype: HTMLXSoundToggleElement;
         new (): HTMLXSoundToggleElement;
-    };
-    interface HTMLXTemplateAsyncElement extends Components.XTemplateAsync, HTMLStencilElement {
-    }
-    var HTMLXTemplateAsyncElement: {
-        prototype: HTMLXTemplateAsyncElement;
-        new (): HTMLXTemplateAsyncElement;
     };
     interface HTMLXThemeToggleElement extends Components.XThemeToggle, HTMLStencilElement {
     }
@@ -313,10 +314,10 @@ declare global {
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-provider-sample": HTMLXDataProviderSampleElement;
         "x-data-show": HTMLXDataShowElement;
+        "x-html": HTMLXHtmlElement;
         "x-preferences-list": HTMLXPreferencesListElement;
         "x-preferences-popover-button": HTMLXPreferencesPopoverButtonElement;
         "x-sound-toggle": HTMLXSoundToggleElement;
-        "x-template-async": HTMLXTemplateAsyncElement;
         "x-theme-toggle": HTMLXThemeToggleElement;
         "x-ui": HTMLXUiElement;
         "x-view": HTMLXViewElement;
@@ -397,6 +398,13 @@ declare namespace LocalJSX {
          */
         "when": string;
     }
+    interface XHtml {
+        /**
+          * Remote Template URL
+          * @required
+         */
+        "url"?: string;
+    }
     interface XPreferencesList {
     }
     interface XPreferencesPopoverButton {
@@ -404,12 +412,6 @@ declare namespace LocalJSX {
     }
     interface XSoundToggle {
         "muted"?: boolean;
-    }
-    interface XTemplateAsync {
-        /**
-          * Template URL
-         */
-        "url"?: string;
     }
     interface XThemeToggle {
     }
@@ -529,10 +531,10 @@ declare namespace LocalJSX {
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-provider-sample": XDataProviderSample;
         "x-data-show": XDataShow;
+        "x-html": XHtml;
         "x-preferences-list": XPreferencesList;
         "x-preferences-popover-button": XPreferencesPopoverButton;
         "x-sound-toggle": XSoundToggle;
-        "x-template-async": XTemplateAsync;
         "x-theme-toggle": XThemeToggle;
         "x-ui": XUi;
         "x-view": XView;
@@ -553,10 +555,10 @@ declare module "@stencil/core" {
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
             "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
+            "x-html": LocalJSX.XHtml & JSXBase.HTMLAttributes<HTMLXHtmlElement>;
             "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
             "x-preferences-popover-button": LocalJSX.XPreferencesPopoverButton & JSXBase.HTMLAttributes<HTMLXPreferencesPopoverButtonElement>;
             "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
-            "x-template-async": LocalJSX.XTemplateAsync & JSXBase.HTMLAttributes<HTMLXTemplateAsyncElement>;
             "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;

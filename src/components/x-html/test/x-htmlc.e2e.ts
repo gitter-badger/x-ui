@@ -2,12 +2,12 @@ jest.mock('../../../services/logging');
 
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('x-template-async', () => {
+describe('x-html', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<x-template-async></x-template-async>');
+    await page.setContent('<x-html></x-html>');
 
-    const element = await page.find('x-template-async');
+    const element = await page.find('x-html');
     expect(element).toHaveClass('hydrated');
   });
 });
