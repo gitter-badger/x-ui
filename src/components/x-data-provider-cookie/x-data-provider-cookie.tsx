@@ -1,7 +1,14 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
-import { ActionEvent } from '../../services/actions';
-import { DATA_TOPIC, DATA_COMMANDS, DataProviderRegistration, DATA_EVENTS, CookieConsent } from '../..';
-import { CookieProvider, debugIf, evaluatePredicate, state } from '../../services';
+import {
+  ActionEvent,
+  DATA_TOPIC, DATA_COMMANDS,
+  DataProviderRegistration,
+  CookieConsent,
+  CookieProvider,
+  debugIf,
+  evaluatePredicate,
+  state,
+} from '../..';
 
 @Component({
   tag: 'x-data-provider-cookie',
@@ -33,23 +40,21 @@ export class XDataProviderCookie {
    * and register the provider for use in expressions.
    */
   @Event({
-    eventName: DATA_TOPIC,
+    eventName: 'actionEvent',
     bubbles: true,
     composed: true,
     cancelable: true,
   }) register: EventEmitter<ActionEvent<DataProviderRegistration>>;
 
   /**
-   * This event is raised when the component loads.
-   * The data-provider system should capture this event
-   * and register the provider for use in expressions.
+   * This event is raised when the consents to cookies.
    */
   @Event({
-    eventName: DATA_TOPIC,
+    eventName: 'didConsent',
     bubbles: true,
     composed: true,
     cancelable: true,
-  }) didConsent: EventEmitter<ActionEvent<CookieConsent>>;
+  }) didConsent: EventEmitter<CookieConsent>;
 
   private consentKey = 'cookie-consent';
 
@@ -58,6 +63,14 @@ export class XDataProviderCookie {
     const consented = await this.customProvider.get(this.consentKey);
     if (consented) {
       this.hide = true;
+      this.register.emit({
+        topic: DATA_TOPIC,
+        command: DATA_COMMANDS.RegisterDataProvider,
+        data: {
+          name: 'cookie',
+          provider: this.customProvider,
+        },
+      });
       return;
     }
     if (this.hideWhen) {
@@ -80,22 +93,17 @@ export class XDataProviderCookie {
       });
       this.customProvider.set(this.consentKey, 'true');
     }
-    this.didConsent.emit({
-      topic: DATA_TOPIC,
-      command: DATA_EVENTS.CookieConsentResponse,
-      data: {
-        consented,
-      },
-    });
-    this.hide = consented;
+    this.didConsent.emit({consented});
+    this.hide = true;
   }
 
   render() {
     return (
       <Host hidden={this.hide}>
-        <div>
-          <slot/>
-          <button type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
+        <div part="container">
+          <slot></slot>
+          <button part="accept-button" type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
+          <button part="reject-button" type="button" onClick={() => this.handleConsentResponse(false)}>No Thanks</button>
         </div>
       </Host>
     );
