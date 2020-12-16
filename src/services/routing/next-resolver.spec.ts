@@ -31,6 +31,38 @@ describe('next-resolver', () => {
     expect(result).toBe(todo);
   });
 
+  it('find next with when using negation', async () => {
+    await session.set('name', 'biden');
+
+    const todo = {
+      visit: VisitStrategy.always,
+      when: '!{session:name}',
+      visited: false,
+      path: 'me',
+      url: 'home'
+    };
+
+    toDos.push(todo);
+
+    const result = await resolveNext(toDos);
+    expect(result).toBeNull();
+  });
+
+  it('find next with when using negation, no value', async () => {
+    const todo = {
+      visit: VisitStrategy.always,
+      when: '!{session:name}',
+      visited: false,
+      path: 'me',
+      url: 'home'
+    };
+
+    toDos.push(todo);
+
+    const result = await resolveNext(toDos);
+    expect(result).toBe(result);
+  });
+
   it('find next with only one item visited', async () => {
     await session.set('name', 'biden')
 

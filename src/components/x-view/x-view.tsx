@@ -135,11 +135,13 @@ export class XView {
 
   private async resolveView() {
     if (this.match?.isExact) {
-      const nextDo = await resolveNext(this.childViewDos.map((x) => {
-        const { when, visit, url} = x;
+      const viewDos = this.childViewDos.map((viewDo) => {
+        const { when, visit, url} = viewDo;
         const visited = hasVisited(url);
         return { when, visit, visited, url};
-      }));
+      });
+
+      const nextDo = await resolveNext(viewDos);
       if (nextDo) {
         // eslint-disable-next-line no-console
         RouterService.instance?.history.push(nextDo.url, { parent: this.url });

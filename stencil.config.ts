@@ -24,10 +24,6 @@ export const config: Config = {
       type: 'dist',
       dir: distDirs.stencil,
       esmLoaderPath: 'loader',
-      // copy: [
-      //   // copy fonts into static for storybook and stencil build
-      //   { src: 'fonts' },
-      // ],
     },
     // one file in es6
     {
@@ -45,6 +41,7 @@ export const config: Config = {
     },
     {
       type: 'www',
+      
       serviceWorker: null, // disable service workers
       copy: [
         { src: '**/*.md' },

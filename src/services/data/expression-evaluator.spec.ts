@@ -137,17 +137,13 @@ describe('evaluateExpression', () => {
 
 });
 
-describe('evaluatePredicate', () => {
+describe('evaluatePredicate [session]', () => {
 
   var session: InMemoryProvider;
-  var storage: InMemoryProvider;
 
   beforeEach(() => {
     session = new InMemoryProvider();
-    storage = new InMemoryProvider();
-
     addProvider('session', session);
-    addProvider('storage', storage);
   });
 
   it('evaluates simple predicate with data-provider values', async () => {
@@ -190,6 +186,12 @@ describe('evaluatePredicate', () => {
     expect(value).toBe(false);
   });
 
+  it('string predicate with data-provider values without quotes', async () => {
+    await session.set('a', 'foo');
+    let value = await evaluatePredicate('"{session:a}" != "foo"');
+    expect(value).toBe(false);
+  });
+
   it('evaluates string includes', async () => {
     await session.set('a', 'foo');
     let value = await evaluatePredicate('"f" in "{session:a}"');
@@ -219,7 +221,7 @@ describe('evaluatePredicate', () => {
 
   it('evaluates empty strings', async () => {
     await session.set('a', '');
-    let value = await evaluatePredicate('"{session:a}" == empty');
+    let value = await evaluatePredicate('{session:a} == empty');
     expect(value).toBe(true);
   });
 
@@ -234,12 +236,30 @@ describe('evaluatePredicate', () => {
   });
 
   it('evaluates null session values as empty', async () => {
-    let value = await evaluatePredicate('"{session:bad}" == empty');
+    let value = await evaluatePredicate('{session:bad} == empty');
     expect(value).toBe(true);
   });
 
   it('evaluates with ! for true on empty', async () => {
     let value = await evaluatePredicate('!{session:bad}');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates with ! for false on not empty', async () => {
+    await session.set('name', 'jason');
+    let value = await evaluatePredicate('!{session:name}');
+    expect(value).toBe(false);
+  });
+
+  it('evaluates with ! for true when value', async () => {
+    await session.set('name', 'jason');
+    let value = await evaluatePredicate('{session:name}');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates with ! for false on not empty string', async () => {
+    await session.set('name', '');
+    let value = await evaluatePredicate('!{session:name}');
     expect(value).toBe(true);
   });
 

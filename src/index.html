@@ -210,16 +210,13 @@
 
         <x-view-do url="/confirm-name"
           page-title="Introductions"
-          when="'{storage:name}' == empty">
+          when="!{storage:name}">
           <ion-content id="main" class="ion-padding">
-            <ion-card>
-              <ion-card-header>
-                <h1>Introductions</h1>
-              </ion-card-header>
+            <h1>Introductions</h1>
+            <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
+            <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>            <ion-card>
               <ion-card-content>
                 <h2>What's your name?</h2>
-                <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
-                <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>
                 <ion-item>
                   <ion-label>Name</ion-label>
                   <ion-input id="name" type="text" required
@@ -618,7 +615,7 @@
 
         <x-view-do
           url="/session-data"
-          when="'{session:favorite}' == empty"
+          when="!{session:favorite}"
           page-title="Session Data">
           <ion-content id="main" class="ion-padding">
             <ion-card>
@@ -651,7 +648,7 @@
         <x-view-do
           url="/storage-data"
           page-title="Storage Data"
-          when="'{storage:animal}' == empty">
+          when="!{storage:animal}">
           <ion-content id="main" class="ion-padding">
             <ion-card>
               <ion-card-header>

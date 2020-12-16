@@ -106,10 +106,15 @@ export async function evaluateExpression(expression: string, context: Expression
  * @return {*}  {Promise<boolean>}
  */
 export async function evaluatePredicate(expression: string, context:ExpressionContext = {}): Promise<boolean> {
-  const detokenizedExpression = await resolveExpression(expression);
+  requireValue(expression, 'expression');
+  let negation = false;
+  let workingExpression = expression.slice();
+  if (workingExpression[0] === '!') {
+    negation = true;
+    workingExpression = workingExpression.slice(1, workingExpression.length);
+  }
+  const detokenizedExpression = await resolveExpression(workingExpression);
   try {
-    if (!detokenizedExpression) return false;
-    if (detokenizedExpression === '!') return true;
     context.null = null;
     context.empty = '';
     const result = expressionEvaluator.evaluate(detokenizedExpression.toLowerCase(), context);
@@ -117,6 +122,7 @@ export async function evaluatePredicate(expression: string, context:ExpressionCo
     if (typeof result === 'number') return result > 0;
     return toBoolean(result);
   } catch (error) {
-    return toBoolean(detokenizedExpression);
+    const result = toBoolean(detokenizedExpression);
+    return negation ? !result : result;
   }
 }
