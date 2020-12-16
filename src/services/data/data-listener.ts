@@ -7,7 +7,7 @@ import {
   DataProviderRegistration,
   SetData,
 } from './interfaces';
-import { addProvider, getProvider } from './provider-factory';
+import { addDataProvider, getDataProvider } from './provider-factory';
 import { SessionProvider } from './provider-session';
 import { StorageProvider } from './provider-storage';
 import { IActionEventListener, ActionEvent } from '../actions';
@@ -20,7 +20,7 @@ export class DataListener implements IActionEventListener {
   bus: EventEmitter;
   window: Window;
   eventOptions: EventListenerOptions = { capture: false };
-
+  unsubscribe: () => void;
   constructor(win?: Window) {
     this.window = win || window;
   }
@@ -28,7 +28,7 @@ export class DataListener implements IActionEventListener {
   public initialize(bus: EventEmitter) {
     this.bus = bus;
     this.registerBrowserProviders(this.window);
-    bus.on(DATA_TOPIC, this.handleEvent);
+    this.unsubscribe = bus.on(DATA_TOPIC, (e) => this.handleEvent(e));
   }
 
   registerBrowserProviders(win: Window) {
@@ -41,11 +41,12 @@ export class DataListener implements IActionEventListener {
   }
 
   registerProvider(name: string, provider: IDataProvider) {
+    const self = this;
     provider.changed.on(DATA_EVENTS.DataChanged, () => {
       debugIf(state.debug, `data-provider: ${name} changed`);
-      this.dispatchDataChangedEvent();
+      self.dispatchDataChangedEvent();
     });
-    addProvider(name, provider as IDataProvider);
+    addDataProvider(name, provider as IDataProvider);
   }
 
   private dispatchDataChangedEvent() {
@@ -53,20 +54,16 @@ export class DataListener implements IActionEventListener {
   }
 
   handleEvent(actionEvent: ActionEvent<DataProviderRegistration|SetData>) {
-    debugIf(state.debug, `data-listener: action received {${JSON.stringify(actionEvent)}}`);
+    debugIf(state.debug, `data-listener: action received {command:${actionEvent.command}}`);
     if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data as DataProviderRegistration;
       if (name && provider) {
-        provider.changed.on(DATA_EVENTS.DataChanged, () => {
-          debugIf(state.debug, `data-provider: ${name} changed`);
-          this.dispatchDataChangedEvent();
-        });
-        addProvider(name, provider as IDataProvider);
+        this.registerProvider(name, provider);
       }
     } else if (actionEvent.command === DATA_COMMANDS.SetData) {
       const { provider, values } = actionEvent.data as SetData;
       if (provider && values) {
-        const instance = getProvider(provider);
+        const instance = getDataProvider(provider);
         if (instance) {
           Object.keys(values).forEach(async (key) => {
             await instance.set(key, values[key]);
@@ -77,8 +74,6 @@ export class DataListener implements IActionEventListener {
   }
 
   destroy(): void {
-    this.bus.removeListener(
-      DATA_TOPIC,
-      this.handleEvent);
+    this.unsubscribe();
   }
 }

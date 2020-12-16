@@ -1,6 +1,7 @@
 jest.mock('../logging');
 
-import { addProvider, getProvider, InMemoryProvider } from '.';
+import { addDataProvider, getDataProvider } from './provider-factory';
+import { InMemoryProvider } from './provider-memory';
 
 describe('provider-factory', () => {
 
@@ -8,17 +9,17 @@ describe('provider-factory', () => {
 
   beforeEach(() => {
     custom = new InMemoryProvider();
-    addProvider('custom', custom);
+    addDataProvider('custom', custom);
   });
 
   it('getProvider: incorrect name should return null', async () => {
-    let provider = getProvider('bad');
+    let provider = getDataProvider('bad');
     expect(provider).toBe(null);
   });
 
 
   it('getProvider: returns custom provider', async () => {
-    let provider = getProvider('custom');
+    let provider = getDataProvider('custom');
     expect(provider).toBe(custom);
   });
 

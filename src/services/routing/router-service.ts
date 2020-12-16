@@ -4,6 +4,8 @@ import { matchPath } from './utils/match-path';
 import { getUrl, getLocation } from './utils/location-utils';
 import createHistory from './factories/createBrowserHistory';
 import createHashHistory from './factories/createHashHistory';
+import { addDataProvider } from '../data/provider-factory';
+import { RoutingDataProvider } from './routing-data-provider';
 
 const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
   browser: createHistory,
@@ -14,6 +16,7 @@ export class RouterService {
   location: LocationSegments;
   history?: RouterHistory;
   hasMatch = false;
+  exactMatch: MatchResults;
   private constructor(
     private writeTask: (t:RafCallback) => void,
     public rootElement: HTMLElement,
@@ -32,6 +35,11 @@ export class RouterService {
       this.location = getLocation(location, root);
     });
     this.location = getLocation(this.history.location, root);
+
+    addDataProvider('route', new RoutingDataProvider(
+      (key:string) => this.exactMatch?.params[key]));
+    addDataProvider('query', new RoutingDataProvider(
+      (key:string) => this?.location?.query[key]));
   }
 
   // eslint-disable-next-line consistent-return
@@ -88,6 +96,7 @@ export class RouterService {
 
     if (match) {
       this.hasMatch = true;
+      this.exactMatch = match?.isExact ? match : null;
     }
 
     return match;

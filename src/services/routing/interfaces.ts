@@ -1,4 +1,4 @@
-export const ROUTE_TOPIC = 'xui:action-events:routing';
+export const ROUTE_TOPIC = 'routing';
 
 export enum ROUTE_COMMANDS {
   NavigateNext = 'navigate-next',

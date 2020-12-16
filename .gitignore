@@ -24,7 +24,7 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 .env
 
-docs/
-coverage/
+/docs/
+/coverage/
 
 storybook-static/

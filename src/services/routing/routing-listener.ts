@@ -7,28 +7,24 @@ import { EventEmitter } from '../actions/event-emitter';
 
 export class RoutingListener implements IActionEventListener {
   bus: EventEmitter;
-
+  unsubscribe: () => void;
   public initialize(bus: EventEmitter) {
     this.bus = bus;
-    this.listen();
-  }
-
-  listen() {
-    this.bus.on(ROUTE_TOPIC, this.handleEvent);
+    this.unsubscribe = this.bus.on(ROUTE_TOPIC, (e) => this.handleEvent(e));
   }
 
   handleEvent(actionEvent: ActionEvent<NavigateTo|NavigateNext>) {
     debugIf(state.debug, `routing-listener: action received ${JSON.stringify(actionEvent)}`);
+
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
       RouterService.instance?.returnToParent();
-    }
-    if (actionEvent.command === ROUTE_COMMANDS.NavigateTo) {
-      const { data } = actionEvent as ActionEvent<NavigateTo>;
-      RouterService.instance?.history.push(data.url);
+    } else if (actionEvent.command === ROUTE_COMMANDS.NavigateTo) {
+      const { url } = actionEvent.data as NavigateTo;
+      RouterService.instance?.history.push(url);
     }
   }
 
   destroy(): void {
-    this.bus.removeListener(ROUTE_TOPIC, this.handleEvent);
+    this.unsubscribe();
   }
 }

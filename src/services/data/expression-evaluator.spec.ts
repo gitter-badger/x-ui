@@ -2,7 +2,7 @@ jest.mock('../logging');
 
 import { evaluate, evaluateExpression, evaluatePredicate, resolveExpression  } from './expression-evaluator';
 import { InMemoryProvider } from './provider-memory';
-import { addProvider } from './provider-factory';
+import { addDataProvider } from './provider-factory';
 
 describe('resolveExpression', () => {
 
@@ -13,8 +13,8 @@ describe('resolveExpression', () => {
     session = new InMemoryProvider();
     storage = new InMemoryProvider();
 
-    addProvider('session', session);
-    addProvider('storage', storage);
+    addDataProvider('session', session);
+    addDataProvider('storage', storage);
   });
 
   it('returns null for non-existent value', async () => {
@@ -96,8 +96,8 @@ describe('evaluateExpression', () => {
     session = new InMemoryProvider();
     storage = new InMemoryProvider();
 
-    addProvider('session', session);
-    addProvider('storage', storage);
+    addDataProvider('session', session);
+    addDataProvider('storage', storage);
   });
 
   it('evaluates simple math', async () => {
@@ -143,7 +143,7 @@ describe('evaluatePredicate [session]', () => {
 
   beforeEach(() => {
     session = new InMemoryProvider();
-    addProvider('session', session);
+    addDataProvider('session', session);
   });
 
   it('evaluates simple predicate with data-provider values', async () => {

@@ -10,7 +10,7 @@ export type ExpressionContext = {
   [key: string]: any;
 };
 
-export const DATA_TOPIC = 'xui:action-events:data';
+export const DATA_TOPIC = 'data';
 
 export enum DATA_PROVIDER {
   SESSION = 'session',

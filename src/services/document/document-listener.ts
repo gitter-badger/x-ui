@@ -7,14 +7,10 @@ import { getDocumentProvider, setDocumentProvider } from './provider-factory';
 
 export class DocumentListener implements IActionEventListener {
   bus: EventEmitter;
-
+  unsubscribe: () => void;
   initialize(bus: EventEmitter): void {
     this.bus = bus;
-    this.listen();
-  }
-
-  listen() {
-    this.bus.on(DOCUMENT_TOPIC, this.handleEvent);
+    this.unsubscribe = this.bus.on(DOCUMENT_TOPIC, (e) => this.handleEvent(e));
   }
 
   handleEvent(actionEvent: ActionEvent<any>) {
@@ -43,8 +39,6 @@ export class DocumentListener implements IActionEventListener {
   }
 
   destroy(): void {
-    this.bus.removeListener(
-      DOCUMENT_TOPIC,
-      this.handleEvent);
+    this.unsubscribe();
   }
 }

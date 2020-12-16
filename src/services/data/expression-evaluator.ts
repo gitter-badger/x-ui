@@ -1,6 +1,6 @@
 import { Parser } from 'expr-eval';
 import { requireValue } from '../utils/misc-utils';
-import { getProvider } from './provider-factory';
+import { getDataProvider } from './provider-factory';
 import { ExpressionContext } from './interfaces';
 import { warn } from '../logging';
 import { toBoolean } from '../utils/string-utils';
@@ -43,7 +43,7 @@ export async function resolveExpression(valueExpression: string): Promise<string
     const dataKey = match[2];
     const propKey = match[3] || '';
     const defaultValue = match[4] || '';
-    const provider = getProvider(providerKey);
+    const provider = getDataProvider(providerKey);
     // eslint-disable-next-line no-await-in-loop
     let value = await provider?.get(dataKey) || defaultValue;
 

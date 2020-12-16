@@ -38,12 +38,7 @@
     --ion-background-color-rgb: 255,255,255;
     --ion-text-color: #000;
     --ion-text-color-rgb: 0,0,0;
-
-  }
-
-  ion-content {
-    --offset-bottom: 40px;
-    --padding-bottom: 40px;
+    color: #000;
   }
 
   .dark {
@@ -214,7 +209,8 @@
           <ion-content id="main" class="ion-padding">
             <h1>Introductions</h1>
             <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
-            <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>            <ion-card>
+            <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>
+            <ion-card>
               <ion-card-content>
                 <h2>What's your name?</h2>
                 <ion-item>
@@ -268,7 +264,9 @@
 
         <ion-content id="main" class="ion-padding">
           <zero-md src="/docs/index.md"></zero-md>
+
           <h2></h2>
+
           <ul>
             <li>
               <x-link href="/install">
@@ -916,10 +914,8 @@
       </x-view>
 
       <x-data-provider-cookie>
-        <h3>This site uses cookies.</h3>
-        <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-        <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-        <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+        <h3>Cookies</h3>
+        <p>This site uses cookies for tracking.</p>
       </x-data-provider-cookie>
 
     </x-ui>

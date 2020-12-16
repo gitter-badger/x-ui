@@ -1,16 +1,17 @@
 jest.mock('../logging');
 
-import { InMemoryProvider, addProvider } from '..';
+import { addDataProvider } from '../data/provider-factory';
 import { evaluatePredicate } from '../data';
 import { IViewDo, VisitStrategy } from './interfaces';
 import { resolveNext } from './next-resolver';
+import { InMemoryProvider } from '../data/provider-memory';
 
 describe('next-resolver', () => {
   let toDos:Array<IViewDo>;
   var session: InMemoryProvider;
   beforeEach(() => {
     session = new InMemoryProvider();
-    addProvider('session', session);
+    addDataProvider('session', session);
     toDos = [];
   });
 

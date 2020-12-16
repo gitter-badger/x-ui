@@ -8,7 +8,7 @@ type DataProviders = {
 
 const providers: DataProviders = {};
 
-export function addProvider(name: string, provider:IDataProvider) {
+export function addDataProvider(name: string, provider:IDataProvider) {
   requireValue(name, 'provider name');
   if (typeof provider.get !== 'function') throw new Error(`The provider ${name} is missing the get(key) function.`);
   if (typeof provider.set !== 'function') throw new Error(`The provider ${name} is missing the set(key) function.`);
@@ -16,16 +16,16 @@ export function addProvider(name: string, provider:IDataProvider) {
   debug(`data-provider: ${name} registered`);
 }
 
-export function getProvider(name: string): IDataProvider {
+export function getDataProvider(name: string): IDataProvider {
   requireValue(name, 'provider name');
   return providers[name.toLowerCase()] || null;
 }
 
-export function getProviders(): DataProviders {
+export function getDataProviders(): DataProviders {
   return providers;
 }
 
-export function clearProviders() {
+export function clearDataProviders() {
   Object.keys(providers).forEach((key) => {
     delete providers[key];
   });

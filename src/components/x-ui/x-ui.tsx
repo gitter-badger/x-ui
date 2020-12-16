@@ -1,12 +1,13 @@
 import {
-  Component, h,
+  Component,
+  h,
   Host,
   Element,
+  Listen,
   Prop,
   State,
   writeTask } from '@stencil/core';
 import {
-
   HistoryType,
   IActionEventListener,
   LocationSegments,
@@ -18,6 +19,7 @@ import {
   DataListener,
   DocumentListener,
   RoutingListener,
+  ActionEvent,
 } from '../../services';
 
 @Component({
@@ -87,6 +89,14 @@ export class XUI {
    * routing, data and action systems.
    */
   @Prop() debug: boolean = false;
+
+  @Listen('actionEvent', {
+    passive: true,
+  })
+  delegateActionEventFromDOM(ev: CustomEvent<ActionEvent<any>>) {
+    const action = ev.detail as ActionEvent<any>;
+    ActionBus.emit(action.topic, action);
+  }
 
   componentWillLoad() {
     this.debug ? log('xui: initializing <debug>') : log('xui: initializing');

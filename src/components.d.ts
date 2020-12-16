@@ -386,13 +386,13 @@ declare namespace LocalJSX {
          */
         "hideWhen"?: string;
         /**
-          * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
-         */
-        "onDidConsent"?: (event: CustomEvent<ActionEvent<CookieConsent>>) => void;
-        /**
           * This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions.
          */
-        "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
+        "onActionEvent"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
+        /**
+          * This event is raised when the consents to cookies.
+         */
+        "onDidConsent"?: (event: CustomEvent<CookieConsent>) => void;
         /**
           * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
          */
