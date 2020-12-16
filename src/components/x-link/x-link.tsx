@@ -2,18 +2,18 @@ import { Element, Component, State, Prop, h } from '@stencil/core';
 import { MatchResults, RouterService } from '../..';
 
 @Component({
-  tag: 'x-view-link',
-  styleUrl: 'x-view-link.css',
+  tag: 'x-link',
+  styleUrl: 'x-link.css',
   shadow: true,
 })
 export class XViewLink {
-  @Element() el!: HTMLXViewLinkElement;
+  @Element() el!: HTMLXLinkElement;
   @State() match: MatchResults | null = null;
 
   /**
    *
    */
-  @Prop() url!: string;
+  @Prop() href!: string;
 
   /**
    *
@@ -83,7 +83,7 @@ export class XViewLink {
   componentWillLoad() {
     RouterService.instance?.onRouteChange(() => {
       this.match = RouterService.instance.matchPath({
-        path: this.url,
+        path: this.href,
         exact: this.exact,
       });
     });
@@ -91,12 +91,12 @@ export class XViewLink {
 
   private handleClick(e: MouseEvent) {
     const router = RouterService.instance;
-    if (!router || router?.isModifiedEvent(e) || !router?.history || !this.url || !router?.root) {
+    if (!router || router?.isModifiedEvent(e) || !router?.history || !this.href || !router?.root) {
       return;
     }
 
     e.preventDefault();
-    router.history?.push(router.getUrl(this.url, router.root));
+    router.history?.push(router.getUrl(this.href, router.root));
   }
 
   // Get the URL for this route link without the root from the router
@@ -115,7 +115,7 @@ export class XViewLink {
     if (this.custom === 'a') {
       anchorAttributes = {
         ...anchorAttributes,
-        href: this.url,
+        href: this.href,
         title: this.anchorTitle,
         role: this.anchorRole,
         tabindex: this.anchorTabIndex,

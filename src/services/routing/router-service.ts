@@ -93,8 +93,8 @@ export class RouterService {
     return match;
   }
 
-  getUrl(url:string, root: string) {
-    return getUrl(url, root);
+  getUrl(url:string, root?: string) {
+    return getUrl(url, root || this.root);
   }
 
   isModifiedEvent(ev: MouseEvent) {

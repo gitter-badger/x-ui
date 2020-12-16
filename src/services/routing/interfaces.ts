@@ -91,10 +91,11 @@ export interface MatchResults {
 }
 
 export enum VisitStrategy {
-  'once',
-  'always',
-  'optional'
+  once = 'once',
+  always = 'always',
+  optional = 'optional'
 }
+
 export interface IViewDo {
   visit: VisitStrategy;
   when?: string;
