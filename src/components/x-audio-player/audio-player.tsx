@@ -17,9 +17,7 @@ export class AudioPlayer {
   private queued: Array<{id: string, src: string}> = [];
 
   @State() currentTime = 0;
-
   @State() src: string;
-
   @State() currentState: any;
 
   componentWillLoad() {

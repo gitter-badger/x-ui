@@ -1,6 +1,5 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 // const scssVariables = 'src/scss/variables.scss';
 const { distDirs } = require('./package.json');
@@ -11,13 +10,6 @@ export const config: Config = {
   plugins: [
     sass(),
   ],
-  rollupPlugins: {
-    after: [
-      nodePolyfills({
-        include: 'crypto',
-      }),
-    ],
-  },
   globalStyle: 'src/global/app.scss',
   globalScript: 'src/global/app.ts',
   devServer: {

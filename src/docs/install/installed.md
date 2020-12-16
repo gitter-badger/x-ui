@@ -1,5 +1,5 @@
 ## Once Installed
-Then add the X-UI tag to the body.
+Then add the X-UI tag 
 
 ````html
 <x-ui

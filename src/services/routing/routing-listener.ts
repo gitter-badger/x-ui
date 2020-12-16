@@ -3,28 +3,22 @@ import { ActionEvent, IActionEventListener } from '../actions';
 import { debugIf } from '../logging';
 import { state } from '../state';
 import { RouterService } from './router-service';
+import { EventEmitter } from '../actions/event-emitter';
 
-export class RouteListener implements IActionEventListener {
-  document: HTMLDocument;
-  eventOptions: EventListenerOptions = {
-    capture: false,
-  };
+export class RoutingListener implements IActionEventListener {
+  bus: EventEmitter;
 
-  public initialize(win:Window) {
-    this.document = win.document;
+  public initialize(bus: EventEmitter) {
+    this.bus = bus;
     this.listen();
   }
 
   listen() {
-    this.document.body.addEventListener(
-      ROUTE_TOPIC,
-      this.handleEvent,
-      this.eventOptions);
+    this.bus.on(ROUTE_TOPIC, this.handleEvent);
   }
 
-  handleEvent(ev: CustomEvent<ActionEvent<NavigateTo|NavigateNext>>) {
-    const actionEvent = ev.detail;
-    debugIf(state.debug, `navigation-listener: <navigation-event~${actionEvent.command}>`);
+  handleEvent(actionEvent: ActionEvent<NavigateTo|NavigateNext>) {
+    debugIf(state.debug, `routing-listener: action received ${JSON.stringify(actionEvent)}`);
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
       RouterService.instance?.returnToParent();
     }
@@ -35,9 +29,6 @@ export class RouteListener implements IActionEventListener {
   }
 
   destroy(): void {
-    this.document?.body?.removeEventListener(
-      ROUTE_TOPIC,
-      this.handleEvent,
-      this.eventOptions);
+    this.bus.removeListener(ROUTE_TOPIC, this.handleEvent);
   }
 }

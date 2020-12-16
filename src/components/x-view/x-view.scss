@@ -28,6 +28,7 @@
 
 :host(.xui-active-route) {
   ::slotted(*:not(x-view):not(x-view-do)) {
+    display: none;
     visibility: hidden;
   }
 

@@ -1,4 +1,4 @@
-import { EventEmitter } from '../events';
+import { EventEmitter } from '../actions/event-emitter';
 
 export interface IDataProvider {
   get(key: string): Promise<string>;
@@ -19,7 +19,8 @@ export enum DATA_PROVIDER {
 }
 
 export enum DATA_COMMANDS {
-  RegisterDataProvider = 'register-provider'
+  RegisterDataProvider = 'register-provider',
+  SetData = 'set-data'
 }
 
 export enum DATA_EVENTS {
@@ -27,13 +28,14 @@ export enum DATA_EVENTS {
   DataChanged = 'data-changed'
 }
 
-export type DataEvent = {
-  type: DATA_EVENTS
-};
-
 export type DataProviderRegistration = {
   name: string;
   provider: IDataProvider
+};
+
+export type SetData = {
+  provider: string;
+  values: { [index: string]: any }
 };
 
 export type CookieConsent = {

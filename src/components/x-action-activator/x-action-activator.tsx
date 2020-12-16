@@ -1,5 +1,6 @@
-import { Component, Element, Prop, h, Host, Method } from '@stencil/core';
+import { Component, Element, Prop, h, Host, Method, State } from '@stencil/core';
 import {
+  ActionBus,
   ActionActivationStrategy,
   ActionEvent,
   state,
@@ -14,6 +15,7 @@ import {
 export class XActionActivator {
   private actions: Array<ActionEvent<any>> = [];
   @Element() el: HTMLXActionActivatorElement;
+  @State() loaded = false;
 
   /**
    * The activation strategy to use for the contained actions.
@@ -28,7 +30,7 @@ export class XActionActivator {
   /**
    *
    */
-  @Prop() eventName?: string;
+  @Prop() elementEventName: string = 'click';
 
   /**
    *
@@ -41,20 +43,16 @@ export class XActionActivator {
   @Method()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async activateActions() {
+    if (!this.loaded) return;
+
     // activate children
     this.actions.forEach((action) => {
       debugIf(state.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate} {${action?.topic}~${action?.command}}]`);
-      const event = new CustomEvent(action.topic, {
-        bubbles: true,
-        cancelable: true,
-        composed: true,
-        detail: {
-          topic: action.topic,
-          command: action.command,
-          data: action.data,
-        },
-      });
-      this.el.ownerDocument.dispatchEvent(event);
+      try {
+        ActionBus.emit(action.topic, action);
+      } catch (err) {
+        warn(`x-action-activator: ${err}`);
+      }
     });
   }
 
@@ -80,18 +78,15 @@ export class XActionActivator {
       debugIf(state.debug, `x-action-activator: ${this.parent?.url} registered [x-action:${this.activate} {${action.topic}~${action.command}}] `);
       this.actions.push(action);
     });
-  }
 
-  private attachHandler() {
     const element = this.parent?.querySelector(this.elementQuery);
-    element?.addEventListener(this.eventName, async () => {
-      debugIf(state.debug, `x-action-activator: ${this.parent?.url} attached [${this.elementQuery}~${this.eventName}]`);
+
+    element?.addEventListener(this.elementEventName, async () => {
+      debugIf(state.debug, `x-action-activator: ${this.parent?.url} received ${this.elementQuery} did ${this.elementEventName}`);
       await this.activateActions();
     });
-  }
 
-  componentWillRender() {
-    this.attachHandler();
+    this.loaded = true;
   }
 
   render() {

@@ -74,7 +74,7 @@ export async function findAsyncSequential<T>(
  * @return {*}  {(Promise<T | undefined>)}
  */
 export async function forEachAsync<T>(
-  array: T[],
+  array: Array<T>,
   promiseFunc: (t: T) => Promise<void>) {
-  return Promise.all(array.map(promiseFunc));
+  return Promise.all(array.map((i) => promiseFunc(i)));
 }

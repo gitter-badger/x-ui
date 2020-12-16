@@ -1,5 +1,7 @@
+import { EventEmitter } from './event-emitter';
+
 export interface IActionEventListener {
-  initialize(win: Window): void;
+  initialize(bus: EventEmitter): void;
   destroy(): void;
 }
 

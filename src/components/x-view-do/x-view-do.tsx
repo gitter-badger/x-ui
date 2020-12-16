@@ -1,5 +1,5 @@
-import { Component, h, Prop, Element, State, Host, Watch, Listen, ComponentInterface, forceUpdate } from '@stencil/core';
-import { storeVisit, markVisit } from '../../services/visits';
+import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
+
 import {
   EventEmitter,
   Route,
@@ -13,6 +13,10 @@ import {
   resolveElementChildTimedNodesByTime,
   resolveElementValues,
   TimedNode,
+  ActionBus,
+  DATA_EVENTS,
+  storeVisit,
+  markVisit,
 } from '../..';
 import { ActionActivationStrategy, forEachAsync } from '../../services';
 
@@ -21,7 +25,7 @@ import { ActionActivationStrategy, forEachAsync } from '../../services';
   styleUrl: 'x-view-do.scss',
   shadow: true,
 })
-export class XViewDo implements ComponentInterface {
+export class XViewDo {
   private route: Route;
   private timedNodes: Array<TimedNode> = [];
   private timer: NodeJS.Timeout;
@@ -92,13 +96,6 @@ export class XViewDo implements ComponentInterface {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  @Listen('xui:action-events:data', {
-    target: 'body',
-  })
-  dataEvent() {
-    forceUpdate(this.el);
-  }
-
   private get parent(): HTMLXViewElement {
     return this.el.parentElement as HTMLXViewElement;
   }
@@ -139,18 +136,17 @@ export class XViewDo implements ComponentInterface {
       }
       clearInterval(this.timer);
 
-      await forEachAsync(
-        this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.OnExit),
-        async (activator) => {
-          await activator.activateActions();
+      this.actionActivators
+        .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
+        .forEach((activator) => {
+          activator.activateActions();
         });
 
       RouterService.instance?.returnToParent();
     }
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     if (this.transition === undefined) {
       this.transition = this.parent?.transition;
     }
@@ -169,7 +165,7 @@ export class XViewDo implements ComponentInterface {
       // eslint-disable-next-line no-return-assign
       async (match) => {
         this.match = {...match};
-        forceUpdate(this.el);
+        await this.resolveView();
       },
     );
 
@@ -202,6 +198,12 @@ export class XViewDo implements ComponentInterface {
     this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
     debugIf(this.debug && this.timedNodes.length > 0,
       `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
+
+    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveView();
+    });
+
+    await this.resolveView();
   }
 
   async componentDidLoad() {
@@ -212,23 +214,15 @@ export class XViewDo implements ComponentInterface {
     await this.route.loadCompleted();
   }
 
-  async componentWillRender() {
-    await this.resolveTemplate();
-  }
-
-  private async resolveTemplate() {
+  private async resolveView() {
     clearInterval(this.timer);
     if (this.match?.isExact) {
-      await forEachAsync(
-        this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter),
-        async (activator) => {
-          await activator.activateActions();
-        });
-
       this.setupTimer();
       resolveElementValues(this.el);
       resolveElementVisibility(this.el);
+      this.actionActivators
+        .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
+        .forEach((activator) => activator.activateActions());
     }
   }
 

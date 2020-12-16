@@ -1,4 +1,4 @@
-# x-data-display
+# X-DATA-DISPLAY
 
 
 Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.
@@ -34,12 +34,12 @@ Providers:
 
 ### Template Interpolation
 
-This component supports HTML string interpolation in an Angular format, but the variables must be set on the element using data-* tags. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.
+This component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.
 
 ````html
-<x-data-display data-name="{session:name}">    
+<x-data-display>    
   <template>
-    <h1>Hello {{name}}!</h1>      
+    <h1>Hello {session:name}!</h1>      
   </template>
 </x-data-display>
 ````

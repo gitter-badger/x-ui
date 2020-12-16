@@ -1,7 +1,6 @@
 export * from './actions';
 export * from './data';
 export * from './document';
-export * from './events';
 export * from './logging';
 export * from './routing';
 export * from './state';

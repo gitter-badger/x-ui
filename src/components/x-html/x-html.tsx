@@ -1,4 +1,4 @@
-import { Component, h, State, Prop } from '@stencil/core';
+import { Component, h, State, Prop, Element } from '@stencil/core';
 import { warn } from '../../services/logging';
 
 @Component({
@@ -7,6 +7,7 @@ import { warn } from '../../services/logging';
   shadow: true,
 })
 export class XHtml {
+  @Element() el: HTMLXHtmlElement;
   @State() content: string = '';
 
   /**
@@ -15,23 +16,23 @@ export class XHtml {
    */
   @Prop() url: string;
 
-  private async fetchNewContent(url: string) {
+  private async fetchHtml(url: string) {
     try {
       const response = await fetch(url);
       if (response.status === 200) {
         const data = await response.text();
         this.content = data;
       } else {
-        warn(`x-template-async: Unable to retrieve from ${this.url}`);
+        warn(`x-html: Unable to retrieve from ${this.url}`);
       }
     } catch (error) {
-      warn(`x-template-async: Unable to retrieve from ${this.url}`);
+      warn(`x-html: Unable to retrieve from ${this.url}`);
     }
   }
 
-  async componentWillLoad() {
+  async componentWillRender() {
     if (this.url) {
-      await this.fetchNewContent(this.url);
+      await this.fetchHtml(this.url);
     }
   }
 

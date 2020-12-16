@@ -33,11 +33,11 @@ export namespace Components {
          */
         "activate": ActionActivationStrategy;
         "activateActions": () => Promise<void>;
+        "elementEventName": string;
         /**
           * The element to watch for events or visibility,
          */
         "elementQuery"?: string;
-        "eventName"?: string;
         "time"?: number;
     }
     interface XAudioControl {
@@ -76,13 +76,6 @@ export namespace Components {
          */
         "name": string;
     }
-    interface XDataShow {
-        /**
-          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
-          * @example {session:user.name}
-         */
-        "when": string;
-    }
     interface XHtml {
         /**
           * Remote Template URL
@@ -90,10 +83,33 @@ export namespace Components {
          */
         "url": string;
     }
+    interface XLink {
+        "activeClass": string;
+        "anchorClass"?: string;
+        "anchorId"?: string;
+        "anchorRole"?: string;
+        "anchorTabIndex"?: string;
+        "anchorTitle"?: string;
+        "ariaHaspopup"?: string;
+        "ariaLabel"?: string;
+        "ariaPosinset"?: string;
+        "ariaSetsize"?: number;
+        "custom": string;
+        "exact": boolean;
+        "href": string;
+        "strict": boolean;
+    }
     interface XPreferencesList {
     }
     interface XPreferencesPopoverButton {
         "icon": string;
+    }
+    interface XShow {
+        /**
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+         */
+        "when": string;
     }
     interface XSoundToggle {
         "muted": boolean;
@@ -190,22 +206,6 @@ export namespace Components {
          */
         "when"?: string;
     }
-    interface XViewLink {
-        "activeClass": string;
-        "anchorClass"?: string;
-        "anchorId"?: string;
-        "anchorRole"?: string;
-        "anchorTabIndex"?: string;
-        "anchorTitle"?: string;
-        "ariaHaspopup"?: string;
-        "ariaLabel"?: string;
-        "ariaPosinset"?: string;
-        "ariaSetsize"?: number;
-        "custom": string;
-        "exact": boolean;
-        "strict": boolean;
-        "url": string;
-    }
 }
 declare global {
     interface HTMLXActionElement extends Components.XAction, HTMLStencilElement {
@@ -256,17 +256,17 @@ declare global {
         prototype: HTMLXDataProviderSampleElement;
         new (): HTMLXDataProviderSampleElement;
     };
-    interface HTMLXDataShowElement extends Components.XDataShow, HTMLStencilElement {
-    }
-    var HTMLXDataShowElement: {
-        prototype: HTMLXDataShowElement;
-        new (): HTMLXDataShowElement;
-    };
     interface HTMLXHtmlElement extends Components.XHtml, HTMLStencilElement {
     }
     var HTMLXHtmlElement: {
         prototype: HTMLXHtmlElement;
         new (): HTMLXHtmlElement;
+    };
+    interface HTMLXLinkElement extends Components.XLink, HTMLStencilElement {
+    }
+    var HTMLXLinkElement: {
+        prototype: HTMLXLinkElement;
+        new (): HTMLXLinkElement;
     };
     interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
     }
@@ -279,6 +279,12 @@ declare global {
     var HTMLXPreferencesPopoverButtonElement: {
         prototype: HTMLXPreferencesPopoverButtonElement;
         new (): HTMLXPreferencesPopoverButtonElement;
+    };
+    interface HTMLXShowElement extends Components.XShow, HTMLStencilElement {
+    }
+    var HTMLXShowElement: {
+        prototype: HTMLXShowElement;
+        new (): HTMLXShowElement;
     };
     interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
     }
@@ -310,12 +316,6 @@ declare global {
         prototype: HTMLXViewDoElement;
         new (): HTMLXViewDoElement;
     };
-    interface HTMLXViewLinkElement extends Components.XViewLink, HTMLStencilElement {
-    }
-    var HTMLXViewLinkElement: {
-        prototype: HTMLXViewLinkElement;
-        new (): HTMLXViewLinkElement;
-    };
     interface HTMLElementTagNameMap {
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
@@ -325,16 +325,16 @@ declare global {
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-provider-sample": HTMLXDataProviderSampleElement;
-        "x-data-show": HTMLXDataShowElement;
         "x-html": HTMLXHtmlElement;
+        "x-link": HTMLXLinkElement;
         "x-preferences-list": HTMLXPreferencesListElement;
         "x-preferences-popover-button": HTMLXPreferencesPopoverButtonElement;
+        "x-show": HTMLXShowElement;
         "x-sound-toggle": HTMLXSoundToggleElement;
         "x-theme-toggle": HTMLXThemeToggleElement;
         "x-ui": HTMLXUiElement;
         "x-view": HTMLXViewElement;
         "x-view-do": HTMLXViewDoElement;
-        "x-view-link": HTMLXViewLinkElement;
     }
 }
 declare namespace LocalJSX {
@@ -357,11 +357,11 @@ declare namespace LocalJSX {
           * The activation strategy to use for the contained actions.
          */
         "activate": ActionActivationStrategy;
+        "elementEventName"?: string;
         /**
           * The element to watch for events or visibility,
          */
         "elementQuery"?: string;
-        "eventName"?: string;
         "time"?: number;
     }
     interface XAudioControl {
@@ -412,13 +412,6 @@ declare namespace LocalJSX {
          */
         "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
     }
-    interface XDataShow {
-        /**
-          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
-          * @example {session:user.name}
-         */
-        "when": string;
-    }
     interface XHtml {
         /**
           * Remote Template URL
@@ -426,10 +419,33 @@ declare namespace LocalJSX {
          */
         "url"?: string;
     }
+    interface XLink {
+        "activeClass"?: string;
+        "anchorClass"?: string;
+        "anchorId"?: string;
+        "anchorRole"?: string;
+        "anchorTabIndex"?: string;
+        "anchorTitle"?: string;
+        "ariaHaspopup"?: string;
+        "ariaLabel"?: string;
+        "ariaPosinset"?: string;
+        "ariaSetsize"?: number;
+        "custom"?: string;
+        "exact"?: boolean;
+        "href": string;
+        "strict"?: boolean;
+    }
     interface XPreferencesList {
     }
     interface XPreferencesPopoverButton {
         "icon"?: string;
+    }
+    interface XShow {
+        /**
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+         */
+        "when": string;
     }
     interface XSoundToggle {
         "muted"?: boolean;
@@ -526,22 +542,6 @@ declare namespace LocalJSX {
          */
         "when"?: string;
     }
-    interface XViewLink {
-        "activeClass"?: string;
-        "anchorClass"?: string;
-        "anchorId"?: string;
-        "anchorRole"?: string;
-        "anchorTabIndex"?: string;
-        "anchorTitle"?: string;
-        "ariaHaspopup"?: string;
-        "ariaLabel"?: string;
-        "ariaPosinset"?: string;
-        "ariaSetsize"?: number;
-        "custom"?: string;
-        "exact"?: boolean;
-        "strict"?: boolean;
-        "url": string;
-    }
     interface IntrinsicElements {
         "x-action": XAction;
         "x-action-activator": XActionActivator;
@@ -551,16 +551,16 @@ declare namespace LocalJSX {
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-provider-sample": XDataProviderSample;
-        "x-data-show": XDataShow;
         "x-html": XHtml;
+        "x-link": XLink;
         "x-preferences-list": XPreferencesList;
         "x-preferences-popover-button": XPreferencesPopoverButton;
+        "x-show": XShow;
         "x-sound-toggle": XSoundToggle;
         "x-theme-toggle": XThemeToggle;
         "x-ui": XUi;
         "x-view": XView;
         "x-view-do": XViewDo;
-        "x-view-link": XViewLink;
     }
 }
 export { LocalJSX as JSX };
@@ -575,16 +575,16 @@ declare module "@stencil/core" {
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
-            "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
             "x-html": LocalJSX.XHtml & JSXBase.HTMLAttributes<HTMLXHtmlElement>;
+            "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
             "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
             "x-preferences-popover-button": LocalJSX.XPreferencesPopoverButton & JSXBase.HTMLAttributes<HTMLXPreferencesPopoverButtonElement>;
+            "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
             "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
             "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;
             "x-view-do": LocalJSX.XViewDo & JSXBase.HTMLAttributes<HTMLXViewDoElement>;
-            "x-view-link": LocalJSX.XViewLink & JSXBase.HTMLAttributes<HTMLXViewLinkElement>;
         }
     }
 }

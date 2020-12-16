@@ -1,12 +1,10 @@
 jest.mock('../logging');
 
-import { getProvider, clearProviders } from './provider-factory';
+import { getProvider, clearProviders, getProviders } from './provider-factory';
 import { DataListener } from './data-listener';
-import { DATA_COMMANDS, DATA_TOPIC, IDataProvider, DataProviderRegistration } from './interfaces';
+import { DATA_COMMANDS, DATA_TOPIC, IDataProvider } from './interfaces';
 import { InMemoryProvider } from './provider-memory';
-import { ActionEvent } from '..';
-
-type Listener = (ev:{ type: string, detail: ActionEvent<DataProviderRegistration>}) => void
+import { EventEmitter } from '..';
 
 class MockDataProvider extends InMemoryProvider {
   setItem(x,y) {
@@ -21,24 +19,12 @@ describe('data-provider-listener', () => {
   let subject: DataListener = null;
   let mockWindow:any;
   let mockDataProvider: IDataProvider;
-  let listeners:Array<Listener> = [];
-
+  let bus: EventEmitter;
   beforeEach(() => {
     mockDataProvider = new MockDataProvider();
     clearProviders();
-    listeners = [];
-    subject = new DataListener();
+    bus = new EventEmitter();
     mockWindow = {
-      document:{
-        addEventListener: (evt:string, func:Listener, _opts) => {
-          expect(evt).toBe(DATA_TOPIC);
-          listeners.push(func);
-        },
-        removeEventListener: (evt:string, func: Listener, _opts) => {
-          expect(evt).toBe(DATA_TOPIC);
-          listeners = listeners.filter(f => f !== func);
-        }
-      },
       sessionStorage: mockDataProvider,
       localStorage: mockDataProvider,
     };
@@ -46,7 +32,8 @@ describe('data-provider-listener', () => {
 
 
   it('detects session', async () => {
-    subject.initialize(mockWindow);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
     const session = getProvider('session');
     expect(session).toBeDefined();
   });
@@ -54,14 +41,16 @@ describe('data-provider-listener', () => {
 
   it('detects session failed', async () => {
     delete mockWindow.sessionStorage;
-    subject.initialize(mockWindow);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
     const session = getProvider('session');
     expect(session).toBeNull();
   });
 
 
   it('detects storage', async () => {
-    subject.initialize(mockWindow);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
     const storage = getProvider('storage');
     expect(storage).toBeDefined();
   });
@@ -69,34 +58,34 @@ describe('data-provider-listener', () => {
 
   it('detects storage failed', async () => {
     delete mockWindow.localStorage;
-    subject.initialize(mockWindow);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
     const storage = getProvider('storage');
     expect(storage).toBeNull();
   });
 
   it('eventListener: registers listeners events', async () => {
-    subject.initialize(mockWindow);
-    expect(listeners.length).toBe(1);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
+    const listeners = getProviders();
+    expect(Object.keys(listeners).length).toBe(2);
   });
 
   it('eventListener: handles listeners events', async () => {
-    subject.initialize(mockWindow);
-    expect(listeners.length).toBe(1);
-    const event = new CustomEvent<ActionEvent<DataProviderRegistration>>(
-      DATA_TOPIC,
-      {
-        detail: {
-          topic: DATA_TOPIC,
-          command: DATA_COMMANDS.RegisterDataProvider,
-          data: {
-            name: 'mock',
-            provider: mockDataProvider,
-          },
-        }
-      });
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
+    const listeners = getProviders();
+    expect(Object.keys(listeners).length).toBe(2);
 
-    let listener = listeners[0];
-    listener.call(subject, event);
+    const event = {
+      command: DATA_COMMANDS.RegisterDataProvider,
+      data: {
+        name: 'mock',
+        provider: mockDataProvider,
+      },
+    };
+
+    bus.emit(DATA_TOPIC, event);
 
     const mock = getProvider('mock');
     expect(mock).toBeDefined();
@@ -105,16 +94,14 @@ describe('data-provider-listener', () => {
   });
 
   it('eventListener: destroys', async () => {
-
-    mockWindow.localStorage = mockDataProvider;
-
-    subject.initialize(mockWindow);
-
-    expect(listeners.length).toBe(1);
+    subject = new DataListener(mockWindow);
+    subject.initialize(bus);
+    const listeners = getProviders();
+    expect(Object.keys(listeners).length).toBe(2);
 
     subject.destroy();
 
-    expect(listeners.length).toBe(0);
+    expect(bus.events[DATA_TOPIC].length).toBe(0);
   });
 
 });

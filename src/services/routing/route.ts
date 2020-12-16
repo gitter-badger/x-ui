@@ -17,7 +17,7 @@ export class Route {
     matchSetter: (m: MatchResults) => void,
   ) {
     this.router = RouterService.instance;
-    this.router.onRouteChange(() => {
+    this.router?.onRouteChange(() => {
       this.previousMatch = this.match;
       this.match = this.router.matchPath({
         path: this.path,

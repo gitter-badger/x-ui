@@ -6,16 +6,18 @@ import {
   State,
   writeTask } from '@stencil/core';
 import {
+
   HistoryType,
   IActionEventListener,
   LocationSegments,
   log,
   debugIf,
-  DataListener,
   RouterService,
   state,
+  ActionBus,
+  DataListener,
   DocumentListener,
-  RouteListener
+  RoutingListener,
 } from '../../services';
 
 @Component({
@@ -103,7 +105,7 @@ export class XUI {
     const dataListener = new DataListener();
     this.addListener('data', dataListener);
 
-    const routeListener = new RouteListener();
+    const routeListener = new RoutingListener();
     this.addListener('route', routeListener);
 
     const documentListener = new DocumentListener();
@@ -112,7 +114,7 @@ export class XUI {
 
   private addListener(name: string, listener: IActionEventListener) {
     debugIf(state.debug, `x-ui: ${name}-listener registered`);
-    listener.initialize(window);
+    listener.initialize(ActionBus);
     this.listeners.push(listener);
   }
 

@@ -5,7 +5,7 @@ interface IEvents {
 }
 
 export class EventEmitter {
-  private readonly events: IEvents = {};
+  readonly events: IEvents = {};
   private wildcardEvents: string[] = [];
 
   private recalcWildcardEvents() {
@@ -41,8 +41,7 @@ export class EventEmitter {
   }
 
   public removeAllListeners(): void {
-    Object.keys(this.events).forEach((event: string) => this.events[event].splice(0, this.events[event].length),
-    );
+    Object.keys(this.events).forEach((event: string) => this.events[event].splice(0, this.events[event].length));
     this.recalcWildcardEvents();
   }
 

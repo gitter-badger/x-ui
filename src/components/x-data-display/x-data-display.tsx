@@ -1,7 +1,8 @@
-import { Element, Component, h, Prop, State, Listen, Fragment } from '@stencil/core';
+import { Element, Component, h, Prop, State, Fragment } from '@stencil/core';
 import {
+  ActionBus,
+  DATA_EVENTS,
   removeAllChildNodes,
-  debug,
   resolveExpression,
   RouterService,
   warn,
@@ -14,7 +15,6 @@ import {
 })
 export class XDataDisplay {
   @Element() el: HTMLXDataDisplayElement;
-
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
   @State() value: string;
@@ -26,29 +26,26 @@ export class XDataDisplay {
    */
   @Prop() text?: string;
 
-  @Listen('xui:action-events:data', {
-    target: 'body',
-  })
-  async dataEvent() {
-    debug('x-data-display: data-provider~changed');
-    await this.resolveTemplate();
-  }
-
-  async componentWillLoad() {
+  get template(): HTMLTemplateElement {
     const template = this.el.firstElementChild as HTMLTemplateElement;
     if (template !== null && template.tagName !== 'TEMPLATE') {
       warn(`x-data-display: The only allowed child is a single <template>. Found ${template.localName} `);
-      return;
     }
-    if (template == null) return;
-    this.innerTemplate = template.innerHTML;
-    removeAllChildNodes(this.el);
+    return template;
   }
 
-  componentDidLoad() {
+  async componentWillLoad() {
+    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveTemplate();
+    });
+
     RouterService.instance?.onRouteChange(async () => {
       await this.resolveTemplate();
     });
+
+    if (this.template == null) return;
+    this.innerTemplate = this.template.innerHTML;
+    removeAllChildNodes(this.el);
   }
 
   async componentWillRender() {

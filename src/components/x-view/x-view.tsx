@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-import { Component, h, Prop, Host, Element, State, Watch, Listen, forceUpdate } from '@stencil/core';
+import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
 import {
   debugIf,
   Route,
@@ -10,6 +9,8 @@ import {
   state,
   resolveElementVisibility,
   hasVisited,
+  ActionBus,
+  DATA_EVENTS,
 } from '../..';
 
 @Component({
@@ -57,13 +58,6 @@ export class XView {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  @Listen('xui:action-events:data', {
-    target: 'body',
-  })
-  async dataEvent() {
-    forceUpdate(this.el);
-  }
-
   private get parent(): HTMLXViewElement | HTMLXUiElement {
     return this.el.parentElement as HTMLXViewElement | HTMLXUiElement;
   }
@@ -103,7 +97,6 @@ export class XView {
       this.scrollTopOffset,
       (match) => {
         this.match = {...match};
-        forceUpdate(this.el);
       },
     );
 
@@ -122,6 +115,10 @@ export class XView {
       }
       debugIf(state.debug, `x-view: registered x-view-do ${c.url}`);
     });
+
+    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveView();
+    });
   }
 
   async componentDidLoad() {
@@ -133,10 +130,10 @@ export class XView {
   }
 
   async componentWillRender() {
-    await this.resolveTemplate();
+    await this.resolveView();
   }
 
-  private async resolveTemplate() {
+  private async resolveView() {
     if (this.match?.isExact) {
       const nextDo = await resolveNext(this.childViewDos.map((x) => {
         const { when, visit, url} = x;

@@ -47,3 +47,18 @@ body {
   0% {opacity: 1;}
   100% {opacity: 0;}
 }
+
+
+.x-nav-bottom {
+  bottom: 0;
+}
+
+
+.x-nav-bottom::before {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMVEUAAAAAAAAAAAAAAAAAAABPDueNAAAABXRSTlMUCS0gBIh/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==');
+  background-repeat: repeat-x;
+  content: '';
+  height: 3px;
+  position: absolute;
+  width: 100%;
+}

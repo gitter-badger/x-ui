@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport"
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-  <title>view.DO UI</title>
+  <title>Loading...</title>
   <meta http-equiv="x-ua-compatible" content="IE=Edge">
   <meta name="description" content="New web components to put some do in your view">
   <meta name="og:title" content="" />
@@ -38,6 +38,12 @@
     --ion-background-color-rgb: 255,255,255;
     --ion-text-color: #000;
     --ion-text-color-rgb: 0,0,0;
+
+  }
+
+  ion-content {
+    --offset-bottom: 40px;
+    --padding-bottom: 40px;
   }
 
   .dark {
@@ -126,78 +132,78 @@
 </head>
 
 <body>
-
   <ion-app>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-toggle>
+            <ion-button>
+              <ion-icon name="menu"></ion-icon>
+            </ion-button>
+          </ion-menu-toggle>
+          <x-link href="/home">
+            <ion-button size="large">
+              <ion-icon slot="icon-only" name="home"></ion-icon>
+            </ion-button>
+          </x-link>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <x-show when="{storage:name}">
+            <ion-chip>
+              <ion-avatar>
+                <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              </ion-avatar>
+              <ion-label>
+                <x-data-display text="{storage:name}" show-when="{storage:name}">
+              </ion-label>
+            </ion-chip>
+          </x-show>
+          <x-preferences-popover-button></x-preferences-popover-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-menu side="start" menu-id="main" content-id="main">
+      <ion-content>
+        <ion-list>
+          <ion-list-header>
+            <h2>Guides</h2>
+          </ion-list-header>
+          <ion-item>
+            <ion-icon slot="start" name="rocket"></ion-icon>
+            <x-link href="/install">
+              <ion-menu-toggle>Get Started</ion-menu-toggle>
+            </x-link>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="shuffle"></ion-icon>
+            <x-link href="/navigation">
+              <ion-menu-toggle>Navigation</ion-menu-toggle>
+            </x-link>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="cloud-done"></ion-icon>
+            <x-link href="/data">
+              <ion-menu-toggle>Using Data</ion-menu-toggle>
+            </x-link>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="flash"></ion-icon>
+            <x-link href="/actions">
+              <ion-menu-toggle>Event Actions</ion-menu-toggle>
+            </x-link>
+          </ion-item>
+          <ion-list-header>
+            <h2>Components</h2>
+          </ion-list-header>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
     <x-ui
       app-title="view.DO UI Components"
       transition="fade-in"
       start-url="/home"
       audio debug>
-
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-toggle>
-              <ion-button>
-                <ion-icon name="menu"></ion-icon>
-              </ion-button>
-            </ion-menu-toggle>
-            <x-link href="/home">
-              <ion-button size="large">
-                <ion-icon slot="icon-only" name="home"></ion-icon>
-              </ion-button>
-            </x-link>
-          </ion-buttons>
-          <ion-buttons slot="end">
-            <x-data-show when="{storage:name}">
-              <ion-chip>
-                <ion-avatar>
-                  <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                </ion-avatar>
-                <ion-label>
-                  <x-data-display text="{storage:name}" show-when="{storage:name}">
-                </ion-label>
-              </ion-chip>
-            </x-data-show>
-            <x-preferences-popover-button></x-preferences-popover-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-menu side="start" menu-id="main" content-id="main">
-        <ion-content>
-          <ion-list>
-            <ion-list-header>
-              <h2>Guides</h2>
-            </ion-list-header>
-            <ion-item>
-              <ion-label>
-                <x-link href="/install">
-                  Get Started
-                </x-link>
-            </ion-label>
-            </ion-item>
-            <ion-item>
-              <x-link href="/navigation">
-                Navigation
-              </x-link>
-            </ion-item>
-            <ion-item>
-              <x-link href="/data">
-                Using Data
-              </x-link>
-            </ion-item>
-            <ion-item>
-              <ion-icon slot="start" name="flash"></ion-icon>
-              <x-link href="/actions">
-                Event Actions
-              </x-link>
-            </ion-item>
-            <ion-list-header>
-              <h2>Components</h2>
-            </ion-list-header>
-          </ion-list>
-        </ion-content>
-      </ion-menu>
 
       <x-view url="/home"
         page-title="Home">
@@ -222,50 +228,46 @@
                     value-from="{storage:name}"></ion-input>
                 </ion-item>
               </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
             </ion-card>
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
+
         </x-view-do>
 
         <x-view-do url="/welcome"
           page-title="Welcome"
           visit="always">
           <ion-content id="main" class="ion-padding">
-            <ion-card>
-              <ion-card-header>
-                <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
-              </ion-card-header>
-              <ion-card-content>
-                <x-data-display>
-                  <template>
-                    <p>We are glad you are here {storage:name?friend}!</p>
-                    <p>This page shows up each visit to this page.</p>
-                  </template>
-                </x-data-display>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
+            <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
+
+            <x-data-display>
+              <template>
+                <p>Glad you are here {storage:name?friend}!</p>
+              </template>
+            </x-data-display>
+            <p>This page shows up each visit. This is helpful for notifications, consent forms or announcements.</p>
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
-
 
         <ion-content id="main" class="ion-padding">
           <zero-md src="/docs/index.md"></zero-md>
@@ -297,7 +299,6 @@
               </x-link>
             </li>
           </ul>
-
         </ion-content>
 
       </x-view>
@@ -313,11 +314,12 @@
             <x-action
               topic="data"
               command="set-data"
-              data='{"provider": "storage", "values": {"installed": "true" }}'></x-action>
+              data='{"provider": "storage", "values": {"installed": "npm" }}'></x-action>
           </x-action-activator>
           <ion-content id="main" class="ion-padding">
             <zero-md src="/docs/install/npm.md"></zero-md>
-            <ion-item>
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
               <ion-button slot="start" class="x-back">
                 <ion-icon name="caret-back-outline"></ion-icon>
                 Back
@@ -326,23 +328,26 @@
                 Next
                 <ion-icon name="caret-forward-outline"></ion-icon>
               </ion-button>
-            </ion-item>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
         <x-view-do url="/cdn"
           page-title="Install w/CDN"
           visit="optional">
+
           <x-action-activator
             activate="OnEnter">
             <x-action
               topic="data"
               command="set-data"
-              data='{"provider": "storage", "values": {"installed": "true" }}'></x-action>
+              data='{"provider": "storage", "values": {"installed": "cdn" }}'></x-action>
           </x-action-activator>
+
           <ion-content id="main" class="ion-padding">
             <zero-md src="/docs/install/cdn.md"></zero-md>
-            <ion-item>
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
               <ion-button slot="start" class="x-back">
                 <ion-icon name="caret-back-outline"></ion-icon>
                 Back
@@ -351,7 +356,7 @@
                 Next
                 <ion-icon name="caret-forward-outline"></ion-icon>
               </ion-button>
-            </ion-item>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
@@ -359,48 +364,70 @@
           <zero-md src="/docs/install/index.md"></zero-md>
           <ion-list>
             <ion-item>
+              <ion-icon slot="start" name="logo-npm"></ion-icon>
               <x-link href="/install/npm">
                 Install w/NPM
               </x-link>
             </ion-item>
             <ion-item>
+              <ion-icon slot="start" name="cloud-done-outline"></ion-icon>
               <x-link href="/install/cdn">
                 Install w/CDN
               </x-link>
             </ion-item>
           </ion-list>
-          <zero-md
-            x-show-when="{storage:installed}"
-            src="/docs/install/installed.md"></zero-md>
+          <zero-md src="/docs/install/installed.md"
+            x-show-when="{storage:installed}"></zero-md>
 
+          <ion-toolbar slot="fixed" class="x-nav-bottom">
+            <x-link slot="start" href="/home">
+              <ion-button class="x-back">
+                <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+                Home
+              </ion-button>
+            </x-link>
+            <x-link slot="end" href="/navigation">
+              <ion-button class="x-next">
+                Next: Navigation
+                <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </x-link>
+          </ion-toolbar>
         </ion-content>
       </x-view>
 
-      <x-view
-        url="/navigation"
-        page-title="Navigation System">
-
+      <x-view url="/navigation" page-title="Navigation System">
         <ion-content id="main" class="ion-padding">
           <zero-md src="/docs/navigation/index.md"></zero-md>
 
-          <h2>Static Routing</h2>
-          <p>
-            <x-link slot='end' href="/navigation/static">
-              Static Routing
+          <ion-list>
+            <ion-item>
+              <ion-icon slot="start" name="map"></ion-icon>
+              <x-link href="/navigation/static">
+                Static Routing
+              </x-link>
+            </ion-item>
+            <ion-item>
+              <ion-icon slot="start" name="navigate-circle"></ion-icon>
+              <x-link  href="/navigation/guided">
+                Guided Navigation
+              </x-link>
+            </ion-item>
+          </ion-list>
+          <ion-toolbar slot="fixed" class="x-nav-bottom">
+            <x-link slot="start" href="/install">
+              <ion-button class="x-back">
+                <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+                Installation
+              </ion-button>
             </x-link>
-            is a lot like most in-page content routers. Except this one doesn't
-            require a build-process or JavaScript.
-          </p>
-
-          <h2>Guided Navigation</h2>
-          <p>
-            <x-link slot='end' href="/navigation/guided">
-              Guided Navigation
+            <x-link slot="end" href="/data">
+              <ion-button class="x-next">
+                Next: Data
+                <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+              </ion-button>
             </x-link>
-            is a convention-based approach to provide developers with a mechanism
-            for presentation-based (next/back) navigation systems.
-          </p>
-
+          </ion-toolbar>
         </ion-content>
 
         <x-view url="/static"
@@ -427,27 +454,22 @@
           </x-view>
 
           <ion-content id="main" class="ion-padding">
-            <h1>Static Routing</h1>
+            <zero-md src="/docs/navigation/static.md"></zero-md>
             <p>
-              Content routing is possible using a simple, declarative approach.
-            </p>
-            <p>
-              This x-view element declares a route using its 'url' attribute. Because it's nested within another route,
-              the URL '/navigation/static' presents this content.
-            </p>
-            <p>
-              DEEP nested routes are easy, just add a new x-view element.
               <x-link href="/navigation/static/deep">
                 Click here
               </x-link>
               to go deeper.
             </p>
-            <ion-item>
-              Back:
-              <x-link slot='end' href="/navigation">
-                Navigation
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <x-link slot="start" href="/navigation">
+                <ion-button class="x-back">
+                  <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+                  Navigation
+                </ion-button>
               </x-link>
-            </ion-item>
+            </ion-toolbar>
           </ion-content>
         </x-view>
 
@@ -547,26 +569,38 @@
             </ion-content>
           </x-view-do>
 
+          <x-view url="/tutorial"
+            page-title="Guided Navigation Tutorial"
+            >
+            <ion-content id="main" class="ion-padding">
+              <zero-md src="/docs/navigation/guided-tutorial.md"></zero-md>
+            </ion-content>
+          </x-view>
+
           <ion-content id="main" class="ion-padding">
-            <h1>Guided Navigation</h1>
-            <p>
-              Using just static HTML, this page was able to create a rich navigation system that walks a user through content in a
-              personalized, conversational format.
-            </p>
+            <zero-md src="/docs/navigation/guided.md"></zero-md>
 
             <p>
               Check out the
               <x-link slot='end' href="/navigation/guided/video">
-                Video
+                video
               </x-link>
-              Route Again
+              again
             </p>
             <p>
               Check out the
               <x-link slot='end' href="/navigation/guided/animation">
-                Animated HTML
+                animated HTML
               </x-link>
-              Route Again
+              again
+            </p>
+
+            <p>
+              Or read the
+              <x-link slot='end' href="/navigation/guided/tutorial">
+                tutorial
+              </x-link>
+              on convention-based navigation.
             </p>
 
             <ion-item>
@@ -580,8 +614,7 @@
         </x-view>
       </x-view>
 
-      <x-view url="/data"
-        page-title="Data System">
+      <x-view url="/data" page-title="Data System">
 
         <x-view-do
           url="/session-data"
@@ -601,17 +634,17 @@
                     value-from="{session:favorite}"></ion-input>
                 </ion-item>
               </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
             </ion-card>
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
@@ -633,22 +666,22 @@
                     value-from="{storage:animal}"></ion-input>
                 </ion-item>
               </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
             </ion-card>
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
         <ion-content id="main" class="ion-padding">
-          <h1>Data System</h1>
+          <zero-md src="/docs/data/index.md"></zero-md>
           <ion-list>
             <ion-item>
               <x-link href="/data/providers">
@@ -671,7 +704,20 @@
               </x-link>
             </ion-item>
           </ion-list>
-
+          <ion-toolbar slot="fixed" class="x-nav-bottom">
+            <x-link slot="start" href="/navigation">
+              <ion-button class="x-back">
+                <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+                Navigation
+              </ion-button>
+            </x-link>
+            <x-link slot="end" href="/actions">
+              <ion-button class="x-next">
+                Next: Actions
+                <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </x-link>
+          </ion-toolbar>
         </ion-content>
 
         <x-view url="/providers"
@@ -686,7 +732,7 @@
           page-title="Data Display">
           <ion-content class="ion-padding">
 
-            <x-data-display show-when="{storage:name}">
+            <x-data-display x-show-when="{storage:name}">
               <template>
                 <h3>Content for {storage:name}</h3>
                 <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
@@ -731,13 +777,10 @@
 
       </x-view>
 
-
-
-      <x-view url="/actions"
-        page-title="Action Systems"">
+      <x-view url="/actions" page-title="Action Systems"">
 
         <x-view-do url="/events"
-          visit="always">
+          visit="optional">
           <x-action-activator
             activate="OnEnter">
             <x-action
@@ -754,27 +797,25 @@
           </x-action-activator>
 
           <ion-content id="main" class="ion-padding">
-            <ion-card>
-              <ion-card-content>
-                <h2>X-VIEW-DO Enter & Exit Events</h2>
-                <p>You should get two alerts. One on entry and one on exit.</p>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
+            <zero-md src="/docs/actions/event.md"></zero-md>
+            <h2>X-VIEW-DO Enter & Exit Events</h2>
+            <p>You should get two alerts. One on entry and one on exit.</p>
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
         <x-view-do url="/timed"
-          visit="always"
+          visit="optional"
           duration="30">
           <x-action-activator
             activate="AtTime"
@@ -786,29 +827,26 @@
           </x-action-activator>
 
           <ion-content id="main" class="ion-padding">
-            <ion-card>
-              <ion-card-content>
-                <h2>X-VIEW-DO Timed Events</h2>
-                <p>You should get an alert at 3 seconds.</p>
-                <p>Time: <span x-time-to></span></p>
-                <p>Also, this page will auto-redirect to the next page after 30 seconds.</p>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
+            <zero-md src="/docs/actions/timed.md"></zero-md>
+
+            <p>Time: <span x-time-to></span></p>
+            <p>Percentage: <span x-percentage-to></span></p>
+
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
         <x-view-do url="/elements"
-          visit="always">
+          visit="optional">
           <x-action-activator
             activate="OnElementEvent"
             element-query="#button1"
@@ -819,27 +857,24 @@
               data='{"message": "You clicked it!"}'></x-action>
           </x-action-activator>
           <ion-content id="main" class="ion-padding">
-            <ion-card>
-              <ion-card-content>
-                <h2>Element Events</h2>
-                <button id="button1">Click Me</button>
-              </ion-card-content>
-              <ion-item>
-                <ion-button slot="start" class="x-back">
-                  <ion-icon name="caret-back-outline"></ion-icon>
-                  Back
-                </ion-button>
-                <ion-button slot="end" class="x-next">
-                  Next
-                  <ion-icon name="caret-forward-outline"></ion-icon>
-                </ion-button>
-              </ion-item>
-            </ion-card>
+            <zero-md src="/docs/actions/element-event.md"></zero-md>
+            <p>Element:</p>
+            <ion-button id="button1">Click Me</ion-button>
+            <ion-toolbar slot="fixed" class="x-nav-bottom">
+              <ion-button slot="start" class="x-back">
+                <ion-icon name="caret-back-outline"></ion-icon>
+                Back
+              </ion-button>
+              <ion-button slot="end" class="x-next">
+                Next
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </ion-toolbar>
           </ion-content>
         </x-view-do>
 
         <ion-content id="main" class="ion-padding">
-          <h1>Actions System</h1>
+          <zero-md src="/docs/actions/index.md"></zero-md>
           <ion-list>
             <ion-item>
               <x-link href="/actions/events">Event-based Actions</x-link>
@@ -851,6 +886,20 @@
               <x-link href="/actions/elements">Element Event Actions</x-link>
             </ion-item>
           </ion-list>
+          <ion-toolbar slot="fixed" class="x-nav-bottom">
+            <x-link slot="start" href="/data">
+              <ion-button class="x-back">
+                <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+                Data
+              </ion-button>
+            </x-link>
+            <x-link slot="end" href="/document">
+              <ion-button class="x-next">
+                Next: Document
+                <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </x-link>
+          </ion-toolbar>
         </ion-content>
 
       </x-view>
@@ -875,17 +924,9 @@
         <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
         <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
       </x-data-provider-cookie>
+
     </x-ui>
-
   </ion-app>
-
-  <script>
-    function openMenu() {
-      window.menuController.open('main');
-    }
-
-  </script>
-
 </body>
 
 </html>

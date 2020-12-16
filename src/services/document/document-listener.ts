@@ -1,45 +1,50 @@
 import { ActionEvent, IActionEventListener } from '../actions';
+import { EventEmitter } from '../actions/event-emitter';
 import { debugIf } from '../logging';
 import { state } from '../state';
 import { DOCUMENT_TOPIC, DOCUMENT_COMMANDS, IDocumentProvider } from './interfaces';
-import { setProvider } from './provider-factory';
+import { getDocumentProvider, setDocumentProvider } from './provider-factory';
 
 export class DocumentListener implements IActionEventListener {
-  document: HTMLDocument;
-  eventOptions: EventListenerOptions = { capture: false };
+  bus: EventEmitter;
 
-  initialize(win: Window): void {
-    this.document = win.document;
+  initialize(bus: EventEmitter): void {
+    this.bus = bus;
     this.listen();
   }
 
   listen() {
-    this.document.addEventListener(
-      DOCUMENT_TOPIC,
-      this.handleEvent,
-      this.eventOptions);
+    this.bus.on(DOCUMENT_TOPIC, this.handleEvent);
   }
 
-  handleEvent(ev: CustomEvent<ActionEvent<any>>) {
-    const actionEvent = ev.detail;
-    debugIf(state.debug, `document-listener: command ${actionEvent.command} received`);
+  handleEvent(actionEvent: ActionEvent<any>) {
+    debugIf(state.debug, `document-listener: action received ${JSON.stringify(actionEvent)}`);
 
-    if (actionEvent.command === DOCUMENT_COMMANDS.RegisterProvider) {
-      const { name, provider } = actionEvent.data;
-      if (name && provider) {
-        this.registerProvider(name, provider);
+    const currentProvider = getDocumentProvider();
+    switch (actionEvent.command) {
+      case DOCUMENT_COMMANDS.RegisterProvider: {
+        const { name, provider } = actionEvent.data;
+        if (name && provider) {
+          setDocumentProvider(provider as IDocumentProvider);
+        }
+        break;
       }
+      case DOCUMENT_COMMANDS.Alert: {
+        const { message} = actionEvent.data;
+        if (message) {
+          // eslint-disable-next-line no-alert
+          currentProvider?.alert(message);
+        }
+        break;
+      }
+      default:
+        break;
     }
   }
 
-  registerProvider(name: string, provider: IDocumentProvider) {
-    setProvider(name, provider as IDocumentProvider);
-  }
-
   destroy(): void {
-    this.document.removeEventListener(
+    this.bus.removeListener(
       DOCUMENT_TOPIC,
-      this.handleEvent,
-      this.eventOptions);
+      this.handleEvent);
   }
 }
