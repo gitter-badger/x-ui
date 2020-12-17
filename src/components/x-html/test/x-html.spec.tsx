@@ -15,14 +15,4 @@ describe('x-template-async', () => {
     `);
   });
 
-  it('no render', async () => {
-    const page = await newSpecPage({
-      components: [XHtml],
-      html: `<x-html no-render></x-html>`,
-      supportsShadowDom: false,
-    });
-    expect(page.root).toEqualHtml(`
-      <x-html hidden=""></x-html>
-    `);
-  });
 });

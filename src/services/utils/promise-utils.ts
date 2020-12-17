@@ -63,18 +63,3 @@ export async function findAsyncSequential<T>(
   return null;
 }
 
-/**
- * A synchronous way to find an item in a array with
- * an asynchronous predicate
- *
- * @export
- * @template T
- * @param {T[]} array
- * @param {(t: T) => Promise<boolean>} predicate
- * @return {*}  {(Promise<T | undefined>)}
- */
-export async function forEachAsync<T>(
-  array: Array<T>,
-  promiseFunc: (t: T) => Promise<void>) {
-  return Promise.all(array.map((i) => promiseFunc(i)));
-}

@@ -20,7 +20,6 @@ import {
   storeVisit,
   markVisit,
   ActionActivationStrategy,
-  forEachAsync,
   normalizeChildUrl,
 } from '../../services';
 
@@ -34,7 +33,8 @@ export class XViewDo {
   private timedNodes: Array<TimedNode> = [];
   private timer: NodeJS.Timeout;
   private timeEvent: EventEmitter;
-  @Element() el!: HTMLXViewDoElement;
+  private lastTime: number;
+  @Element() el: HTMLXViewDoElement;
   @State() match: MatchResults;
 
   /**
@@ -140,6 +140,12 @@ export class XViewDo {
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveView();
     });
+    // Attach enter-key for next
+    this.el.addEventListener('keypress', (ev:KeyboardEvent) => {
+      if (ev.key === 'Enter') {
+        this.next(this.el.localName, 'enter-key');
+      }
+    });
   }
 
   async componentDidLoad() {
@@ -185,57 +191,52 @@ export class XViewDo {
     await this.resolveView();
   }
 
-  componentDidRender() {
-    // Attach enter-key for next
-    const inputElements = this.el.querySelectorAll('input');
-    if (inputElements) {
-      const lastInput = inputElements[inputElements.length - 1];
-      lastInput?.addEventListener('keypress', (ev:KeyboardEvent) => {
-        if (ev.key === 'Enter') {
-          this.next(lastInput.localName, 'enter-key');
-        }
-      });
-    }
+  private async resolveView() {
+    clearInterval(this.timer);
+    if (this.match?.isExact) {
+      debugIf(state.debug, `x-view-do: ${this.url} on-enter`);
+      // activate on-enter actions
+      this.actionActivators
+        .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
+        .forEach((activator) => activator.activateActions());
 
+      setTimeout(() => this.resolveChildren(), 1000);
+    }
+  }
+
+  private resolveChildren() {
     // Attach next
-    const nextElement = this.el?.querySelector('.x-next');
+    const nextElement = this.el.querySelector('[x-next]');
     nextElement?.addEventListener('click', (e) => {
       this.next(nextElement?.localName, 'clicked');
       e.preventDefault();
     });
-    nextElement?.classList?.remove('x-next');
+    nextElement?.removeAttribute('x-next');
 
     // Attach back
-    const backElement = this.el?.querySelector('.x-back');
+    const backElement = this.el?.querySelector('[x-back]');
     backElement?.addEventListener('click', (e) => {
       e.preventDefault();
       RouterService.instance?.history?.goBack();
     });
-    backElement?.classList?.remove('x-back');
+    backElement?.removeAttribute('x-back');
 
     // Capture timed nodes
     this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
     debugIf(this.debug && this.timedNodes.length > 0,
       `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
-  }
 
-  private async resolveView() {
-    clearInterval(this.timer);
-    if (this.match?.isExact) {
-      this.setupTimer();
-      resolveElementValues(this.el);
-      resolveElementVisibility(this.el);
-      this.actionActivators
-        .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
-        .forEach((activator) => activator.activateActions());
-    }
+    resolveElementValues(this.el);
+    resolveElementVisibility(this.el);
+
+    this.setupTimer();
   }
 
   private setupTimer() {
     const timeUpdateEvent = 'timeupdate';
     const video = this.childVideo;
     this.timeEvent = new EventEmitter();
-
+    this.lastTime = 0;
     if (video) {
       video.addEventListener(timeUpdateEvent, () => {
         this.timeEvent.emit(timeUpdateEvent, video.currentTime);
@@ -255,11 +256,10 @@ export class XViewDo {
     this.timeEvent.on(timeUpdateEvent, async (time) => {
       const { debug, el, timedNodes, timer, duration = video?.duration } = this;
 
-      await forEachAsync(
-        this.actionActivators
-          .filter((activator) => activator.activate === ActionActivationStrategy.AtTime
-             && activator.time === time),
-        async (activator) => {
+      this.actionActivators
+        .filter((activator) => activator.activate === ActionActivationStrategy.AtTime
+            && (activator.time >= this.lastTime && activator.time >= time))
+        .forEach(async (activator) => {
           await activator.activateActions();
         });
 
@@ -278,6 +278,7 @@ export class XViewDo {
           duration,
           debug);
       }
+      this.lastTime = time;
     });
   }
 

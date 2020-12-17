@@ -1,0 +1,28 @@
+
+<ion-content id="main" class="ion-padding">
+
+  <h1>Introductions</h1>
+  <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
+  <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>
+
+  <h2>What's your name?</h2>
+
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-input id="name" type="text" required
+      onblur="localStorage.setItem('name', this.value)"
+      onchange="localStorage.setItem('name', this.value)"
+      value-from="{storage:name}"></ion-input>
+  </ion-item>
+
+  <ion-toolbar slot="fixed" class="x-nav-bottom">
+    <ion-button slot="start" x-back color="light">
+      <ion-icon name="caret-back-outline"></ion-icon>
+      Back
+    </ion-button>
+    <ion-button slot="end" x-next>
+      Next
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-content>

@@ -1,0 +1,26 @@
+<ion-content id="main" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <h2>Session Data</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Favorite</ion-label>
+        <ion-input type="text" required
+          onblur="sessionStorage.setItem('favorite', this.value)"
+          onchange="sessionStorage.setItem('favorite', this.value)"
+          value-from="{session:favorite}"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-toolbar slot="fixed" class="x-nav-bottom">
+    <ion-button slot="start" x-back>
+      <ion-icon name="caret-back-outline"></ion-icon>
+      Back
+    </ion-button>
+    <ion-button slot="end" x-next>
+      Next
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-content>

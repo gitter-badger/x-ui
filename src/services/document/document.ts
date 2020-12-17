@@ -9,8 +9,8 @@ export type TimedNode = {
   element: HTMLElement,
 };
 
-export function resolveChildRemoteHtml(element: HTMLElement) {
-  const manualRendering = element.querySelectorAll('[no-render]');
+export function resolveChildRemoteHtml() {
+  const manualRendering = document.querySelectorAll('.xui-active-route-exact [no-render], .xui-active-route [no-render]');
   manualRendering.forEach(async (el) => {
     el.removeAttribute('no-render');
   });

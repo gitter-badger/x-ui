@@ -13,9 +13,9 @@ import {
   shadow: true,
 })
 export class XActionActivator {
-  private actions: Array<ActionEvent<any>> = [];
+  @State() actions: Array<ActionEvent<any>> = [];
   @Element() el: HTMLXActionActivatorElement;
-  @State() loaded = false;
+  @State() activated = false;
 
   /**
    * The activation strategy to use for the contained actions.
@@ -43,8 +43,7 @@ export class XActionActivator {
   @Method()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async activateActions() {
-    if (!this.loaded) return;
-
+    if (this.activated) return;
     // activate children
     this.actions.forEach((action) => {
       debugIf(state.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate} {${action?.topic}~${action?.command}}]`);
@@ -54,6 +53,7 @@ export class XActionActivator {
         warn(`x-action-activator: ${err}`);
       }
     });
+    this.activated = true;
   }
 
   private get parent(): HTMLXViewDoElement {
@@ -66,7 +66,7 @@ export class XActionActivator {
       .map((v) => v as HTMLXActionElement);
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     debugIf(state.debug, `x-action-activator: ${this.parent?.url} loading`);
     if (this.childActions.length === 0) {
       warn(`x-action-activator: ${this.parent?.url} No children actions detected`);
@@ -85,8 +85,6 @@ export class XActionActivator {
       debugIf(state.debug, `x-action-activator: ${this.parent?.url} received ${this.elementQuery} did ${this.elementEventName}`);
       await this.activateActions();
     });
-
-    this.loaded = true;
   }
 
   render() {

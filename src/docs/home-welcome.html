@@ -1,0 +1,21 @@
+<ion-content id="main" class="ion-padding">
+  <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
+
+  <x-data-display>
+    <template>
+      <p>Glad you are here {storage:name?friend}!</p>
+    </template>
+  </x-data-display>
+  <p>This page shows up each visit. This is helpful for notifications, consent forms or announcements.</p>
+
+  <ion-toolbar slot="fixed" class="x-nav-bottom">
+    <ion-button slot="start" x-back color="light">
+      <ion-icon name="caret-back-outline"></ion-icon>
+      Back
+    </ion-button>
+    <ion-button slot="end" x-next>
+      Next
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-content>

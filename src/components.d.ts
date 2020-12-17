@@ -5,9 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, ActionEvent, CookieConsent, DataProviderRegistration, VisitStrategy } from ".";
+import { ActionActivationStrategy, ActionEvent, CookieConsent, DataProviderRegistration } from ".";
 import { ActionEvent as ActionEvent1 } from "./services/actions";
-import { DataProviderRegistration as DataProviderRegistration1, HistoryType } from "./services";
+import { DataProviderRegistration as DataProviderRegistration1, HistoryType, VisitStrategy } from "./services";
 export namespace Components {
     interface XAction {
         /**
@@ -78,10 +78,14 @@ export namespace Components {
     }
     interface XHtml {
         /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender": boolean;
+        /**
           * Remote Template URL
           * @required
          */
-        "url": string;
+        "src": string;
     }
     interface XLink {
         "activeClass": string;
@@ -414,10 +418,14 @@ declare namespace LocalJSX {
     }
     interface XHtml {
         /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender"?: boolean;
+        /**
           * Remote Template URL
           * @required
          */
-        "url"?: string;
+        "src"?: string;
     }
     interface XLink {
         "activeClass"?: string;

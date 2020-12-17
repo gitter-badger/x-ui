@@ -1,0 +1,62 @@
+<ion-content id="main" class="ion-padding">
+  <ion-card>
+    <ion-card-media>
+      <ion-img id="step1"
+        x-out-time="9"
+        src="https://via.placeholder.com/728x390.png?text=Step+1"></ion-img>
+      <ion-img id="step2" hidden
+        x-in-time="10"
+        x-out-time="19"
+        src="https://via.placeholder.com/728x390.png?text=Step+2"></ion-img>
+      <ion-img id="step3" hidden
+        x-in-time="20"
+        src="https://via.placeholder.com/728x390.png?text=Step+3"></ion-img>
+    </ion-card-media>
+    <ion-progress-bar color="primary"
+      x-percentage-to="value"></ion-progress-bar>
+    <ion-card-content>
+      <h2>Present HTML Animation</h2>
+      <p>This page is also part of the guided-navigation system.</p>
+      <p>The 'duration' attribute set in this x-view-do element, gives this page video-like functionality.</p>
+      <p>
+        Note elements changing at specific times. Basic hide/show logic is performed declaratively with
+        special attributes you can put on ANY element.
+      </p>
+
+      <p>Progress: <span x-percentage-to></span></p>
+
+      <div hidden
+        x-int-time="0" x-in-class="fade-in"
+        x-out-time="9" x-out-class="fade-out"
+        >
+        <h1>Step 1 Stuff</h1>
+        <p>Fake Step 1 copy. </p>
+      </div>
+      <div hidden
+        x-in-time="10" x-in-class="fade-in"
+        x-out-time="19" x-out-class="fade-out"
+        >
+        <h1>Step 2 Stuff</h1>
+        <p>Fake Step 2 copy. </p>
+      </div>
+      <div hidden
+        x-in-time="20" x-in-class="fade-in"
+        x-out-time="30" x-out-class="fade-out"
+        >
+        <h1>Step 3 Stuff</h1>
+        <p>Fake Step 3 copy. </p>
+      </div>
+
+    </ion-card-content>
+    <ion-item>
+      <ion-button slot="start" x-back>
+        <ion-icon name="caret-back-outline"></ion-icon>
+        Back
+      </ion-button>
+      <ion-button slot="end" x-next>
+        Next
+        <ion-icon name="caret-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>

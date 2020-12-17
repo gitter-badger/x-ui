@@ -1,0 +1,26 @@
+<ion-content id="main" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <h2>Storage Data</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Animal</ion-label>
+        <ion-input type="text" required
+          onblur="localStorage.setItem('animal', this.value)"
+          onchange="localStorage.setItem('animal', this.value)"
+          value-from="{storage:animal}"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-toolbar slot="fixed" class="x-nav-bottom">
+    <ion-button slot="start" x-back>
+      <ion-icon name="caret-back-outline"></ion-icon>
+      Back
+    </ion-button>
+    <ion-button slot="end" x-next>
+      Next
+      <ion-icon name="caret-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-content>

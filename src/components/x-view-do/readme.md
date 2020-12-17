@@ -25,24 +25,27 @@ This component can be configured with a “when” attribute, that declares an e
 
 This evaluation has to take place before the route is activated as the underlying data can change in the previous Do components.  If the component is deemed unnecessary (the predicate returns false), the component marks itself ‘complete’ and returns control to the parent view, without revealing its contents.
 
-#### Special Next & Back Classes
-To make guided-navigation easy, you can add these simple classes to any child elements and this component will attach click-handlers to automatically set-up next and back navigation.
 
-#### Next Class: x-next
-
-````html
-<any class="x-next" />
-````
-
-#### Back Class: x-back
-
-````html
-<any class="x-back" />
-````
 
 ### Child Attribute Detection & Resolution
-
 The following attributes are queried to resolve certain data-values or show/hide conditions for all child elements. 
+
+#### Special Next & Back Attributes
+To make guided-navigation easy, you can add attributes to set-up event-handlers for next & back.
+
+#### [x-next]
+
+````html
+<any x-next />
+````
+
+#### [x-back]
+
+````html
+<any x-back />
+````
+
+
 
 #### [x-hide-when]
 
