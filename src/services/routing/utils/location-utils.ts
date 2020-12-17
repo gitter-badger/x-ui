@@ -14,6 +14,14 @@ export const getUrl = (url: string, root: string) => {
   return root + url;
 };
 
+export function normalizeChildUrl(childUrl: string, parentUrl: string) {
+  let normalizedUrl = childUrl;
+  if (!childUrl.startsWith(parentUrl)) {
+    normalizedUrl = `${parentUrl}/${childUrl}`;
+  }
+  return normalizedUrl.replace('//', '/');
+}
+
 export const getLocation = (location: LocationSegments, root: string): LocationSegments => {
   // Remove the root URL if found at beginning of string
   const pathname = location.pathname.indexOf(root) === 0

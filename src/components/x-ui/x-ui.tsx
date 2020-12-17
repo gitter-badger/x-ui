@@ -20,6 +20,7 @@ import {
   DocumentListener,
   RoutingListener,
   ActionEvent,
+  resolveChildRemoteHtml,
 } from '../../services';
 
 @Component({
@@ -106,6 +107,7 @@ export class XUI {
     const router = RouterService.initialize(writeTask, this.el, this.historyType, this.root, this.appTitle, this.transition, this.scrollTopOffset);
     router.onRouteChange(() => {
       this.location = router.location;
+      setTimeout(() => resolveChildRemoteHtml(), 100);
     });
 
     if (this.startUrl && router.location.pathname == '/') {

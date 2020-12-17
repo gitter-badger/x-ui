@@ -1,44 +1,60 @@
-import { Component, h, State, Prop, Element } from '@stencil/core';
-import { warn } from '../../services/logging';
+import { Host, Component, h, State, Prop, Element } from '@stencil/core';
+import { warn, debugIf } from '../..';
 
 @Component({
   tag: 'x-html',
   styleUrl: 'x-html.css',
-  shadow: true,
+  shadow: false,
 })
 export class XHtml {
   @Element() el: HTMLXHtmlElement;
-  @State() content: string = '';
+  @State() content: string;
 
   /**
    * Remote Template URL
    * @required
    */
-  @Prop() url: string;
+  @Prop() src: string;
 
-  private async fetchHtml(url: string) {
+  /**
+   * If set, disables auto-rendering of this instance.
+   * To fetch the contents change to false or remove
+   * attribute.
+   */
+  // eslint-disable-next-line @stencil/strict-mutable
+  @Prop({ mutable: true}) noRender: boolean = false;
+
+  async componentWillLoad() {
+    debugIf(true, `x-html: ${this.src} will load render ${!this.noRender}`);
+    await this.fetchHtml();
+  }
+
+  private async fetchHtml() {
+    if (this.noRender) return;
     try {
-      const response = await fetch(url);
+      const response = await fetch(this.src);
       if (response.status === 200) {
         const data = await response.text();
         this.content = data;
       } else {
-        warn(`x-html: Unable to retrieve from ${this.url}`);
+        warn(`x-html: Unable to retrieve from ${this.src}`);
       }
     } catch (error) {
-      warn(`x-html: Unable to retrieve from ${this.url}`);
+      warn(`x-html: Unable to retrieve from ${this.src}`);
     }
   }
 
   async componentWillRender() {
-    if (this.url) {
-      await this.fetchHtml(this.url);
-    }
+    debugIf(true, `x-html: ${this.src} will render ${!this.noRender}`);
+    await this.fetchHtml();
   }
 
   render() {
-    return (
-      <div innerHTML={this.content}></div>
-    );
+    if (this.content) {
+      return (
+        <div class="ion-page" innerHTML={this.content}></div>
+      );
+    }
+    return (<Host hidden></Host>);
   }
 }

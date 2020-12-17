@@ -9,6 +9,13 @@ export type TimedNode = {
   element: HTMLElement,
 };
 
+export function resolveChildRemoteHtml(element: HTMLElement) {
+  const manualRendering = element.querySelectorAll('[no-render]');
+  manualRendering.forEach(async (el) => {
+    el.removeAttribute('no-render');
+  });
+}
+
 export async function resolveElementVisibility(element: HTMLElement) {
   const hideWhenElements = element.querySelectorAll('[x-hide-when]');
   hideWhenElements.forEach(async (el) => {

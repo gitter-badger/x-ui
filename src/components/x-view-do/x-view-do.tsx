@@ -1,5 +1,7 @@
-import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
-
+import {
+  Component, h, Prop,
+  Element, State, Host, Watch,
+} from '@stencil/core';
 import {
   EventEmitter,
   Route,
@@ -17,8 +19,10 @@ import {
   DATA_EVENTS,
   storeVisit,
   markVisit,
-} from '../..';
-import { ActionActivationStrategy, forEachAsync } from '../../services';
+  ActionActivationStrategy,
+  forEachAsync,
+  normalizeChildUrl,
+} from '../../services';
 
 @Component({
   tag: 'x-view-do',
@@ -57,7 +61,7 @@ export class XViewDo {
   * routes.
   *
  */
-  @Prop() url!: string;
+  @Prop({ reflect: true, mutable: true }) url!: string;
 
   /**
    * The visit strategy for this do.
@@ -97,15 +101,11 @@ export class XViewDo {
   }
 
   private get parent(): HTMLXViewElement {
-    return this.el.parentElement as HTMLXViewElement;
+    return this.el.parentElement.closest('x-view') as HTMLXViewElement;
   }
 
-  get parentUrl() {
+  private get parentUrl() {
     return this.parent?.getAttribute('url');
-  }
-
-  get root() {
-    return this.parent?.getAttribute('root');
   }
 
   private get childVideo(): HTMLVideoElement {
@@ -119,8 +119,44 @@ export class XViewDo {
       .map((v) => v as HTMLXActionActivatorElement);
   }
 
-  private async next(element:string, eventName: string) {
+  componentWillLoad() {
+    if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
+      this.url = normalizeChildUrl(this.url, this.parentUrl);
+    }
+    debugIf(state.debug, `x-view-do: loading ${this.url}`);
+
+    this.route = new Route(
+      this.el,
+      this.url,
+      true,
+      this.pageTitle,
+      this.transition || this.parent?.transition,
+      this.scrollTopOffset,
+      (match) => {
+        this.match = {...match};
+      },
+    );
+
+    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveView();
+    });
+  }
+
+  async componentDidLoad() {
+    await this.route.loadCompleted();
+  }
+
+  async componentDidUpdate() {
+    await this.route.loadCompleted();
+  }
+
+  private next(element:string, eventName: string) {
     debugIf(state.debug, `x-view-do: next fired from ${element}:${eventName}`);
+
+    this.childVideo?.pause();
+
+    clearInterval(this.timer);
+
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
     inputElements.forEach((i) => {
@@ -134,7 +170,6 @@ export class XViewDo {
       if (this.visit === VisitStrategy.once) {
         storeVisit(this.url);
       }
-      clearInterval(this.timer);
 
       this.actionActivators
         .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
@@ -146,43 +181,11 @@ export class XViewDo {
     }
   }
 
-  async componentWillLoad() {
-    if (this.transition === undefined) {
-      this.transition = this.parent?.transition;
-    }
+  async componentWillRender() {
+    await this.resolveView();
+  }
 
-    if (this.childVideo) {
-      this.duration = this.childVideo.duration;
-    }
-
-    this.route = new Route(
-      this.el,
-      this.url,
-      true,
-      this.pageTitle,
-      this.transition,
-      this.scrollTopOffset,
-      // eslint-disable-next-line no-return-assign
-      async (match) => {
-        this.match = {...match};
-        await this.resolveView();
-      },
-    );
-
-    // Attach next
-    const nextElement = this.el?.querySelector('.x-next');
-    nextElement?.addEventListener('click', (e) => {
-      this.next(nextElement?.localName, 'clicked');
-      e.preventDefault();
-    });
-
-    // Attach back
-    const backElement = this.el?.querySelector('.x-back');
-    backElement?.addEventListener('click', (e) => {
-      e.preventDefault();
-      RouterService.instance?.history?.goBack();
-    });
-
+  componentDidRender() {
     // Attach enter-key for next
     const inputElements = this.el.querySelectorAll('input');
     if (inputElements) {
@@ -194,24 +197,26 @@ export class XViewDo {
       });
     }
 
+    // Attach next
+    const nextElement = this.el?.querySelector('.x-next');
+    nextElement?.addEventListener('click', (e) => {
+      this.next(nextElement?.localName, 'clicked');
+      e.preventDefault();
+    });
+    nextElement?.classList?.remove('x-next');
+
+    // Attach back
+    const backElement = this.el?.querySelector('.x-back');
+    backElement?.addEventListener('click', (e) => {
+      e.preventDefault();
+      RouterService.instance?.history?.goBack();
+    });
+    backElement?.classList?.remove('x-back');
+
     // Capture timed nodes
     this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
     debugIf(this.debug && this.timedNodes.length > 0,
       `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
-
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
-      await this.resolveView();
-    });
-
-    await this.resolveView();
-  }
-
-  async componentDidLoad() {
-    await this.route.loadCompleted();
-  }
-
-  async componentDidUpdate() {
-    await this.route.loadCompleted();
   }
 
   private async resolveView() {
@@ -248,7 +253,7 @@ export class XViewDo {
     }
 
     this.timeEvent.on(timeUpdateEvent, async (time) => {
-      const { debug, el, timedNodes, timer, duration } = this;
+      const { debug, el, timedNodes, timer, duration = video?.duration } = this;
 
       await forEachAsync(
         this.actionActivators

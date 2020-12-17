@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description         | Type     | Default     |
-| -------- | --------- | ------------------- | -------- | ----------- |
-| `url`    | `url`     | Remote Template URL | `string` | `undefined` |
+| Property   | Attribute   | Description                                                                                                  | Type      | Default     |
+| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `noRender` | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
+| `src`      | `src`       | Remote Template URL                                                                                          | `string`  | `undefined` |
 
 
 ----------------------------------------------

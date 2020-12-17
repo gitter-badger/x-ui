@@ -57,18 +57,18 @@ export class RouterService {
     const {history} = this;
     if (!history) return;
 
-    if (history.location?.state && history.location.state?.parent) {
-      history.push(history.location.state.parent, {
-        next: true,
-      });
+    // if (history.location?.state && history.location.state?.parent) {
+    //   history.push(history.location.state.parent, {
+    //     next: true,
+    //   });
+    // } else {
+    const parentSegments = history.location.pathParts.slice(0, history.location?.pathParts.length - 1);
+    if (parentSegments == null) {
+      history.goBack();
     } else {
-      const parentSegments = history.location?.pathParts.slice(0, history.location?.pathParts.length - 1);
-      if (parentSegments == null) {
-        history.goBack();
-      } else {
-        history.push(parentSegments.join('/'));
-      }
+      history.push(parentSegments.join('/'));
     }
+    // }
   }
 
   scrollTo(scrollToLocation?: number) {

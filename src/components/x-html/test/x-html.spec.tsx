@@ -8,13 +8,21 @@ describe('x-template-async', () => {
     const page = await newSpecPage({
       components: [XHtml],
       html: `<x-html></x-html>`,
+      supportsShadowDom: false,
     });
     expect(page.root).toEqualHtml(`
-      <x-html>
-        <mock:shadow-root>
-          <div></div>
-        </mock:shadow-root>
-      </x-html>
+      <x-html hidden=""></x-html>
+    `);
+  });
+
+  it('no render', async () => {
+    const page = await newSpecPage({
+      components: [XHtml],
+      html: `<x-html no-render></x-html>`,
+      supportsShadowDom: false,
+    });
+    expect(page.root).toEqualHtml(`
+      <x-html hidden=""></x-html>
     `);
   });
 });

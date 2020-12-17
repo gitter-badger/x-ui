@@ -1,5 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { Component, h, Prop, Host, Element, State, Watch } from '@stencil/core';
+import {
+  Component, h, Prop, Host, Element, State, Watch,
+} from '@stencil/core';
+
 import {
   debugIf,
   Route,
@@ -11,6 +14,7 @@ import {
   hasVisited,
   ActionBus,
   DATA_EVENTS,
+  normalizeChildUrl,
 } from '../..';
 
 @Component({
@@ -47,7 +51,7 @@ export class XView {
    * routes.
    *
   */
-  @Prop() url!: string;
+  @Prop({ reflect: true, mutable: true }) url!: string;
 
   @Watch('url')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -59,15 +63,15 @@ export class XView {
   }
 
   private get parent(): HTMLXViewElement | HTMLXUiElement {
-    return this.el.parentElement as HTMLXViewElement | HTMLXUiElement;
+    const view = this.el.parentElement.closest('x-view') as HTMLXViewElement;
+    if (view) {
+      return view;
+    }
+    return this.el.parentElement.closest('x-ui') as HTMLXUiElement;
   }
 
-  get parentUrl() {
-    return this.parent?.getAttribute('url');
-  }
-
-  get root() {
-    return this.parent?.getAttribute('root');
+  private get parentUrl() {
+    return this.parent?.getAttribute('url') || this.parent?.getAttribute('root');
   }
 
   private get childViewDos(): Array<HTMLXViewDoElement> {
@@ -76,45 +80,23 @@ export class XView {
       .map((v) => v as HTMLXViewDoElement);
   }
 
-  private get childViews(): Array<HTMLXViewElement> {
-    if (!this.el.hasChildNodes()) return [];
-    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW')
-      .map((v) => v as HTMLXViewElement);
-  }
-
   componentWillLoad() {
-    debugIf(state.debug, `x-view: loading ${this.url}`);
-    if (this.transition === undefined) {
-      this.transition = this.parent.transition;
+    if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
+      this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
+    debugIf(state.debug, `x-view: loading ${this.url}`);
 
     this.route = new Route(
       this.el,
       this.url,
       false,
       this.pageTitle,
-      this.transition,
+      this.transition || this.parent?.transition,
       this.scrollTopOffset,
       (match) => {
         this.match = {...match};
       },
     );
-
-    this.childViews.forEach((c) => {
-      if (!c.url.startsWith(this.url)) {
-        // eslint-disable-next-line @typescript-eslint/quotes
-        c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
-      }
-      debugIf(state.debug, `x-view: registered x-view ${c.url}`);
-    });
-
-    this.childViewDos.forEach((c) => {
-      if (!c.url.startsWith(this.url)) {
-        // eslint-disable-next-line @typescript-eslint/quotes
-        c.url = `${this.url}/${c.url}`.replace(`//`, `/`);
-      }
-      debugIf(state.debug, `x-view: registered x-view-do ${c.url}`);
-    });
 
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveView();
@@ -130,15 +112,18 @@ export class XView {
   }
 
   async componentWillRender() {
-    await this.resolveView();
+    if (this.match) {
+      await this.resolveView();
+    }
   }
 
   private async resolveView() {
     if (this.match?.isExact) {
       const viewDos = this.childViewDos.map((viewDo) => {
-        const { when, visit, url} = viewDo;
-        const visited = hasVisited(url);
-        return { when, visit, visited, url};
+        const { when, visit, url } = viewDo;
+        const cleanUrl = normalizeChildUrl(url, this.url);
+        const visited = hasVisited(cleanUrl);
+        return { when, visit, visited, url: cleanUrl };
       });
 
       const nextDo = await resolveNext(viewDos);
@@ -153,10 +138,10 @@ export class XView {
 
   render() {
     if (this.match?.path || (this.url === '*' && !RouterService.instance.hasMatch)) {
-      const classes = `${this.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
+      const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
         <Host class={classes}>
-          <slot></slot>
+          <slot/>
         </Host>
       );
     }
