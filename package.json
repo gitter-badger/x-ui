@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "homepage": "https://github.com/viewdo/ui#readme",
   "bugs": {
-    "url" : "https://github.com/viewdo/ui/issues",
-    "email" : "project@hostname.com"
+    "url": "https://github.com/viewdo/ui/issues",
+    "email": "project@hostname.com"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/viewdo/ui.git"
+    "type": "git",
+    "url": "https://github.com/viewdo/ui.git"
   },
   "license": "MIT",
   "distDirs": {
     "stencil": "dist",
     "storybook": "www/storybook",
-    "docs": "docs"
+    "docs": ".gatsby"
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

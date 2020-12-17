@@ -219,17 +219,16 @@
         <x-view-do url="/confirm-name"
           page-title="Introductions"
           when="!{storage:name}">
-          <x-html no-render src="/docs/home-intro.html"></x-html>
+          <x-html no-render src="/docs/home/intro.html"></x-html>
         </x-view-do>
 
         <x-view-do url="/welcome"
           page-title="Welcome"
           visit="always">
-          <x-html no-render src="/docs/home-welcome.html"></x-html>
+          <x-html no-render src="/docs/home/welcome.html"></x-html>
         </x-view-do>
 
-        <ion-content class="ion-padding" id="main"
-          force-overscroll >
+        <ion-content class="ion-padding" id="main">
           <zero-md>
             <script type="text/markdown" data-dedent>
               # view.DO Experience UI
@@ -423,7 +422,7 @@
       </x-view>
 
       <x-view url="/test" page-title="Testing">
-        <x-html no-render src="/docs/home.html"></x-html>
+        <x-html no-render src="/docs/test.html"></x-html>
       </x-view>
 
        <!-- Not Found Route -->
