@@ -1,0 +1,13 @@
+
+/coverage
+/docs
+/src
+.github
+.storybook
+.scratch
+node_modules
+.*
+bit.json
+nvm.rc
+renovate.json
+*.log

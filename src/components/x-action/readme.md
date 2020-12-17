@@ -1,3 +1,9 @@
+---
+slug: "x-action"
+title: "My first blog post"
+---
+
+
 # x-action
 
 

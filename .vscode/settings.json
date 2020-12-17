@@ -9,10 +9,12 @@
     "Themeable",
     "automerge",
     "delimeters",
+    "frontmatter",
     "hashbang",
     "loadash",
     "noslash",
     "recalc",
+    "rehype",
     "unlisten"
   ],
   "stencilTools.style.extension": "scss"

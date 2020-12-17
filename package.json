@@ -1,15 +1,27 @@
 {
   "name": "@viewdo/ui",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "homepage": "https://github.com/viewdo/ui#readme",
+  "bugs": {
+    "url" : "https://github.com/viewdo/ui/issues",
+    "email" : "project@hostname.com"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/viewdo/ui.git"
+  },
+  "license": "MIT",
   "distDirs": {
     "stencil": "dist",
-    "storybook": "www/storybook"
+    "storybook": "www/storybook",
+    "docs": "docs"
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.js",
   "es2017": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "loader": "dist/loader",
   "collection": "dist/collection/collection-manifest.json",
   "scripts": {
     "npm:install": "npm install",
@@ -18,26 +30,22 @@
     "watch:storybook": "start-storybook -p 3001 --ci --quiet --output-dir ./www/storybook --static-dir ./www/build/experience-ui",
     "watch:stencil": "stencil build --dev --watch --serve --port 3002",
     "watch:proxy": "wait-on http://localhost:3001/ && wait-on http://localhost:3002/ && node ./.storybook/proxy.js",
-    "new": "stencil generate",
+    "gen": "stencil generate",
     "--- production ---": "---------------",
     "build": "run-s build:stencil build:storybook",
     "build:stencil": "stencil build --docs",
     "build:storybook": "build-storybook --output-dir ./www/storybook --static-dir ./www",
     "build:storybook:docs": "build-storybook --docs --output-dir ./www/storybook --static-dir ./www",
     "--- test ---": "---------------",
+    "test": "stencil test --spec --coverage",
     "test:spec": "stencil test --spec",
     "test:e2e": "stencil test --e2e",
     "test:watch": "stencil test --spec --watch",
-    "test": "stencil test --spec --coverage",
     "--- lint ---": "---------------",
     "lint": "run-p lint:js lint:css",
     "lint:js": "eslint src/**/*{.ts,.tsx}",
     "lint:css": "stylelint 'src/**/*.scss' --allow-empty-input",
-    "lint:husky": "lint-staged",
-    "--- docs ---": "---------------",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve"
+    "lint:husky": "lint-staged"
   },
   "husky": {
     "hooks": {
@@ -46,8 +54,7 @@
   },
   "dependencies": {
     "@ionic/core": "^5.5.0",
-    "expr-eval": "^2.0.2",
-    "markdown": "^0.5.0"
+    "expr-eval": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -73,7 +80,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.2",
-    "gh-pages": "^3.1.0",
     "http-proxy-middleware": "^1.0.5",
     "husky": "^4.3.0",
     "install-peers": "^1.0.3",
