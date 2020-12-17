@@ -1,8 +1,8 @@
 /* eslint-disable no-return-assign */
 import { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
-import { ActionEvent } from '../../services/actions';
-import { DATA_TOPIC, DATA_COMMANDS, DataProviderRegistration } from '../../services';
-import { InMemoryProvider } from '../../services/data/provider-memory';
+import { ActionEvent } from '../../../../../src/services/actions';
+import { DATA_TOPIC, DATA_COMMANDS, DataProviderRegistration } from '../../../../../src/services';
+import { InMemoryProvider } from '../../../../../src/services/data/provider-memory';
 
 @Component({
   tag: 'x-data-provider-sample',
