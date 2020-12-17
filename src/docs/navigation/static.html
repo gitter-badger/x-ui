@@ -1,17 +1,18 @@
 <ion-content id="main" class="ion-padding">
   <zero-md src="/docs/navigation/static.md"></zero-md>
-  <p>
-    <x-link href="/navigation/static/deep">
-      Click here
-    </x-link>
-    to go deeper.
-  </p>
 
-  <ion-toolbar slot="fixed" class="x-nav-bottom">
+
+  <ion-toolbar class="x-nav-bottom">
     <x-link slot="start" href="/navigation">
-      <ion-button x-back>
+      <ion-button color="light">
         <ion-icon slot="start" name="caret-back-outline"></ion-icon>
         Navigation
+      </ion-button>
+    </x-link>
+    <x-link slot="end" href="/navigation/guided">
+      <ion-button>
+        Guided Navigation
+        <ion-icon slot="start" name="caret-forward-outline"></ion-icon>
       </ion-button>
     </x-link>
   </ion-toolbar>
