@@ -1,30 +1,16 @@
 <ion-content id="main" class="ion-padding">
   <zero-md src="/docs/navigation/index.md"></zero-md>
 
-  <ion-list>
-    <ion-item>
-      <ion-icon slot="start" name="map"></ion-icon>
-      <x-link href="/navigation/static">
-        Static Routing
-      </x-link>
-    </ion-item>
-    <ion-item>
-      <ion-icon slot="start" name="navigate-circle"></ion-icon>
-      <x-link  href="/navigation/guided">
-        Guided Navigation
-      </x-link>
-    </ion-item>
-  </ion-list>
   <ion-toolbar slot="fixed" class="x-nav-bottom">
     <x-link slot="start" href="/install">
-      <ion-button x-back>
+      <ion-button color="light">
         <ion-icon slot="start" name="caret-back-outline"></ion-icon>
-        Installation
+        Install
       </ion-button>
     </x-link>
     <x-link slot="end" href="/data">
-      <ion-button x-next>
-        Next: Data
+      <ion-button>
+        Next: Using Data
         <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
       </ion-button>
     </x-link>

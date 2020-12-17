@@ -29,8 +29,9 @@ export class PreferencesButton {
   private async presentToast(message) {
     const toast = await toastController.create({
       message,
-      duration: 10000,
-      position: 'bottom',
+      duration: 3000,
+      position: 'middle',
+
     });
     toast.present();
   }
@@ -40,7 +41,7 @@ export class PreferencesButton {
       component,
       cssClass: 'popover',
       event: ev,
-      translucent: false,
+      translucent: true,
     });
     await this.popover.present();
   }

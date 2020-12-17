@@ -32,17 +32,7 @@
   <script type="module" src="/build/viewdo.esm.js"></script>
   <link rel="stylesheet" href="/build/viewdo.css" media="print" onload="this.media='all'" />
   <base href="/" />
-  <link crossorigin rel="preload" as="script" href="/build/x-preferences-popover-button.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-ui.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-action.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-action-activator.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-html.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-data-display.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-link.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-view.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-data-provider-cookie.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-show.entry.js" >
-  <link crossorigin rel="preload" as="script" href="/build/x-view-do.entry.js" >
+
   <style>
   body {
     --ion-background-color: #fff;
@@ -132,6 +122,10 @@
 
   h3 {
     font-size: large;
+  }
+
+  ion-content.ion-padding {
+    padding-bottom: 40px;
   }
 
   </style>
@@ -232,8 +226,13 @@
           <x-html no-render src="/docs/home-welcome.html"></x-html>
         </x-view-do>
 
-        <ion-content class="ion-padding" id="main">
-          <h1>view.DO Experience UI</h1>
+        <ion-content class="ion-padding" id="main"
+          force-overscroll >
+          <zero-md>
+            <script type="text/markdown" data-dedent>
+              # view.DO Experience UI
+            </script>
+          </zero-md>
 
           <p>view.DO's Experience UI is the first tool-set built specifically for robust, yet low-code, interactive web experiences without a framework and in most cases, without any JavaScript.</p>
 
@@ -270,12 +269,19 @@
               </x-link>
             </li>
           </ul>
+          <ion-toolbar slot="fixed" class="x-nav-bottom">
+            <x-link slot="end" href="/install">
+              <ion-button>
+                Next: Getting Started
+                <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+              </ion-button>
+            </x-link>
+          </ion-toolbar>
         </ion-content>
       </x-view>
 
       <x-view url="/install"
         page-title="Get Started">
-
         <x-view-do url="/npm"
           page-title="Install w/NPM"
           visit="optional">
@@ -288,7 +294,6 @@
           </x-action-activator>
           <x-html no-render src="/docs/install/npm.html"></x-html>
         </x-view-do>
-
         <x-view-do url="/cdn"
           page-title="Install w/CDN"
           visit="optional">
@@ -305,84 +310,69 @@
       </x-view>
 
       <x-view url="/navigation" page-title="Navigation System">
-
         <x-view url="/static"
           page-title="Static Demo">
-
           <x-view url="/deep"
             page-title="Deep Nesting">
             <x-html no-render src="/docs/navigation/deep.html"></x-html>
           </x-view>
-
           <x-html no-render src="/docs/navigation/static.html"></x-html>
         </x-view>
-
         <x-view url="/guided"
           page-title="Guided Demo">
-
           <x-view-do url="/video"
             page-title="Guided: Video"
             visit="always">
             <x-html no-render src="/docs/navigation/guided-video.html"></x-html>
           </x-view-do>
-
           <x-view-do url="/animation"
             page-title="Guided: Animated HTML"
             visit="always"
             duration="30">
             <x-html no-render src="/docs/navigation/guided-animation.html"></x-html>
           </x-view-do>
-
           <x-view url="/tutorial"
             page-title="Guided Navigation Tutorial">
             <x-html no-render src="/docs/navigation/guided-tutorial.html"></x-html>
           </x-view>
-
           <x-html no-render src="/docs/navigation/guided.html"></x-html>
-
         </x-view>
-
         <x-html no-render src="/docs/navigation/index.html"></x-html>
-
       </x-view>
 
       <x-view url="/data" page-title="Data System">
-
         <x-view-do
           url="/session-data"
           when="!{session:favorite}"
           page-title="Session Data">
           <x-html no-render src="/docs/data/session.html"></x-html>
         </x-view-do>
-
         <x-view-do
           url="/storage-data"
           page-title="Storage Data"
           when="!{storage:animal}">
           <x-html no-render src="/docs/data/storage.html"></x-html>
         </x-view-do>
-
         <x-view url="/providers"
           page-title="Data Providers">
           <x-html no-render src="/docs/data/providers.html"></x-html>
         </x-view>
-
+        <x-view url="/navigation"
+          page-title="Data Navigation">
+          <x-html no-render src="/docs/data/navigation.html"></x-html>
+        </x-view>
         <x-view url="/display"
           page-title="Data Display">
           <x-html no-render src="/docs/data/display.html"></x-html>
         </x-view>
-
         <x-view url="/expressions"
           page-title="Data Expressions">
           <x-html no-render src="/docs/data/expressions.html"></x-html>
         </x-view>
-
         <x-html no-render src="/docs/data/index.html"></x-html>
-
       </x-view>
 
       <x-view url="/actions" page-title="Action Systems"">
-
         <x-view-do url="/events"
           visit="optional">
           <x-action-activator
@@ -401,7 +391,6 @@
           </x-action-activator>
           <x-html no-render src="/docs/actions/events.html"></x-html>
         </x-view-do>
-
         <x-view-do url="/timed"
           visit="optional"
           duration="30">
@@ -415,7 +404,6 @@
           </x-action-activator>
           <x-html no-render src="/docs/actions/timed.html"></x-html>
         </x-view-do>
-
         <x-view-do url="/elements"
           visit="optional">
           <x-action-activator
@@ -428,11 +416,8 @@
               data='{"message": "You clicked it!"}'></x-action>
           </x-action-activator>
           <x-html no-render src="/docs/actions/elements.html"></x-html>
-
         </x-view-do>
-
         <x-html no-render src="/docs/actions/index.html"></x-html>
-
       </x-view>
 
       <x-view url="/test" page-title="Testing">

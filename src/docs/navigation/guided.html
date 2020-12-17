@@ -1,6 +1,7 @@
 <ion-content id="main" class="ion-padding">
   <zero-md src="/docs/navigation/guided.md"></zero-md>
 
+  <h3>Demos</h3>
   <p>
     Check out the
     <x-link slot='end' href="/navigation/guided/video">
@@ -8,6 +9,7 @@
     </x-link>
     again
   </p>
+
   <p>
     Check out the
     <x-link slot='end' href="/navigation/guided/animation">
@@ -24,10 +26,17 @@
     on convention-based navigation.
   </p>
 
-  <ion-item>
-    Back:
-    <x-link slot='end' href="/navigation">
-      Navigation
+  <ion-toolbar slot="fixed" class="x-nav-bottom">
+    <x-link slot="start" href="/navigation/static">
+      <ion-button color="light">
+        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+        Static Routing
+      </ion-button>
     </x-link>
-  </ion-item>
-</ion-content>
+    <x-link slot="end" href="/actions">
+      <ion-button x-next>
+        Next: Actions
+        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+      </ion-button>
+    </x-link>
+  </ion-toolbar>

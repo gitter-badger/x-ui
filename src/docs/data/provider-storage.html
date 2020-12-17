@@ -1,18 +1,5 @@
 <ion-content class="ion-padding">
 
-
-
-  <x-data-display when="{session:favorite}">
-    <template>
-      <h2>Favorite thing: <x-link href="/data/session-data">{session:favorite}</x-link> </h2>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text></ion-skeleton-text>
-      <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-    </template>
-  </x-data-display>
-
   <x-data-display>
     <template>
       <h2>Spirit Animal: <x-link href="/data/storage-data">{storage:animal}</x-link> </h2>
@@ -23,11 +10,7 @@
       <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
     </template>
   </x-data-display>
-
-  <h2 hidden x-show-when="'{storage:animal}' == 'dog'">
-    I only show up when your spirit-animal is 'dog'
-  </h2>
-  <ion-toolbar>
+  ]<ion-toolbar>
     <x-link slot="start" href="/home">
       <ion-button color="light">
         <ion-icon slot="start" name="caret-back-outline"></ion-icon>
