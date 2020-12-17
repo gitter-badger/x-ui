@@ -1,10 +1,10 @@
 import { Component, h, Prop, Host, Element } from '@stencil/core';
 import { popoverController, toastController } from '@ionic/core';
-import { state } from '../../../..';
+import { state } from '@viewdo/ui';
 
 @Component({
   tag: 'x-preferences-popover-button',
-  styleUrl: 'popover-button.css',
+  styleUrl: 'x-preferences-popover.css',
   shadow: false,
 })
 export class PreferencesButton {

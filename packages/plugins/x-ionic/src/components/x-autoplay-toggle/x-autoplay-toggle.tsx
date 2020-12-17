@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import { state, onChange } from '../../../..';
+import { state, onChange } from '../../../../../dist';
 
 @Component({
   tag: 'x-autoplay-toggle',

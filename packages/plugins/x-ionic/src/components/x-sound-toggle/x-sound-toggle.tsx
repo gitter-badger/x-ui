@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import { state } from '../../../..';
+import { state } from '../../../../../dist';
 
 @Component({
   tag: 'x-sound-toggle',

@@ -1,5 +1,5 @@
 import { Component, Host, h } from '@stencil/core';
-import { state } from '../../../..';
+import { state } from '../../../../../dist';
 
 @Component({
   tag: 'x-theme-toggle',
