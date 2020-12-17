@@ -48,27 +48,30 @@ To register a provider, provide a unique name and an instance that implements ID
 
 **Custom Event to Register a Provider:**
 
-````json
-CustomEvent {
-  event: "xui:action-events:data"
+````typescript
+new CustomEvent('actionEvent', {
   detail: {
+    topic: 'data'
     command: "register-provider",
     data: {
-      name: "myprovider",
+      name: 'myprovider',
       provider: providerInstance
     }
   }
-}
+})
 ````
 
 Then, assuming your instance has a data item with key **name**, your HTML can use this value in an the expression: ```{myprovider:name}```
 
 
 **Data Provider Interface:**
-
-    get(key:string) : Promise<string>
-    set(key: string, value: string) : Promise<void>
-    changed: EventEmitter<string> [data-changed]
+````typescript
+export interface IDataProvider {
+  get(key: string): Promise<string>;
+  set(key: string, value: string): Promise<void>;
+  changed: EventEmitter
+}
+````
 
 ### Data Changed Event
 To notify the system that your underlying data has changed, the interface includes a simple event emitter. Emit 'data-changed' from your __changed__ emitter and all components using your value will re-render with the new data value.

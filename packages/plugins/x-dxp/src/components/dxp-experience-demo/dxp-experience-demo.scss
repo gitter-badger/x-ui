@@ -1,0 +1,42 @@
+
+:root {
+  color: var(--ion-text-color, "#000");
+  background-color: var(--ion-background-color);
+}
+
+
+dxp-experience {
+  padding-top: 25px;
+}
+
+ion-label {
+  font-weight: bold;
+}
+ion-button {
+  float: right;
+}
+
+pre {
+  margin: 0;
+  code {
+    margin: 0;
+    font-family: monospace;
+    border: 1px solid var(--ion-border-color, #ccc);
+    display: block;
+    padding: 10px;
+    overflow: auto;
+    max-height: 300px;
+  }
+  div {
+    font-family: monospace;
+    font-size: 12px;
+  }
+}
+
+ion-input,
+ion-select,
+ion-textarea {
+  width: 50%;
+  text-align: right;
+  justify-content: right;
+}
