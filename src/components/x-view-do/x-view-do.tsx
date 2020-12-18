@@ -1,6 +1,6 @@
 import {
   Component, h, Prop,
-  Element, State, Host, Watch,
+  Element, State, Host, Watch, writeTask,
 } from '@stencil/core';
 import {
   EventEmitter,
@@ -21,6 +21,7 @@ import {
   markVisit,
   ActionActivationStrategy,
   normalizeChildUrl,
+  restoreElementChildTimedNodes,
 } from '../../services';
 
 @Component({
@@ -159,10 +160,6 @@ export class XViewDo {
   private next(element:string, eventName: string) {
     debugIf(state.debug, `x-view-do: next fired from ${element}:${eventName}`);
 
-    this.childVideo?.pause();
-
-    clearInterval(this.timer);
-
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
     inputElements.forEach((i) => {
@@ -176,13 +173,7 @@ export class XViewDo {
       if (this.visit === VisitStrategy.once) {
         storeVisit(this.url);
       }
-
-      this.actionActivators
-        .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
-        .forEach((activator) => {
-          activator.activateActions();
-        });
-
+      this.beforeExit();
       RouterService.instance?.returnToParent();
     }
   }
@@ -200,7 +191,7 @@ export class XViewDo {
         .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
         .forEach((activator) => activator.activateActions());
 
-      setTimeout(() => this.resolveChildren(), 1000);
+      setTimeout(() => this.resolveChildren(), 500);
     }
   }
 
@@ -217,6 +208,7 @@ export class XViewDo {
     const backElement = this.el?.querySelector('[x-back]');
     backElement?.addEventListener('click', (e) => {
       e.preventDefault();
+      this.beforeExit();
       RouterService.instance?.history?.goBack();
     });
     backElement?.removeAttribute('x-back');
@@ -280,6 +272,23 @@ export class XViewDo {
       }
       this.lastTime = time;
     });
+  }
+
+  private beforeExit() {
+    this.childVideo?.pause();
+
+    clearInterval(this.timer);
+    this.lastTime = 0;
+
+    restoreElementChildTimedNodes(
+      this.el,
+      this.timedNodes);
+
+    this.actionActivators
+      .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
+      .forEach((activator) => {
+        activator.activateActions();
+      });
   }
 
   render() {

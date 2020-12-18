@@ -137,6 +137,48 @@ export function resolveElementChildTimedNodesByTime(
   });
 }
 
+export function restoreElementChildTimedNodes(
+  element:HTMLElement,
+  timedNodes: Array<TimedNode>) {
+  timedNodes.forEach((node) => {
+    if (node.classIn && node.element.classList.contains(node.classIn)) {
+      node.element.classList.remove(node.classIn);
+    }
+
+    if (node.classOut && node.element.classList.contains(node.classOut)) {
+      node.element.classList.remove(node.classOut);
+    }
+
+    if (!node.element.hasAttribute('hidden')) {
+      node.element.setAttribute('hidden', '');
+    }
+  });
+
+  // resolve x-time-to
+  const timeValueElements = element.querySelectorAll('[x-time-to]');
+  timeValueElements.forEach((el) => {
+    const attributeName = el.getAttribute('x-time-to');
+    if (attributeName) {
+      el.setAttribute(attributeName, '0');
+    } else {
+      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.appendChild(document.createTextNode('0'));
+    }
+  });
+
+  // resolve x-percentage-to
+  const timePercentageValueElements = element.querySelectorAll('[x-percentage-to]');
+  timePercentageValueElements.forEach((el) => {
+    const attributeName = el.getAttribute('x-percentage-to');
+    if (attributeName) {
+      el.setAttribute(attributeName, '0');
+    } else {
+      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.appendChild(document.createTextNode('0%'));
+    }
+  });
+}
+
 export async function resolveElementValues(element:HTMLElement) {
   const valueElements = element.querySelectorAll('*[value-from]');
   valueElements.forEach(async (el) => {
