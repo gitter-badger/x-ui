@@ -1,0 +1,1154 @@
+{
+  "timestamp": "2020-12-17T23:55:08",
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "2.3.0",
+    "typescriptVersion": "4.0.5"
+  },
+  "components": [
+    {
+      "filePath": "./src/components/x-action/x-action.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-action",
+      "readme": "---\nslug: \"x-action\"\ntitle: \"My first blog post\"\n---\n\n\n# x-action\n\n\n",
+      "docs": "This element just holds data to express the actionEvent to fire. This element\nshould always be the child of a x-action-activator.",
+      "docsTags": [
+        {
+          "name": "export"
+        },
+        {
+          "text": "XAction",
+          "name": "class"
+        }
+      ],
+      "usage": {},
+      "props": [
+        {
+          "name": "command",
+          "type": "string",
+          "mutable": false,
+          "attr": "command",
+          "reflectToAttr": false,
+          "docs": "The command to execute.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "data",
+          "type": "string",
+          "mutable": false,
+          "attr": "data",
+          "reflectToAttr": false,
+          "docs": "The JSON serializable data payload the command requires.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "topic",
+          "type": "\"data\" | \"document\" | \"routing\"",
+          "mutable": false,
+          "attr": "topic",
+          "reflectToAttr": false,
+          "docs": "This is the topic this action-command is targeting.",
+          "docsTags": [],
+          "values": [
+            {
+              "value": "data",
+              "type": "string"
+            },
+            {
+              "value": "document",
+              "type": "string"
+            },
+            {
+              "value": "routing",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [
+        {
+          "name": "getAction",
+          "returns": {
+            "type": "Promise<ActionEvent<any>>",
+            "docs": ""
+          },
+          "signature": "getAction() => Promise<ActionEvent<any>>",
+          "parameters": [],
+          "docs": "Get the underlying actionEvent instance. Used by the x-action-activator element.",
+          "docsTags": []
+        }
+      ],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-action-activator/x-action-activator.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-action-activator",
+      "readme": "# x-action-activator\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "activate",
+          "type": "ActionActivationStrategy.AtTime | ActionActivationStrategy.OnElementEvent | ActionActivationStrategy.OnEnter | ActionActivationStrategy.OnEvent | ActionActivationStrategy.OnExit",
+          "mutable": false,
+          "attr": "activate",
+          "reflectToAttr": false,
+          "docs": "The activation strategy to use for the contained actions.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "ActionActivationStrategy.AtTime"
+            },
+            {
+              "type": "ActionActivationStrategy.OnElementEvent"
+            },
+            {
+              "type": "ActionActivationStrategy.OnEnter"
+            },
+            {
+              "type": "ActionActivationStrategy.OnEvent"
+            },
+            {
+              "type": "ActionActivationStrategy.OnExit"
+            }
+          ],
+          "optional": false,
+          "required": true
+        },
+        {
+          "name": "elementEventName",
+          "type": "string",
+          "mutable": false,
+          "attr": "element-event-name",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "default": "'click'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "elementQuery",
+          "type": "string",
+          "mutable": false,
+          "attr": "element-query",
+          "reflectToAttr": false,
+          "docs": "The element to watch for events or visibility,",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "time",
+          "type": "number",
+          "mutable": false,
+          "attr": "time",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        }
+      ],
+      "methods": [
+        {
+          "name": "activateActions",
+          "returns": {
+            "type": "Promise<void>",
+            "docs": ""
+          },
+          "signature": "activateActions() => Promise<void>",
+          "parameters": [],
+          "docs": "",
+          "docsTags": []
+        }
+      ],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-audio-control/audio-control.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-audio-control",
+      "readme": "# audio-control\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-audio-player/audio-player.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-audio-player",
+      "readme": "# audio-player\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-data-display/x-data-display.tsx",
+      "encapsulation": "none",
+      "tag": "x-data-display",
+      "readme": "# X-DATA-DISPLAY\n\n\nRender text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  expression=\"<any expression or value to render to the page>\">\n</x-data-display>\n````\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n[data-expressions]:[../data-expressions]\n\n!> This component only supports template parsing with the <template> tag. Any other tag will not be interpreted. \n",
+      "docs": "Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "mutable": false,
+          "attr": "text",
+          "reflectToAttr": false,
+          "docs": "The data expression to obtain a value for rendering as inner-text for this element.",
+          "docsTags": [
+            {
+              "text": "{session:user.name}",
+              "name": "example"
+            },
+            {
+              "text": "null",
+              "name": "default"
+            }
+          ],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [
+        {
+          "name": "--x-display",
+          "annotation": "prop",
+          "docs": "Display value for this component."
+        }
+      ],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-data-provider-cookie/x-data-provider-cookie.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-data-provider-cookie",
+      "readme": "# x-data-provider-cookie\n\n## Cookie Data Provider Registration Component\n\nThis component enabled the **Cookie Data Provider**.\n\nThis store is long-lived from the same browser, but for very small data items. This provider enables you to use cookie data in your HTML.\n\nProvider Key: '**cookie**'\n\n ```{cookie:(key)} ```\n\nWhen included on the page, this component automatically shows a banner to collect consent from the user with an 'Accept' button.\n\n```html\n<x-data-provider-cookie>\n  <p>Cookies help us track your every move.</p>\n</x-data-provider-cookie>\n\n````\n\n> The HTML inside the element is shown directly on the banner. Use it to display your terms, privacy policy and explanation for using the cookie.\n\n\nAlternatively, you can skip this by including the 'skip-consent' attribute.\n\n```html\n<x-data-provider--cookie skip-consent></x-data-provider--cookie>\n````\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "hideWhen",
+          "type": "string",
+          "mutable": false,
+          "attr": "hide-when",
+          "reflectToAttr": false,
+          "docs": "An expression that tells this component how to determine if\nthe user has previously consented.",
+          "docsTags": [
+            {
+              "text": "{storage:consented}",
+              "name": "example"
+            }
+          ],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "skipConsent",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "skip-consent",
+          "reflectToAttr": false,
+          "docs": "When skipConsent is true, the accept-cookies banner will not\nbe displayed before accessing cookie-data.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "actionEvent",
+          "detail": "ActionEvent<DataProviderRegistration>",
+          "bubbles": true,
+          "cancelable": true,
+          "composed": true,
+          "docs": "This event is raised when the component obtains\nconsent from the user to use cookies.\nThe data-provider system should capture this event\nand register the provider for use in expressions.",
+          "docsTags": []
+        },
+        {
+          "event": "didConsent",
+          "detail": "{ consented: boolean; }",
+          "bubbles": true,
+          "cancelable": true,
+          "composed": true,
+          "docs": "This event is raised when the consents to cookies.",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [
+        {
+          "name": "accept-button",
+          "docs": ""
+        },
+        {
+          "name": "container",
+          "docs": ""
+        },
+        {
+          "name": "reject-button",
+          "docs": ""
+        }
+      ],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-html/x-html.tsx",
+      "encapsulation": "none",
+      "tag": "x-html",
+      "readme": "# X-HTML\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "noRender",
+          "type": "boolean",
+          "mutable": true,
+          "attr": "no-render",
+          "reflectToAttr": false,
+          "docs": "If set, disables auto-rendering of this instance.\nTo fetch the contents change to false or remove\nattribute.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "mutable": false,
+          "attr": "src",
+          "reflectToAttr": false,
+          "docs": "Remote Template URL",
+          "docsTags": [
+            {
+              "name": "required"
+            }
+          ],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-link/x-link.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-link",
+      "readme": "# x-link\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "activeClass",
+          "type": "string",
+          "mutable": false,
+          "attr": "active-class",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "default": "'link-active'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "anchorClass",
+          "type": "string",
+          "mutable": false,
+          "attr": "anchor-class",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "anchorId",
+          "type": "string",
+          "mutable": false,
+          "attr": "anchor-id",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "anchorRole",
+          "type": "string",
+          "mutable": false,
+          "attr": "anchor-role",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "anchorTabIndex",
+          "type": "string",
+          "mutable": false,
+          "attr": "anchor-tab-index",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "anchorTitle",
+          "type": "string",
+          "mutable": false,
+          "attr": "anchor-title",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "ariaHaspopup",
+          "type": "string",
+          "mutable": false,
+          "attr": "aria-haspopup",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "mutable": false,
+          "attr": "aria-label",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "ariaPosinset",
+          "type": "string",
+          "mutable": false,
+          "attr": "aria-posinset",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "ariaSetsize",
+          "type": "number",
+          "mutable": false,
+          "attr": "aria-setsize",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "custom",
+          "type": "string",
+          "mutable": false,
+          "attr": "custom",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "default": "'a'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "exact",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "exact",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "mutable": false,
+          "attr": "href",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true
+        },
+        {
+          "name": "strict",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "strict",
+          "reflectToAttr": false,
+          "docs": "",
+          "docsTags": [],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-show/x-show.tsx",
+      "encapsulation": "none",
+      "tag": "x-show",
+      "readme": "# X-SHOW\n\nThis tag conditionally renders child elements based on the configured predicate applied to the when value predicate.\n\n````html\n<x-show when=\"<expression>\">\n ... contents ...\n</x-show>\n````\n",
+      "docs": "This tag conditionally renders child elements based on the configured predicate applied to the when value predicate.\n\n````html\n<x-show when=\"<expression>\">\n ... contents ...\n</x-show>\n````",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "when",
+          "type": "string",
+          "mutable": false,
+          "attr": "when",
+          "reflectToAttr": false,
+          "docs": "The data expression to obtain a predicate for conditionally rendering\nthe inner-contents of this element.",
+          "docsTags": [
+            {
+              "text": "{session:user.name}",
+              "name": "example"
+            }
+          ],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [
+        {
+          "name": "--x-display",
+          "annotation": "prop",
+          "docs": "Display value for this component."
+        }
+      ],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-ui/x-ui.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-ui",
+      "readme": "# X-UI Component\nThe root component is the base container for the view-engine and its child components.  This element should contain root-level HTML that is global to every view along with x-view components placed within any global-html.\n\n## Routing\n\n\n````html\n<x-ui\n  app-title=\"view.DO Web Components\"\n  history-type=\"browser|hash\"\n  scroll-top-offset=\"0\"\n  transition=\"fade-in\"\n  full-page=\"false\"\n  start-url=\"/\"\n  root=\"\"\n  debug\n  audio\n  >\n  ...\n  <x-view ...></x-view>\n  <x-view ...></x-view>\n  ...\n</x-ui>\n````\nThis is where routing is established and the start path is configured. \n\nIt provides an entry-point for the guided-navigation system.\n\n**Responsibilities:**\n* Content navigation settings & control actions\n* Document actions\n* Audio preference management & control actions\n\n> If you want to have a special page for routes that are not resolved. Add a single **\\<x-view\\>**, with **url=\"*\"**.\n\n\n\n",
+      "docs": "The root component is the base container for the view-engine and its child components.  This element should contain root-level HTML that is global to every view along with x-view components placed within any global-html.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "appTitle",
+          "type": "string",
+          "mutable": false,
+          "attr": "app-title",
+          "reflectToAttr": false,
+          "docs": "This is the application / site title.\nIf the views or dos have titles,\nthis is added as a suffix.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "debug",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "debug",
+          "reflectToAttr": false,
+          "docs": "Turn on debugging to get helpful messages from the\nrouting, data and action systems.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "fullPage",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "full-page",
+          "reflectToAttr": false,
+          "docs": "Set this to false if you don't want the UI component\nto take up the full page size.   *",
+          "docsTags": [],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "historyType",
+          "type": "\"browser\" | \"hash\"",
+          "mutable": false,
+          "attr": "history-type",
+          "reflectToAttr": false,
+          "docs": "Browser (paths) or Hash (#) routing.\nTo support browser history, the HTTP server\nmust be setup for a PWA",
+          "docsTags": [],
+          "default": "'browser'",
+          "values": [
+            {
+              "value": "browser",
+              "type": "string"
+            },
+            {
+              "value": "hash",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "root",
+          "type": "string",
+          "mutable": false,
+          "attr": "root",
+          "reflectToAttr": false,
+          "docs": "This is the root path that the actual page is,\nif it isn't '/', then the router needs to know\nwhere to begin creating paths.",
+          "docsTags": [],
+          "default": "'/'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "scrollTopOffset",
+          "type": "number",
+          "mutable": false,
+          "attr": "scroll-top-offset",
+          "reflectToAttr": false,
+          "docs": "Header height or offset for scroll-top on this\nand all views.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "startUrl",
+          "type": "string",
+          "mutable": false,
+          "attr": "start-url",
+          "reflectToAttr": false,
+          "docs": "This is the start path a user should\nland on when they first land on this app.",
+          "docsTags": [],
+          "default": "'/'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "transition",
+          "type": "string",
+          "mutable": false,
+          "attr": "transition",
+          "reflectToAttr": false,
+          "docs": "Navigation transition between routes.\nThis is a CSS animation class.",
+          "docsTags": [],
+          "default": "'fade-in'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [
+        {
+          "event": "actionEvent",
+          "capture": false,
+          "passive": true
+        }
+      ],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-view/x-view.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-view",
+      "readme": "# X-UI / X-VIEW Component\n\nThe View component is a child component for the \\<x-ui\\> component for adding a page-route. It is a container element that displays its inner HTML for a given route or sub-route. This provides a declarative mechanism for in-page content/component routing by URL. \n\n> ℹ️) This component enables single-page app functionality, with full path routing without scripting.\n\n````html\n<x-ui>\n  <x-view url=\"/\"\n    page-title=\"Home\"\n    transition=\"fade-in\"\n    \n    >    \n    ...\n  </x-view>\n  <x-view url=\"/about\"\n    page-title=\"About Us\"\n    scroll-top-offset=\"20\"\n    >    \n    ...\n  </x-view>\n</x-ui>\n````\n\nThe View Component and its attributes provide the page context & functionality:\n\n* Page title updates\n* Scroll top on navigation\n* Smooth transitions between routes\n* Parameterized data for data-driven routing\n* Page visit tracking\n* Attribute-based conditional show/hide of child elements\n\n### Child Views & Routing\n\nViews can hold any HTML, including View components. This implicitly creates child routes below the path configured for this View.  This View will enforce the routing rule, by inserting its own path in the child-views path property (This should be done in a way that accounts for the parent path being included in the child path attribute)\n\n````html\n<x-ui>\n  <x-view url=\"/\">    \n    ...\n  </x-view>\n  <x-view url=\"/about\">    \n    <x-view url=\"/location\">    \n      ...\n    </x-view>\n  </x-view>  \n</x-ui>\n````\n\n### Child View-Dos\n\nThe contained HTML is parsed before rendering and special handling is given if any child elements are **\\<x-view-do\\>** elements. Before rendering its own HTML, this component iterates the collection and evaluates their conditions (_when_ attribute) looking for the first **\\<x-view-do\\>** that should be displayed, using the order they are declared. If and when a non-visited **\\<x-view-do\\>** is found, its route is activated and subsequently marked as visited. \n\n**\\<x-view-do\\>** components each have their own **visit** strategies, but each of them need only return to their parent URL when completed. The parent performs the above evaluation until each child **\\<x-view-do\\>** element has been visited or is excluded by its rule  (_when_ attribute).  \n\nAt that point, the inner HTML content is finally revealed. Using this convention, you can declaratively create a workflow of pages that must be visited to reach a destination.\n\n### Child Attribute Detection & Resolution\n\nThe following attributes are queried to resolve certain data-values or show/hide conditions for all child elements. \n\n#### Hide When:  [hide-when]\n\nFor each child element with this attribute, the value of the attribute is evaluated for a predicate – and if TRUE, the element is hidden. This evaluation occurs whenever data-changes.\n\n````html\n<any hide-when=\"predicate\" />\n````\n\n#### Show When:  [show-when]\n\nFor each child element with this attribute, the value of the attribute is evaluated for a predicate – and if FALSE, the element is shown. This evaluation occurs whenever data-changes. \n\n````html\n<any show-when=\"predicate\" hidden/>\n````\n\n> ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.\n\n",
+      "docs": "The View component is a child component for the \\<x-ui\\> component for adding a page-route. It is a container element that displays its inner HTML for a given route or sub-route. This provides a declarative mechanism for in-page content/component routing by URL. \n\n> ℹ️) This component enables single-page app functionality, with full path routing without scripting.\n\n````html\n<x-ui>\n  <x-view url=\"/\"\n    page-title=\"Home\"\n    transition=\"fade-in\"\n    \n    >    \n    ...\n  </x-view>\n  <x-view url=\"/about\"\n    page-title=\"About Us\"\n    scroll-top-offset=\"20\"\n    >    \n    ...\n  </x-view>\n</x-ui>\n````\n\nThe View Component and its attributes provide the page context & functionality:\n\n* Page title updates\n* Scroll top on navigation\n* Smooth transitions between routes\n* Parameterized data for data-driven routing\n* Page visit tracking\n* Attribute-based conditional show/hide of child elements",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "pageTitle",
+          "type": "string",
+          "mutable": false,
+          "attr": "page-title",
+          "reflectToAttr": false,
+          "docs": "The title for this view. This is prefixed\nbefore the app title configured in x-ui",
+          "docsTags": [],
+          "default": "''",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "scrollTopOffset",
+          "type": "number",
+          "mutable": false,
+          "attr": "scroll-top-offset",
+          "reflectToAttr": false,
+          "docs": "Header height or offset for scroll-top on this\nview.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "transition",
+          "type": "string",
+          "mutable": false,
+          "attr": "transition",
+          "reflectToAttr": false,
+          "docs": "Navigation transition between routes.\nThis is a CSS animation class.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "mutable": true,
+          "attr": "url",
+          "reflectToAttr": true,
+          "docs": "The url for this route, including the parent's\nroutes.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-view-do/x-view-do.tsx",
+      "encapsulation": "shadow",
+      "tag": "x-view-do",
+      "readme": "# X-VIEW / X-VIEW-DO\n\nThis component is a child of the <x-view> component that turns HTML into a slide-like presentation. The parent displays <view-do> items, one at a time in sequence until they have all been visited, conditionally skipped, or completed. \n\n````html\n<x-view-do url=\"/confirm-age\"\n  when=\"{storage:age} == null\"\n  >\n  ...\n</x-view-do>\n````\n\nPresentation Routes:\n* Are only valid within a parent x-view component.\n* Are always sub-routes of the parent’s path.\n* Contain & activate ONE child x-video component.\n* Contain & activate audio control x-audio-controls components.\n* Activates entry action control components on entry.\n* Keeps track of the time since entry and activates timed action control components at their configured time.\n* Activates exit action control components on exit.\n* Automatically attaches Next() and Back() handlers to elements with classes.\nThis component can be configured with a “when” attribute, that declares an expression to determine if this component is supposed to be viewed or not. \n\n### Routing & Guided Navigation\n\nThis evaluation has to take place before the route is activated as the underlying data can change in the previous Do components.  If the component is deemed unnecessary (the predicate returns false), the component marks itself ‘complete’ and returns control to the parent view, without revealing its contents.\n\n\n\n### Child Attribute Detection & Resolution\nThe following attributes are queried to resolve certain data-values or show/hide conditions for all child elements. \n\n#### Special Next & Back Attributes\nTo make guided-navigation easy, you can add attributes to set-up event-handlers for next & back.\n\n#### [x-next]\n\n````html\n<any x-next />\n````\n\n#### [x-back]\n\n````html\n<any x-back />\n````\n\n\n\n#### [x-hide-when]\n\nFor each child element with this attribute, the value of the attribute is evaluated for a predicate – and if TRUE, the element is hidden. This evaluation occurs whenever data-changes.\n\n````html\n<any x-hide-when=\"predicate\" />\n````\n\n#### [x-show-when]\n\nFor each child element with this attribute, the value of the attribute is evaluated for a predicate – and if FALSE, the element is shown. This evaluation occurs whenever data-changes. \n\n````html\n<any x-show-when=\"predicate\" hidden/>\n````\n\n> ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.\n\n### Time-Presentation Child Attribute Resolution\nThe **\\<x-view-do\\>** element is always keeping track of time once its route is active. As such, you can create timed-based actions using special attributes placed on any child element.\n\n> ℹ️) If a video element is detected, its time is used, allowing pause & play.\n\n#### [x-in-time] & [x-in-class]\nThis attribute removes the 'hidden' attribute if present at the specified time in seconds.\n\n\n````html\n<any hidden x-in-time=\"1\" />\n````\n\n> ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.\n\nWhen used with x-in-class, this attribute adds the specified class and removes the 'hidden' attribute if present at the specified time in seconds.\n\n````html\n<any hidden x-in-time=\"1\" x-in-class=\"fade-in\" />\n````\n\n####  [x-out-time] & [x-out-class]\nThis attribute adds the 'hidden' attribute if  no x-out-class attribute is present at the specified time in seconds. \n\n````html\n<any x-out-time=\"1\" />\n````\n> ℹ️) To initially hide the element, be sure to include the ‘hidden’ attribute.\n\nWhen used with x-out-class, this attribute adds the specified class and removes the 'hidden' attribute if present at the specified time out seconds.\n\n````html\n<any x-out-time=\"1\" x-out-class=\"fade-out\" />\n````\n\n#### Time To:  [x-time-to]\nThis attribute instructs **\\<x-view-do\\>** to inject the current time to the named attributes. In this example's case 'value' will be updated.\n\n````html\n<any value=\"\" x-time-to=\"value\" />\n````\n\n#### Time Percentage To: [x-percentage-to]\nThis attribute instructs **\\<x-view-do\\>** to inject the current time percentage (based on the **next-after** attribute or the video-duration) to the named attributes. In this example's case 'value' will be updated.\n\n````html\n<any value=\"\" x-percentage-to=\"value\" />\n````\n",
+      "docs": "This component is a child of the <x-view> component that turns HTML into a slide-like presentation. The parent displays <view-do> items, one at a time in sequence until they have all been visited, conditionally skipped, or completed. \n\n````html\n<x-view-do url=\"/confirm-age\"\n  when=\"{storage:age} == null\"\n  >\n  ...\n</x-view-do>\n````\n\nPresentation Routes:\n* Are only valid within a parent x-view component.\n* Are always sub-routes of the parent’s path.\n* Contain & activate ONE child x-video component.\n* Contain & activate audio control x-audio-controls components.\n* Activates entry action control components on entry.\n* Keeps track of the time since entry and activates timed action control components at their configured time.\n* Activates exit action control components on exit.\n* Automatically attaches Next() and Back() handlers to elements with classes.\nThis component can be configured with a “when” attribute, that declares an expression to determine if this component is supposed to be viewed or not.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "debug",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "debug",
+          "reflectToAttr": false,
+          "docs": "To debug timed elements, set this value to true.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "mutable": false,
+          "attr": "duration",
+          "reflectToAttr": false,
+          "docs": "Set a duration for this view. When this value exists, the page will\nautomatically progress when the duration in seconds has passed.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "pageTitle",
+          "type": "string",
+          "mutable": false,
+          "attr": "page-title",
+          "reflectToAttr": false,
+          "docs": "The title for this view. This is prefixed\nbefore the app title configured in x-ui",
+          "docsTags": [],
+          "default": "''",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "scrollTopOffset",
+          "type": "number",
+          "mutable": false,
+          "attr": "scroll-top-offset",
+          "reflectToAttr": false,
+          "docs": "Header height or offset for scroll-top on this\nview.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "transition",
+          "type": "string",
+          "mutable": false,
+          "attr": "transition",
+          "reflectToAttr": false,
+          "docs": "Navigation transition between routes.\nThis is a CSS animation class.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "mutable": true,
+          "attr": "url",
+          "reflectToAttr": true,
+          "docs": "The url for this route, including the parent's\nroutes.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true
+        },
+        {
+          "name": "visit",
+          "type": "VisitStrategy.always | VisitStrategy.once | VisitStrategy.optional",
+          "mutable": false,
+          "attr": "visit",
+          "reflectToAttr": false,
+          "docs": "The visit strategy for this do.\nonce: persist the visit and never force it again\nalways: do not persist, but don't don't show again in-session\noptional: do not force this view-do ever. It will be available by URL",
+          "docsTags": [],
+          "default": "VisitStrategy.once",
+          "values": [
+            {
+              "type": "VisitStrategy.always"
+            },
+            {
+              "type": "VisitStrategy.once"
+            },
+            {
+              "type": "VisitStrategy.optional"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "when",
+          "type": "string",
+          "mutable": false,
+          "attr": "when",
+          "reflectToAttr": false,
+          "docs": "If present, the expression must\nevaluate to true for this route\nto be sequenced by the parent view.\nThe existence of this value overrides\nthe visit strategy",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    }
+  ]
+}

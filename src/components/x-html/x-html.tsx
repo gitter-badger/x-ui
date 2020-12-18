@@ -3,7 +3,7 @@ import { warn, debugIf } from '../..';
 
 @Component({
   tag: 'x-html',
-  styleUrl: 'x-html.css',
+  styleUrl: 'x-html.scss',
   shadow: false,
 })
 export class XHtml {

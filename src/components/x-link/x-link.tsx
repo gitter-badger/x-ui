@@ -3,7 +3,7 @@ import { MatchResults, RouterService } from '../..';
 
 @Component({
   tag: 'x-link',
-  styleUrl: 'x-link.css',
+  styleUrl: 'x-link.scss',
   shadow: true,
 })
 export class XViewLink {

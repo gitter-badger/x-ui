@@ -17,7 +17,7 @@ import {
   state,
   ActionBus,
   DataListener,
-  DocumentListener,
+  InterfaceListener,
   RoutingListener,
   ActionEvent,
   resolveChildRemoteHtml,
@@ -29,8 +29,8 @@ import {
   shadow: true,
 })
 export class XUI {
-  listeners: Array<IActionEventListener> = [];
-  @Element() el!: any;
+  private listeners: Array<IActionEventListener> = [];
+  @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
 
   /**
@@ -73,13 +73,6 @@ export class XUI {
   @Prop() startUrl: string = '/';
 
   /**
-   * When true, the global audio component is loaded
-   * and subscribed for Event Action requests to
-   * play sounds.
-   */
-  @Prop() audio: boolean;
-
-  /**
    * Set this to false if you don't want the UI component
    * to take up the full page size.   *
    */
@@ -100,7 +93,8 @@ export class XUI {
   }
 
   componentWillLoad() {
-    this.debug ? log('xui: initializing <debug>') : log('xui: initializing');
+    if (this.debug) log('xui: initializing <debug>');
+    else log('xui: initializing');
 
     state.debug = this.debug;
 
@@ -110,7 +104,7 @@ export class XUI {
       setTimeout(() => resolveChildRemoteHtml(), 100);
     });
 
-    if (this.startUrl && router.location.pathname == '/') {
+    if (this.startUrl !== '/' && router.location.pathname === '/') {
       router.history.replace(this.startUrl);
     }
 
@@ -120,7 +114,7 @@ export class XUI {
     const routeListener = new RoutingListener();
     this.addListener('route', routeListener);
 
-    const documentListener = new DocumentListener();
+    const documentListener = new InterfaceListener(window);
     this.addListener('document', documentListener);
   }
 
@@ -147,7 +141,6 @@ export class XUI {
   }
 
   render() {
-    {this.audio ? <x-audio-player></x-audio-player> : null}
     return (
       <Host class={{ fill: this.fullPage }}>
         <slot></slot>

@@ -6,8 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionActivationStrategy, ActionEvent, CookieConsent, DataProviderRegistration } from ".";
-import { ActionEvent as ActionEvent1 } from "./services/actions";
-import { DataProviderRegistration as DataProviderRegistration1, HistoryType, VisitStrategy } from "./services";
+import { HistoryType, VisitStrategy } from "./services";
 export namespace Components {
     interface XAction {
         /**
@@ -44,9 +43,6 @@ export namespace Components {
     }
     interface XAudioPlayer {
     }
-    interface XAutoplayToggle {
-        "autoplay": boolean;
-    }
     interface XDataDisplay {
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
@@ -65,16 +61,6 @@ export namespace Components {
           * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
          */
         "skipConsent": boolean;
-    }
-    interface XDataProviderSample {
-        /**
-          * When debug is true, a reactive table of values is displayed.
-         */
-        "debug": boolean;
-        /**
-          * Customize the name used for this sample data provider.
-         */
-        "name": string;
     }
     interface XHtml {
         /**
@@ -103,11 +89,6 @@ export namespace Components {
         "href": string;
         "strict": boolean;
     }
-    interface XPreferencesList {
-    }
-    interface XPreferencesPopoverButton {
-        "icon": string;
-    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
@@ -115,20 +96,11 @@ export namespace Components {
          */
         "when": string;
     }
-    interface XSoundToggle {
-        "muted": boolean;
-    }
-    interface XThemeToggle {
-    }
     interface XUi {
         /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
          */
         "appTitle": string;
-        /**
-          * When true, the global audio component is loaded and subscribed for Event Action requests to play sounds.
-         */
-        "audio": boolean;
         /**
           * Turn on debugging to get helpful messages from the routing, data and action systems.
          */
@@ -236,12 +208,6 @@ declare global {
         prototype: HTMLXAudioPlayerElement;
         new (): HTMLXAudioPlayerElement;
     };
-    interface HTMLXAutoplayToggleElement extends Components.XAutoplayToggle, HTMLStencilElement {
-    }
-    var HTMLXAutoplayToggleElement: {
-        prototype: HTMLXAutoplayToggleElement;
-        new (): HTMLXAutoplayToggleElement;
-    };
     interface HTMLXDataDisplayElement extends Components.XDataDisplay, HTMLStencilElement {
     }
     var HTMLXDataDisplayElement: {
@@ -253,12 +219,6 @@ declare global {
     var HTMLXDataProviderCookieElement: {
         prototype: HTMLXDataProviderCookieElement;
         new (): HTMLXDataProviderCookieElement;
-    };
-    interface HTMLXDataProviderSampleElement extends Components.XDataProviderSample, HTMLStencilElement {
-    }
-    var HTMLXDataProviderSampleElement: {
-        prototype: HTMLXDataProviderSampleElement;
-        new (): HTMLXDataProviderSampleElement;
     };
     interface HTMLXHtmlElement extends Components.XHtml, HTMLStencilElement {
     }
@@ -272,35 +232,11 @@ declare global {
         prototype: HTMLXLinkElement;
         new (): HTMLXLinkElement;
     };
-    interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
-    }
-    var HTMLXPreferencesListElement: {
-        prototype: HTMLXPreferencesListElement;
-        new (): HTMLXPreferencesListElement;
-    };
-    interface HTMLXPreferencesPopoverButtonElement extends Components.XPreferencesPopoverButton, HTMLStencilElement {
-    }
-    var HTMLXPreferencesPopoverButtonElement: {
-        prototype: HTMLXPreferencesPopoverButtonElement;
-        new (): HTMLXPreferencesPopoverButtonElement;
-    };
     interface HTMLXShowElement extends Components.XShow, HTMLStencilElement {
     }
     var HTMLXShowElement: {
         prototype: HTMLXShowElement;
         new (): HTMLXShowElement;
-    };
-    interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
-    }
-    var HTMLXSoundToggleElement: {
-        prototype: HTMLXSoundToggleElement;
-        new (): HTMLXSoundToggleElement;
-    };
-    interface HTMLXThemeToggleElement extends Components.XThemeToggle, HTMLStencilElement {
-    }
-    var HTMLXThemeToggleElement: {
-        prototype: HTMLXThemeToggleElement;
-        new (): HTMLXThemeToggleElement;
     };
     interface HTMLXUiElement extends Components.XUi, HTMLStencilElement {
     }
@@ -325,17 +261,11 @@ declare global {
         "x-action-activator": HTMLXActionActivatorElement;
         "x-audio-control": HTMLXAudioControlElement;
         "x-audio-player": HTMLXAudioPlayerElement;
-        "x-autoplay-toggle": HTMLXAutoplayToggleElement;
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
-        "x-data-provider-sample": HTMLXDataProviderSampleElement;
         "x-html": HTMLXHtmlElement;
         "x-link": HTMLXLinkElement;
-        "x-preferences-list": HTMLXPreferencesListElement;
-        "x-preferences-popover-button": HTMLXPreferencesPopoverButtonElement;
         "x-show": HTMLXShowElement;
-        "x-sound-toggle": HTMLXSoundToggleElement;
-        "x-theme-toggle": HTMLXThemeToggleElement;
         "x-ui": HTMLXUiElement;
         "x-view": HTMLXViewElement;
         "x-view-do": HTMLXViewDoElement;
@@ -372,9 +302,6 @@ declare namespace LocalJSX {
     }
     interface XAudioPlayer {
     }
-    interface XAutoplayToggle {
-        "autoplay"?: boolean;
-    }
     interface XDataDisplay {
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
@@ -401,20 +328,6 @@ declare namespace LocalJSX {
           * When skipConsent is true, the accept-cookies banner will not be displayed before accessing cookie-data.
          */
         "skipConsent"?: boolean;
-    }
-    interface XDataProviderSample {
-        /**
-          * When debug is true, a reactive table of values is displayed.
-         */
-        "debug"?: boolean;
-        /**
-          * Customize the name used for this sample data provider.
-         */
-        "name"?: string;
-        /**
-          * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
-         */
-        "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
     }
     interface XHtml {
         /**
@@ -443,11 +356,6 @@ declare namespace LocalJSX {
         "href": string;
         "strict"?: boolean;
     }
-    interface XPreferencesList {
-    }
-    interface XPreferencesPopoverButton {
-        "icon"?: string;
-    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
@@ -455,20 +363,11 @@ declare namespace LocalJSX {
          */
         "when": string;
     }
-    interface XSoundToggle {
-        "muted"?: boolean;
-    }
-    interface XThemeToggle {
-    }
     interface XUi {
         /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
          */
         "appTitle"?: string;
-        /**
-          * When true, the global audio component is loaded and subscribed for Event Action requests to play sounds.
-         */
-        "audio"?: boolean;
         /**
           * Turn on debugging to get helpful messages from the routing, data and action systems.
          */
@@ -555,17 +454,11 @@ declare namespace LocalJSX {
         "x-action-activator": XActionActivator;
         "x-audio-control": XAudioControl;
         "x-audio-player": XAudioPlayer;
-        "x-autoplay-toggle": XAutoplayToggle;
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
-        "x-data-provider-sample": XDataProviderSample;
         "x-html": XHtml;
         "x-link": XLink;
-        "x-preferences-list": XPreferencesList;
-        "x-preferences-popover-button": XPreferencesPopoverButton;
         "x-show": XShow;
-        "x-sound-toggle": XSoundToggle;
-        "x-theme-toggle": XThemeToggle;
         "x-ui": XUi;
         "x-view": XView;
         "x-view-do": XViewDo;
@@ -579,17 +472,11 @@ declare module "@stencil/core" {
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
             "x-audio-control": LocalJSX.XAudioControl & JSXBase.HTMLAttributes<HTMLXAudioControlElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
-            "x-autoplay-toggle": LocalJSX.XAutoplayToggle & JSXBase.HTMLAttributes<HTMLXAutoplayToggleElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
-            "x-data-provider-sample": LocalJSX.XDataProviderSample & JSXBase.HTMLAttributes<HTMLXDataProviderSampleElement>;
             "x-html": LocalJSX.XHtml & JSXBase.HTMLAttributes<HTMLXHtmlElement>;
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
-            "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
-            "x-preferences-popover-button": LocalJSX.XPreferencesPopoverButton & JSXBase.HTMLAttributes<HTMLXPreferencesPopoverButtonElement>;
             "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
-            "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
-            "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;
             "x-view-do": LocalJSX.XViewDo & JSXBase.HTMLAttributes<HTMLXViewDoElement>;

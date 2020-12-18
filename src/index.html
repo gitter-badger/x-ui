@@ -124,9 +124,6 @@
     font-size: large;
   }
 
-  ion-content:part(scroll) > .scroll-content {
-    padding-bottom: 80px;
-  }
 
   </style>
 </head>
@@ -149,7 +146,7 @@
         </ion-buttons>
         <ion-buttons slot="end">
           <x-show when="{storage:name}">
-            <x-link href="/home/confirm-name">
+            <x-link href="/home/name">
               <ion-chip>
                 <ion-avatar>
                   <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -211,12 +208,12 @@
       app-title="view.DO UI Components"
       transition="fade-in"
       start-url="/home"
-      audio debug>
+      debug>
 
       <x-view url="/home"
         page-title="Home">
 
-        <x-view-do url="/confirm-name"
+        <x-view-do url="/name"
           page-title="Introductions"
           when="!{storage:name}">
           <x-html no-render src="/docs/home/intro.html"></x-html>
@@ -270,7 +267,7 @@
               </x-link>
             </li>
           </ul>
-          <ion-toolbar slot="fixed" class="x-nav-bottom">
+          <ion-toolbar class="x-nav-bottom">
             <x-link slot="end" href="/install">
               <ion-button>
                 Next: Getting Started
