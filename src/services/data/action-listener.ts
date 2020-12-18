@@ -7,13 +7,13 @@ import {
   DataProviderRegistration,
   SetData,
 } from './interfaces';
-import { addDataProvider, getDataProvider } from './provider-factory';
-import { SessionProvider } from './provider-session';
-import { StorageProvider } from './provider-storage';
+import { addDataProvider, getDataProvider } from './providers/factory';
+import { SessionProvider } from './providers/session';
+import { StorageProvider } from './providers/storage';
 import { IActionEventListener, ActionEvent } from '../actions';
 import { warn, debugIf } from '../logging';
 import { state } from '../state';
-import { storageAvailable } from '../routing/utils/dom-utils';
+import { storageAvailable } from '../routing/utils/browser-utils';
 import { EventEmitter } from '../actions/event-emitter';
 
 export class DataListener implements IActionEventListener {

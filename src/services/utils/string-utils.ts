@@ -10,3 +10,15 @@ export function toBoolean(value: string) {
   if (['true', 'yes', 'on'].includes(stringResult.toLocaleLowerCase().trim())) return true;
   return value !== '';
 }
+
+/**
+ * Convert kebab case to camel
+ *
+ * @example some-attribute => someAttribute
+ *
+ * @param {string} kebabString
+ * @return {string}
+ */
+export function kebabToCamelCase(kebabString: string) {
+  return kebabString.replace(/-./g, (x) => x[1].toUpperCase());
+}

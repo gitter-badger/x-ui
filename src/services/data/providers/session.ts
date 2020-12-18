@@ -1,5 +1,5 @@
-import { EventEmitter } from '../actions';
-import { IDataProvider } from './interfaces';
+import { EventEmitter } from '../../actions';
+import { IDataProvider } from '../interfaces';
 
 export class SessionProvider implements IDataProvider {
   constructor(private sessionStorage = window.sessionStorage) {

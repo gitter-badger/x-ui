@@ -1,6 +1,6 @@
-import { IDataProvider, DATA_EVENTS } from './interfaces';
-import { getCookie, setCookie, listenCookieChange } from './cookies';
-import { EventEmitter } from '../actions';
+import { IDataProvider, DATA_EVENTS } from '../interfaces';
+import { getCookie, setCookie, listenCookieChange } from '../utils/cookie-utils';
+import { EventEmitter } from '../../actions';
 
 export class CookieProvider implements IDataProvider {
   constructor(private document = window.document) {

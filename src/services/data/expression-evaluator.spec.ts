@@ -1,8 +1,8 @@
 jest.mock('../logging');
 
 import { evaluate, evaluateExpression, evaluatePredicate, resolveExpression  } from './expression-evaluator';
-import { InMemoryProvider } from './provider-memory';
-import { addDataProvider } from './provider-factory';
+import { InMemoryProvider } from './providers/memory';
+import { addDataProvider } from './providers/factory';
 
 describe('resolveExpression', () => {
 

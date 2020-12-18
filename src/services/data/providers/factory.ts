@@ -1,6 +1,6 @@
-import { IDataProvider } from './interfaces';
-import { requireValue } from '../utils/misc-utils';
-import { debug } from '../logging';
+import { IDataProvider } from '../interfaces';
+import { requireValue } from '../../utils/misc-utils';
+import { debug } from '../../logging';
 
 type DataProviders = {
   [key: string]: IDataProvider;

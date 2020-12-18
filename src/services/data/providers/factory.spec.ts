@@ -1,7 +1,7 @@
-jest.mock('../logging');
+jest.mock('../../logging');
 
-import { addDataProvider, getDataProvider } from './provider-factory';
-import { InMemoryProvider } from './provider-memory';
+import { addDataProvider, getDataProvider } from './factory';
+import { InMemoryProvider } from './memory';
 
 describe('provider-factory', () => {
 

@@ -1,10 +1,10 @@
 jest.mock('../logging');
 
-import { addDataProvider } from '../data/provider-factory';
+import { addDataProvider } from '../data/providers/factory';
 import { evaluatePredicate } from '../data';
 import { IViewDo, VisitStrategy } from './interfaces';
 import { resolveNext } from './next-resolver';
-import { InMemoryProvider } from '../data/provider-memory';
+import { InMemoryProvider } from '../data/providers/memory';
 
 describe('next-resolver', () => {
   let toDos:Array<IViewDo>;

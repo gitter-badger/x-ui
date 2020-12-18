@@ -1,5 +1,5 @@
-import { EventEmitter } from '../actions';
-import { DATA_EVENTS, IDataProvider } from './interfaces';
+import { EventEmitter } from '../../actions';
+import { DATA_EVENTS, IDataProvider } from '../interfaces';
 
 export class StorageProvider implements IDataProvider {
   constructor(private localStorage = window.localStorage) {

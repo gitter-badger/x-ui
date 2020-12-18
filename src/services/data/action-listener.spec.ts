@@ -1,9 +1,9 @@
 jest.mock('../logging');
 
-import { getDataProvider, clearDataProviders, getDataProviders } from './provider-factory';
-import { DataListener } from './data-listener';
+import { getDataProvider, clearDataProviders, getDataProviders } from './providers/factory';
+import { DataListener } from './action-listener';
 import { DATA_COMMANDS, DATA_TOPIC, IDataProvider } from './interfaces';
-import { InMemoryProvider } from './provider-memory';
+import { InMemoryProvider } from './providers/memory';
 import { EventEmitter } from '..';
 
 class MockDataProvider extends InMemoryProvider {

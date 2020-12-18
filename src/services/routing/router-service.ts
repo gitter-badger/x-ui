@@ -4,7 +4,7 @@ import { matchPath } from './utils/match-path';
 import { getUrl, getLocation } from './utils/location-utils';
 import createHistory from './factories/createBrowserHistory';
 import createHashHistory from './factories/createHashHistory';
-import { addDataProvider } from '../data/provider-factory';
+import { addDataProvider } from '../data/providers/factory';
 import { RoutingDataProvider } from './routing-data-provider';
 
 const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {

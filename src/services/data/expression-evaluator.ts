@@ -1,6 +1,6 @@
 import { Parser } from 'expr-eval';
 import { requireValue } from '../utils/misc-utils';
-import { getDataProvider } from './provider-factory';
+import { getDataProvider } from './providers/factory';
 import { ExpressionContext } from './interfaces';
 import { warn } from '../logging';
 import { toBoolean } from '../utils/string-utils';
