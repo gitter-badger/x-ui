@@ -4,9 +4,12 @@ import { getDataProvider } from './providers/factory';
 import { ExpressionContext } from './interfaces';
 import { warn } from '../logging';
 import { toBoolean } from '../utils/string-utils';
+import { hasVisited } from '../routing/visits';
 
 const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.]*))?(?:\?([\w_.]*))?}/g;
 const expressionEvaluator = new Parser();
+
+expressionEvaluator.functions.didVisit = (url: string) => hasVisited(url);
 
 export function hasExpression(valueExpression: string) {
   return valueExpression.match(expressionRegEx);

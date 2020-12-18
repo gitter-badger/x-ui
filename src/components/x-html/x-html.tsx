@@ -56,7 +56,7 @@ export class XHtml {
   }
 
   private async resolveTemplate() {
-    if (hasExpression(this.responseHtml)) {
+    if (this.responseHtml && hasExpression(this.responseHtml)) {
       this.content = await resolveExpression(this.responseHtml);
     } else {
       this.content = this.responseHtml;

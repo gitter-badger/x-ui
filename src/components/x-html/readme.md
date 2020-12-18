@@ -1,6 +1,7 @@
 # X-HTML
 
 
+This component does data-token resolution with the template it fetches.
 
 <!-- Auto Generated Below -->
 

@@ -18,7 +18,7 @@ export class Route {
     matchSetter: (m: MatchResults) => void,
   ) {
     this.router = RouterService.instance;
-    this.router?.onRouteChange(() => {
+    this.router?.onRouteChange(async () => {
       this.previousMatch = this.match;
       this.match = this.router.matchPath({
         path: this.path,
@@ -44,18 +44,24 @@ export class Route {
 
     // If this is an independent route and it matches then routes have updated.
     // If the only change to location is a hash change then do not scroll.
-    if (this.match?.isExact && !matchesAreEqual(this.match, this.previousMatch) && this.router.viewsUpdated) {
-      this.router.viewsUpdated(routeViewOptions);
-      if (this.routeElement.ownerDocument) {
-        if (this.pageTitle) {
-          let {pageTitle} = this;
-          if (hasExpression(this.pageTitle)) {
-            pageTitle = await resolveExpression(this.pageTitle);
-          }
-          this.routeElement.ownerDocument.title = `${pageTitle} | ${this.router.appTitle || ''}`;
-        } else if (this.router.appTitle) {
-          this.routeElement.ownerDocument.title = `${this.router.appTitle}`;
+    if (this.match?.isExact) {
+      if (!matchesAreEqual(this.match, this.previousMatch) && this.router.viewsUpdated) {
+        this.router.viewsUpdated(routeViewOptions);
+      }
+      await this.adjustTitle();
+    }
+  }
+
+  private async adjustTitle() {
+    if (this.routeElement.ownerDocument) {
+      if (this.pageTitle) {
+        let {pageTitle} = this;
+        if (hasExpression(this.pageTitle)) {
+          pageTitle = await resolveExpression(this.pageTitle);
         }
+        this.routeElement.ownerDocument.title = `${pageTitle} | ${this.router.appTitle || ''}`;
+      } else if (this.router.appTitle) {
+        this.routeElement.ownerDocument.title = `${this.router.appTitle}`;
       }
     }
   }
