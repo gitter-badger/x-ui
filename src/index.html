@@ -241,7 +241,7 @@
         <x-html no-render src="/docs/install/index.html"></x-html>
       </x-view>
 
-      <x-view url="/navigation" exact page-title="Navigation System">
+      <x-view url="/navigation" page-title="Navigation System">
 
         <x-view url="/static"
           page-title="Static Routes">
@@ -267,45 +267,168 @@
           <x-html no-render src="/docs/navigation/static.html"></x-html>
         </x-view>
 
-        <x-html no-render src="/docs/navigation/index.html"></x-html>
-      </x-view>
+        <x-view url="/guided"
+          page-title="Guided Navigation">
 
-      <x-view url="/navigation/guided"
-        page-title="Guided Navigation">
+          <x-view url="/demo"
+            page-title="Guided Demo">
 
-        <x-view url="/navigation/guided"
-          page-title="Guided Demo">
+            <x-view-do url="/video"
+              page-title="Guided: Video"
+              visit="always">
+              <x-html no-render src="/docs/navigation/guided/demo-video.html"></x-html>
+            </x-view-do>
+
+            <x-view-do url="/animation"
+              page-title="Guided: Animated HTML"
+              visit="always"
+              duration="30">
+              <x-html no-render src="/docs/navigation/guided/demo-animation.html"></x-html>
+            </x-view-do>
+
+          </x-view>
 
           <x-view url="/sequential"
             page-title="Sequential Routes">
 
-            <x-html no-render src="/docs/navigation/static/nesting.html"></x-html>
+            <x-view url="/demo"
+              page-title="Sequential Demo">
+
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always">
+                <x-html no-render src="/docs/navigation/guided/demo-step1.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always">
+                <x-html no-render src="/docs/navigation/guided/demo-step2.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always">
+                <x-action-activator
+                  activate="OnExit">
+                  <x-action
+                    topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/sequential" }'></x-action>
+                <x-html no-render src="/docs/navigation/guided/demo-step3.html"></x-html>
+              </x-view-do>
+
+              <x-html no-render src="/docs/navigation/guided/demo-complete.html"></x-html>
+            </x-view>
+
+            <x-html no-render src="/docs/navigation/guided/sequential.html"></x-html>
           </x-view>
 
-          <x-view-do url="/video"
-            page-title="Guided: Video"
-            visit="always">
-            <x-html no-render src="/docs/navigation/guided-video.html"></x-html>
-          </x-view-do>
+          <x-view url="/smart"
+            page-title="Smart Routing">
 
-          <x-view-do url="/animation"
-            page-title="Guided: Animated HTML"
-            visit="always"
-            duration="30">
-            <x-html no-render src="/docs/navigation/guided-animation.html"></x-html>
-          </x-view-do>
+            <x-view url="/demo"
+              page-title="Smart Demo">
 
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always"
+                duration="10">
+                <x-html no-render src="/docs/navigation/guided/demo-step1.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always"
+                duration="10">
+                <x-html no-render src="/docs/navigation/guided/demo-step2.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always"
+                duration="10">
+                <x-action-activator
+                  activate="OnExit">
+                  <x-action
+                    topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/smart" }'></x-action>
+                <x-html no-render src="/docs/navigation/guided/demo-step3.html"></x-html>
+              </x-view-do>
+
+              <x-html no-render src="/docs/navigation/guided/demo-complete.html"></x-html>
+            </x-view>
+
+            <x-html no-render src="/docs/navigation/guided/smart.html"></x-html>
+          </x-view>
+
+          <x-view url="/timed"
+            page-title="Timed Routes">
+
+            <x-view url="/demo"
+              page-title="Timed Demo">
+
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always"
+                duration="10">
+                <x-html no-render src="/docs/navigation/guided/demo-step1.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always"
+                duration="10">
+                <x-html no-render src="/docs/navigation/guided/demo-step2.html"></x-html>
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always"
+                duration="10">
+                <x-action-activator
+                  activate="OnExit">
+                  <x-action
+                    topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/timed" }'></x-action>
+                <x-html no-render src="/docs/navigation/guided/demo-step3.html"></x-html>
+              </x-view-do>
+
+              <x-html no-render src="/docs/navigation/guided/demo-complete.html"></x-html>
+            </x-view>
+
+            <x-view-do url="/video"
+              page-title="Timed w/Video"
+              visit="optional">
+              <x-html no-render src="/docs/navigation/guided-video.html"></x-html>
+            </x-view-do>
+
+            <x-view-do url="/animation"
+              page-title="Timed w/Duration"
+              visit="optional"
+              duration="30">
+              <x-html no-render src="/docs/navigation/guided-animation.html"></x-html>
+            </x-view-do>
+
+            <x-html no-render src="/docs/navigation/guided/timed.html"></x-html>
+          </x-view>
+
+          <x-view url="/conditional"
+            page-title="Conditional Routing">
+            <x-html no-render src="/docs/navigation/guided/conditional.html"></x-html>
+          </x-view>
+
+          <x-view url="/tutorial"
+            page-title="Guided Navigation Tutorial">
+            <x-html no-render src="/docs/navigation/guided/tutorial.html"></x-html>
+          </x-view>
+
+          <x-html no-render src="/docs/navigation/guided.html"></x-html>
         </x-view>
 
-
-        <x-view url="/tutorial"
-          page-title="Guided Navigation Tutorial">
-          <x-html no-render src="/docs/navigation/guided-tutorial.html"></x-html>
-        </x-view>
-        <x-html no-render src="/docs/navigation/guided.html"></x-html>
+        <x-html no-render src="/docs/navigation/index.html"></x-html>
       </x-view>
 
+
+
       <x-view url="/data" page-title="Data System">
+
         <x-view-do
           url="/session-data"
           when="!{session:favorite}"
