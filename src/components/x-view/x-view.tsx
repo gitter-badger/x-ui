@@ -51,7 +51,7 @@ export class XView {
    * routes.
    *
   */
-  @Prop({ reflect: true, mutable: true }) url!: string;
+  @Prop({ reflect: true, mutable: true }) url: string;
 
   @Watch('url')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -137,7 +137,7 @@ export class XView {
   }
 
   render() {
-    if (this.match?.path || (this.url === '*' && !RouterService.instance.hasMatch)) {
+    if (this.url && this.match?.path) {
       const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
         <Host class={classes}>

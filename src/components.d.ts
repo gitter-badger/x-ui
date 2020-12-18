@@ -413,7 +413,7 @@ declare namespace LocalJSX {
         /**
           * The url for this route, including the parent's routes.
          */
-        "url": string;
+        "url"?: string;
     }
     interface XViewDo {
         /**

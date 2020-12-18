@@ -1,0 +1,49 @@
+<ion-content id="main" class="ion-padding">
+  <ion-card>
+    <video autoplay width="100%"
+      src="https://cdn.videvo.net/videvo_files/video/free/2014-06/small_watermarked/Blue_Sky_and_Clouds_Timelapse_0892__Videvo_preview.webm"></video>
+
+    <ion-progress-bar color="primary"
+      x-percentage-to="value"></ion-progress-bar>
+    <ion-card-content>
+    <p>Progress: <span x-percentage-to></span></p>
+
+    <div hidden
+      x-int-time="0" x-in-class="fade-in"
+      x-out-time="2" x-out-class="fade-out">
+      <h1>First...</h1>
+    </div>
+
+    <div hidden
+      x-in-time="3" x-in-class="fade-in"
+      x-out-time="5" x-out-class="fade-out">
+      <h1>THEN...</h1>
+    </div>
+
+    <div hidden
+      x-in-time="6" x-in-class="fade-in"
+      x-out-time="9" x-out-class="fade-out">
+      <h1>Finally...</h1>
+    </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <h1>Present a video</h1>
+
+  <p>This page became part of an automatically guided-navigation system</p>
+
+  <p>The next-button is automatically registered to present the next page the user hasn't visited yet.</p>
+
+
+  <ion-toolbar class="x-nav-bottom">
+    <ion-button slot="start" x-back color="light">
+      <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+      Back
+    </ion-button>
+    <ion-button slot="end" x-next>
+      Next
+      <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-content>

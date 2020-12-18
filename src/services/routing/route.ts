@@ -1,6 +1,7 @@
 import { RouteViewOptions, MatchResults } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
-import { RouterService } from './router-service';
+import { RouterService } from './router';
+import { hasExpression, resolveExpression } from '../data/expression-evaluator';
 
 export class Route {
   public match: MatchResults;
@@ -47,7 +48,11 @@ export class Route {
       this.router.viewsUpdated(routeViewOptions);
       if (this.routeElement.ownerDocument) {
         if (this.pageTitle) {
-          this.routeElement.ownerDocument.title = `${this.pageTitle} | ${this.router.appTitle || ''}`;
+          let {pageTitle} = this;
+          if (hasExpression(this.pageTitle)) {
+            pageTitle = await resolveExpression(this.pageTitle);
+          }
+          this.routeElement.ownerDocument.title = `${pageTitle} | ${this.router.appTitle || ''}`;
         } else if (this.router.appTitle) {
           this.routeElement.ownerDocument.title = `${this.router.appTitle}`;
         }

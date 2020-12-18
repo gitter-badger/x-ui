@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Key, Path, pathToRegexp } from './path-to-regex';
-import { MatchOptions, MatchResults } from '../interfaces';
+import { LocationSegments, MatchOptions, MatchResults } from '../interfaces';
 import { valueEqual } from './location-utils';
 
 interface CompileOptions {
@@ -37,10 +37,11 @@ const compilePath = (pattern: Path, options: CompileOptions): { re: RegExp, keys
 /**
  * Public API for matching a URL pathname to a path pattern.
  */
-export function matchPath(pathname: string, options: MatchOptions = {}): MatchResults {
+export function matchPath(location: LocationSegments, options: MatchOptions = {}): MatchResults {
   if (typeof options === 'string') {
     options = { path: options };
   }
+  const { pathname } = location;
 
   const { path = '/', exact = false, strict = false } = options;
   const { re, keys } = compilePath(path, { end: exact, strict });
@@ -57,7 +58,7 @@ export function matchPath(pathname: string, options: MatchOptions = {}): MatchRe
     return null;
   }
 
-  return <MatchResults>{
+  const result = <MatchResults>{
     path, // the path pattern used to match
     url: path === '/' && url === '' ? '/' : url, // the matched portion of the URL
     isExact, // whether or not we matched exactly
@@ -66,6 +67,12 @@ export function matchPath(pathname: string, options: MatchOptions = {}): MatchRe
       return memo;
     }, {} as {[key: string]: string}),
   };
+
+  if (result.isExact) {
+    Object.assign(location.params, result.params);
+  }
+
+  return result;
 }
 
 export const matchesAreEqual = (a: MatchResults | null, b: MatchResults | null) => {

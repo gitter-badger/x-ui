@@ -20,7 +20,8 @@ Providers:
 * Browser Session: **session**
 * Browser Storage: **storage**
 * Cookies: **cookie**
-
+* Route: **route**
+* Query: **query**
 
 ## Usage
 
@@ -28,7 +29,7 @@ Providers:
 
 ````html
 <x-data-display
-  expression="<any expression or value to render to the page>">
+  text="<any expression or value to render to the page>">
 </x-data-display>
 ````
 

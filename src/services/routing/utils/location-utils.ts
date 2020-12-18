@@ -198,6 +198,7 @@ export const createLocation = (path: string | LocationSegments, state: any, key:
   }
 
   location.key = key;
+  location.params = {};
 
   if (currentLocation) {
     // Resolve incomplete/relative pathname relative to current location.

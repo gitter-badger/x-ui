@@ -14,7 +14,7 @@
   "distDirs": {
     "stencil": "dist",
     "storybook": "www/storybook",
-    "docs": ".gatsby"
+    "docs": "packages/docs"
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -51,7 +51,7 @@
     "copy-docs": "cp -R ./src/docs ./www"
   },
   "watch": {
-    "copy-docs": "./src/docs/**/*"
+    "copy-docs": "./src/docs/**"
   },
   "husky": {
     "hooks": {

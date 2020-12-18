@@ -2,7 +2,7 @@ import { ROUTE_TOPIC, NavigateTo, NavigateNext, ROUTE_COMMANDS } from './interfa
 import { ActionEvent, IActionEventListener } from '../actions';
 import { debugIf } from '../logging';
 import { state } from '../state';
-import { RouterService } from './router-service';
+import { RouterService } from './router';
 import { EventEmitter } from '../actions/event-emitter';
 
 export class RoutingListener implements IActionEventListener {

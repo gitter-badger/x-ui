@@ -35,91 +35,25 @@
 
   <style>
   body {
-    --ion-background-color: #fff;
-    --ion-background-color-rgb: 255,255,255;
-    --ion-text-color: #000;
-    --ion-text-color-rgb: 0,0,0;
+    background-color: #fff;
     color: #000;
   }
-
-  .dark {
-    --ion-background-color: #2f2f2f;
-    --ion-background-color-rgb: 18,18,18;
-    --ion-text-color: #fff;
-    --ion-text-color-rgb: 255,255,255;
-    --ion-border-color: #525151;
-    --ion-item-background: #363636;
-    --ion-toolbar-background: #464646;
-    --ion-tab-bar-background: #000;
-    --ion-card-background: #414141;
-    --ion-color-primary: #428cff;
-    --ion-color-primary-rgb: 66, 140, 255;
-    --ion-color-primary-contrast: #fff;
-    --ion-color-primary-contrast-rgb: 255, 255, 255;
-    --ion-color-primary-shade: #3a7be0;
-    --ion-color-primary-tint: #5598ff;
-    --ion-color-secondary: #50c8ff;
-    --ion-color-secondary-rgb: 80, 200, 255;
-    --ion-color-secondary-contrast: #fff;
-    --ion-color-secondary-contrast-rgb: 255, 255, 255;
-    --ion-color-secondary-shade: #46b0e0;
-    --ion-color-secondary-tint: #62ceff;
-    --ion-color-tertiary: #6a64ff;
-    --ion-color-tertiary-rgb: 106, 100, 255;
-    --ion-color-tertiary-contrast: #fff;
-    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-    --ion-color-tertiary-shade: #5d58e0;
-    --ion-color-tertiary-tint: #7974ff;
-    --ion-color-success: #2fdf75;
-    --ion-color-success-rgb: 47, 223, 117;
-    --ion-color-success-contrast: #000;
-    --ion-color-success-contrast-rgb: 0, 0, 0;
-    --ion-color-success-shade: #29c467;
-    --ion-color-success-tint: #44e283;
-    --ion-color-warning: #ffd534;
-    --ion-color-warning-rgb: 255, 213, 52;
-    --ion-color-warning-contrast: #000;
-    --ion-color-war-ning-contrast-rgb: 0, 0, 0;
-    --ion-color-warning-shade: #e0bb2e;
-    --ion-color-warning-tint: #ffd948;
-    --ion-color-danger: #ff4961;
-    --ion-color-danger-rgb: 255, 73, 97;
-    --ion-color-danger-contrast: #fff;
-    --ion-color-danger-contrast-rgb: 255, 255, 255;
-    --ion-color-danger-shade: #e04055;
-    --ion-color-danger-tint: #ff5b71;
-    --ion-color-dark: #f4f5f8;
-    --ion-color-dark-rgb: 244, 245, 248;
-    --ion-color-dark-contrast: #000;
-    --ion-color-dark-contrast-rgb: 0, 0, 0;
-    --ion-color-dark-shade: #d7d8da;
-    --ion-color-dark-tint: #f5f6f9;
-    --ion-color-medium: #989aa2;
-    --ion-color-medium-rgb: 152, 154, 162;
-    --ion-color-medium-contrast: #000;
-    --ion-color-medium-contrast-rgb: 0, 0, 0;
-    --ion-color-medium-shade: #86888f;
-    --ion-color-medium-tint: #a2a4ab;
-    --ion-color-light: #222428;
-    --ion-color-light-rgb: 34, 36, 40;
-    --ion-color-light-contrast: #fff;
-    --ion-color-light-contrast-rgb: 255, 255, 255;
-    --ion-color-light-shade: #1e2023;
-    --ion-color-light-tint: #383a3e;
+  body::-webkit-scrollbar {
+    width: 1em;
   }
-
-  .dark * {
-    color: #fff !important;
+  body::-webkit-scrollbar-track {
+     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   }
-
+  body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
   h1 {
     font-size: x-large;
   }
-
   h2 {
     font-size: larger;
   }
-
   h3 {
     font-size: large;
   }
@@ -307,35 +241,68 @@
         <x-html no-render src="/docs/install/index.html"></x-html>
       </x-view>
 
-      <x-view url="/navigation" page-title="Navigation System">
+      <x-view url="/navigation" exact page-title="Navigation System">
+
         <x-view url="/static"
-          page-title="Static Demo">
-          <x-view url="/deep"
-            page-title="Deep Nesting">
-            <x-html no-render src="/docs/navigation/deep.html"></x-html>
+          page-title="Static Routes">
+
+          <x-view url="/nesting"
+            page-title="Nesting Static Routes">
+            <x-view url="/deep"
+              page-title="Deep Nesting">
+              <x-html no-render src="/docs/navigation/static/nesting-deep.html"></x-html>
+            </x-view>
+            <x-html no-render src="/docs/navigation/static/nesting.html"></x-html>
           </x-view>
+
+          <x-view url="/data"
+            page-title="Data Routes">
+            <x-view url="/:item"
+              page-title="Info on {route:item}">
+              <x-html no-render src="/docs/navigation/static/data-child.html"></x-html>
+            </x-view>
+            <x-html no-render src="/docs/navigation/static/data.html"></x-html>
+          </x-view>
+
           <x-html no-render src="/docs/navigation/static.html"></x-html>
         </x-view>
-        <x-view url="/guided"
+
+        <x-html no-render src="/docs/navigation/index.html"></x-html>
+      </x-view>
+
+      <x-view url="/navigation/guided"
+        page-title="Guided Navigation">
+
+        <x-view url="/navigation/guided"
           page-title="Guided Demo">
+
+          <x-view url="/sequential"
+            page-title="Sequential Routes">
+
+            <x-html no-render src="/docs/navigation/static/nesting.html"></x-html>
+          </x-view>
+
           <x-view-do url="/video"
             page-title="Guided: Video"
             visit="always">
             <x-html no-render src="/docs/navigation/guided-video.html"></x-html>
           </x-view-do>
+
           <x-view-do url="/animation"
             page-title="Guided: Animated HTML"
             visit="always"
             duration="30">
             <x-html no-render src="/docs/navigation/guided-animation.html"></x-html>
           </x-view-do>
-          <x-view url="/tutorial"
-            page-title="Guided Navigation Tutorial">
-            <x-html no-render src="/docs/navigation/guided-tutorial.html"></x-html>
-          </x-view>
-          <x-html no-render src="/docs/navigation/guided.html"></x-html>
+
         </x-view>
-        <x-html no-render src="/docs/navigation/index.html"></x-html>
+
+
+        <x-view url="/tutorial"
+          page-title="Guided Navigation Tutorial">
+          <x-html no-render src="/docs/navigation/guided-tutorial.html"></x-html>
+        </x-view>
+        <x-html no-render src="/docs/navigation/guided.html"></x-html>
       </x-view>
 
       <x-view url="/data" page-title="Data System">

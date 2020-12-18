@@ -7,9 +7,9 @@ You can create smart guided navigation using simple conventions, visit-tracking 
 ## Sequential Routes
 
 <ion-item>
-  <ion-icon slot="start" name="code-slash-outline"></ion-icon>
-  <x-link href="/data/expressions">
-    Data Expressions & Predicates
+  <ion-icon slot="start" name="trail-sign-outline"></ion-icon>
+  <x-link href="/navigation/guided/sequential">
+    Basic Guided Navigation
   </x-link>
 </ion-item>
 
@@ -17,25 +17,27 @@ You can create smart guided navigation using simple conventions, visit-tracking 
 
 <ion-item>
   <ion-icon slot="start" name="business-outline"></ion-icon>
-  <x-link href="/data/providers">
-    Data Providers
+  <x-link href="/navigation/guided/timed">
+    Automatic Navigation w/Time-based Routes
   </x-link>
 </ion-item>
 
-## Optional Routes
+## Smart Routing
 
 <ion-item>
   <ion-icon slot="start" name="code-download-outline"></ion-icon>
-  <x-link href="/data/display">
-    Data Display
+  <x-link href="/navigation/guided/visited">
+    Smart Guidance w/Visit Tracking
   </x-link>
 </ion-item>
 
-## Data Routes
+## Rule Based Routes
 
 <ion-item>
   <ion-icon slot="start" name="code-download-outline"></ion-icon>
-  <x-link href="/data/display">
-    Data Display
+  <x-link href="/navigation/guided/rules">
+     Conditional Guidance Using Data & Expressions
   </x-link>
 </ion-item>
+
+

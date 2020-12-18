@@ -1,11 +1,18 @@
 import { RafCallback } from '@stencil/core/internal';
-import { LocationSegments, RouterHistory, RouteViewOptions, HistoryType, MatchOptions, MatchResults } from './interfaces';
-import { matchPath } from './utils/match-path';
-import { getUrl, getLocation } from './utils/location-utils';
 import createHistory from './factories/createBrowserHistory';
 import createHashHistory from './factories/createHashHistory';
+import { matchPath } from './utils/match-path';
+import { getUrl, getLocation } from './utils/location-utils';
 import { addDataProvider } from '../data/providers/factory';
-import { RoutingDataProvider } from './routing-data-provider';
+import { RoutingDataProvider } from './data-provider';
+import {
+  LocationSegments,
+  RouterHistory,
+  RouteViewOptions,
+  HistoryType,
+  MatchOptions,
+  MatchResults,
+} from './interfaces';
 
 const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
   browser: createHistory,
@@ -15,8 +22,7 @@ const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
 export class RouterService {
   location: LocationSegments;
   history?: RouterHistory;
-  hasMatch = false;
-  exactMatch: MatchResults;
+
   private constructor(
     private writeTask: (t:RafCallback) => void,
     public rootElement: HTMLElement,
@@ -30,16 +36,16 @@ export class RouterService {
     if (!this.history) return;
 
     this.history.listen((location: LocationSegments) => {
-      this.hasMatch = false;
       this.history.location = getLocation(location, root);
       this.location = getLocation(location, root);
     });
     this.location = getLocation(this.history.location, root);
 
     addDataProvider('route', new RoutingDataProvider(
-      (key:string) => this.exactMatch?.params[key]));
+      (key:string) => this.location?.params[key]));
+
     addDataProvider('query', new RoutingDataProvider(
-      (key:string) => this?.location?.query[key]));
+      (key:string) => this.location?.query[key]));
   }
 
   // eslint-disable-next-line consistent-return
@@ -57,18 +63,12 @@ export class RouterService {
     const {history} = this;
     if (!history) return;
 
-    // if (history.location?.state && history.location.state?.parent) {
-    //   history.push(history.location.state.parent, {
-    //     next: true,
-    //   });
-    // } else {
     const parentSegments = history.location.pathParts.slice(0, history.location?.pathParts.length - 1);
     if (parentSegments == null) {
       history.goBack();
     } else {
       history.push(parentSegments.join('/'));
     }
-    // }
   }
 
   scrollTo(scrollToLocation?: number) {
@@ -92,14 +92,7 @@ export class RouterService {
   matchPath(options: MatchOptions = {}): MatchResults|null {
     if (!this.location) return null;
 
-    const match = matchPath(this.location.pathname, options);
-
-    if (match) {
-      this.hasMatch = true;
-      this.exactMatch = match?.isExact ? match : null;
-    }
-
-    return match;
+    return matchPath(this.location, options);
   }
 
   getUrl(url:string, root?: string) {

@@ -1,6 +1,6 @@
 import {
   Component, h, Prop,
-  Element, State, Host, Watch, writeTask,
+  Element, State, Host, Watch,
 } from '@stencil/core';
 import {
   EventEmitter,

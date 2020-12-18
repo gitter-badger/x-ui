@@ -1,5 +1,7 @@
 import { Host, Component, h, State, Prop, Element } from '@stencil/core';
-import { warn, debugIf } from '../..';
+import { warn } from '../..';
+import { ActionBus, DATA_EVENTS, resolveExpression, RouterService } from '../../services';
+import { hasExpression } from '../../services/data/expression-evaluator';
 
 @Component({
   tag: 'x-html',
@@ -7,6 +9,7 @@ import { warn, debugIf } from '../..';
   shadow: false,
 })
 export class XHtml {
+  @State() responseHtml: string;
   @Element() el: HTMLXHtmlElement;
   @State() content: string;
 
@@ -25,8 +28,15 @@ export class XHtml {
   @Prop({ mutable: true}) noRender: boolean = false;
 
   async componentWillLoad() {
-    debugIf(true, `x-html: ${this.src} will load render ${!this.noRender}`);
     await this.fetchHtml();
+
+    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveTemplate();
+    });
+
+    RouterService.instance?.onRouteChange(async () => {
+      await this.resolveTemplate();
+    });
   }
 
   private async fetchHtml() {
@@ -35,7 +45,8 @@ export class XHtml {
       const response = await fetch(this.src);
       if (response.status === 200) {
         const data = await response.text();
-        this.content = data;
+        this.responseHtml = data;
+        await this.resolveTemplate();
       } else {
         warn(`x-html: Unable to retrieve from ${this.src}`);
       }
@@ -44,8 +55,15 @@ export class XHtml {
     }
   }
 
+  private async resolveTemplate() {
+    if (hasExpression(this.responseHtml)) {
+      this.content = await resolveExpression(this.responseHtml);
+    } else {
+      this.content = this.responseHtml;
+    }
+  }
+
   async componentWillRender() {
-    debugIf(true, `x-html: ${this.src} will render ${!this.noRender}`);
     await this.fetchHtml();
   }
 
