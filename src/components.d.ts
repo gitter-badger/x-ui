@@ -32,6 +32,10 @@ export namespace Components {
          */
         "activate": ActionActivationStrategy;
         "activateActions": () => Promise<void>;
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug": boolean;
         "elementEventName": string;
         /**
           * The element to watch for events or visibility,
@@ -131,6 +135,10 @@ export namespace Components {
         "transition": string;
     }
     interface XView {
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug": boolean;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
@@ -291,6 +299,10 @@ declare namespace LocalJSX {
           * The activation strategy to use for the contained actions.
          */
         "activate": ActionActivationStrategy;
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug"?: boolean;
         "elementEventName"?: string;
         /**
           * The element to watch for events or visibility,
@@ -398,6 +410,10 @@ declare namespace LocalJSX {
         "transition"?: string;
     }
     interface XView {
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug"?: boolean;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */

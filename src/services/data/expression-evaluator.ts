@@ -120,7 +120,7 @@ export async function evaluatePredicate(expression: string, context:ExpressionCo
   try {
     context.null = null;
     context.empty = '';
-    const result = expressionEvaluator.evaluate(detokenizedExpression.toLowerCase(), context);
+    const result = expressionEvaluator.evaluate(detokenizedExpression, context);
     if (typeof result === 'boolean') return result;
     if (typeof result === 'number') return result > 0;
     return toBoolean(result);

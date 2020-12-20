@@ -48,7 +48,8 @@
     "lint:husky": "lint-staged",
     "--- misc ---": "---------------",
     "watch": "npm-watch",
-    "copy-docs": "cp -R ./src/docs ./www"
+    "copy-docs": "cp -R ./src/docs ./www",
+    "gs:push": "gsutil cp -r ./dist gs://viewdo-static/x-ui/beta"
   },
   "watch": {
     "copy-docs": "./src/docs/**"

@@ -71,3 +71,8 @@ export function markVisit(url: string) {
 export function storeVisit(url: string) {
   state.storedVisits = [...new Set([...state.storedVisits, url])];
 }
+
+export function clearVisits() {
+  state.sessionVisits = [];
+  state.storedVisits = [];
+}

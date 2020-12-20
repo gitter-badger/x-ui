@@ -3,6 +3,7 @@ jest.mock('../logging');
 import { evaluate, evaluateExpression, evaluatePredicate, resolveExpression  } from './expression-evaluator';
 import { InMemoryProvider } from './providers/memory';
 import { addDataProvider } from './providers/factory';
+import { markVisit, clearVisits } from '../routing/visits';
 
 describe('resolveExpression', () => {
 
@@ -223,6 +224,18 @@ describe('evaluatePredicate [session]', () => {
     await session.set('a', '');
     let value = await evaluatePredicate('{session:a} == empty');
     expect(value).toBe(true);
+  });
+
+  it('evaluates did visit', async () => {
+    markVisit('/foo');
+    let value = await evaluatePredicate('didVisit("/foo")');
+    expect(value).toBe(true);
+  });
+
+  it('evaluates did not visit', async () => {
+    clearVisits();
+    let value = await evaluatePredicate('didVisit("/foo")');
+    expect(value).toBe(false);
   });
 
   it('evaluates null session values', async () => {

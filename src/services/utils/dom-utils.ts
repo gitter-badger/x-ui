@@ -20,26 +20,24 @@ export async function resolveElementVisibility(element: HTMLElement) {
   const hideWhenElements = element.querySelectorAll('[x-hide-when]');
   hideWhenElements.forEach(async (el) => {
     const expression = el.getAttribute('x-hide-when');
-    if (hasExpression(expression)) {
-      const hide = await evaluatePredicate(expression);
-      if (hide) {
-        el.setAttribute('hidden', '');
-      } else {
-        el.removeAttribute('hidden');
-      }
+    const hide = await evaluatePredicate(expression);
+    if (hide) {
+      el.setAttribute('hidden', '');
+    } else {
+      el.removeAttribute('hidden');
     }
   });
 
   const showWhenElements = element.querySelectorAll('[x-show-when]');
   showWhenElements.forEach(async (el) => {
+    console.dir(el)
     const expression = el.getAttribute('x-show-when');
-    if (hasExpression(expression)) {
-      const show = await evaluatePredicate(expression);
-      if (show) {
-        el.removeAttribute('hidden');
-      } else {
-        el.setAttribute('hidden', '');
-      }
+    const show = await evaluatePredicate(expression);
+
+    if (show) {
+      el.removeAttribute('hidden');
+    } else {
+      el.setAttribute('hidden', '');
     }
   });
 }
