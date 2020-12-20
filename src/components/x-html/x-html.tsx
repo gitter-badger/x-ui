@@ -1,7 +1,5 @@
 import { Host, Component, h, State, Prop, Element } from '@stencil/core';
 import { warn } from '../..';
-import { ActionBus, DATA_EVENTS, resolveExpression, RouterService } from '../../services';
-import { hasExpression } from '../../services/data/expression-evaluator';
 
 @Component({
   tag: 'x-html',
@@ -9,7 +7,6 @@ import { hasExpression } from '../../services/data/expression-evaluator';
   shadow: false,
 })
 export class XHtml {
-  @State() responseHtml: string;
   @Element() el: HTMLXHtmlElement;
   @State() content: string;
 
@@ -29,14 +26,6 @@ export class XHtml {
 
   async componentWillLoad() {
     await this.fetchHtml();
-
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
-      await this.resolveTemplate();
-    });
-
-    RouterService.instance?.onRouteChange(async () => {
-      await this.resolveTemplate();
-    });
   }
 
   private async fetchHtml() {
@@ -45,21 +34,12 @@ export class XHtml {
       const response = await fetch(this.src);
       if (response.status === 200) {
         const data = await response.text();
-        this.responseHtml = data;
-        await this.resolveTemplate();
+        this.content = data;
       } else {
         warn(`x-html: Unable to retrieve from ${this.src}`);
       }
     } catch (error) {
       warn(`x-html: Unable to retrieve from ${this.src}`);
-    }
-  }
-
-  private async resolveTemplate() {
-    if (this.responseHtml && hasExpression(this.responseHtml)) {
-      this.content = await resolveExpression(this.responseHtml);
-    } else {
-      this.content = this.responseHtml;
     }
   }
 

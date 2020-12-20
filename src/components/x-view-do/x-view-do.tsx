@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Route,
   MatchResults,
-  state,
   VisitStrategy,
   RouterService,
   debugIf,
@@ -124,7 +123,7 @@ export class XViewDo {
     if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(state.debug, `x-view-do: loading ${this.url}`);
+    debugIf(this.debug, `x-view-do: loading ${this.url}`);
 
     this.route = new Route(
       this.el,
@@ -158,7 +157,7 @@ export class XViewDo {
   }
 
   private next(element:string, eventName: string) {
-    debugIf(state.debug, `x-view-do: next fired from ${element}:${eventName}`);
+    debugIf(this.debug, `x-view-do: next fired from ${element}:${eventName}`);
 
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
@@ -185,7 +184,7 @@ export class XViewDo {
   private async resolveView() {
     clearInterval(this.timer);
     if (this.match?.isExact) {
-      debugIf(state.debug, `x-view-do: ${this.url} on-enter`);
+      debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       // activate on-enter actions
       this.actionActivators
         .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)

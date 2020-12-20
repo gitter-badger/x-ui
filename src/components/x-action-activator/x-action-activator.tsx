@@ -3,7 +3,6 @@ import {
   ActionBus,
   ActionActivationStrategy,
   ActionEvent,
-  state,
   warn,
   debugIf,
 } from '../..';
@@ -38,6 +37,11 @@ export class XActionActivator {
   @Prop() time?: number;
 
   /**
+  * Turn on debug statements for load, update and render events.
+  */
+  @Prop() debug: boolean = false;
+
+  /**
   *
   */
   @Method()
@@ -46,7 +50,7 @@ export class XActionActivator {
     if (this.activated) return;
     // activate children
     this.actions.forEach((action) => {
-      debugIf(state.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate} {${action?.topic}~${action?.command}}]`);
+      debugIf(this.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate} {${action?.topic}~${action?.command}}]`);
       try {
         ActionBus.emit(action.topic, action);
       } catch (err) {
@@ -67,7 +71,7 @@ export class XActionActivator {
   }
 
   componentDidLoad() {
-    debugIf(state.debug, `x-action-activator: ${this.parent?.url} loading`);
+    debugIf(this.debug, `x-action-activator: ${this.parent?.url} loading`);
     if (this.childActions.length === 0) {
       warn(`x-action-activator: ${this.parent?.url} No children actions detected`);
       return;
@@ -75,14 +79,14 @@ export class XActionActivator {
     this.childActions.forEach(async (a) => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
-      debugIf(state.debug, `x-action-activator: ${this.parent?.url} registered [x-action:${this.activate} {${action.topic}~${action.command}}] `);
+      debugIf(this.debug, `x-action-activator: ${this.parent?.url} registered [x-action:${this.activate} {${action.topic}~${action.command}}] `);
       this.actions.push(action);
     });
 
     const element = this.parent?.querySelector(this.elementQuery);
 
     element?.addEventListener(this.elementEventName, async () => {
-      debugIf(state.debug, `x-action-activator: ${this.parent?.url} received ${this.elementQuery} did ${this.elementEventName}`);
+      debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${this.elementQuery} did ${this.elementEventName}`);
       await this.activateActions();
     });
   }

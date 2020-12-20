@@ -17,9 +17,9 @@
     "jsxFactory": "h"
   },
   "include": [
-    "../../examples/my-data-provider/src"
+    "src"
   ],
   "exclude": [
-    "../../examples/my-data-provider/node_modules"
+    "node_modules"
   ]
 }

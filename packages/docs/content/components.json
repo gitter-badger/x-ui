@@ -1,9 +1,9 @@
 {
-  "timestamp": "2020-12-17T20:09:45",
+  "timestamp": "2020-12-18T07:57:12",
   "compiler": {
     "name": "@stencil/core",
-    "version": "2.3.0",
-    "typescriptVersion": "4.0.5"
+    "version": "2.1.0",
+    "typescriptVersion": "4.0.3"
   },
   "components": [
     {
@@ -246,73 +246,16 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "x-ui"
-      ],
+      "dependents": [],
       "dependencies": [],
-      "dependencyGraph": {
-        "x-ui": [
-          "x-audio-player"
-        ]
-      }
-    },
-    {
-      "filePath": "./src/components/x-ui/preferences/autoplay-toggle/autoplay-toggle.tsx",
-      "encapsulation": "shadow",
-      "tag": "x-autoplay-toggle",
-      "readme": "# autoplay-toggle\n\n\n",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [
-        {
-          "name": "autoplay",
-          "type": "boolean",
-          "mutable": false,
-          "attr": "autoplay",
-          "reflectToAttr": false,
-          "docs": "",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "boolean"
-            }
-          ],
-          "optional": false,
-          "required": false
-        }
-      ],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [
-        "x-preferences-list"
-      ],
-      "dependencies": [
-        "ion-buttons",
-        "ion-icon",
-        "ion-toggle"
-      ],
-      "dependencyGraph": {
-        "x-autoplay-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ],
-        "x-preferences-list": [
-          "x-autoplay-toggle"
-        ]
-      }
+      "dependencyGraph": {}
     },
     {
       "filePath": "./src/components/x-data-display/x-data-display.tsx",
       "encapsulation": "none",
       "tag": "x-data-display",
-      "readme": "# X-DATA-DISPLAY\n\n\nRender text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  expression=\"<any expression or value to render to the page>\">\n</x-data-display>\n````\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n[data-expressions]:[../data-expressions]\n\n!> This component only supports template parsing with the <template> tag. Any other tag will not be interpreted. \n",
-      "docs": "Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**",
+      "readme": "# X-DATA-DISPLAY\n\n\nRender text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  text=\"<any expression or value to render to the page>\">\n</x-data-display>\n````\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n[data-expressions]:[../data-expressions]\n\n!> This component only supports template parsing with the <template> tag. Any other tag will not be interpreted. \n",
+      "docs": "Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**",
       "docsTags": [],
       "usage": {},
       "props": [
@@ -449,75 +392,11 @@
       "dependencyGraph": {}
     },
     {
-      "filePath": "./src/components/x-data-provider-sample/x-data-provider-sample.tsx",
-      "encapsulation": "none",
-      "tag": "x-data-provider-sample",
-      "readme": "# Data Provider Specification\n\nData Providers must expose a key-value system interface for getting and settings data-values.\n\n**Provider Interface:**\n\n    get(key:string) : Promise<string>\n    set(key: string, value: string) : Promise<void>\n\n## Sample Registration Component\n\n````jsx\n\nimport { Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';\n\n@Component({\n  tag: 'x-data-provider-firebase',\n  shadow: false,\n})\nexport class XDataProviderFirebase {\n  private customProvider = new MyFirebaseProvider();\n\n  /**\n   * This event is raised when the component loads.\n   * The data-provider system should capture this event\n   * and register the provider for use in expressions.\n   */\n  @Event({\n    eventName: 'xui:action-events:data',\n  }) raiseAction: EventEmitter<any>;\n\n  @State() keys = [];\n\n  componentDidLoad() {\n    this.raiseAction.emit({\n      command: 'register-provider',\n      data: {\n        name: this.name,\n        provider: this.customProvider,\n      },\n    });\n  }\n}\n````\n\n",
-      "docs": "Data Providers must expose a key-value system interface for getting and settings data-values.\n\n**Provider Interface:**\n\n    get(key:string) : Promise<string>\n    set(key: string, value: string) : Promise<void>",
-      "docsTags": [],
-      "usage": {},
-      "props": [
-        {
-          "name": "debug",
-          "type": "boolean",
-          "mutable": false,
-          "attr": "debug",
-          "reflectToAttr": false,
-          "docs": "When debug is true, a reactive table of values is displayed.",
-          "docsTags": [],
-          "default": "false",
-          "values": [
-            {
-              "type": "boolean"
-            }
-          ],
-          "optional": false,
-          "required": false
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "mutable": false,
-          "attr": "name",
-          "reflectToAttr": false,
-          "docs": "Customize the name used for this sample data provider.",
-          "docsTags": [],
-          "default": "'memory'",
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": false
-        }
-      ],
-      "methods": [],
-      "events": [
-        {
-          "event": "register",
-          "detail": "ActionEvent<DataProviderRegistration>",
-          "bubbles": true,
-          "cancelable": true,
-          "composed": true,
-          "docs": "This event is raised when the component loads.\nThe data-provider system should capture this event\nand register the provider for use in expressions.",
-          "docsTags": []
-        }
-      ],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [],
-      "dependencies": [],
-      "dependencyGraph": {}
-    },
-    {
       "filePath": "./src/components/x-html/x-html.tsx",
       "encapsulation": "none",
       "tag": "x-html",
-      "readme": "# X-HTML\n\n\n",
-      "docs": "",
+      "readme": "# X-HTML\n\n\nThis component does data-token resolution with the template it fetches.\n",
+      "docs": "This component does data-token resolution with the template it fetches.",
       "docsTags": [],
       "usage": {},
       "props": [
@@ -818,108 +697,6 @@
       "dependencyGraph": {}
     },
     {
-      "filePath": "./src/components/x-ui/preferences/list/list.tsx",
-      "encapsulation": "none",
-      "tag": "x-preferences-list",
-      "readme": "# x-preferences-list\n\n\n",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [],
-      "dependencies": [
-        "ion-list",
-        "ion-item",
-        "ion-label",
-        "x-theme-toggle",
-        "x-sound-toggle",
-        "x-autoplay-toggle"
-      ],
-      "dependencyGraph": {
-        "x-preferences-list": [
-          "ion-list",
-          "ion-item",
-          "ion-label",
-          "x-theme-toggle",
-          "x-sound-toggle",
-          "x-autoplay-toggle"
-        ],
-        "ion-item": [
-          "ion-icon",
-          "ion-ripple-effect"
-        ],
-        "x-theme-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ],
-        "x-sound-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ],
-        "x-autoplay-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ]
-      }
-    },
-    {
-      "filePath": "./src/components/x-ui/preferences/popover-button/popover-button.tsx",
-      "encapsulation": "none",
-      "tag": "x-preferences-popover-button",
-      "readme": "# x-preferences\n\n\n",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [
-        {
-          "name": "icon",
-          "type": "string",
-          "mutable": false,
-          "attr": "icon",
-          "reflectToAttr": false,
-          "docs": "",
-          "docsTags": [],
-          "default": "'settings-outline'",
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": false
-        }
-      ],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [],
-      "dependencies": [
-        "ion-button",
-        "ion-icon"
-      ],
-      "dependencyGraph": {
-        "x-preferences-popover-button": [
-          "ion-button",
-          "ion-icon"
-        ],
-        "ion-button": [
-          "ion-ripple-effect"
-        ]
-      }
-    },
-    {
       "filePath": "./src/components/x-show/x-show.tsx",
       "encapsulation": "none",
       "tag": "x-show",
@@ -967,92 +744,6 @@
       "dependencyGraph": {}
     },
     {
-      "filePath": "./src/components/x-ui/preferences/sound-toggle/sound-toggle.tsx",
-      "encapsulation": "none",
-      "tag": "x-sound-toggle",
-      "readme": "# sound-toggle\n\n\n",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [
-        {
-          "name": "muted",
-          "type": "boolean",
-          "mutable": false,
-          "attr": "muted",
-          "reflectToAttr": false,
-          "docs": "",
-          "docsTags": [],
-          "default": "state.muted",
-          "values": [
-            {
-              "type": "boolean"
-            }
-          ],
-          "optional": false,
-          "required": false
-        }
-      ],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [
-        "x-preferences-list"
-      ],
-      "dependencies": [
-        "ion-buttons",
-        "ion-icon",
-        "ion-toggle"
-      ],
-      "dependencyGraph": {
-        "x-sound-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ],
-        "x-preferences-list": [
-          "x-sound-toggle"
-        ]
-      }
-    },
-    {
-      "filePath": "./src/components/x-ui/preferences/theme-toggle/theme-toggle.tsx",
-      "encapsulation": "none",
-      "tag": "x-theme-toggle",
-      "readme": "# theme-toggle\n\n\n",
-      "docs": "",
-      "docsTags": [],
-      "usage": {},
-      "props": [],
-      "methods": [],
-      "events": [],
-      "listeners": [],
-      "styles": [],
-      "slots": [],
-      "parts": [],
-      "dependents": [
-        "x-preferences-list"
-      ],
-      "dependencies": [
-        "ion-buttons",
-        "ion-icon",
-        "ion-toggle"
-      ],
-      "dependencyGraph": {
-        "x-theme-toggle": [
-          "ion-buttons",
-          "ion-icon",
-          "ion-toggle"
-        ],
-        "x-preferences-list": [
-          "x-theme-toggle"
-        ]
-      }
-    },
-    {
       "filePath": "./src/components/x-ui/x-ui.tsx",
       "encapsulation": "shadow",
       "tag": "x-ui",
@@ -1072,22 +763,6 @@
           "values": [
             {
               "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": false
-        },
-        {
-          "name": "audio",
-          "type": "boolean",
-          "mutable": false,
-          "attr": "audio",
-          "reflectToAttr": false,
-          "docs": "When true, the global audio component is loaded\nand subscribed for Event Action requests to\nplay sounds.",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "boolean"
             }
           ],
           "optional": false,
@@ -1230,14 +905,8 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": [
-        "x-audio-player"
-      ],
-      "dependencyGraph": {
-        "x-ui": [
-          "x-audio-player"
-        ]
-      }
+      "dependencies": [],
+      "dependencyGraph": {}
     },
     {
       "filePath": "./src/components/x-view/x-view.tsx",
@@ -1311,7 +980,7 @@
             }
           ],
           "optional": false,
-          "required": true
+          "required": false
         }
       ],
       "methods": [],

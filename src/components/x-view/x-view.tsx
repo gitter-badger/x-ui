@@ -9,12 +9,12 @@ import {
   RouterService,
   MatchResults,
   resolveNext,
-  state,
   resolveElementVisibility,
   hasVisited,
   ActionBus,
   DATA_EVENTS,
   normalizeChildUrl,
+  markVisit,
 } from '../..';
 
 @Component({
@@ -62,6 +62,11 @@ export class XView {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
+  /**
+  * Turn on debug statements for load, update and render events.
+  */
+  @Prop() debug: boolean = false;
+
   private get parent(): HTMLXViewElement | HTMLXUiElement {
     const view = this.el.parentElement.closest('x-view') as HTMLXViewElement;
     if (view) {
@@ -84,7 +89,7 @@ export class XView {
     if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(state.debug, `x-view: loading ${this.url}`);
+    debugIf(this.debug, `x-view: loading ${this.url}`);
 
     this.route = new Route(
       this.el,
@@ -95,6 +100,9 @@ export class XView {
       this.scrollTopOffset,
       (match) => {
         this.match = {...match};
+        if (this.match.isExact) {
+          markVisit(this.url);
+        }
       },
     );
 
@@ -131,7 +139,9 @@ export class XView {
         // eslint-disable-next-line no-console
         RouterService.instance?.history.push(nextDo.url, { parent: this.url });
       } else {
-        resolveElementVisibility(this.el);
+        setTimeout(() => {
+          resolveElementVisibility(this.el);
+        }, 300);
       }
     }
   }
