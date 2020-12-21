@@ -2,8 +2,18 @@ jest.mock('../../../services/logging');
 
 import { newSpecPage } from '@stencil/core/testing';
 import { XDataDisplay } from '../x-data-display';
+import { InMemoryProvider } from '../../../services/data/providers/memory';
+import { addDataProvider } from '../../../services/data/providers/factory';
 
 describe('x-data-display', () => {
+
+  var session: InMemoryProvider;
+
+  beforeEach(() => {
+    session = new InMemoryProvider();
+    addDataProvider('session', session);
+  });
+
   it('renders simple strings', async () => {
     const page = await newSpecPage({
       components: [XDataDisplay],
@@ -34,48 +44,8 @@ describe('x-data-display', () => {
     `);
   });
 
-  it('renders data in child template', async () => {
-    const page = await newSpecPage({
-      components: [XDataDisplay],
-      html: `<x-data-display>
-              <template>
-                <p>Hello Jason!</p>
-              </template>
-             </x-data-display>`,
-      supportsShadowDom: false
-    });
 
-    expect(page.root).toEqualHtml(`
-      <x-data-display>
-        <div>
-          <p>Hello Jason!</p>
-        </div>
-      </x-data-display>
-    `);
-  });
-
-  it('renders data in child template with class', async () => {
-    const page = await newSpecPage({
-      components: [XDataDisplay],
-      html: `<x-data-display class="container" data-name="Jason">
-              <template>
-                <p>Hello Jason!</p>
-              </template>
-             </x-data-display>`,
-      supportsShadowDom: false
-    });
-
-    expect(page.root).toEqualHtml(`
-      <x-data-display class="container" data-name="Jason">
-        <div>
-          <p>Hello Jason!</p>
-        </div>
-      </x-data-display>
-    `);
-  });
-
-
-  it('renders data and text in child template', async () => {
+  it('renders child template', async () => {
     const page = await newSpecPage({
       components: [XDataDisplay],
       html: `<x-data-display text="test">
@@ -91,6 +61,71 @@ describe('x-data-display', () => {
         <div>
           <p>Hello Jason!</p>
           test
+        </div>
+      </x-data-display>
+    `);
+  });
+
+  it('renders text value in child template', async () => {
+    const page = await newSpecPage({
+      components: [XDataDisplay],
+      html: `<x-data-display text="test">
+              <template>
+                <p>Hello Jason!</p>
+              </template>
+             </x-data-display>`,
+      supportsShadowDom: false
+    });
+
+    expect(page.root).toEqualHtml(`
+      <x-data-display text="test">
+        <div>
+          <p>Hello Jason!</p>
+          test
+        </div>
+      </x-data-display>
+    `);
+  });
+
+  it('renders inline data to child template', async () => {
+    const page = await newSpecPage({
+      components: [XDataDisplay],
+      html: `<x-data-display>
+              <script type="application/json">
+              { "name": "Forrest" }
+              </script>
+              <template>
+                <p>Hello {data:name}!</p>
+              </template>
+             </x-data-display>`,
+      supportsShadowDom: false
+    });
+
+    expect(page.root).toEqualHtml(`
+      <x-data-display>
+        <div>
+          <p>Hello Forrest!</p>
+        </div>
+      </x-data-display>
+    `);
+  });
+
+  it('renders session data to child template', async () => {
+    await session.set('name', 'Tom');
+    const page = await newSpecPage({
+      components: [XDataDisplay],
+      html: `<x-data-display>
+              <template>
+                <p>Hello {session:name}!</p>
+              </template>
+             </x-data-display>`,
+      supportsShadowDom: false
+    });
+
+    expect(page.root).toEqualHtml(`
+      <x-data-display>
+        <div>
+          <p>Hello Tom!</p>
         </div>
       </x-data-display>
     `);

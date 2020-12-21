@@ -12,6 +12,7 @@ const expressionEvaluator = new Parser();
 expressionEvaluator.functions.didVisit = (url: string) => hasVisited(url);
 
 export function hasExpression(valueExpression: string) {
+  requireValue(valueExpression, 'valueExpression');
   return valueExpression.match(expressionRegEx);
 }
 
@@ -24,7 +25,7 @@ export function hasExpression(valueExpression: string) {
  * @param {string} valueExpression
  * @return {*}  {(Promise<string|null>)}
  */
-export async function resolveExpression(valueExpression: string): Promise<string|null> {
+export async function resolveExpression(valueExpression: string, data?: any): Promise<string|null> {
   requireValue(valueExpression, 'valueExpression');
 
   if (valueExpression == null || valueExpression === '') return valueExpression;
@@ -46,12 +47,17 @@ export async function resolveExpression(valueExpression: string): Promise<string
     const dataKey = match[2];
     const propKey = match[3] || '';
     const defaultValue = match[4] || '';
+
     const provider = getDataProvider(providerKey);
     // eslint-disable-next-line no-await-in-loop
-    let value = await provider?.get(dataKey) || defaultValue;
+    let value = (await provider?.get(dataKey)) || defaultValue;
+
+    if (providerKey === 'data' && data) {
+      value = data[dataKey];
+    }
 
     if (propKey) {
-      const obj = JSON.parse(value || '{}');
+      const obj = (typeof value === 'string') ? JSON.parse(value || '{}') : value;
       const propSegments = propKey.split('.');
       let node = obj;
       propSegments.forEach((property) => {
@@ -59,6 +65,7 @@ export async function resolveExpression(valueExpression: string): Promise<string
       });
       value = `${node}`;
     }
+
     result = result.replace(expression, value);
   }
   return result;

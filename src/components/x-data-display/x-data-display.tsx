@@ -14,6 +14,7 @@ import {
   shadow: false,
 })
 export class XDataDisplay {
+  private innerData: any = {};
   @Element() el: HTMLXDataDisplayElement;
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
@@ -26,12 +27,36 @@ export class XDataDisplay {
    */
   @Prop() text?: string;
 
-  get template(): HTMLTemplateElement {
-    const template = this.el.firstElementChild as HTMLTemplateElement;
-    if (template !== null && template.tagName !== 'TEMPLATE') {
-      warn(`x-data-display: The only allowed child is a single <template>. Found ${template.localName} `);
+  /**
+   * If set, disables auto-rendering of this instance.
+   * To fetch the contents change to false or remove
+   * attribute.
+   */
+  // eslint-disable-next-line @stencil/strict-mutable
+  @Prop({ mutable: true}) noRender: boolean = false;
+
+  get childTemplate(): HTMLTemplateElement {
+    if (!this.el.hasChildNodes()) return null;
+    const childTemplates = Array.from(this.el.childNodes)
+      .filter((c) => c.nodeName === 'TEMPLATE')
+      .map((v) => v as HTMLTemplateElement);
+
+    if (childTemplates.length > 0) {
+      return childTemplates[0];
     }
-    return template;
+    return null;
+  }
+
+  private get childScript(): HTMLScriptElement {
+    if (!this.el.hasChildNodes()) return null;
+    const childScripts = Array.from(this.el.childNodes)
+      .filter((c) => c.nodeName === 'SCRIPT')
+      .map((v) => v as HTMLScriptElement);
+
+    if (childScripts.length > 0) {
+      return childScripts[0];
+    }
+    return null;
   }
 
   async componentWillLoad() {
@@ -43,8 +68,18 @@ export class XDataDisplay {
       await this.resolveTemplate();
     });
 
-    if (this.template == null) return;
-    this.innerTemplate = this.template.innerHTML;
+    if (this.childTemplate !== null) {
+      this.innerTemplate = this.childTemplate.innerHTML;
+    }
+
+    if (this.childScript !== null) {
+      try {
+        this.innerData = JSON.parse(this.childScript.innerText);
+      } catch (error) {
+        warn(`x-data-display: unable to deserialize JSON: ${error}`);
+      }
+    }
+
     removeAllChildNodes(this.el);
   }
 
@@ -53,11 +88,12 @@ export class XDataDisplay {
   }
 
   private async resolveTemplate() {
+    if (this.noRender) return;
     if (this.text) {
-      this.value = await resolveExpression(this.text);
+      this.value = await resolveExpression(this.text, this.innerData);
     }
     if (this.innerTemplate) {
-      this.resolvedTemplate = await resolveExpression(this.innerTemplate);
+      this.resolvedTemplate = await resolveExpression(this.innerTemplate, this.innerData);
     }
   }
 
