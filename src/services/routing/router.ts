@@ -59,7 +59,7 @@ export class RouterService {
     this.scrollTo(options.scrollTopOffset || this.scrollTopOffset);
   };
 
-  returnToParent() {
+  goToParentRoute() {
     const {history} = this;
     if (!history) return;
 

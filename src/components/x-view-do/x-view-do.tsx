@@ -110,7 +110,13 @@ export class XViewDo {
 
   private get childVideo(): HTMLVideoElement {
     if (!this.el.hasChildNodes()) return null;
-    return this.el.querySelector('video');
+    const childVideos = Array.from(this.el.childNodes).filter((c) => c.nodeName === 'VIDEO')
+      .map((v) => v as HTMLVideoElement);
+
+    if (childVideos.length > 0) {
+      return childVideos[0];
+    }
+    return null;
   }
 
   private get actionActivators(): Array<HTMLXActionActivatorElement> {
@@ -173,7 +179,7 @@ export class XViewDo {
         storeVisit(this.url);
       }
       this.beforeExit();
-      RouterService.instance?.returnToParent();
+      RouterService.instance.history.replace(this.parentUrl);
     }
   }
 

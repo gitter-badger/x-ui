@@ -17,7 +17,7 @@ export class RoutingListener implements IActionEventListener {
     debugIf(state.debug, `routing-listener: action received ${JSON.stringify(actionEvent)}`);
 
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
-      RouterService.instance?.returnToParent();
+      RouterService.instance?.goToParentRoute();
     } else if (actionEvent.command === ROUTE_COMMANDS.NavigateTo) {
       const { url } = actionEvent.data as NavigateTo;
       RouterService.instance?.history.push(url);

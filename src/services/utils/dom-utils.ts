@@ -30,7 +30,6 @@ export async function resolveElementVisibility(element: HTMLElement) {
 
   const showWhenElements = element.querySelectorAll('[x-show-when]');
   showWhenElements.forEach(async (el) => {
-    console.dir(el)
     const expression = el.getAttribute('x-show-when');
     const show = await evaluatePredicate(expression);
 

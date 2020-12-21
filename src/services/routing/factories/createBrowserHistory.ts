@@ -163,7 +163,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
 
   const createHref = (location: LocationSegments) => basename + createPath(location);
 
-  const push = (path: string | LocationSegments, state: any) => {
+  const push = (path: string | LocationSegments, state?: any) => {
     warnIf(
       (typeof path === 'object' && path.state !== undefined && state !== undefined),
       'You should avoid providing a 2nd state argument to push when the 1st '
@@ -207,8 +207,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
   };
 
   const replace = (path: string | LocationSegments, state: any) => {
-    warnIf(
-      !(typeof path === 'object' && path.state !== undefined && state !== undefined),
+    warnIf(typeof path !== 'object' && state !== undefined,
       'You should avoid providing a 2nd state argument to replace when the 1st '
       + 'argument is a location-like object that already has state; it is ignored',
     );
