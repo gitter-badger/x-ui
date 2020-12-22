@@ -76,7 +76,23 @@ export namespace Components {
          */
         "skipConsent": boolean;
     }
-    interface XHtml {
+    interface XDataRepeat {
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug": boolean;
+        /**
+          * The array-string or data expression to obtain a collection for rendering the template.
+          * @example {session:user.name}
+          * @default null
+         */
+        "items"?: string;
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender": boolean;
+    }
+    interface XInclude {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
          */
@@ -146,6 +162,10 @@ export namespace Components {
     }
     interface XView {
         /**
+          * Remote URL for this Route's content.
+         */
+        "contentSrc": string;
+        /**
           * Turn on debug statements for load, update and render events.
          */
         "debug": boolean;
@@ -167,6 +187,10 @@ export namespace Components {
         "url": string;
     }
     interface XViewDo {
+        /**
+          * Remote URL for this Route's content.
+         */
+        "contentSrc": string;
         /**
           * To debug timed elements, set this value to true.
          */
@@ -238,11 +262,17 @@ declare global {
         prototype: HTMLXDataProviderCookieElement;
         new (): HTMLXDataProviderCookieElement;
     };
-    interface HTMLXHtmlElement extends Components.XHtml, HTMLStencilElement {
+    interface HTMLXDataRepeatElement extends Components.XDataRepeat, HTMLStencilElement {
     }
-    var HTMLXHtmlElement: {
-        prototype: HTMLXHtmlElement;
-        new (): HTMLXHtmlElement;
+    var HTMLXDataRepeatElement: {
+        prototype: HTMLXDataRepeatElement;
+        new (): HTMLXDataRepeatElement;
+    };
+    interface HTMLXIncludeElement extends Components.XInclude, HTMLStencilElement {
+    }
+    var HTMLXIncludeElement: {
+        prototype: HTMLXIncludeElement;
+        new (): HTMLXIncludeElement;
     };
     interface HTMLXLinkElement extends Components.XLink, HTMLStencilElement {
     }
@@ -281,7 +311,8 @@ declare global {
         "x-audio-player": HTMLXAudioPlayerElement;
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
-        "x-html": HTMLXHtmlElement;
+        "x-data-repeat": HTMLXDataRepeatElement;
+        "x-include": HTMLXIncludeElement;
         "x-link": HTMLXLinkElement;
         "x-show": HTMLXShowElement;
         "x-ui": HTMLXUiElement;
@@ -361,7 +392,23 @@ declare namespace LocalJSX {
          */
         "skipConsent"?: boolean;
     }
-    interface XHtml {
+    interface XDataRepeat {
+        /**
+          * Turn on debug statements for load, update and render events.
+         */
+        "debug"?: boolean;
+        /**
+          * The array-string or data expression to obtain a collection for rendering the template.
+          * @example {session:user.name}
+          * @default null
+         */
+        "items"?: string;
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender"?: boolean;
+    }
+    interface XInclude {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
          */
@@ -431,6 +478,10 @@ declare namespace LocalJSX {
     }
     interface XView {
         /**
+          * Remote URL for this Route's content.
+         */
+        "contentSrc"?: string;
+        /**
           * Turn on debug statements for load, update and render events.
          */
         "debug"?: boolean;
@@ -452,6 +503,10 @@ declare namespace LocalJSX {
         "url"?: string;
     }
     interface XViewDo {
+        /**
+          * Remote URL for this Route's content.
+         */
+        "contentSrc"?: string;
         /**
           * To debug timed elements, set this value to true.
          */
@@ -492,7 +547,8 @@ declare namespace LocalJSX {
         "x-audio-player": XAudioPlayer;
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
-        "x-html": XHtml;
+        "x-data-repeat": XDataRepeat;
+        "x-include": XInclude;
         "x-link": XLink;
         "x-show": XShow;
         "x-ui": XUi;
@@ -510,7 +566,8 @@ declare module "@stencil/core" {
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
-            "x-html": LocalJSX.XHtml & JSXBase.HTMLAttributes<HTMLXHtmlElement>;
+            "x-data-repeat": LocalJSX.XDataRepeat & JSXBase.HTMLAttributes<HTMLXDataRepeatElement>;
+            "x-include": LocalJSX.XInclude & JSXBase.HTMLAttributes<HTMLXIncludeElement>;
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
             "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;

@@ -1,16 +1,16 @@
 {
-  "timestamp": "2020-12-21T22:23:43",
+  "timestamp": "2020-12-22T03:20:02",
   "compiler": {
     "name": "@stencil/core",
-    "version": "2.1.0",
-    "typescriptVersion": "4.0.3"
+    "version": "2.3.0",
+    "typescriptVersion": "4.0.5"
   },
   "components": [
     {
       "filePath": "./src/components/x-action/x-action.tsx",
       "encapsulation": "shadow",
       "tag": "x-action",
-      "readme": "---\nslug: \"x-action\"\ntitle: \"My first blog post\"\n---\n\n\n# x-action\n\n\n",
+      "readme": "---\nslug: \"x-action-activator/x-action\"\ntitle: \"X-ACTION-ACTIVATOR > X-ACTION\"\n---\n\n# X-ACTION-ACTIVATOR > X-ACTION\n\nThis element holds the data that __is__ the Action Event on the XUI Action Bus.\n\n## Usage\n\nThis element should only ever exists within a parent **\\<x-action-activator\\>** tag. The parent tag defines how and when the child actions are submitted to the Action Bus.\n\n#### In-Attribute Data\n\n````html\n<x-action-activator ...>\n  <x-action\n    topic=\"<topic>\"\n    command=\"<command>\"\n    data='{\"arg\": \"Hello world!\"}'></x-action>\n</x-action-activator>\n````\n\n#### Child Script Data\n\nAlternatively, you define the data parameter in a child script tag.\n\n````html\n<x-action-activator ...>\n    <x-action\n      topic=\"<topic>\"\n      command=\"<command>\">\n        <script type=\"application/json\">\n          {\n            \"arg\": \"Hello world!\"\n          }\n        </script>\n      </x-action>\n  </x-action-activator>\n````\n\n",
       "docs": "This element just holds data to express the actionEvent to fire. This element\nshould always be the child of a x-action-activator.",
       "docsTags": [
         {
@@ -107,14 +107,14 @@
       "filePath": "./src/components/x-action-activator/x-action-activator.tsx",
       "encapsulation": "shadow",
       "tag": "x-action-activator",
-      "readme": "# x-action-activator\n\n\n",
-      "docs": "",
+      "readme": "---\nslug: \"x-action-activator\"\ntitle: \"X-ACTION-ACTIVATOR\"\n---\n\n# X-ACTION-ACTIVATOR\n\nThis element defines how and when a group of Actions (**\\<x-action\\>**) are submitted to the Action Bus.\n\n## Usage\n\nThis element should only ever contain child  **\\<x-action\\>** tags. The attributes tells the parent The parent tag defines how and when the child actions are submitted to the Action Bus.\n\n\n````html\n<x-action-activator\n  activate=\"<activation-strategy></activation-strategy>\"\n  ... supporting attributes ...\n  >\n  <x-action ...></x-action>\n  <x-action ...></x-action>\n  <x-action ...></x-action>\n</x-action-activator>\n````\n\n### Activation Strategies\nThe **activate** attribute define the strategy for activating all child actions, in the order they appear.\n\n#### OnEnter\nThe **OnEnter** activation-strategy only works when this element is a child of **\\<x-view-do\\>**. The child actions will fire when the parent route is activated and the contents are displayed.\n\n````html\n<x-view-do ...>\n  <x-action-activator\n    activate=\"OnEnter\"\n    >\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n  </x-action-activator>\n</x-view-do>\n````\n\n### OnExit\nThe **OnEnter** activation-strategy only works when this element is a child of **\\<x-view-do\\>**. The child actions will fire when the parent route is de-activated and the next route is displayed.\n\n````html\n<x-view-do ...>\n  <x-action-activator\n    activate=\"OnExit\"\n    >\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n  </x-action-activator>\n</x-view-do>\n````\n\n### AtTime\nThe **AtTime** activation-strategy only work when this element is a child of **\\<x-view-do\\>**. The child actions will fire when the parent route has been activated for the given time within the **time** attribute.\n\n\n````html\n<x-view-do ...>\n  <x-action-activator\n    activate=\"AtTime\"\n    time=\"3\"\n    >\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n    <x-action ...></x-action>\n  </x-action-activator>\n</x-view-do>\n````\n\n### OnElementEvent\n\nThe **OnElementEvent** activation-strategy can be used anywhere within the **\\<x-ui\\>** container. The child actions will fire when the target element raises the target event. \n\n````html\n<x-action-activator\n  activate=\"OnElementEvent\"\n  target-element=\"#submit\"\n  target-event=\"click\"\n  >\n  <x-action ...></x-action>\n  <x-action ...></x-action>\n  <x-action ...></x-action>\n</x-action-activator>\n````\n",
+      "docs": "---\nslug: \"x-action-activator\"\ntitle: \"X-ACTION-ACTIVATOR\"\n---",
       "docsTags": [],
       "usage": {},
       "props": [
         {
           "name": "activate",
-          "type": "ActionActivationStrategy.AtTime | ActionActivationStrategy.OnElementEvent | ActionActivationStrategy.OnEnter | ActionActivationStrategy.OnEvent | ActionActivationStrategy.OnExit",
+          "type": "ActionActivationStrategy.AtTime | ActionActivationStrategy.OnElementEvent | ActionActivationStrategy.OnEnter | ActionActivationStrategy.OnExit",
           "mutable": false,
           "attr": "activate",
           "reflectToAttr": false,
@@ -129,9 +129,6 @@
             },
             {
               "type": "ActionActivationStrategy.OnEnter"
-            },
-            {
-              "type": "ActionActivationStrategy.OnEvent"
             },
             {
               "type": "ActionActivationStrategy.OnExit"
@@ -158,12 +155,28 @@
           "required": false
         },
         {
-          "name": "elementEventName",
+          "name": "targetElement",
           "type": "string",
           "mutable": false,
-          "attr": "element-event-name",
+          "attr": "target-element",
           "reflectToAttr": false,
-          "docs": "",
+          "docs": "The element to watch for events when using the OnElementEvent\nactivation strategy. This element uses the HTML Element querySelector\nfunction to find the element.\n\nFor use with activate=\"OnElementEvent\" Only!",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "targetEvent",
+          "type": "string",
+          "mutable": false,
+          "attr": "target-event",
+          "reflectToAttr": false,
+          "docs": "This is the name of the event to listen to on the target element.",
           "docsTags": [],
           "default": "'click'",
           "values": [
@@ -175,28 +188,12 @@
           "required": false
         },
         {
-          "name": "elementQuery",
-          "type": "string",
-          "mutable": false,
-          "attr": "element-query",
-          "reflectToAttr": false,
-          "docs": "The element to watch for events or visibility,",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": true,
-          "required": false
-        },
-        {
           "name": "time",
           "type": "number",
           "mutable": false,
           "attr": "time",
           "reflectToAttr": false,
-          "docs": "",
+          "docs": "The time, in seconds at which the contained actions should be submitted.\n\nFor use with activate=\"AtTime\" Only!",
           "docsTags": [],
           "values": [
             {
@@ -271,7 +268,7 @@
       "filePath": "./src/components/x-data-display/x-data-display.tsx",
       "encapsulation": "none",
       "tag": "x-data-display",
-      "readme": "# X-DATA-DISPLAY\n\nRender data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  text=\"{expression}\">\n</x-data-display>\n````\nThe expression can be any string with tokens from any registered provider.\n\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>\n  <template>\n    <h1>Hello {expression}!</h1>\n  </template>\n</x-data-display>\n````\n\n> This component only supports template interpolation within the **\\<template\\>** tag.\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n> See [data expressions](/data/expressions) for full documentation\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\n**Providers:**\n\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n* In-line: **data**\n\n> See [data providers](/data/providers) to learn how to add custom data providers.\n\n",
+      "readme": "# X-DATA-DISPLAY\n\nRender data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\n## Usage\n\n````html\n<x-data-display\n  text=\"{expression}\">\n</x-data-display>\n````\n\nThe expression can be any string or an expression with tokens from a registered provider.\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>\n  <template>\n    <h1>Hello {expression}!</h1>\n  </template>\n</x-data-display>\n````\n\n> This component only supports template interpolation within the **\\<template\\>** tag.\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\n> See [data expressions](/data/expressions) for full documentation\n\n**Providers:**\n\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n* Inline Data: **data**\n\n> See [data providers](/data/providers) to learn how to add custom data providers.\n\n",
       "docs": "Render data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.",
       "docsTags": [],
       "usage": {},
@@ -426,11 +423,73 @@
       "dependencyGraph": {}
     },
     {
-      "filePath": "./src/components/x-html/x-html.tsx",
+      "filePath": "./src/components/x-data-repeat/x-data-repeat.tsx",
       "encapsulation": "none",
-      "tag": "x-html",
-      "readme": "# X-HTML\n\n\nThis component does data-token resolution with the template it fetches.\n",
-      "docs": "This component does data-token resolution with the template it fetches.",
+      "tag": "x-data-repeat",
+      "readme": "# X-DATA-REPEAT\n\nThis tag renders a collection of data-values, using a template for each item. The item template uses value expressions to insert data.\n\n## Usage\n\n````html\n<x-data-repeat items=\"{expression}\">\n  <template>\n    <div>{data}</div>\n  </template>\n</x-data-repeat>\n````\nThe **expression** can be any array-string or an expression to pull data from a registered provider.\n\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-repeat>\n  <script type=\"application/json\">\n    [\n      { \"color\":\"blue\", \"name\":\"Bob\" },\n      { \"color\":\"red\", \"name\":\"Sally\" }\n    ]\n  </script>  \n  <template>\n    <div style=\"color: {data:color};\">{data:name}</div>\n  </template>\n</x-data-repeat>\n````\n\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\n> See [data expressions](/data/expressions) for full documentation\n\n**Providers:**\n\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n* Inline Data Item: **data**\n\n> See [data providers](/data/providers) to learn how to add custom data providers.\n\n",
+      "docs": "This tag renders a collection of data-values, using a template for each item. The item template uses value expressions to insert data.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "items",
+          "type": "string",
+          "mutable": false,
+          "attr": "items",
+          "reflectToAttr": false,
+          "docs": "The array-string or data expression to obtain a collection for rendering the template.",
+          "docsTags": [
+            {
+              "text": "{session:user.name}",
+              "name": "example"
+            },
+            {
+              "text": "null",
+              "name": "default"
+            }
+          ],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": true,
+          "required": false
+        },
+        {
+          "name": "noRender",
+          "type": "boolean",
+          "mutable": true,
+          "attr": "no-render",
+          "reflectToAttr": false,
+          "docs": "If set, disables auto-rendering of this instance.\nTo fetch the contents change to false or remove\nattribute.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [],
+      "dependencyGraph": {}
+    },
+    {
+      "filePath": "./src/components/x-include/x-include.tsx",
+      "encapsulation": "none",
+      "tag": "x-include",
+      "readme": "# X-INCLUDE\n\nThis component fetches remote HTML as defined in the src attribute and renders it to the page.\n\n````html\n<x-include src=\"<url-to-html>\">\n</x-include>\n````\n\n### Delayed Rendering\n\nWhen using this component, you may want to delay the fetch until the content is needed. The **no-render** attribute will prevent the HTML from being fetched until that attribute is removed.\n\n````html\n<x-include id=\"include\" src=\"<url-to-html>\" no-render>\n</x-include>\n````\n\nYou can remove the attribute programmatically to force the fetch:\n\n````javascript\nconst include = document.querySelector(\"#include);\ninclude.removeAttribute('no-render');\n````\n\nOr, just include it in one of the components **\\<x-view\\>** or  **\\<x-view-do\\>**. These components remove any 'no-render' attributes on child elements once their route is activated, giving us lazy-loaded routes with this component.\n\n",
+      "docs": "This component fetches remote HTML as defined in the src attribute and renders it to the page.\n\n````html\n<x-include src=\"<url-to-html>\">\n</x-include>\n````",
       "docsTags": [],
       "usage": {},
       "props": [
@@ -952,6 +1011,22 @@
       "usage": {},
       "props": [
         {
+          "name": "contentSrc",
+          "type": "string",
+          "mutable": false,
+          "attr": "content-src",
+          "reflectToAttr": false,
+          "docs": "Remote URL for this Route's content.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
           "name": "debug",
           "type": "boolean",
           "mutable": false,
@@ -1053,6 +1128,22 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "contentSrc",
+          "type": "string",
+          "mutable": false,
+          "attr": "content-src",
+          "reflectToAttr": false,
+          "docs": "Remote URL for this Route's content.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
         {
           "name": "debug",
           "type": "boolean",
