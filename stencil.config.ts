@@ -51,12 +51,11 @@ export const config: Config = {
     },
     {
       type: 'www',
-      indexHtml: 'src/index.html',
       serviceWorker: null, // disable service workers
       copy: [
+        { src: 'index.html' },
         { src: '**/*.md' },
-        { src: '**/*.html' },
-        { src: 'docs' },
+        { src: 'docs/**/*.*' },
       ],
     },
   ],

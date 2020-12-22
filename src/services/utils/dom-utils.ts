@@ -9,6 +9,13 @@ export type TimedNode = {
   element: HTMLElement,
 };
 
+// Converts HTML string into document fragment
+export function makeFrag(html:string):DocumentFragment {
+  const tpl = document.createElement('template');
+  tpl.innerHTML = html;
+  return tpl.content;
+}
+
 export function resolveChildRemoteHtml() {
   const manualRendering = document.querySelectorAll('.xui-active-route-exact [no-render], .xui-active-route [no-render]');
   manualRendering.forEach(async (el) => {

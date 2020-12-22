@@ -7,6 +7,7 @@
     "HTMLX",
     "Stackedit",
     "Themeable",
+    "arrify",
     "automerge",
     "delimeters",
     "frontmatter",
@@ -15,6 +16,7 @@
     "noslash",
     "recalc",
     "rehype",
+    "unhinted",
     "unlisten"
   ],
   "stencilTools.style.extension": "scss"

@@ -5,7 +5,7 @@
     "src/**/*.tsx",
     "src/**/*.md",
     "types/jsx.d.ts",
-    "./typings.d.ts", "plugins/ionic/preferences", "plugins/sample-data-provider/src/components/x-data-provider-sample",
+    "./typings.d.ts", "plugins/ionic/preferences", "plugins/sample-data-provider/src/components/x-data-provider-sample", ".scratch/x-markdown",
   ],
   "exclude": [
     "node_modules",

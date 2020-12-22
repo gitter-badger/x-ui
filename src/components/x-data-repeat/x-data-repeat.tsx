@@ -1,4 +1,5 @@
 import { Element, Component, h, Prop, State, Host } from '@stencil/core';
+import { arrify } from '../../services/utils/misc-utils';
 import {
   ActionBus,
   DATA_EVENTS,
@@ -87,7 +88,7 @@ export class XDataRepeat {
 
     if (this.childScript !== null) {
       try {
-        this.resolvedItems = JSON.parse(this.childScript.innerText || '[]');
+        this.resolvedItems = arrify(JSON.parse(this.childScript.innerText || '[]'));
       } catch (error) {
         warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
       }
@@ -111,7 +112,7 @@ export class XDataRepeat {
       const response = await fetch(srcSegments[0]);
       if (response.status === 200) {
         const data = await response.json();
-        this.resolvedItems = srcSegments[1] ? data[srcSegments[1]] : data;
+        this.resolvedItems = arrify(srcSegments[1] ? data[srcSegments[1]] : data);
         debugIf(this.debug, `x-data-repeat: remote items ${JSON.stringify(data)}`);
       } else {
         warn(`x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);

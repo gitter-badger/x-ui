@@ -1,10 +1,4 @@
----
-slug: "x-action-activator/x-action"
-title: "X-ACTION-ACTIVATOR > X-ACTION"
-icon: "flash-outline"
----
-
-# X-ACTION-ACTIVATOR > X-ACTION
+# X-ACTION
 
 This element holds the data that __is__ the Action Event on the XUI Action Bus.
 
@@ -41,7 +35,20 @@ Alternatively, you define the data parameter in a child script tag.
   </x-action-activator>
 ````
 
+## Dependencies
 
+### Depends on
+
+- x-action-activator
+
+### Graph
+```mermaid
+graph TD;
+  x-view-do --> x-action-activator
+  x-action-activator --> x-action
+ 
+  style x-action fill:#f9f,stroke:#333,stroke-width:1px
+```
 <!-- Auto Generated Below -->
 
 
