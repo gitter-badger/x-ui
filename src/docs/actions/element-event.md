@@ -9,8 +9,8 @@ Element-event actions work using by attaching an event-listener to the specified
   visit="optional">
   <x-action-activator
     activate="OnElementEvent"
-    element-query="#button1"
-    event-name="click">
+    target-element="#button1"
+    target-event="click">
     <x-action
       topic="document"
       command="alert"

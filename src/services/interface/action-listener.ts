@@ -20,7 +20,7 @@ export class InterfaceListener implements IActionEventListener {
     this.bus = bus;
     this.unsubscribe = this.bus.on(INTERFACE_TOPIC, (e) => this.handleEvent(e));
     this.defaultProvider = new DefaultInterfaceProvider(this.win);
-    setInterfaceProvider(this.defaultProvider);
+    setInterfaceProvider('default', this.defaultProvider);
   }
 
   setProvider(name: string, provider: InterfaceProvider) {
@@ -38,7 +38,7 @@ export class InterfaceListener implements IActionEventListener {
       this.defaultProvider.state.autoplay = autoplay;
     });
 
-    setInterfaceProvider(provider as InterfaceProvider);
+    setInterfaceProvider(name, provider as InterfaceProvider);
   }
 
   async handleEvent(actionEvent: ActionEvent<any>) {
