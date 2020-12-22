@@ -42,4 +42,12 @@
   visibility: visible !important;
 }
 
+.content {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+  z-index: 1;
+}
+
 

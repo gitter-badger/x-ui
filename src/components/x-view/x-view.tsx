@@ -1,6 +1,12 @@
 /* eslint-disable no-param-reassign */
 import {
-  Component, h, Prop, Host, Element, State, Watch,
+  Component,
+  h,
+  Prop,
+  Host,
+  Element,
+  State,
+  Watch,
 } from '@stencil/core';
 
 import {
@@ -15,6 +21,7 @@ import {
   DATA_EVENTS,
   normalizeChildUrl,
   markVisit,
+  warn,
 } from '../..';
 
 @Component({
@@ -25,6 +32,7 @@ import {
 export class XView {
   private route: Route;
   @Element() el!: HTMLXViewElement;
+  @State() content: string;
   @State() match: MatchResults;
 
   /**
@@ -63,16 +71,21 @@ export class XView {
   }
 
   /**
+   * Remote URL for this Route's content.
+   */
+  @Prop() contentSrc: string;
+
+  /**
   * Turn on debug statements for load, update and render events.
   */
   @Prop() debug: boolean = false;
 
   private get parent(): HTMLXViewElement | HTMLXUiElement {
-    const view = this.el.parentElement.closest('x-view') as HTMLXViewElement;
+    const view = this.el.parentElement?.closest('x-view') as HTMLXViewElement;
     if (view) {
       return view;
     }
-    return this.el.parentElement.closest('x-ui') as HTMLXUiElement;
+    return this.el.parentElement?.closest('x-ui') as HTMLXUiElement;
   }
 
   private get parentUrl() {
@@ -89,7 +102,7 @@ export class XView {
     if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(this.debug, `x-view: loading ${this.url}`);
+    debugIf(this.debug, `x-view: ${this.url} loading`);
 
     this.route = new Route(
       this.el,
@@ -117,6 +130,7 @@ export class XView {
 
   async componentDidUpdate() {
     await this.route.loadCompleted();
+    resolveElementVisibility(this.el);
   }
 
   async componentWillRender() {
@@ -125,8 +139,31 @@ export class XView {
     }
   }
 
+  async componentDidRender() {
+    resolveElementVisibility(this.el);
+  }
+
+  private async fetchHtml() {
+    if (!this.contentSrc || this.content) return;
+    try {
+      debugIf(this.debug, `x-view: fetching content from ${this.contentSrc}`);
+      const response = await fetch(this.contentSrc);
+      if (response.status === 200) {
+        const data = await response.text();
+        this.content = data;
+        this.el.innerHTML += data;
+      } else {
+        warn(`x-view: ${this.url} Unable to retrieve from ${this.contentSrc}`);
+      }
+    } catch (error) {
+      warn(`x-view: ${this.url} Unable to retrieve from ${this.contentSrc}`);
+    }
+  }
+
   private async resolveView() {
     if (this.match?.isExact) {
+      await this.fetchHtml();
+
       const viewDos = this.childViewDos.map((viewDo) => {
         const { when, visit, url } = viewDo;
         const cleanUrl = normalizeChildUrl(url, this.url);
@@ -138,10 +175,6 @@ export class XView {
       if (nextDo) {
         // eslint-disable-next-line no-console
         RouterService.instance?.history.push(nextDo.url, { parent: this.url });
-      } else {
-        setTimeout(() => {
-          resolveElementVisibility(this.el);
-        }, 300);
       }
     }
   }
@@ -150,8 +183,9 @@ export class XView {
     if (this.url && this.match?.path) {
       const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
-        <Host class={classes}>
-          <slot/>
+        <Host class={classes} >
+          <slot />
+          <slot name="content"/>
         </Host>
       );
     }

@@ -86,6 +86,7 @@ For each child element with this attribute, the value of the attribute is evalua
 
 | Property          | Attribute           | Description                                                                       | Type      | Default     |
 | ----------------- | ------------------- | --------------------------------------------------------------------------------- | --------- | ----------- |
+| `contentSrc`      | `content-src`       | Remote URL for this Route's content.                                              | `string`  | `undefined` |
 | `debug`           | `debug`             | Turn on debug statements for load, update and render events.                      | `boolean` | `false`     |
 | `pageTitle`       | `page-title`        | The title for this view. This is prefixed before the app title configured in x-ui | `string`  | `''`        |
 | `scrollTopOffset` | `scroll-top-offset` | Header height or offset for scroll-top on this view.                              | `number`  | `undefined` |

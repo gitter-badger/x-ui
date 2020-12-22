@@ -21,6 +21,7 @@ import {
   ActionActivationStrategy,
   normalizeChildUrl,
   restoreElementChildTimedNodes,
+  warn,
 } from '../../services';
 
 @Component({
@@ -35,6 +36,7 @@ export class XViewDo {
   private timeEvent: EventEmitter;
   private lastTime: number;
   @Element() el: HTMLXViewDoElement;
+  @State() content: string;
   @State() match: MatchResults;
 
   /**
@@ -87,6 +89,11 @@ export class XViewDo {
   @Prop() duration?: number;
 
   /**
+   * Remote URL for this Route's content.
+   */
+  @Prop() contentSrc: string;
+
+  /**
   * To debug timed elements, set this value to true.
   */
   @Prop() debug: boolean = false;
@@ -101,7 +108,7 @@ export class XViewDo {
   }
 
   private get parent(): HTMLXViewElement {
-    return this.el.parentElement.closest('x-view') as HTMLXViewElement;
+    return this.el.parentElement?.closest('x-view') as HTMLXViewElement;
   }
 
   private get parentUrl() {
@@ -126,10 +133,13 @@ export class XViewDo {
   }
 
   componentWillLoad() {
+    if (this.parent === undefined) {
+      warn(`x-view-do: ${this.url} error: No valid x-view parent detected`);
+    }
     if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(this.debug, `x-view-do: loading ${this.url}`);
+    debugIf(this.debug, `x-view-do: ${this.url} loading`);
 
     this.route = new Route(
       this.el,
@@ -162,6 +172,26 @@ export class XViewDo {
     await this.route.loadCompleted();
   }
 
+  async componentWillRender() {
+    await this.resolveView();
+  }
+
+  private async fetchHtml() {
+    if (!this.contentSrc || this.content) return;
+    try {
+      const response = await fetch(this.contentSrc);
+      if (response.status === 200) {
+        const data = await response.text();
+        this.content = data;
+        this.el.innerHTML += data;
+      } else {
+        warn(`x-view-do: ${this.url} Unable to retrieve from ${this.contentSrc}`);
+      }
+    } catch (error) {
+      warn(`x-view-do: ${this.url} Unable to retrieve from ${this.contentSrc}`);
+    }
+  }
+
   private next(element:string, eventName: string) {
     debugIf(this.debug, `x-view-do: next fired from ${element}:${eventName}`);
 
@@ -179,23 +209,15 @@ export class XViewDo {
         storeVisit(this.url);
       }
       this.beforeExit();
-      RouterService.instance.history.replace(this.parentUrl);
+      RouterService.instance.history.push(this.parentUrl);
     }
-  }
-
-  async componentWillRender() {
-    await this.resolveView();
   }
 
   private async resolveView() {
     clearInterval(this.timer);
     if (this.match?.isExact) {
+      await this.fetchHtml();
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
-      // activate on-enter actions
-      this.actionActivators
-        .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
-        .forEach((activator) => activator.activateActions());
-
       setTimeout(() => this.resolveChildren(), 500);
     }
   }
@@ -214,7 +236,7 @@ export class XViewDo {
     backElement?.addEventListener('click', (e) => {
       e.preventDefault();
       this.beforeExit();
-      RouterService.instance?.history?.goBack();
+      RouterService.instance.history.push(this.parentUrl);
     });
     backElement?.removeAttribute('x-back');
 
@@ -227,6 +249,11 @@ export class XViewDo {
     resolveElementVisibility(this.el);
 
     this.setupTimer();
+
+    // activate on-enter actions
+    this.actionActivators
+      .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
+      .forEach((activator) => activator.activateActions());
   }
 
   private setupTimer() {
@@ -297,19 +324,18 @@ export class XViewDo {
   }
 
   render() {
-    const classes = `${this.transition}`;
-
     if (this.match?.isExact) {
       return (
-        <Host class={classes}>
-          <slot/>
+        <Host class={this.route.transition}>
+          <slot />
+          <slot name="content"/>
         </Host>
       );
     }
 
     return (
       <Host hidden>
-        <slot/>
+        <slot />
       </Host>
     );
   }
