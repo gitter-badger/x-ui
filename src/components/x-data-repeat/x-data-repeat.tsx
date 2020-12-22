@@ -71,7 +71,7 @@ export class XDataRepeat {
   }
 
   async componentWillLoad() {
-    debugIf(this.debug, 'x-data-repeat: loading');
+    debugIf(true, 'x-data-repeat: loading');
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveItemsExpression();
       await this.resolveHtml();
