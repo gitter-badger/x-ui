@@ -1,20 +1,16 @@
 <ion-content slot="content" id="main" class="ion-padding">
-  <zero-md src="/docs/start/index.md"></zero-md>
-
-  <zero-md src="/docs/start/installed.md"
-    hidden
-    x-show-when="{storage:installed}"></zero-md>
+  <zero-md src="/docs/navigation/static.md"></zero-md>
 
   <ion-toolbar class="x-nav-bottom">
-    <x-link slot="start" href="/home">
+    <x-link slot="start" href="/navigation">
       <ion-button color="light">
         <ion-icon slot="start" name="caret-back-outline"></ion-icon>
-        Home
+        Navigation
       </ion-button>
     </x-link>
-    <x-link slot="end" href="/navigation">
+    <x-link slot="end" href="/navigation/guided">
       <ion-button>
-        Next: Navigation
+        Guided Navigation
         <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
       </ion-button>
     </x-link>

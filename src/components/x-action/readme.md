@@ -1,6 +1,7 @@
 ---
 slug: "x-action-activator/x-action"
 title: "X-ACTION-ACTIVATOR > X-ACTION"
+icon: "flash-outline"
 ---
 
 # X-ACTION-ACTIVATOR > X-ACTION

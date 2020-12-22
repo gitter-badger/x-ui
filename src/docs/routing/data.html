@@ -1,0 +1,32 @@
+<ion-content slot="content" id="main" class="ion-padding">
+  <zero-md src="/docs/navigation/static/data.md"></zero-md>
+
+  <h2>Demo Data Routes</h2>
+  <ion-item>
+    <ion-icon slot="start" name="pizza-outline"></ion-icon>
+    <x-link href="/navigation/static/data/pizza">
+      Select Pizza
+    </x-link>
+  </ion-item>
+  <ion-item>
+    <ion-icon slot="start" name="wine-outline"></ion-icon>
+    <x-link href="/navigation/static/data/wine">
+      Select Wine
+    </x-link>
+  </ion-item>
+
+  <ion-toolbar class="x-nav-bottom">
+    <x-link slot="start" href="/navigation/static/nesting">
+      <ion-button color="light">
+        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+        Nested Routes
+      </ion-button>
+    </x-link>
+    <x-link slot="end" href="/navigation/guided">
+      <ion-button x-next>
+        Next: Guided Navigation
+        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+      </ion-button>
+    </x-link>
+  </ion-toolbar>
+</ion-content>

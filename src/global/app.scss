@@ -19,56 +19,6 @@ body {
   visibility: hidden;
 }
 
-/**
- * ----------------------------------------
- * animation fade-in
- * ----------------------------------------
- */
-
-.fade-in {
-  animation: fadeIn ease 1s;
-  opacity: 1;
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-
-/**
- * ----------------------------------------
- * animation fade-in
- * ----------------------------------------
- */
-.fade-out {
-  animation: fadeOut ease 1s;
-  display: none;
-}
-@keyframes fadeOut {
-  0% {opacity: 1;}
-  100% {opacity: 0;}
-}
-
-.x-ui {
-
-}
-
-.x-header {
-
-}
-
-.x-nav-top {
-
-}
-
-.x-page {
-
-}
-
-.x-content {
-
-}
-
-
 .x-nav-bottom {
   bottom: 0;
   contain: content;

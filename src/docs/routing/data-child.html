@@ -1,0 +1,33 @@
+<ion-content slot="content" id="main" class="ion-padding">
+
+  <h1>Dynamic Route-based Content</h1>
+
+  <p>This page uses route and URL data within the content!</p>
+
+  <x-data-display>
+    <template>
+      <img style="width: 100%;" src="https://source.unsplash.com/random/500x200?{route:item}"/>
+    </template>
+  </x-data-display>
+
+  <h1>Learn about <x-data-display text="{route:item}"></x-data-display></h1>
+  <p>
+    <x-data-display text="{storage:name}"></x-data-display>, you picked one of my
+    favorite things <span x-hide-when="!{query:with}">
+      AND you want a side of <x-data-display text="{query:with}"></x-data-display>
+    </span>.
+  </p>
+
+  <hr/>
+
+  <zero-md src="/docs/navigation/static/data-child.md"></zero-md>
+
+  <ion-toolbar class="x-nav-bottom">
+    <x-link slot="start" href="/navigation/static/data">
+      <ion-button color="light">
+        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+        Data Routing
+      </ion-button>
+    </x-link>
+  </ion-toolbar>
+</ion-content>

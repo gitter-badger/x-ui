@@ -44,6 +44,11 @@ export const config: Config = {
       type: 'docs-json',
       file: `${distDirs.docs}/content/components.json`,
     },
+    // create components(.d.ts|json) into dist
+    {
+      type: 'docs-json',
+      file: `www/components.json`,
+    },
     {
       type: 'www',
       indexHtml: 'src/index.html',

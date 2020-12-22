@@ -1,8 +1,8 @@
-import { Element, Component, h, Prop, State } from '@stencil/core';
+import { Element, Component, h, Prop, State, Host } from '@stencil/core';
 import {
   ActionBus,
   DATA_EVENTS,
-  removeAllChildNodes,
+  // removeAllChildNodes,
   resolveExpression,
   hasExpression,
   RouterService,
@@ -17,16 +17,21 @@ import {
 })
 export class XDataRepeat {
   @Element() el: HTMLXDataRepeatElement;
-  @State() innerItems: Array<any> = [];
+  @State() resolvedItems: Array<any> = [];
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
 
   /**
    The array-string or data expression to obtain a collection for rendering the template.
-   @example {session:user.name}
-   @default null
+   @example {session:cartItems}
    */
   @Prop() items?: string;
+
+  /**
+   * The URL to remote JSON collection to use for the items.
+   * @example {session:user.name}
+   */
+  @Prop() itemsSrc?: string;
 
   /**
    * If set, disables auto-rendering of this instance.
@@ -66,12 +71,14 @@ export class XDataRepeat {
   }
 
   async componentWillLoad() {
+    debugIf(this.debug, 'x-data-repeat: loading');
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
-      await this.resolveTemplate();
+      await this.resolveItemsExpression();
+      await this.resolveHtml();
     });
 
     RouterService.instance?.onRouteChange(async () => {
-      await this.resolveTemplate();
+      await this.resolveHtml();
     });
 
     if (this.childTemplate !== null) {
@@ -80,54 +87,74 @@ export class XDataRepeat {
 
     if (this.childScript !== null) {
       try {
-        this.innerItems = JSON.parse(this.childScript.innerText || '[]');
+        this.resolvedItems = JSON.parse(this.childScript.innerText || '[]');
       } catch (error) {
         warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
       }
-    } else if (!this.items) {
-      warn('x-data-repeat: you must include items attribute or child <script>');
+    } else if (this.itemsSrc) {
+      await this.fetchJson();
+    } else if (this.items) {
+      await this.resolveItemsExpression();
+    } else {
+      warn('x-data-repeat: you must include at least one of the following: items, json-src or a <script> element with a JSON array.');
     }
 
-    removeAllChildNodes(this.el);
+    // removeAllChildNodes(this.el);
+    await this.resolveHtml();
   }
 
-  async componentWillRender() {
-    await this.resolveTemplate();
+  private async fetchJson() {
+    try {
+      const srcSegments = this.itemsSrc.split(':');
+      debugIf(this.debug, `x-data-repeat: fetching items from ${srcSegments[0]}`);
+
+      const response = await fetch(srcSegments[0]);
+      if (response.status === 200) {
+        const data = await response.json();
+        this.resolvedItems = srcSegments[1] ? data[srcSegments[1]] : data;
+        debugIf(this.debug, `x-data-repeat: remote items ${JSON.stringify(data)}`);
+      } else {
+        warn(`x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);
+      }
+    } catch (error) {
+      warn(`x-data-repeat: Unable to parse response from ${this.itemsSrc}`);
+    }
   }
 
-  private async resolveTemplate() {
+  private async resolveItemsExpression() {
+    try {
+      let itemsString = this.items;
+      if (hasExpression(itemsString)) {
+        itemsString = await resolveExpression(itemsString);
+        debugIf(this.debug, `x-data-repeat: items resolved to ${itemsString}`);
+      }
+      this.resolvedItems = JSON.parse(itemsString);
+    } catch (error) {
+      warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
+    }
+  }
+
+  private async resolveHtml() {
+    debugIf(this.debug, 'x-data-repeat: resolving html');
     if (this.noRender) return;
 
-    if (this.items) {
-      try {
-        let itemsString = this.items;
-        if (hasExpression(itemsString)) {
-          itemsString = await resolveExpression(itemsString);
-          debugIf(this.debug, `x-data-repeat: items resolved to ${itemsString}`);
-        }
-        this.innerItems = JSON.parse(itemsString);
-      } catch (error) {
-        warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
-      }
-    }
-
-    debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.innerItems || [])}`);
-    if (this.innerItems) {
+    debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.resolvedItems || [])}`);
+    if (this.resolvedItems && this.innerTemplate) {
       this.resolvedTemplate = '';
-      const promises = this.innerItems
-        .map((item) => resolveExpression(this.innerTemplate, item)
-          .then((html) => {
-            this.resolvedTemplate += html;
-          }));
-      await Promise.all(promises);
+      this.resolvedItems
+        .reduce((previousPromise, item) => previousPromise
+          .then(() => resolveExpression(this.innerTemplate, item)
+            .then((html) => {
+              this.resolvedTemplate += html;
+            })), Promise.resolve());
     }
   }
 
   render() {
     if (this.resolvedTemplate) {
       return (
-        <div innerHTML={this.resolvedTemplate}>
-        </div>
+        <Host innerHTML={this.resolvedTemplate}>
+        </Host>
       );
     }
 

@@ -32,6 +32,23 @@
     </x-data-repeat>
   </ul>
 
+  <h3>Visits in storage:</h3>
+  <ul>
+    <x-data-repeat items="{storage:visit}">
+      <template>
+        <li>{data:item}</li>
+      </template>
+    </x-data-repeat>
+  </ul>
+
+  <h3>Muppets:</h3>
+  <ul>
+    <x-data-repeat items-src="/docs/assets/items.json">
+      <template>
+        <li style="color: {data:color};">{data:name}</li>
+      </template>
+    </x-data-repeat>
+  </ul>
 
   <h2 hidden x-show-when="'{storage:animal}' == 'dog'">
     I only show up when your spirit-animal is 'dog'

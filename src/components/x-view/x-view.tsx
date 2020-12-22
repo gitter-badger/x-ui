@@ -144,7 +144,7 @@ export class XView {
   }
 
   private async fetchHtml() {
-    if (!this.contentSrc || this.content) return;
+    if (this.content || !this.contentSrc) return;
     try {
       debugIf(this.debug, `x-view: fetching content from ${this.contentSrc}`);
       const response = await fetch(this.contentSrc);
