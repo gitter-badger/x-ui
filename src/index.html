@@ -83,6 +83,8 @@
     }
 
     ion-content {
+      --padding-start: 1;
+      --padding-end: 1;
       max-width: 800px;
     }
   </style>
@@ -123,7 +125,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-menu side="start" menu-id="main" content-id="main">
-      <ion-content>
+      <ion-content class="ion-padding-start ion-padding-end ion-padding-top">
         <ion-list>
           <ion-list-header>
             <h2>Guides</h2>
@@ -221,7 +223,7 @@
           content-src="/docs/home/welcome.html">
         </x-view-do>
 
-        <ion-content class="ion-padding" id="main">
+        <ion-content class="ion-padding-start ion-padding-end ion-padding-top"  id="main">
           <zero-md>
             <script type="text/markdown" data-dedent>
               # view.DO Experience HTML
@@ -533,7 +535,7 @@
       </x-view>
 
       <x-view url="/documentation/components/:component" page-title="{route:component}">
-        <ion-content class="ion-padding">
+        <ion-content class="ion-padding-start ion-padding-end ion-padding-top" >
           <x-data-display no-render>
             <template>
               <zero-md src="/components/{route:component}/readme.md"></zero-md>

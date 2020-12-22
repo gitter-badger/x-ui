@@ -44,7 +44,7 @@ export const config: Config = {
       type: 'docs-json',
       file: `${distDirs.docs}/content/components.json`,
     },
-    // create components(.d.ts|json) into dist
+    // create components(.d.ts|json) into www
     {
       type: 'docs-json',
       file: `www/components.json`,
