@@ -181,7 +181,7 @@
           <x-data-repeat items-src="/components.json:components">
             <template>
               <ion-menu-toggle>
-                <x-link href="/xui/components/{data:tag}">
+                <x-link href="/documentation/components/{data:tag}">
                   <ion-item class="ion-text-uppercase">
                     <ion-icon slot="start" name="flash"></ion-icon>
                     {data:tag}
@@ -533,7 +533,7 @@
         </x-view-do>
       </x-view>
 
-      <x-view url="/xui/components/:component" page-title="{route:component}">
+      <x-view url="/documentation/components/:component" page-title="{route:component}">
         <ion-content class="ion-padding">
           <x-data-display no-render>
             <template>
