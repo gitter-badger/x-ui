@@ -1,41 +1,35 @@
-# X-DATA-DISPLAY
+# X-DATA-REPEAT
 
-Render data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.
+This tag renders a collection of data-values, using a template for each item. The item template uses value expressions to insert data.
 
 ## Usage
 
 ````html
-<x-data-display
-  text="{expression}">
-</x-data-display>
+<x-data-repeat items="{expression}">
+  <template>
+    <div>{data}</div>
+  </template>
+</x-data-repeat>
 ````
+The **expression** can be any array-string or an expression to pull data from a registered provider.
 
-The expression can be any string or an expression with tokens from a registered provider.
 
 ### Template Interpolation
 
 This component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.
 
 ````html
-<x-data-display>
+<x-data-repeat>
+  <script type="application/json">
+    [
+      { "color":"blue", "name":"Bob" },
+      { "color":"red", "name":"Sally" }
+    ]
+  </script>  
   <template>
-    <h1>Hello {expression}!</h1>
+    <div style="color: {data:color};">{data:name}</div>
   </template>
-</x-data-display>
-````
-
-> This component only supports template interpolation within the **\<template\>** tag.
-
-### Template Interpolation
-
-This component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.
-
-````html
-<x-data-display>    
-  <template>
-    <h1>Hello {session:name}!</h1>      
-  </template>
-</x-data-display>
+</x-data-repeat>
 ````
 
 
@@ -56,7 +50,7 @@ This component supports HTML string interpolation within a child template tag. T
 * Cookies: **cookie**
 * Route: **route**
 * Query: **query**
-* Inline Data: **data**
+* Inline Data Item: **data**
 
 > See [data providers](/data/providers) to learn how to add custom data providers.
 
@@ -68,15 +62,8 @@ This component supports HTML string interpolation within a child template tag. T
 
 | Property   | Attribute   | Description                                                                                                  | Type      | Default     |
 | ---------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `items`    | `items`     | The array-string or data expression to obtain a collection for rendering the template.                       | `string`  | `undefined` |
 | `noRender` | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
-| `text`     | `text`      | The data expression to obtain a value for rendering as inner-text for this element.                          | `string`  | `undefined` |
-
-
-## CSS Custom Properties
-
-| Name          | Description                       |
-| ------------- | --------------------------------- |
-| `--x-display` | Display value for this component. |
 
 
 ----------------------------------------------

@@ -11,8 +11,6 @@
     </template>
   </x-data-display>
 
-
-
   <x-data-display>
     <template>
       <h2>Spirit Animal: <x-link href="/data/storage-data">{storage:animal}</x-link> </h2>
@@ -24,21 +22,33 @@
     </template>
   </x-data-display>
 
+
+  <h3>Visits in session:</h3>
+  <ul>
+    <x-data-repeat items="{session:visit}">
+      <template>
+        <li>{data:item}</li>
+      </template>
+    </x-data-repeat>
+  </ul>
+
+
   <h2 hidden x-show-when="'{storage:animal}' == 'dog'">
     I only show up when your spirit-animal is 'dog'
   </h2>
-  <x-link slot="start" href="/home">
-    <ion-button color="light">
-      <ion-icon slot="start" name="caret-back-outline"></ion-icon>
-      Home
-    </ion-button>
-  </x-link>
-  <ion-title>Next: Navigation</ion-title>
-  <x-link slot="end" href="/navigation">
-    <ion-button x-next>
-      Next
-      <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-    </ion-button>
-  </x-link>
-</ion-toolbar>
+
+  <ion-toolbar class="x-nav-bottom">
+    <x-link slot="start" href="/data">
+      <ion-button color="light">
+        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+        Using Data
+      </ion-button>
+    </x-link>
+    <x-link slot="end" href="/navigation/expressions">
+      <ion-button x-next>
+        Next: Data Expressions
+        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
+      </ion-button>
+    </x-link>
+  </ion-toolbar>
 </ion-content>

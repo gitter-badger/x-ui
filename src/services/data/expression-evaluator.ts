@@ -53,7 +53,7 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
     let value = (await provider?.get(dataKey)) || defaultValue;
 
     if (providerKey === 'data' && data) {
-      value = data[dataKey];
+      value = (dataKey === 'item') ? data : data[dataKey] || defaultValue;
     }
 
     if (propKey) {
@@ -63,7 +63,7 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
       propSegments.forEach((property) => {
         node = node[property];
       });
-      value = `${node}`;
+      value = (typeof node === 'object') ? JSON.stringify(node) : `${node}`;
     }
 
     result = result.replace(expression, value);

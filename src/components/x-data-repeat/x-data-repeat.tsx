@@ -1,31 +1,32 @@
-import { Element, Component, h, Prop, State, Fragment } from '@stencil/core';
+import { Element, Component, h, Prop, State } from '@stencil/core';
 import {
   ActionBus,
   DATA_EVENTS,
   removeAllChildNodes,
   resolveExpression,
+  hasExpression,
   RouterService,
   warn,
+  debugIf,
 } from '../../services';
 
 @Component({
-  tag: 'x-data-display',
-  styleUrl: 'x-data-display.scss',
+  tag: 'x-data-repeat',
+  styleUrl: 'x-data-repeat.scss',
   shadow: false,
 })
-export class XDataDisplay {
-  @Element() el: HTMLXDataDisplayElement;
+export class XDataRepeat {
+  @Element() el: HTMLXDataRepeatElement;
+  @State() innerItems: Array<any> = [];
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
-  @State() innerData: any = {};
-  @State() value: string;
 
   /**
-   The data expression to obtain a value for rendering as inner-text for this element.
+   The array-string or data expression to obtain a collection for rendering the template.
    @example {session:user.name}
    @default null
    */
-  @Prop() text?: string;
+  @Prop() items?: string;
 
   /**
    * If set, disables auto-rendering of this instance.
@@ -34,6 +35,11 @@ export class XDataDisplay {
    */
   // eslint-disable-next-line @stencil/strict-mutable
   @Prop({ mutable: true}) noRender: boolean = false;
+
+  /**
+  * Turn on debug statements for load, update and render events.
+  */
+  @Prop() debug: boolean = false;
 
   get childTemplate(): HTMLTemplateElement {
     if (!this.el.hasChildNodes()) return null;
@@ -70,14 +76,16 @@ export class XDataDisplay {
 
     if (this.childTemplate !== null) {
       this.innerTemplate = this.childTemplate.innerHTML;
-    }
+    } else warn('x-data-repeat: missing child <template> tag');
 
     if (this.childScript !== null) {
       try {
-        this.innerData = JSON.parse(this.childScript.innerText);
+        this.innerItems = JSON.parse(this.childScript.innerText || '[]');
       } catch (error) {
-        warn(`x-data-display: unable to deserialize JSON: ${error}`);
+        warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
       }
+    } else if (!this.items) {
+      warn('x-data-repeat: you must include items attribute or child <script>');
     }
 
     removeAllChildNodes(this.el);
@@ -89,11 +97,29 @@ export class XDataDisplay {
 
   private async resolveTemplate() {
     if (this.noRender) return;
-    if (this.text) {
-      this.value = await resolveExpression(this.text, this.innerData);
+
+    if (this.items) {
+      try {
+        let itemsString = this.items;
+        if (hasExpression(itemsString)) {
+          itemsString = await resolveExpression(itemsString);
+          debugIf(this.debug, `x-data-repeat: items resolved to ${itemsString}`);
+        }
+        this.innerItems = JSON.parse(itemsString);
+      } catch (error) {
+        warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
+      }
     }
-    if (this.innerTemplate) {
-      this.resolvedTemplate = await resolveExpression(this.innerTemplate, this.innerData);
+
+    debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.innerItems || [])}`);
+    if (this.innerItems) {
+      this.resolvedTemplate = '';
+      const promises = this.innerItems
+        .map((item) => resolveExpression(this.innerTemplate, item)
+          .then((html) => {
+            this.resolvedTemplate += html;
+          }));
+      await Promise.all(promises);
     }
   }
 
@@ -101,13 +127,8 @@ export class XDataDisplay {
     if (this.resolvedTemplate) {
       return (
         <div innerHTML={this.resolvedTemplate}>
-          { this.value }
         </div>
       );
-    }
-
-    if (this.value) {
-      return <Fragment>{ this.value }</Fragment>;
     }
 
     return null;
