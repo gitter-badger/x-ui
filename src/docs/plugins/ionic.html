@@ -189,13 +189,13 @@
         <x-view-do url="/name"
           page-title="Introductions"
           when="!{storage:name}">
-          <x-html no-render src="/docs/home/intro.html"></x-html>
+          <x-include no-render src="/docs/home/intro.html"></x-include>
         </x-view-do>
 
         <x-view-do url="/welcome"
           page-title="Welcome"
           visit="always">
-          <x-html no-render src="/docs/home/welcome.html"></x-html>
+          <x-include no-render src="/docs/home/welcome.html"></x-include>
         </x-view-do>
 
         <ion-content class="ion-padding" id="main">

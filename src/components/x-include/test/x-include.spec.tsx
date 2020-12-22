@@ -1,17 +1,17 @@
 jest.mock('../../../services/logging');
 
 import { newSpecPage } from '@stencil/core/testing';
-import { XHtml } from '../x-html';
+import { XInclude } from '../x-include';
 
-describe('x-template-async', () => {
+describe('x-include', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [XHtml],
-      html: `<x-html></x-html>`,
+      components: [XInclude],
+      html: `<x-include></x-include>`,
       supportsShadowDom: false,
     });
     expect(page.root).toEqualHtml(`
-      <x-html hidden=""></x-html>
+      <x-include hidden=""></x-include>
     `);
   });
 
