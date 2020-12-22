@@ -22,17 +22,23 @@ export class XActionActivator {
   @Prop() activate!: ActionActivationStrategy;
 
   /**
-   * The element to watch for events or visibility,
+   * The element to watch for events when using the OnElementEvent
+   * activation strategy. This element uses the HTML Element querySelector
+   * function to find the element.
+   *
+   * For use with activate="OnElementEvent" Only!
    */
-  @Prop() elementQuery?: string;
+  @Prop() targetElement?: string;
 
   /**
-   *
+   * This is the name of the event to listen to on the target element.
    */
-  @Prop() elementEventName: string = 'click';
+  @Prop() targetEvent: string = 'click';
 
   /**
+   * The time, in seconds at which the contained actions should be submitted.
    *
+   * For use with activate="AtTime" Only!
    */
   @Prop() time?: number;
 
@@ -50,7 +56,9 @@ export class XActionActivator {
     if (this.activated) return;
     // activate children
     this.actions.forEach((action) => {
-      debugIf(this.debug, `x-action-activator:  ${this.parent?.url} Activating [x-action:${this.activate} {${action?.topic}~${action?.command}}]`);
+      const dataString = JSON.stringify(action.data);
+      debugIf(this.debug, `x-action-activator:  ${this.parent?.url} Activating [${this.activate}~{topic: ${action?.topic}, command:${action?.command}, data: ${dataString}}]`);
+
       try {
         ActionBus.emit(action.topic, action);
       } catch (err) {
@@ -79,16 +87,23 @@ export class XActionActivator {
     this.childActions.forEach(async (a) => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
-      debugIf(this.debug, `x-action-activator: ${this.parent?.url} registered [x-action:${this.activate} {${action.topic}~${action.command}}] `);
+      const dataString = JSON.stringify(action.data);
+      debugIf(this.debug, `x-action-activator: ${this.parent?.url} registered [${this.activate}~{topic: ${action?.topic}, command:${action?.command}, data: ${dataString}}}] `);
       this.actions.push(action);
     });
 
-    const element = this.parent?.querySelector(this.elementQuery);
+    if (this.activate === ActionActivationStrategy.OnElementEvent) {
+      const element = this.parent?.querySelector(this.targetElement);
 
-    element?.addEventListener(this.elementEventName, async () => {
-      debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${this.elementQuery} did ${this.elementEventName}`);
-      await this.activateActions();
-    });
+      if (element === undefined) {
+        warn(`x-action-activator: no elements found for '${this.targetElement}'`);
+      } else {
+        element?.addEventListener(this.targetEvent, async () => {
+          debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${this.targetElement} did ${this.targetEvent}`);
+          await this.activateActions();
+        });
+      }
+    }
   }
 
   render() {
