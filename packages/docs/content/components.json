@@ -1,5 +1,5 @@
 {
-  "timestamp": "2020-12-18T07:57:12",
+  "timestamp": "2020-12-21T22:23:43",
   "compiler": {
     "name": "@stencil/core",
     "version": "2.1.0",
@@ -141,6 +141,23 @@
           "required": true
         },
         {
+          "name": "debug",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "debug",
+          "reflectToAttr": false,
+          "docs": "Turn on debug statements for load, update and render events.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
           "name": "elementEventName",
           "type": "string",
           "mutable": false,
@@ -254,11 +271,28 @@
       "filePath": "./src/components/x-data-display/x-data-display.tsx",
       "encapsulation": "none",
       "tag": "x-data-display",
-      "readme": "# X-DATA-DISPLAY\n\n\nRender text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  text=\"<any expression or value to render to the page>\">\n</x-data-display>\n````\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n[data-expressions]:[../data-expressions]\n\n!> This component only supports template parsing with the <template> tag. Any other tag will not be interpreted. \n",
-      "docs": "Render text from data-providers directly to HTML using a declarative expression in the 'from' attribute. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\nSee [data expressions][data-expressions] for full documentation and how to add your own provider.\n\nThe expression can be any string with tokens from any registered provider.\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\nProviders:\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**",
+      "readme": "# X-DATA-DISPLAY\n\nRender data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.\n\n## Usage\n\n### Simple Values\n\n````html\n<x-data-display\n  text=\"{expression}\">\n</x-data-display>\n````\nThe expression can be any string with tokens from any registered provider.\n\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>\n  <template>\n    <h1>Hello {expression}!</h1>\n  </template>\n</x-data-display>\n````\n\n> This component only supports template interpolation within the **\\<template\\>** tag.\n\n### Template Interpolation\n\nThis component supports HTML string interpolation within a child template tag. The values get resolved, just like the expression. The values in the attributes replace the tokens in the content.\n\n````html\n<x-data-display>    \n  <template>\n    <h1>Hello {session:name}!</h1>      \n  </template>\n</x-data-display>\n````\n\n\n**Data Token Format:** ````{<provider>:<data-key>(?<default>)} ````\n\n**provider**: the data provider name\n**data-key**: the data value key within the provider *\n**default**: optional default value if the provider's key is empty.\n\n> See [data expressions](/data/expressions) for full documentation\n\n\n\\* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._\n\n**Providers:**\n\n* Browser Session: **session**\n* Browser Storage: **storage**\n* Cookies: **cookie**\n* Route: **route**\n* Query: **query**\n* In-line: **data**\n\n> See [data providers](/data/providers) to learn how to add custom data providers.\n\n",
+      "docs": "Render data directly into HTML using declarative expressions. This element renders the expression with all data-tokens replaced with the values provided by the provider.",
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "noRender",
+          "type": "boolean",
+          "mutable": true,
+          "attr": "no-render",
+          "reflectToAttr": false,
+          "docs": "If set, disables auto-rendering of this instance.\nTo fetch the contents change to false or remove\nattribute.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
         {
           "name": "text",
           "type": "string",
@@ -917,6 +951,23 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "debug",
+          "type": "boolean",
+          "mutable": false,
+          "attr": "debug",
+          "reflectToAttr": false,
+          "docs": "Turn on debug statements for load, update and render events.",
+          "docsTags": [],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
         {
           "name": "pageTitle",
           "type": "string",

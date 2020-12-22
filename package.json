@@ -48,11 +48,10 @@
     "lint:husky": "lint-staged",
     "--- misc ---": "---------------",
     "watch": "npm-watch",
-    "copy-docs": "cp -R ./src/docs ./www",
     "gs:push": "gsutil cp -r ./dist gs://viewdo-static/x-ui/beta"
   },
   "watch": {
-    "copy-docs": "./src/docs/**"
+    "build:stencil": "./src/**/*.md"
   },
   "husky": {
     "hooks": {
@@ -95,7 +94,6 @@
     "lit-html": "^1.3.0",
     "node-fetch": "^2.6.1",
     "npm-run-all": "^4.1.5",
-    "npm-watch": "^0.7.0",
     "prettier": "^2.1.2",
     "puppeteer": "^5.3.1",
     "stylelint": "^13.7.2",

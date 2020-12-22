@@ -1,5 +1,4 @@
 import { Config } from '@stencil/core';
-import { JsonDocs } from '@stencil/core/internal';
 import { sass } from '@stencil/sass';
 
 // const scssVariables = 'src/scss/variables.scss';
@@ -47,10 +46,12 @@ export const config: Config = {
     },
     {
       type: 'www',
+      indexHtml: 'src/index.html',
       serviceWorker: null, // disable service workers
       copy: [
         { src: '**/*.md' },
         { src: '**/*.html' },
+        { src: 'docs' },
       ],
     },
   ],

@@ -1,4 +1,7 @@
-## Once Installed
+
+---
+
+## Now that it's installed...
 Then add the X-UI tag 
 
 ````html

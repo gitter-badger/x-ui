@@ -11,7 +11,7 @@ Static content routing uses a simple declarative approach. Just put the content 
 </x-view>
 ````
 
-## Nested Routes
+### Nested Routes
 
 Routes go as deep as you need.
   
@@ -20,12 +20,9 @@ Routes go as deep as you need.
   <x-link href="/navigation/static/nesting">
     Go Deeper on Nested Routes
   </x-link>
-  <ion-icon slot="end" color="success"
-    x-show-when="didVisit('/navigation/static/nesting')" 
-    name="checkbox-outline"></ion-icon>
 </ion-item>
 
-## Data Routes
+### Data Routes
 
 Using routes to provide data to views is also possible.
 
@@ -34,7 +31,4 @@ Using routes to provide data to views is also possible.
   <x-link href="/navigation/static/data">
     Using Data Routes
   </x-link>
-  <ion-icon slot="end" color="success"
-    x-show-when="didVisit('/navigation/static/data')" 
-    name="checkbox-outline"></ion-icon>
 </ion-item>

@@ -48,11 +48,34 @@ body {
   100% {opacity: 0;}
 }
 
+.x-ui {
+
+}
+
+.x-header {
+
+}
+
+.x-nav-top {
+
+}
+
+.x-page {
+
+}
+
+.x-content {
+
+}
+
 
 .x-nav-bottom {
   bottom: 0;
-  padding: 0.3em;
-  margin-top: 2em;
-  position: sticky;
   contain: content;
+  margin-top: 5ch;
+  position: sticky;
+}
+
+.x-footer {
+
 }

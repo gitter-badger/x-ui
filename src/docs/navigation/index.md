@@ -1,9 +1,8 @@
 # Navigation
 
-## Static Navigation
-Static routing is a lot like most in-page content routers. 
+## Static Routing
 
-> Except this one doesn't require a build-process or JavaScript.
+Static routing uses HTML to declare path wrappers around content HTML, to hide and display content based on the page content path.
 
 <ion-item>
   <ion-icon slot="start" name="map"></ion-icon>
@@ -14,7 +13,7 @@ Static routing is a lot like most in-page content routers.
 
 ## Guided Navigation
 
-Guided navigation is a convention-based approach to provide developers with a mechanism for presentation-based (next/back) navigation systems.
+Guided navigation is for presentation-based content. This creates a back/next format with a convention-based next route automatically determined by the router. 
 
 <ion-item>
   <ion-icon slot="start" name="navigate-circle"></ion-icon>
