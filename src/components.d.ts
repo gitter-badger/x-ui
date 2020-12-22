@@ -36,11 +36,17 @@ export namespace Components {
           * Turn on debug statements for load, update and render events.
          */
         "debug": boolean;
-        "elementEventName": string;
         /**
-          * The element to watch for events or visibility,
+          * The element to watch for events when using the OnElementEvent activation strategy. This element uses the HTML Element querySelector function to find the element.  For use with activate="OnElementEvent" Only!
          */
-        "elementQuery"?: string;
+        "targetElement"?: string;
+        /**
+          * This is the name of the event to listen to on the target element.
+         */
+        "targetEvent": string;
+        /**
+          * The time, in seconds at which the contained actions should be submitted.  For use with activate="AtTime" Only!
+         */
         "time"?: number;
     }
     interface XAudioControl {
@@ -48,6 +54,10 @@ export namespace Components {
     interface XAudioPlayer {
     }
     interface XDataDisplay {
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender": boolean;
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}
@@ -303,11 +313,17 @@ declare namespace LocalJSX {
           * Turn on debug statements for load, update and render events.
          */
         "debug"?: boolean;
-        "elementEventName"?: string;
         /**
-          * The element to watch for events or visibility,
+          * The element to watch for events when using the OnElementEvent activation strategy. This element uses the HTML Element querySelector function to find the element.  For use with activate="OnElementEvent" Only!
          */
-        "elementQuery"?: string;
+        "targetElement"?: string;
+        /**
+          * This is the name of the event to listen to on the target element.
+         */
+        "targetEvent"?: string;
+        /**
+          * The time, in seconds at which the contained actions should be submitted.  For use with activate="AtTime" Only!
+         */
         "time"?: number;
     }
     interface XAudioControl {
@@ -315,6 +331,10 @@ declare namespace LocalJSX {
     interface XAudioPlayer {
     }
     interface XDataDisplay {
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender"?: boolean;
         /**
           * The data expression to obtain a value for rendering as inner-text for this element.
           * @example {session:user.name}
