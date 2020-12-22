@@ -3,8 +3,8 @@ import { debug } from '../../logging';
 
 let provider: InterfaceProvider = null;
 
-export function setInterfaceProvider(p:InterfaceProvider) {
-  debug(`document-provider: ${p} registered`);
+export function setInterfaceProvider(name: string, p:InterfaceProvider) {
+  debug(`document-provider: ${name} registered`);
   provider = p;
 }
 

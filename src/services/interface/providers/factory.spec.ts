@@ -19,7 +19,7 @@ describe('provider-factory', () => {
 
 
   it('getProvider: returns custom provider', async () => {
-    setInterfaceProvider(custom);
+    setInterfaceProvider('custom', custom);
     let provider = getInterfaceProvider();
     expect(provider).toBe(custom);
   });
