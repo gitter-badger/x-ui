@@ -10,7 +10,7 @@ export type TimedNode = {
 };
 
 // Converts HTML string into document fragment
-export function makeFrag(html:string):DocumentFragment {
+export function convertToFragment(html:string):DocumentFragment {
   const tpl = document.createElement('template');
   tpl.innerHTML = html;
   return tpl.content;

@@ -99,10 +99,11 @@ export class XView {
   }
 
   componentWillLoad() {
-    if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
+    debugIf(this.debug, `x-view: ${this.url} loading`);
+
+    if (this.parentUrl && !this.url?.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(this.debug, `x-view: ${this.url} loading`);
 
     this.route = new Route(
       this.el,

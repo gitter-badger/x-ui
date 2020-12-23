@@ -133,13 +133,11 @@ export class XViewDo {
   }
 
   componentWillLoad() {
-    if (this.parent === undefined) {
-      warn(`x-view-do: ${this.url} error: No valid x-view parent detected`);
-    }
+    debugIf(this.debug, `x-view-do: ${this.url} loading`);
+
     if (this.parentUrl && !this.url.startsWith(this.parentUrl)) {
       this.url = normalizeChildUrl(this.url, this.parentUrl);
     }
-    debugIf(this.debug, `x-view-do: ${this.url} loading`);
 
     this.route = new Route(
       this.el,
@@ -166,6 +164,7 @@ export class XViewDo {
 
   async componentDidLoad() {
     await this.route.loadCompleted();
+
   }
 
   async componentDidUpdate() {
