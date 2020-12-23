@@ -1,6 +1,6 @@
 # X-ACTION
 
-This element holds the data that __is__ the Action Event on the XUI Action Bus.
+This element holds the data that __is__ the Event Action on the XUI Action Bus.
 
 ## Usage
 

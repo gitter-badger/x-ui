@@ -68,20 +68,22 @@ export class XActionActivator {
     this.activated = true;
   }
 
-  private get parent(): HTMLXViewDoElement {
-    return this.el.closest('x-view-do') as HTMLXViewDoElement;
+  private get parent(): HTMLXViewDoElement | HTMLXViewElement {
+    return this.el.closest('x-view-do')
+      || this.el.closest('x-view');
   }
 
   private get childActions(): Array<HTMLXActionElement> {
     if (!this.el.hasChildNodes()) return [];
-    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-ACTION')
+    return Array.from(this.el.childNodes)
+      .filter((c) => c.nodeName === 'X-ACTION')
       .map((v) => v as HTMLXActionElement);
   }
 
   componentDidLoad() {
     debugIf(this.debug, `x-action-activator: ${this.parent?.url} loading`);
     if (this.childActions.length === 0) {
-      warn(`x-action-activator: ${this.parent?.url} No children actions detected`);
+      warn(`x-action-activator: ${this.parent?.url} no children actions detected`);
       return;
     }
     this.childActions.forEach(async (a) => {
@@ -93,13 +95,21 @@ export class XActionActivator {
     });
 
     if (this.activate === ActionActivationStrategy.OnElementEvent) {
-      const element = this.parent?.querySelector(this.targetElement);
+      let element: ChildNode;
+      if (this.targetElement) {
+        element = this.el.parentElement?.querySelector(this.targetElement);
+      } else {
+        element = Array.from(this.el.childNodes)
+          .filter((e) => e.nodeType === e.ELEMENT_NODE)
+          .find((el) => el.nodeName !== 'X-ACTION');
+      }
 
       if (element === undefined) {
-        warn(`x-action-activator: no elements found for '${this.targetElement}'`);
+        warn(`x-action-activator: ${this.parent?.url} no elements found for '${this.targetElement}'`);
       } else {
+        debugIf(this.debug, `x-action-activator: element found ${element.nodeName}`);
         element?.addEventListener(this.targetEvent, async () => {
-          debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${this.targetElement} did ${this.targetEvent}`);
+          debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${element.nodeName} ${this.targetEvent} event`);
           await this.activateActions();
         });
       }
@@ -108,7 +118,7 @@ export class XActionActivator {
 
   render() {
     return (
-      <Host hidden><slot></slot></Host>
+      <Host><slot></slot></Host>
     );
   }
 }

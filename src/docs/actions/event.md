@@ -1,6 +1,6 @@
 # Enter & Exit Event Actions
 
-Event actions work using by attaching to the parent ````x-view-do```` element. The enter and exit only apply when the route is matched exactly. 
+[Event actions](/actions) work using by attaching to the parent ````x-view-do```` element. The enter and exit only apply when the route is matched exactly. 
 
 > You should get two alerts. One on entry and one when you exit.
 

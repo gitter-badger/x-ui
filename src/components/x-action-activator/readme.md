@@ -1,20 +1,15 @@
----
-slug: "x-action-activator"
-title: "X-ACTION-ACTIVATOR"
----
-
 # X-ACTION-ACTIVATOR
 
-This element defines how and when a group of Actions (**\<x-action\>**) are submitted to the Action Bus.
+This element defines how and when a group of Actions, defined with the **\<x-action\>** element, are submitted to the [Action Bus](/actions/bus).
 
 ## Usage
 
-This element should only ever contain child  **\<x-action\>** tags. The attributes tells the parent The parent tag defines how and when the child actions are submitted to the Action Bus.
+This element should only ever contain child  **`<x-action>`** tags. The attributes tells the parent The parent tag defines how and when the child actions are submitted to the [Action Bus](/actions/bus).
 
 
 ````html
 <x-action-activator
-  activate="<activation-strategy></activation-strategy>"
+  activate="<activation-strategy>"
   ... supporting attributes ...
   >
   <x-action ...></x-action>
@@ -86,6 +81,18 @@ The **OnElementEvent** activation-strategy can be used anywhere within the **\<x
   <x-action ...></x-action>
   <x-action ...></x-action>
   <x-action ...></x-action>
+</x-action-activator>
+````
+
+````html
+<x-action-activator
+  activate="OnElementEvent"
+  target-event="click"
+  >
+  <x-action ...></x-action>
+  <x-action ...></x-action>
+  <x-action ...></x-action>
+  <button>Click Me</button>
 </x-action-activator>
 ````
 

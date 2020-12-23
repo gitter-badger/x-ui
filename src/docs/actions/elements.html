@@ -1,7 +1,84 @@
 <ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
-  <zero-md src="/docs/actions/element-event.md"></zero-md>
-  <p>Element:</p>
-  <ion-button id="button1">Click Me</ion-button>
+  <x-markdown src="/docs/actions/element-event.md"></x-markdown>
+  <br/>
+  <x-markdown>
+    <script type="text/markdown" data-dedent>
+      ## Wrapped Element
+
+      ````html
+      <x-action-activator
+        activate="OnElementEvent"
+        target-element="#button1"
+        target-event="click">
+        <x-action
+          topic="document"
+          command="alert"
+          data='{"message": "You clicked it!"}'></x-action>
+        <ion-button>Wrapped Button</ion-button>
+      </x-action-activator>
+      ````
+    </script>
+  </x-markdown>
+
+  <x-action-activator
+    activate="OnElementEvent"
+    target-event="click"
+    debug>
+    <x-action
+      topic="data"
+      command="set-data">
+      <script type="application/json">
+        {
+          "provider": "session",
+          "values": {
+            "clicked": "button1"
+          }
+        }
+      </script>
+    </x-action>
+    <ion-button color="light" id="button1">Wrapped Button</ion-button>
+  </x-action-activator>
+
+  <x-markdown style="margin-top: 20px;">
+    <script type="text/markdown" data-dedent>
+      ## Unwrapped Element
+
+      ````html
+      <x-action-activator
+        activate="OnElementEvent"
+        target-element="#button2"
+        target-event="click">
+        <x-action
+          topic="data"
+          command="set-data">
+        </x-action>
+      </x-action-activator>
+      <ion-button id="button2">Not Wrapped</ion-button>
+      ````
+    </script>
+  </x-markdown>
+
+  <x-action-activator
+    activate="OnElementEvent"
+    target-element="#button2"
+    target-event="click"
+    debug>
+    <x-action
+      topic="data"
+      command="set-data">
+      <script type="application/json">
+        {
+          "provider": "session",
+          "values": {
+            "clicked": "button2"
+          }
+        }
+      </script>
+    </x-action>
+  </x-action-activator>
+
+  <ion-button color="light" id="button2">Not Wrapped</ion-button>
+
   <ion-toolbar class="x-nav-bottom">
     <ion-button slot="start" x-back color="light">
       <ion-icon name="caret-back-outline"></ion-icon>
