@@ -1,14 +1,14 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/start/install.md"></x-markdown>
 
-  <ion-toolbar class="x-nav-bottom">
-    <ion-button slot="start" x-back color="light">
-      <ion-icon name="caret-back-outline"></ion-icon>
+  <div class="navbar x-nav-bottom position-sticky">
+    <button slot="start" x-back class="btn btn-light">
+      <i class="ri-arrow-left-s-line"></i>
       Back
-    </ion-button>
-    <ion-button slot="end" x-next>
+    </button>
+    <button slot="end" x-next class="btn btn-primary">
       Next
-      <ion-icon name="caret-forward-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-content>
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+  </div>
+</div>

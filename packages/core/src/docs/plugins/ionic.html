@@ -48,8 +48,8 @@
     --ion-text-color: #fff;
     --ion-text-color-rgb: 255,255,255;
     --ion-border-color: #525151;
-    --ion-item-background: #363636;
-    --ion-toolbar-background: #464646;
+    --li-background: #363636;
+    --div-background: #464646;
     --ion-tab-bar-background: #000;
     --ion-card-background: #414141;
     --ion-color-primary: #428cff;
@@ -131,17 +131,17 @@
 <body>
   <ion-app>
     <ion-header>
-      <ion-toolbar>
+      <div>
         <ion-buttons slot="start">
           <ion-menu-toggle>
-            <ion-button>
+            <button slot="end" class="btn btn-primary">
               <ion-icon name="menu"></ion-icon>
-            </ion-button>
+            </button>
           </ion-menu-toggle>
           <x-link href="/home">
             <ion-button size="large">
               <ion-icon slot="icon-only" name="home"></ion-icon>
-            </ion-button>
+            </button>
           </x-link>
         </ion-buttons>
         <ion-buttons slot="end">
@@ -159,7 +159,7 @@
           </x-show>
           <x-preferences-popover-button></x-preferences-popover-button>
         </ion-buttons>
-      </ion-toolbar>
+      </div>
     </ion-header>
     <ion-menu side="start" menu-id="main" content-id="main">
       <ion-content class="ion-padding-start ion-padding-end ion-padding-top">
@@ -167,14 +167,14 @@
           <ion-list-header>
             <h2>Components</h2>
           </ion-list-header>
-          <ion-item>
+          <li>
             <ion-icon slot="start" name="flash"></ion-icon>
             <x-link href="/test">
               <ion-menu-toggle>Testing</ion-menu-toggle>
             </x-link>
-          </ion-item>
+          </li>
         </ion-list>
-      </ion-content>
+      </div>
     </ion-menu>
 
     <x-ui
@@ -200,7 +200,7 @@
 
         <ion-content class="ion-padding-start ion-padding-end ion-padding-top"  id="main">
           <h1>Home Page</h1>
-        </ion-content>
+        </div>
 
       </x-view>
 

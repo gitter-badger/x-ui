@@ -1,31 +1,31 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/actions/index.md"></x-markdown>
 
   <ion-list>
-    <ion-item>
+    <li>
       <x-link href="/actions/events">Event-based Actions</x-link>
-    </ion-item>
-    <ion-item>
+    </li>
+    <li>
       <x-link href="/actions/timed">Timed Actions</x-link>
-    </ion-item>
-    <ion-item>
+    </li>
+    <li>
       <x-link href="/actions/elements">Element Event Actions</x-link>
-    </ion-item>
+    </li>
   </ion-list>
 
-  <ion-toolbar class="x-nav-bottom">
+  <div class="navbar x-nav-bottom position-sticky">
     <x-link slot="start" href="/data">
-      <ion-button color="light">
-        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+      <button slot="end" class="btn btn-primary">
+        <i class="ri-arrow-left-s-line"></i>
         Data
-      </ion-button>
+      </button>
     </x-link>
     <x-link slot="end" href="/document">
-      <ion-button>
+      <button slot="end" class="btn btn-primary">
         Next: UX & Document
-        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-      </ion-button>
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
     </x-link>
-  </ion-toolbar>
+  </div>
 
-</ion-content>
+</div>

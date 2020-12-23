@@ -1,4 +1,4 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/actions/element-event.md"></x-markdown>
   <br/>
   <x-markdown>
@@ -14,7 +14,7 @@
           topic="document"
           command="alert"
           data='{"message": "You clicked it!"}'></x-action>
-        <ion-button>Wrapped Button</ion-button>
+        <button>Wrapped Button</button>
       </x-action-activator>
       ````
     </script>
@@ -36,7 +36,7 @@
         }
       </script>
     </x-action>
-    <ion-button color="light" id="button1">Wrapped Button</ion-button>
+    <button class="btn" id="button1">Wrapped Button</button>
   </x-action-activator>
 
   <x-markdown style="margin-top: 20px;">
@@ -53,7 +53,7 @@
           command="set-data">
         </x-action>
       </x-action-activator>
-      <ion-button id="button2">Not Wrapped</ion-button>
+      <button id="button2">Not Wrapped</button>
       ````
     </script>
   </x-markdown>
@@ -77,16 +77,20 @@
     </x-action>
   </x-action-activator>
 
-  <ion-button color="light" id="button2">Not Wrapped</ion-button>
+  <button class="btn" id="button2">Not Wrapped</button>
 
-  <ion-toolbar class="x-nav-bottom">
-    <ion-button slot="start" x-back color="light">
-      <ion-icon name="caret-back-outline"></ion-icon>
-      Back
-    </ion-button>
-    <ion-button slot="end" x-next>
-      Next
-      <ion-icon name="caret-forward-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-content>
+  <div class="navbar x-nav-bottom position-sticky">
+    <x-link href="/actions"slot="start">
+      <button class="btn btn-light">
+        <i class="ri-arrow-left-s-line"></i>
+        Back
+      </button>
+    </x-link>
+    <x-link href="/actions" slot="end">
+      <button class="btn btn-primary">
+        Next: Actions
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </x-link>
+  </div>
+</div>

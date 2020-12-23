@@ -10,19 +10,19 @@
       <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
     </template>
   </x-data-display>
-  ]<ion-toolbar>
+  ]<div>
     <x-link slot="start" href="/home">
-      <ion-button color="light">
-        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+      <button slot="end" class="btn btn-primary">
+        <i class="ri-arrow-left-s-line"></i>
         Home
-      </ion-button>
+      </button>
     </x-link>
     <ion-title>Next: Navigation</ion-title>
     <x-link slot="end" href="/navigation">
-      <ion-button x-next>
+      <button class="btn btn-primary">
         Next
-        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-      </ion-button>
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
     </x-link>
-  </ion-toolbar>
-</ion-content>
+  </div>
+</div>

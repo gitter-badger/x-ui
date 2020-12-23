@@ -7,49 +7,48 @@ You can create smart guided navigation using simple conventions, visit-tracking 
 ### Sequential Routes
 By convention, routes are given an order based on how they are declared.
 
-<ion-item>
-  <ion-icon slot="start" name="play-forward-outline"></ion-icon>  
+<li>
+  <i class="ri-order-play-line"></i> 
   <x-link href="/navigation/guided/sequential">
-    Basic Guided Navigation
+    Basic Sequenced Navigation
   </x-link>
-</ion-item>
+</li>
 
 ### Timed Routes
 
-<ion-item>  
-  <ion-icon slot="start" name="hourglass-outline"></ion-icon>
+<li>  
+  <i class="ri-guide-line"></i>
   <x-link href="/navigation/guided/timed">
     Automatic Navigation w/Time-based Routes
-  </x-link>
-  
-</ion-item>
+  </x-link>  
+</li>
 
 ### Smart Routing
 
-<ion-item>
-  <ion-icon slot="start" name="bulb-outline"></ion-icon>
+<li>
+  <i class="ri-lightbulb-flash-line"></i>
   <x-link href="/navigation/guided/smart">
     Smart Guidance w/Visit Tracking
   </x-link>
 
-</ion-item>
+</li>
 
 ### Rule Based Routes
 
-<ion-item>
-  <ion-icon slot="start" name="trail-sign-outline"></ion-icon>
+<li>
+  <i class="ri-gps-line"></i>
   <x-link href="/navigation/guided/rules">
-     Conditional Guidance Using Data & Expressions
+    Using Rules for Advanced Guidance
   </x-link>
 
-</ion-item>
+</li>
 
 ### Convention-based Routing
 
-<ion-item>
-  <ion-icon slot="start" name="book-outline"></ion-icon>
+<li>
+  <i class="ri-book-3-line"></i>
   <x-link href="/navigation/guided/tutorial">
-     Learn more about the convention-based routing
+     Learn more about convention-based routing
   </x-link>
 
-</ion-item>
+</li>

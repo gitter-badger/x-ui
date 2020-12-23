@@ -1,19 +1,19 @@
 
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/navigation/guided/sequential.md"></x-markdown>
 
-  <ion-toolbar class="x-nav-bottom">
+  <div class="navbar x-nav-bottom position-sticky">
     <x-link slot="start" href="/navigation/guided">
-      <ion-button color="light">
-        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+      <button class="btn btn-light">
+        <i class="ri-arrow-left-s-line"></i>
         Guided
-      </ion-button>
+      </button>
     </x-link>
     <x-link slot="end" href="/navigation/guided/timed">
-      <ion-button x-next>
+      <button class="btn btn-primary">
         Next: Time Routes
-        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-      </ion-button>
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
     </x-link>
-  </ion-toolbar>
-</ion-content>
+  </div>
+</div>

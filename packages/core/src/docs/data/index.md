@@ -1,28 +1,29 @@
-# Data System
-
-## Data Providers
-
-<ion-item>
-  <ion-icon slot="start" name="business-outline"></ion-icon>
-  <x-link href="/data/providers">
-    Data Providers
-  </x-link>
-</ion-item>
+# Declarative Data & HTML
 
 ## Using Data
 
-<ion-item>
+<li>
   <ion-icon slot="start" name="code-download-outline"></ion-icon>
   <x-link href="/data/display">
     Data Display
   </x-link>
-</ion-item>
+</li>
 
 ## Data Expressions
 
-<ion-item>
+<li>
   <ion-icon slot="start" name="code-slash-outline"></ion-icon>
   <x-link href="/data/expressions">
     Data Expressions & Predicates
   </x-link>
-</ion-item>
+</li>
+
+## Data Providers
+
+<li>
+  <ion-icon slot="start" name="business-outline"></ion-icon>
+  <x-link href="/data/providers">
+    Data Providers
+  </x-link>
+</li>
+

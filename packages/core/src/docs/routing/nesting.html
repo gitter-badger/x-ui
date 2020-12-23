@@ -1,18 +1,18 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/navigation/static/nesting.md"></x-markdown>
 
-  <ion-toolbar class="x-nav-bottom">
+  <div class="navbar x-nav-bottom position-sticky">
     <x-link slot="start" href="/navigation/static">
-      <ion-button color="light">
-        <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+      <button slot="end" class="btn btn-primary">
+        <i class="ri-arrow-left-s-line"></i>
         Static Routing
-      </ion-button>
+      </button>
     </x-link>
     <x-link slot="end" href="/navigation/static/data">
-      <ion-button x-next>
+      <button class="btn btn-primary">
         Next: Data Routes
-        <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-      </ion-button>
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
     </x-link>
-  </ion-toolbar>
-</ion-content>
+  </div>
+</div>

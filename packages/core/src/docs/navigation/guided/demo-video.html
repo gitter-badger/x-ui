@@ -1,4 +1,4 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" slot="content" id="main" >
+<div class="container container-fluid mx-auto" slot="content">
   <ion-card>
     <video autoplay width="100%"
       src="https://cdn.videvo.net/videvo_files/video/free/2014-06/small_watermarked/Blue_Sky_and_Clouds_Timelapse_0892__Videvo_preview.webm"></video>
@@ -36,14 +36,14 @@
   <p>The next-button is automatically registered to present the next page the user hasn't visited yet.</p>
 
 
-  <ion-toolbar class="x-nav-bottom">
-    <ion-button slot="start" x-back color="light">
-      <ion-icon slot="start" name="caret-back-outline"></ion-icon>
+  <div class="navbar x-nav-bottom position-sticky">
+    <button slot="start" x-back class="btn btn-light">
+      <i class="ri-arrow-left-s-line"></i>
       Back
-    </ion-button>
-    <ion-button slot="end" x-next>
+    </button>
+    <button slot="end" x-next class="btn btn-primary">
       Next
-      <ion-icon slot="end" name="caret-forward-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-content>
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+  </div>
+</div>
