@@ -1,26 +1,18 @@
 /* eslint-disable no-param-reassign */
-import {
-  Component,
-  h,
-  Prop,
-  Host,
-  Element,
-  State,
-  Watch,
-} from '@stencil/core';
+import { h, Component, Element, Host, Prop, State, Watch } from '@stencil/core';
 
 import {
-  debugIf,
-  Route,
-  RouterService,
-  MatchResults,
-  resolveNext,
-  resolveElementVisibility,
-  hasVisited,
   ActionBus,
   DATA_EVENTS,
-  normalizeChildUrl,
+  debugIf,
+  hasVisited,
   markVisit,
+  MatchResults,
+  normalizeChildUrl,
+  resolveElementVisibility,
+  resolveNext,
+  Route,
+  RouterService,
   warn,
 } from '../..';
 
@@ -184,7 +176,7 @@ export class XView {
     if (this.match?.path) {
       const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
-        <Host class={classes} >
+        <Host class={classes}>
           <slot />
           {this.match?.isExact ? <slot name="content"/> : null }
         </Host>

@@ -1,20 +1,13 @@
 <div class="container container-fluid mx-auto" slot="content">
-  <ion-card>
-    <ion-card-header>
-      <h2>Session Data</h2>
-    </ion-card-header>
-    <ion-card-content>
-      <li>
-        <ion-label>Favorite</ion-label>
-        <ion-input type="text" required
-          onblur="sessionStorage.setItem('favorite', this.value)"
-          onchange="sessionStorage.setItem('favorite', this.value)"
-          value-from="{session:favorite}"></ion-input>
-      </li>
-    </ion-card-content>
-  </ion-card>
+
+  <label class="form-library">Favorite</label>
+  <input type="text" required class="form-control"
+    onblur="sessionStorage.setItem('favorite', this.value)"
+    onchange="sessionStorage.setItem('favorite', this.value)"
+    value-from="{session:favorite}"></input>
+
   <div class="navbar x-nav-bottom position-sticky">
-    <ion-button slot="start" x-back>
+    <button slot="start" class="btn btn-secondary" x-back>
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>

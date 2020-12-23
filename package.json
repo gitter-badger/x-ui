@@ -13,10 +13,10 @@
   },
   "license": "MIT",
   "workspaces": [
+    "docs",
     "packages/core",
-    "packages/docs",
-    "packages/examples/new-data-provider",
     "packages/plugins/x-dxp",
-    "packages/plugins/x-ionic"
+    "packages/plugins/x-ionic",
+    "packages/examples/new-data-provider"
   ]
 }

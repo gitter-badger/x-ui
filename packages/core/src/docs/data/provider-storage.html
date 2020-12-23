@@ -1,26 +1,26 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" >
+<div class="container container-fluid mx-auto" >
 
   <x-data-display>
     <template>
       <h2>Spirit Animal: <x-link href="/data/storage-data">{storage:animal}</x-link> </h2>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text></ion-skeleton-text>
-      <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
+
+
+
+
+
     </template>
   </x-data-display>
-  ]<div>
+
+  <div class="navbar x-nav-bottom position-sticky">
     <x-link slot="start" href="/home">
-      <button slot="end" class="btn btn-primary">
+      <button class="btn btn-secondary">
         <i class="ri-arrow-left-s-line"></i>
         Home
       </button>
     </x-link>
-    <ion-title>Next: Navigation</ion-title>
     <x-link slot="end" href="/navigation">
       <button class="btn btn-primary">
-        Next
+        Next: Navigation
         <i class="ri-arrow-right-s-line"></i>
       </button>
     </x-link>

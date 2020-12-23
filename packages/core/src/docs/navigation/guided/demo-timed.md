@@ -5,24 +5,24 @@ This page is part of a guided-navigation system. The back and next are au
 The above is done using special attributes that only work on a guided route ````x-view-do```
 
 ````html
-<ion-card>
-  <ion-card-media>
-    <ion-img id="step1" hidden
+
+  <div class="card-media">
+    <img id="step1" hidden
       x-in-time="1"
       x-out-time="9"
-      src="https://via.placeholder.com/728x390.png?text=Step+1"></ion-img>
-    <ion-img id="step2" hidden
+      src="https://via.placeholder.com/728x390.png?text=Step+1"></img>
+    <img id="step2" hidden
       x-in-time="10"
       x-out-time="19"
-      src="https://via.placeholder.com/728x390.png?text=Step+2"></ion-img>
-    <ion-img id="step3" hidden
+      src="https://via.placeholder.com/728x390.png?text=Step+2"></img>
+    <img id="step3" hidden
       x-in-time="20"
       x-out-time="29"
-      src="https://via.placeholder.com/728x390.png?text=Step+3"></ion-img>
-  </ion-card-media>
-  <ion-progress-bar color="primary"
-    x-percentage-to="value"></ion-progress-bar>
-  <ion-card-content>
+      src="https://via.placeholder.com/728x390.png?text=Step+3"></img>
+  </div>
+  <progress-bar color="primary"
+    x-percentage-to="value"></progress-bar>
+  <div class="card-content">
 
     <p>Progress: <span x-percentage-to></span></p>
 
@@ -50,6 +50,6 @@ The above is done using special attributes that only work on a guided route ````
       <p>Fake Step 3 copy. </p>
     </div>
 
-  </ion-card-content>
-</ion-card>
+  </div>
+</div>
 ````

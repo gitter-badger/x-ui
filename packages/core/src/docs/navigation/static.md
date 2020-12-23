@@ -14,21 +14,17 @@ Static content routing uses a simple declarative approach. Just put the content 
 ### Nested Routes
 
 Routes go as deep as you need.
-  
-<li>
-  <ion-icon slot="start" name="git-merge-outline"></ion-icon>
-  <x-link href="/navigation/static/nesting">
-    Go Deeper on Nested Routes
-  </x-link>
-</li>
+
+<x-link custom="div" class="card" href="/navigation/static/nesting">
+  Go Deeper on Nested Routes
+</x-link>
+
 
 ### Data Routes
 
 Using routes to provide data to views is also possible.
 
-<li>
-  <ion-icon slot="start" name="server-outline"></ion-icon>
-  <x-link href="/navigation/static/data">
-    Using Data Routes
-  </x-link>
-</li>
+<x-link custom="div" class="card" href="/navigation/static/data">
+  Using Data Routes
+</x-link>
+

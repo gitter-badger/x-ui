@@ -1,46 +1,93 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-to" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
   <div class="container-fluid">
-    <button slot="start" class="navbar-toggler btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button slot="start"
+      class="navbar-toggler btn-sm"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div slot="start" class="navbar-brand"><x-link href="/home"><h2>view.DO</h2></x-link></div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div slot="start"  class="navbar-brand">
+      <x-link href="/home">
+        <h1 class="tag-line" title="view.DO Experience UI HTML">
+          &lt;x-ui/&gt;
+        </h1>
+      </x-link>
+    </div>
+    <div class="collapse navbar-collapse"
+      id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <x-link class="nav-link" href="/start">Get Started</x-link>
+          <x-link class="nav-link"
+            href="/start">
+            Get Started
+          </x-link>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
             Guides
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu"
+            aria-labelledby="navbarDropdown">
             <li class="dropdown-item">
-              <x-link href="/navigation">
-                HTML Navigation & Routing
+              <x-link custom="div"
+                href="/routing">
+                <i class="ri-route-line"></i>
+                Declarative Routing
               </x-link>
             </li>
-            <li  class="dropdown-item">
+            <li class="dropdown-item">
+              <x-link custom="div"
+                href="/navigation">
+                <i class="ri-direction-line"></i>
+                Guided Navigation
+              </x-link>
+            </li>
+            <li class="dropdown-item">
               <x-link href="/data">
+                <i class="ri-database-2-line"></i>
                 Using Data in HTML
               </x-link>
             </li>
             <li class="dropdown-item">
-              <x-link href="/actions" >
+              <x-link href="/actions">
+                <i class="ri-flashlight-line"></i>
                 HTML Event Actions
               </x-link>
             </li>
-            <li  class="dropdown-item">
+            <li class="dropdown-item">
               <x-link href="/document">
+                <i class="ri-plug-2-line"></i>
                 Plugins & Integrations
+              </x-link>
+            </li>
+            <li class="dropdown-item">
+              <x-link href="/developers">
+                <i class="ri-git-pull-request-fill"></i>
+                Contributing
               </x-link>
             </li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
             Components
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu"
+            aria-labelledby="navbarDropdown">
             <x-data-repeat items-src="/components.json:components">
               <template>
                 <li class="dropdown-item">
@@ -53,10 +100,12 @@
           </ul>
         </li>
       </ul>
+
     </div>
-    <x-data-display style="padding:1em;display:block" >
+    <x-data-display slot="end"
+      style="padding:1em;display:block">
       <template>
-        <div class="shadow-sm bg-white rounded p-2 text-center" slot="end">
+        <div class="shadow-sm bg-white rounded p-2 text-center">
           <x-link href="/home/name">
             <i class="ri-user-5-line"></i>
             {storage:name}
@@ -64,6 +113,5 @@
         </div>
       </template>
     </x-data-display>
-    </div>
+  </div>
 </nav>
-

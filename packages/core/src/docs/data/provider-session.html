@@ -1,35 +1,20 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top" >
+<div class="container container-fluid mx-auto" >
 
   <x-data-display x-show-when="{storage:name}">
     <template>
       <h3>Content for {storage:name}</h3>
-      <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text></ion-skeleton-text>
     </template>
   </x-data-display>
 
   <x-data-display when="{session:favorite}">
     <template>
       <h2>Favorite thing: <x-link href="/data/session-data">{session:favorite}</x-link> </h2>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text></ion-skeleton-text>
-      <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
     </template>
   </x-data-display>
 
   <x-data-display>
     <template>
       <h2>Spirit Animal: <x-link href="/data/storage-data">{storage:animal}</x-link> </h2>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
-      <ion-skeleton-text></ion-skeleton-text>
-      <ion-skeleton-text style="width: 88%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 70%;"></ion-skeleton-text>
-      <ion-skeleton-text style="width: 60%;"></ion-skeleton-text>
     </template>
   </x-data-display>
 

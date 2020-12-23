@@ -1,174 +1,148 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr"
+  lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport"
-    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-  <title>Loading...</title>
-  <meta http-equiv="x-ua-compatible" content="IE=Edge">
-  <meta name="description" content="New web components to put some do in your view">
-  <meta name="og:title" content="" />
-  <meta name="og:description" content="" />
-  <meta name="og:image" content="" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Loading...</title>
+    <meta http-equiv="x-ua-compatible"
+      content="IE=Edge">
+    <meta name="description"
+      content="New web components to put some do in your view">
+    <meta name="og:title"
+      content="" />
+    <meta name="og:description"
+      content="" />
+    <meta name="og:image"
+      content="" />
 
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-tap-highlight" content="no">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="View.DO Experience Player">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="theme-color" content="#16161d">
+    <link rel="icon"
+      type="image/ico"
+      href="http://static.view.do/view-do/favicon.ico">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-    crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <meta name="format-detection"
+      content="telephone=no">
+    <meta name="msapplication-tap-highlight"
+      content="no">
 
-  <!-- Markdown -->
-  <script src="https://cdn.jsdelivr.net/gh/markedjs/marked@1/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js" data-manual=""></script>
-  <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css" media="print"
-    onload="this.media='all'" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@4/github-markdown.min.css"
-    media="print" onload="this.media='all'" />
+    <meta name="apple-mobile-web-app-capable"
+      content="yes">
+    <meta name="apple-mobile-web-app-title"
+      content="View.DO Experience Player">
+    <meta name="apple-mobile-web-app-status-bar-style"
+      content="black">
+    <meta name="theme-color"
+      content="#16161d">
 
-  <!-- Experience UI -->
-  <script type="module" src="/build/x-ui.esm.js"></script>
-  <link rel="stylesheet" href="/build/x-ui.css" media="print" onload="this.media='all'" />
+    <!-- Animate.css -->
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      media="print"
+      onload="this.media='all'" />
 
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" media="print"
-    onload="this.media='all'" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet">
 
-  <style>
-    :root {
-      --bs-primary: #7566a0;
-    }
+    <!-- Markdown -->
+    <script src="https://cdn.jsdelivr.net/gh/markedjs/marked@1/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+      data-manual=""></script>
+    <script src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css"
+      media="print"
+      onload="this.media='all'" />
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@4/github-markdown.min.css"
+      media="print"
+      onload="this.media='all'" />
 
-    .btn-primary {
-      background-color: var(--bs-primary);
-    }
+    <base href="/" />
 
-    h1 {
-      padding: 1em 0;
-    }
+    <link rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/icon/apple-touch-icon.png">
+    <!-- Experience UI -->
+    <script type="module"
+      src="build/x-ui.esm.js"></script>
+    <link rel="stylesheet"
+      href="build/x-ui.css"
+      media="print"
+      onload="this.media='all'" />
 
-    .list-group {
-      margin-bottom: 1em;
-    }
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"/>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&family=Ubuntu+Mono:ital,wght@1,700&display=swap"/>
+    <link
+      rel="stylesheet"
+      href="docs/assets/styles.css" />
 
-    .list-group-item:hover {
-      background-color: var(--bs-primary);
-      color: #fff;
-      cursor: pointer;
-    }
+  </head>
 
-    a,
-    a:link,
-    a:visited,
-    a:active {
-      color: var(--bs-primary);
-    }
-  </style>
-</head>
+  <body>
+    <x-ui start-url="/home"
+      app-title="view.DO :: <x-ui/>"
+      transition="animate__animated animate__fadeIn"
+      history-type="hash">
 
-<body>
-  <x-ui start-url="/home" app-title="view.DO UI Components" transition="animate__animated animate__fadeIn"
-    history-type="hash">
+      <x-include src="docs/header.html"></x-include>
 
-    <x-include src="/docs/header.html"></x-include>
+      <x-view url="/home"
+        page-title="Home"
+        content-src="docs/home/index.html">
 
-    <x-view url="/home" page-title="Home">
+        <x-view-do url="/name"
+          page-title="Introductions"
+          when="!{storage:name}"
+          content-src="docs/home/intro.html">
+        </x-view-do>
 
-      <x-view-do url="/name" page-title="Introductions" when="!{storage:name}" content-src="/docs/home/intro.html">
-      </x-view-do>
+        <x-view-do url="/welcome"
+          page-title="Welcome"
+          visit="always"
+          content-src="docs/home/welcome.html"
+          transition="animate__animated animate__bounceIn">
+        </x-view-do>
+      </x-view>
 
-      <x-view-do url="/welcome" page-title="Welcome" visit="always" content-src="/docs/home/welcome.html"
-        transition="animate__animated animate__bounceIn">
-      </x-view-do>
+      <x-view url="/start"
+        page-title="Get Started"
+        content-src="docs/start/index.html">
 
-      <div class="content container mx-auto">
-        <x-markdown>
-          <script type="text/markdown" data-dedent>
-            # Experience HTML
+        <x-view-do url="/use"
+          page-title="Use w/CDN"
+          visit="optional"
+          content-src="docs/start/use.html">
+          <!-- This is how you react to the user and perform function-calls -->
+          <x-action-activator activate="OnEnter">
+            <x-action topic="data"
+              command="set-data"
+              data='{"provider": "storage", "values": {"installed": "cdn" }}'>
+            </x-action>
+          </x-action-activator>
+        </x-view-do>
 
-            **view.DO's Experience HTML is the first HTML-only tool-set built specifically for robust, low-code, interactive web experiences without compilation or a framework; and in most cases, without any JavaScript at all.**
-
-            This set of inter-working elements extend HTML with a declarative approach to easily build engaging experiences with dynamic-content, guided navigation, timed-actions, voice-over audio, video, hooks for animations and much more.
-
-            > This experience was created using these components. View the source to see how it has all been done without script. The HTML alone, declaratively creates a  single-page app, with complex routing, guided navigation with decision-trees, automatic presentations and content data-binding using any data source.
-
-          </script>
-        </x-markdown>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <x-link custom="div" href="/start">
-              <i class="ri-rocket-2-line"></i>
-              Get Started
-            </x-link>
-          </li>
-          <li class="list-group-item">
-            <x-link custom="div" href="/routing">
-              <i class="ri-route-line"></i>
-              Declarative Routing
-            </x-link>
-          </li>
-          <li class="list-group-item">
-            <x-link custom="div" href="/navigation">
-              <i class="ri-direction-line"></i>
-              Guided Navigation
-            </x-link>
-          </li>
-          <li class="list-group-item">
-            <x-link custom="div" href="/data">
-              <i class="ri-database-2-line"></i>
-              Using Data in HTML
-            </x-link>
-          </li>
-          <li class="list-group-item">
-            <x-link custom="div" href="/actions">
-              <i class="ri-flashlight-line"></i>
-              HTML Event Actions
-            </x-link>
-          </li>
-          <li class="list-group-item">
-            <x-link custom="div" href="/document">
-              <i class="ri-plug-2-line"></i>
-              Plugins & Providers
-            </x-link>
-          </li>
-        </ul>
-        <div class="position-sticky navbar x-nav-bottom justify-content-end" style="bottom: 0;">
-          <div class="nav-item">
-            <x-link href="/start">
-              <button class="btn btn-primary">
-                First: Get Started
-                <i class="ri-arrow-right-s-line"></i>
-              </button>
-            </x-link>
-          </div>
-        </div>
-      </div>
-
-    </x-view>
-
-    <x-view url="/start" page-title="Get Started" content-src="/docs/start/index.html">
-
-      <x-view-do url="/use" page-title="Use w/CDN" visit="optional" content-src="/docs/start/use.html">
-        <x-action-activator activate="OnEnter">
-          <x-action topic="data" command="set-data" data='{"provider": "storage", "values": {"installed": "cdn" }}'>
-          </x-action>
-        </x-action-activator>
-      </x-view-do>
-
-      <x-view-do url="/install" page-title="Install" visit="optional" content-src="/docs/start/install.html">
-        <x-action-activator activate="OnEnter">
-          <x-action topic="data" command="set-data">
-            <script type="application/json">
+        <x-view-do url="/install"
+          page-title="Install"
+          visit="optional"
+          content-src="docs/start/install.html">
+          <!-- You can express data in JSON directly in a script tag, but don't call it scripting! -->
+          <x-action-activator activate="OnEnter">
+            <x-action topic="data"
+              command="set-data">
+              <script type="application/json">
               {
                 "provider": "storage",
                 "values": {
@@ -176,175 +150,282 @@
                 }
               }
             </script>
-          </x-action>
-        </x-action-activator>
-      </x-view-do>
-
-    </x-view>
-
-    <x-view url="/navigation" page-title="Navigation System" content-src="/docs/navigation/index.html">
-
-      <x-view url="/static" page-title="Static Routes" content-src="/docs/navigation/static.html"
-        transition="animate__animated animate__fadeIn">
-        <x-view url="/nesting" page-title="Nesting Static Routes" content-src="/docs/navigation/static/nesting.html">
-          <x-view url="/deep" page-title="Deep Nesting" content-src="/docs/navigation/static/nesting-deep.html">
-          </x-view>
-        </x-view>
-        <x-view url="/data" page-title="Data Routes" content-src="/docs/navigation/static/data.html">
-          <x-view url="/:item" page-title="Info on {route:item}" content-src="/docs/navigation/static/data-child.html">
-          </x-view>
-        </x-view>
-      </x-view>
-
-      <x-view url="/guided" page-title="Guided Navigation" content-src="/docs/navigation/guided.html">
-
-        <x-view url="/demo" page-title="Guided Demo" content-src="/docs/navigation/guided/demo-complete.html">
-
-          <x-view-do url="/video" page-title="Guided: Video" visit="always"
-            content-src="/docs/navigation/guided/demo-video.html">
-          </x-view-do>
-
-          <x-view-do url="/animation" page-title="Guided: Animated HTML" visit="always" duration="30"
-            content-src="/docs/navigation/guided/demo-timed.html">
-          </x-view-do>
-        </x-view>
-
-        <x-view url="/sequential" page-title="Sequential Routes" content-src="/docs/navigation/guided/sequential.html">
-
-          <x-view url="/demo" page-title="Sequential Demo" content-src="/docs/navigation/guided/demo-complete.html">
-            <x-view-do url="/step-1" page-title="Step 1" visit="always"
-              content-src="/docs/navigation/guided/demo-step1.html">
-            </x-view-do>
-            <x-view-do url="/step-2" page-title="Step 2" visit="always"
-              content-src="/docs/navigation/guided/demo-step2.html">
-            </x-view-do>
-            <x-view-do url="/step-3" page-title="Step 3" visit="always"
-              content-src="/docs/navigation/guided/demo-step3.html">
-              <x-action-activator activate="OnExit">
-                <x-action topic="routing" command="navigate-to" data='{"url": "/navigation/guided/sequential" }'>
-                </x-action>
-              </x-action-activator>
-            </x-view-do>
-          </x-view>
-
-        </x-view>
-
-        <x-view url="/smart" page-title="Smart Routes" content-src="/docs/navigation/guided/smart.html">
-          <x-view url="/demo" page-title="Smart Demo" content-src="/docs/navigation/guided/demo-complete.html">
-            <x-view-do url="/step-1" page-title="Step 1" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step1.html">
-            </x-view-do>
-            <x-view-do url="/step-2" page-title="Step 2" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step2.html">
-            </x-view-do>
-            <x-view-do url="/step-3" page-title="Step 3" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step3.html">
-              <x-action-activator activate="OnExit">
-                <x-action topic="routing" command="navigate-to" data='{"url": "/navigation/guided/smart" }'>
-                </x-action>
-              </x-action-activator>
-            </x-view-do>
-          </x-view>
-        </x-view>
-
-        <x-view url="/timed" page-title="Timed Routes" content-src="/docs/navigation/guided/timed.html">
-
-          <x-view url="/demo" page-title="Timed Demo" content-src="/docs/navigation/guided/demo-complete.html">
-
-            <x-view-do url="/step-1" page-title="Step 1" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step1.html">
-            </x-view-do>
-            <x-view-do url="/step-2" page-title="Step 2" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step2.html">
-            </x-view-do>
-            <x-view-do url="/step-3" page-title="Step 3" visit="always" duration="10"
-              content-src="/docs/navigation/guided/demo-step3.html">
-              <x-action-activator activate="OnExit">
-                <x-action topic="routing" command="navigate-to" data='{"url": "/navigation/guided/timed" }'>
-                </x-action>
-              </x-action-activator>
-            </x-view-do>
-          </x-view>
-
-          <x-view-do url="/video" page-title="Timed w/Video" visit="optional"
-            content-src="/docs/navigation/guided/demo-video.html">
-          </x-view-do>
-
-          <x-view-do url="/animation" page-title="Timed w/Duration" visit="optional" duration="30"
-            content-src="/docs/navigation/guided/demo-timed.html">
-          </x-view-do>
-        </x-view>
-
-        <x-view url="/conditional" page-title="Conditional Routing"
-          content-src="/docs/navigation/guided/conditional.html">
-        </x-view>
-
-        <x-view url="/tutorial" page-title="Guided Navigation Tutorial"
-          content-src="/docs/navigation/guided/tutorial.html">
-        </x-view>
-      </x-view>
-
-    </x-view>
-
-    <x-view url="/data" page-title="Data System" content-src="/docs/data/index.html">
-
-      <x-view url="/providers" page-title="Data Providers" content-src="/docs/data/providers.html">
-        <x-view-do url="/session-data" page-title="Session Data" when="!{session:favorite}"
-          content-src="/docs/data/session.html">
+            </x-action>
+          </x-action-activator>
         </x-view-do>
-        <x-view-do url="/storage-data" page-title="Storage Data" when="!{storage:animal}"
-          content-src="/docs/data/storage.html">
+
+      </x-view>
+
+      <x-view url="/navigation"
+        page-title="Navigation System"
+        content-src="docs/navigation/index.html">
+
+        <x-view url="/static"
+          page-title="Static Routes"
+          content-src="docs/navigation/static.html"
+          transition="animate__animated animate__fadeIn">
+          <x-view url="/nesting"
+            page-title="Nesting Static Routes"
+            content-src="docs/navigation/static/nesting.html">
+            <x-view url="/deep"
+              page-title="Deep Nesting"
+              content-src="docs/navigation/static/nesting-deep.html">
+            </x-view>
+          </x-view>
+          <x-view url="/data"
+            page-title="Data Routes"
+            content-src="docs/navigation/static/data.html">
+            <x-view url="/:item"
+              page-title="Info on {route:item}"
+              content-src="docs/navigation/static/data-child.html">
+            </x-view>
+          </x-view>
+        </x-view>
+
+        <x-view url="/guided"
+          page-title="Guided Navigation"
+          content-src="docs/navigation/guided.html">
+
+          <x-view url="/demo"
+            page-title="Guided Demo"
+            content-src="docs/navigation/guided/demo-complete.html">
+
+            <x-view-do url="/video"
+              page-title="Guided: Video"
+              visit="always"
+              content-src="docs/navigation/guided/demo-video.html">
+            </x-view-do>
+
+            <x-view-do url="/animation"
+              page-title="Guided: Animated HTML"
+              visit="always"
+              duration="30"
+              content-src="docs/navigation/guided/demo-timed.html">
+            </x-view-do>
+          </x-view>
+
+          <x-view url="/sequential"
+            page-title="Sequential Routes"
+            content-src="docs/navigation/guided/sequential.html">
+
+            <x-view url="/demo"
+              page-title="Sequential Demo"
+              content-src="docs/navigation/guided/demo-complete.html">
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always"
+                content-src="docs/navigation/guided/demo-step1.html">
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always"
+                content-src="docs/navigation/guided/demo-step2.html">
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always"
+                content-src="docs/navigation/guided/demo-step3.html">
+                <x-action-activator activate="OnExit">
+                  <x-action topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/sequential" }'>
+                  </x-action>
+                </x-action-activator>
+              </x-view-do>
+            </x-view>
+
+          </x-view>
+
+          <x-view url="/smart"
+            page-title="Smart Routes"
+            content-src="docs/navigation/guided/smart.html">
+            <x-view url="/demo"
+              page-title="Smart Demo"
+              content-src="docs/navigation/guided/demo-complete.html">
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step1.html">
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step2.html">
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step3.html">
+                <x-action-activator activate="OnExit">
+                  <x-action topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/smart" }'>
+                  </x-action>
+                </x-action-activator>
+              </x-view-do>
+            </x-view>
+          </x-view>
+
+          <x-view url="/timed"
+            page-title="Timed Routes"
+            content-src="docs/navigation/guided/timed.html">
+
+            <x-view url="/demo"
+              page-title="Timed Demo"
+              content-src="docs/navigation/guided/demo-complete.html">
+
+              <x-view-do url="/step-1"
+                page-title="Step 1"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step1.html">
+              </x-view-do>
+              <x-view-do url="/step-2"
+                page-title="Step 2"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step2.html">
+              </x-view-do>
+              <x-view-do url="/step-3"
+                page-title="Step 3"
+                visit="always"
+                duration="10"
+                content-src="docs/navigation/guided/demo-step3.html">
+                <x-action-activator activate="OnExit">
+                  <x-action topic="routing"
+                    command="navigate-to"
+                    data='{"url": "/navigation/guided/timed" }'>
+                  </x-action>
+                </x-action-activator>
+              </x-view-do>
+            </x-view>
+
+            <x-view-do url="/video"
+              page-title="Timed w/Video"
+              visit="optional"
+              content-src="docs/navigation/guided/demo-video.html">
+            </x-view-do>
+
+            <x-view-do url="/animation"
+              page-title="Timed w/Duration"
+              visit="optional"
+              duration="30"
+              content-src="docs/navigation/guided/demo-timed.html">
+            </x-view-do>
+          </x-view>
+
+          <x-view url="/conditional"
+            page-title="Conditional Routing"
+            content-src="docs/navigation/guided/conditional.html">
+          </x-view>
+
+          <x-view url="/tutorial"
+            page-title="Guided Navigation Tutorial"
+            content-src="docs/navigation/guided/tutorial.html">
+          </x-view>
+        </x-view>
+
+      </x-view>
+
+      <x-view url="/data"
+        page-title="Data System"
+        content-src="docs/data/index.html">
+
+        <x-view url="/providers"
+          page-title="Data Providers"
+          content-src="docs/data/providers.html">
+          <x-view-do url="/session-data"
+            page-title="Session Data"
+            when="!{session:favorite}"
+            content-src="docs/data/session.html">
+          </x-view-do>
+          <x-view-do url="/storage-data"
+            page-title="Storage Data"
+            when="!{storage:animal}"
+            content-src="docs/data/storage.html">
+          </x-view-do>
+        </x-view>
+        <x-view url="/navigation"
+          page-title="Data Navigation"
+          content-src="docs/data/navigation.html">
+        </x-view>
+        <x-view url="/display"
+          page-title="Data Display"
+          content-src="docs/data/display.html">
+        </x-view>
+        <x-view url="/expressions"
+          page-title="Data Expressions"
+          content-src="docs/data/expressions.html">
+        </x-view>
+      </x-view>
+
+      <x-view url="/actions"
+        page-title="Action Systems"
+        content-src="docs/actions/index.html">
+        <x-view-do url=" /events"
+          visit="optional"
+          content-src="docs/actions/events.html">
+          <x-action-activator activate="OnEnter">
+            <x-action topic="document"
+              command="alert"
+              data='{"message": "Testing on-enter action"}'></x-action>
+          </x-action-activator>
+          <x-action-activator activate="OnExit">
+            <x-action topic="document"
+              command="alert"
+              data='{"message": "Testing on-exit action"}'></x-action>
+          </x-action-activator>
+        </x-view-do>
+        <x-view-do url="/timed"
+          visit="optional"
+          duration="30"
+          content-src="docs/actions/timed.html">
+          <x-action-activator activate="AtTime"
+            time="3">
+            <x-action topic="document"
+              command="alert"
+              data='{"message": "3-seconds has passed."}'></x-action>
+          </x-action-activator>
+        </x-view-do>
+        <x-view-do url="/elements"
+          visit="optional"
+          content-src="docs/actions/elements.html">
         </x-view-do>
       </x-view>
-      <x-view url="/navigation" page-title="Data Navigation" content-src="/docs/data/navigation.html">
+
+      <x-view url="/documentation/components/:component"
+        page-title="{route:component}">
+        <div class="container container-fluid mx-auto">
+          <x-data-display no-render
+            x-show-when="{route:component}"
+            x-hide-when="!{route:component}">
+            <template>
+              <x-markdown src="components/{route:component}/readme.md"></x-markdown>
+            </template>
+          </x-data-display>
+        </div>
       </x-view>
-      <x-view url="/display" page-title="Data Display" content-src="/docs/data/display.html">
+
+      <x-view url="/test"
+        page-title="Testing"
+        content-src="docs/test.html">
       </x-view>
-      <x-view url="/expressions" page-title="Data Expressions" content-src="/docs/data/expressions.html">
+
+      <!-- Not Found Route -->
+      <x-view url="*"
+        page-title="Page not Found"
+        content-src="docs/not-found.html">
       </x-view>
-    </x-view>
 
-    <x-view url="/actions" page-title="Action Systems" content-src="/docs/actions/index.html">
-      <x-view-do url=" /events" visit="optional" content-src="/docs/actions/events.html">
-        <x-action-activator activate="OnEnter">
-          <x-action topic="document" command="alert" data='{"message": "Testing on-enter action"}'></x-action>
-        </x-action-activator>
-        <x-action-activator activate="OnExit">
-          <x-action topic="document" command="alert" data='{"message": "Testing on-exit action"}'></x-action>
-        </x-action-activator>
-      </x-view-do>
-      <x-view-do url="/timed" visit="optional" duration="30" content-src="/docs/actions/timed.html">
-        <x-action-activator activate="AtTime" time="3">
-          <x-action topic="document" command="alert" data='{"message": "3-seconds has passed."}'></x-action>
-        </x-action-activator>
-      </x-view-do>
-      <x-view-do url="/elements" visit="optional" content-src="/docs/actions/elements.html">
-      </x-view-do>
-    </x-view>
+      <x-data-provider-cookie>
+        <h5>Cookies</h3>
+          <p>This site uses cookies for tracking.</p>
+      </x-data-provider-cookie>
+    </x-ui>
 
-    <x-view url="/documentation/components/:component" page-title="{route:component}">
-      <div class="container container-fluid mx-auto">
-        <x-data-display no-render x-show-when="{route:component}" x-hide-when="!{route:component}">
-          <template>
-            <x-markdown src="/components/{route:component}/readme.md"></x-markdown>
-          </template>
-        </x-data-display>
-      </div>
-    </x-view>
-
-    <x-view url="/test" page-title="Testing" content-src="/docs/test.html">
-    </x-view>
-
-    <!-- Not Found Route -->
-    <x-view url="*" page-title="Page not Found" content-src="/docs/not-found.html">
-    </x-view>
-
-    <x-data-provider-cookie>
-      <h5>Cookies</h3>
-        <p>This site uses cookies for tracking.</p>
-    </x-data-provider-cookie>
-  </x-ui>
-
-</body>
+  </body>
 
 </html>

@@ -1,0 +1,51 @@
+:root {
+  --bs-primary: #7566a0;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+}
+
+.list-group {
+  margin-bottom: 1em;
+}
+
+.list-group-item:hover {
+  background-color: var(--bs-primary);
+  color: #fff;
+  cursor: pointer;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: var(--bs-primary);
+}
+
+a:hover,
+a:link:hover,
+a:visited:hover,
+a:active:hover {
+  color: #a0ec88;
+}
+
+.container-fluid {
+  max-width: 800px;
+}
+
+.tag-line {
+  color: var(--bs-primary);
+  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 3em;
+  position: relative;
+}
+
+.x-nav-bottom {
+  bottom: 1em;
+}
+
+#viewdo-logo {
+  padding: 1em 0 1em 1em;
+}
