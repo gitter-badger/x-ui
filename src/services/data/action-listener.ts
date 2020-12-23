@@ -12,7 +12,7 @@ import { SessionProvider } from './providers/session';
 import { StorageProvider } from './providers/storage';
 import { IActionEventListener, ActionEvent } from '../actions';
 import { warn, debugIf } from '../logging';
-import { state } from '../state';
+import { state } from '../interface/state';
 import { storageAvailable } from '../routing/utils/browser-utils';
 import { EventEmitter } from '../actions/event-emitter';
 

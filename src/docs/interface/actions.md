@@ -1,73 +1,106 @@
-Interface Actions
-============
+# Interface Actions
+The default Interface Action Listener is configured to handle commands raised to the [Event-Action Bus](/actions/event-bus).
 
-### DOM Event Name: **xui:action-event:document**
 
-command: element-toggle-class
------------------------------
+---
+## UI Commands
 
+### set-theme
+Sets the main page theme to dark or light.
+
+**data:**
+- **theme** 'dark|light' (required)
+
+### set-auto-play
+Sets wether or not videos and audio can automatically play when a new route is activated.
+
+**data:**
+- **autoPlay** boolean (required)
+
+### set-sound
+Sets wether or not audio is played globally for audio and videos.
+
+**data:**
+- **muted** boolean (required)
+
+---
+
+## DOM Commands
+
+### element-toggle-class
 Toggles a given class on or off.
 
-#### Arguments:
+**data:**
+- **id** (required)
+- **className** (required)
 
--   **id** [required]
--   **className** [required]
+### element-add-classes
+Add a class or classes to a specified element.
 
-command: element-add-classes
-----------------------------
+**data:**
+- **selector** (required)
+- **classes** (required)
 
-This command activates an animation for a given element (need to understand what, exactly)
+### element-remove-classes
+Remove a class or classes to a specified element.
 
-#### Arguments:
+**data:**
+- **selector** (required)
+- **classes** (required)
 
--   **selector** [required]
--   **classes** [required]
+### element-set-attribute
+Add an attribute to a specified element.
 
-command: element-remove-classes
--------------------------------
+**data:**
+- **selector** (required)
+- **attribute** (required)
+- **value** 
 
-This command activates an animation for a given element (need to understand what, exactly)
+### element-remove-attribute
+Remove an attribute from the specified element.
 
-#### Arguments:
+**data:**
+- **selector** (required)
+- **classes** (required)
 
--   **selector** [required]
--   **classes** [required]
+### element-call-method
+Call a method on an element with optional arguments.
 
-command: modal-open
--------------------
+**data:**
+- **selector** (required)
+- **method** (required)
+- **args** 
 
-This command activates an animation for a given element (need to understand what, exactly)
+---
+## Advanced Commands 
+These commands require an additional Interface Provider.
 
-#### Arguments:
+### modal-open
+Open a modal (if the interface provider supports it)
 
--   **id** [required]
--   **classes** [required]
+**data:**
+- **id** (required)
+- **classes** (required)
 
-command: modal-close
---------------------
+### modal-close
+<fill in>
 
-This command activates an animation for a given element (need to understand what, exactly)
+**data:**
 
-#### Arguments:
+- **id** (required)
+- **classes** (required)
 
--   **id** [required]
--   **classes** [required]
+### alert
+<fill in>
 
-command: alert
---------------
+**data:**
 
-This command activates an animation for a given element (need to understand what, exactly)
+- **message** (required)
 
-#### Arguments:
+### open-toast
+<fill in>
 
--   **message** [required]
+**data:**
 
-command: open-toast
--------------------
-
-This command activates an animation for a given element (need to understand what, exactly)
-
-#### Arguments:
-
--   **type** [required]
--   **message**[required]
+- **type** (required)
+- **message**(required)

@@ -22,26 +22,7 @@ export class DefaultInterfaceProvider implements InterfaceProvider {
 
     this.state = state;
     this.onChange = onChange;
-    this.body = win?.document?.body as HTMLBodyElement;
-  }
-
-  async alert(message: string): Promise<void> {
-    this.win.alert(message);
-  }
-
-  async openToast({message}): Promise<void> {
-    this.win.alert(message);
-  }
-
-  async modalOpen({content}): Promise<void> {
-    this.win.alert(content);
-  }
-  async modalClose({}): Promise<void> {
-    // do nothing
-  }
-
-  async openPopover({content}): Promise<void> {
-    this.win.alert(content);
+    this.body = this.win?.document?.body as HTMLBodyElement;
   }
 
   async setTheme(theme: 'dark' | 'light'): Promise<void> {
@@ -73,6 +54,26 @@ export class DefaultInterfaceProvider implements InterfaceProvider {
     classes?.split(' ').forEach((c: string) => {
       element?.classList.remove(c);
     });
+  }
+
+  async elementSetAttribute({ selector, attribute, value }) {
+    const element = this.body.querySelector(selector) as HTMLElement;
+    element?.setAttribute(attribute, value);
+  }
+
+  async elementRemoveAttribute({ selector, attribute }) {
+    const element = this.body.querySelector(selector) as HTMLElement;
+    element?.removeAttribute(attribute);
+  }
+
+  async elementCallMethod({ selector, method, args }) {
+    const element = this.body.querySelector(selector) as HTMLElement;
+    if (element) {
+      const elementMethod = element[method];
+      if (elementMethod && typeof element === 'function') {
+        await elementMethod(args);
+      }
+    }
   }
 
 }

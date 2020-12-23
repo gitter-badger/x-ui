@@ -13,7 +13,7 @@ The built-in providers provides basic functionality by handling the following co
 ## Custom Interface Provider
 You can extend this system by adding your own provider, using a Register Interface Provider Event Action.
 
-The system listens for custom events in the data topic: **xui:action-events:interface**
+The system listens for custom events in the action topic: **interface**
 
 To register a provider, provide a unique name and an instance that implements IDataProvider and that data will become available within the expression system.
 
@@ -31,7 +31,6 @@ new CustomEvent('actionEvent', {
   }
 })
 ````
-
 
 **Interface Provider Interface:**
 

@@ -1,7 +1,7 @@
 import { ROUTE_TOPIC, NavigateTo, NavigateNext, ROUTE_COMMANDS } from './interfaces';
 import { ActionEvent, IActionEventListener } from '../actions';
 import { debugIf } from '../logging';
-import { state } from '../state';
+import { state } from '../interface/state';
 import { RouterService } from './router';
 import { EventEmitter } from '../actions/event-emitter';
 

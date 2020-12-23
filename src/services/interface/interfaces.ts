@@ -8,11 +8,6 @@ export class InterfaceState {
 }
 
 export type InterfaceProvider = {
-  alert(message: string): Promise<void>;
-  openToast(args: any): Promise<void>;
-  modalOpen(args: any): Promise<void>;
-  modalClose(args: any): Promise<void>;
-  openPopover(args: any): Promise<void>;
   setTheme(theme: 'dark'| 'light'): void;
   setAutoPlay(autoPlay: boolean): void;
   setSound(muted: boolean): void;
@@ -33,7 +28,10 @@ export enum INTERFACE_COMMANDS {
   SetSound = 'set-sound',
   ElementToggleClass = 'element-toggle-class',
   ElementAddClasses = 'element-add-classes',
-  ElementRemoveClasses = ' element-remove-classes',
+  ElementRemoveClasses = 'element-remove-classes',
+  ElementSetAttribute = 'element-set-attribute',
+  ElementRemoveAttribute = 'element-remove-attribute',
+  ElementCallMethod = 'element-call-method'
 }
 
 export enum INTERFACE_EVENTS {

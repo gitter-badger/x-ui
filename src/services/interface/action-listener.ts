@@ -1,7 +1,7 @@
 import { ActionEvent, IActionEventListener } from '../actions';
 import { EventEmitter } from '../actions/event-emitter';
 import { debugIf } from '../logging';
-import { state } from '../state';
+import { state } from './state';
 import { INTERFACE_TOPIC, INTERFACE_COMMANDS, InterfaceProvider } from './interfaces';
 import { DefaultInterfaceProvider } from './providers/default';
 import { getInterfaceProvider, setInterfaceProvider } from './providers/factory';
