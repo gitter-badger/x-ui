@@ -28,10 +28,6 @@ export class XInclude {
     await this.fetchHtml();
   }
 
-  async componentWillRender() {
-    await this.fetchHtml();
-  }
-
   private async fetchHtml() {
     if (this.noRender || this.content) return;
     try {
@@ -50,7 +46,8 @@ export class XInclude {
   render() {
     if (this.content) {
       return (
-        <div class="ion-page" innerHTML={this.content}></div>
+        <Host innerHTML={this.content}>
+        </Host>
       );
     }
     return (<Host hidden></Host>);
