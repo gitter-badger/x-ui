@@ -24,7 +24,7 @@ export default function Template({
   // Determine page title based on section
   // If components, we use filename to mimic web component style
   // Otherwise it's probably a page, so display the nicer frontmatter title
-  let pageTitle
+  let pageTitle = 'unknown';
   if (fields.section && fields.section === "components") {
     pageTitle = fields.filename.replace("/", "")
   } else {

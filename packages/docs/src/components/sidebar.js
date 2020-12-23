@@ -15,23 +15,23 @@ const Sidebar = ({ components, currentPage }) => {
       node: {
         fields: { section, slug, filename },
       },
-    } = component
-    if (section === "components") {
-      // Set active depending on currentPage vs slug
-      return (
-        <ion-item
-          className={`ion-item ${
-            currentPage.includes(slug.slice(0, -1)) ? `ion-item-active` : ""
-          }`}
-        >
-          <Link to={slug} >
-            {`<`}
-            {filename.split('/').join("")}
-            {`>`}
-          </Link>
-        </ion-item>
-      )
-    }
+    } = component;
+
+    // Set active depending on currentPage vs slug
+    return (
+      <ion-item
+        className={`ion-item ${
+          currentPage.includes(slug.slice(0, -1)) ? `ion-item-active` : ""
+        }`}
+      >
+        <Link to={slug} >
+          {`<`}
+          {filename.split('/').join("")}
+          {`>`}
+        </Link>
+      </ion-item>
+    )
+
   })
 
   const pageList = pages.map(page => {

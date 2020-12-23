@@ -4,7 +4,7 @@ This element holds the data that __is__ the Event Action on the XUI Action Bus.
 
 ## Usage
 
-This element should only ever exists within a parent **\<x-action-activator\>** tag. The parent tag defines how and when the child actions are submitted to the Action Bus.
+This element should only ever exists within a parent **`<x-action-activator>`** tag. The parent tag defines how and when the child actions are submitted to the Action Bus.
 
 #### In-Attribute Data
 
@@ -42,13 +42,17 @@ Alternatively, you define the data parameter in a child script tag.
 - x-action-activator
 
 ### Graph
-```mermaid
+
+````mermaid
 graph TD;
   x-view-do --> x-action-activator
   x-action-activator --> x-action
  
   style x-action fill:#f9f,stroke:#333,stroke-width:1px
-```
+  
+````
+
+
 <!-- Auto Generated Below -->
 
 

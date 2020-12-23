@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `view.DO Experience UI`,
     description: `Documentation for view.DO Components, a web component library for creating experiences`,
-    author: `@viewdo`,
+    author: `view.DO`,
   },
   plugins: [
     'gatsby-plugin-sass',
@@ -20,7 +20,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `pages`,
-        path: `../src/components`,
+        path: `../core/src`,
       },
     },
     {
@@ -59,7 +59,7 @@ module.exports = {
               // you may use this to prevent Prism from re-processing syntax.
               // This is an uncommon use-case though;
               // If you're unsure, it's best to use the default value.
-              classPrefix: "language-",
+              classPrefix: "",
               // This is used to allow setting a language for inline code
               // (i.e. single backticks) by creating a separator.
               // This separator is a string and will do no white-space
@@ -110,6 +110,20 @@ module.exports = {
               },
             },
           },
+          {
+            resolve: 'gatsby-remark-mermaid',
+            options: {
+                language: 'mermaid',
+                theme: 'default',
+                viewport: {
+                    width: 200,
+                    height: 200
+                },
+                mermaidOptions: {
+                    themeCSS: ".node rect { fill: cornflowerblue; }"
+                }
+            }
+          }
         ],
       },
     },

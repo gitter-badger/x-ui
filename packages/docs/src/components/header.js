@@ -1,6 +1,6 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 const Header = ({ siteTitle }) => {
 
@@ -24,7 +24,7 @@ const Header = ({ siteTitle }) => {
           <a
             href="https://github.com/viewdo/ui"
             className="pure-menu-link"
-            target="_blank">
+            target="_blank" rel="noreferrer">
             <ion-button>
               <ion-icon name="logo-github"></ion-icon>
             </ion-button>

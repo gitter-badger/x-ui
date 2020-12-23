@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@stencil/core": "^2.0.1",
-    "@viewdo/x-ui": "core"
+    "@viewdo/x-ui": "0.1.0"
   },
   "license": "MIT"
 }

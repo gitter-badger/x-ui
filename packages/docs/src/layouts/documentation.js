@@ -12,6 +12,7 @@ export default ({ children, location }) => {
       sidebar: allMarkdownRemark {
         edges {
           node {
+            id
             fields {
               slug
               filename
@@ -39,10 +40,11 @@ export default ({ children, location }) => {
           href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"
           media="print"
           onload="this.media='all'" />
+
         <script
           type="module"
-          src="/dist/viewdo/viewdo.esm.js"
-        ></script>
+          src="/dist/viewdo/viewdo.esm.js"></script>
+
         <script
           nomodule=""
           src="/dist/index.js"></script>
@@ -70,7 +72,7 @@ export default ({ children, location }) => {
           {children}
         </div>
       </ion-content>
-
     </ion-app>
+
   )
 }
