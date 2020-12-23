@@ -5,7 +5,7 @@ import { sass } from '@stencil/sass';
 const { distDirs } = require('./package.json');
 
 export const config: Config = {
-  namespace: 'viewdo',
+  namespace: 'x-ui',
   buildEs5: false,
   plugins: [
     sass(),
@@ -38,11 +38,6 @@ export const config: Config = {
     {
       type: 'docs-json',
       file: `${distDirs.stencil}/components.json`,
-    },
-    // create components(.d.ts|json) into docs
-    {
-      type: 'docs-json',
-      file: `${distDirs.docs}/content/components.json`,
     },
     // create components(.d.ts|json) into www
     {

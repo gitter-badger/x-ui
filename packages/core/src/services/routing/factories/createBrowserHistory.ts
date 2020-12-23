@@ -74,8 +74,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
 
     let path = pathname + search + hash;
 
-    warnIf(
-      !basename || hasBasename(path, basename),
+    warnIf(basename && !hasBasename(path, basename),
       `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
     );
 

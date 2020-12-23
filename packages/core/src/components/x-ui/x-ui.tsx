@@ -88,6 +88,8 @@ export class XUI {
 
   @Listen('actionEvent', {
     passive: true,
+    target: 'body',
+    capture: true,
   })
   delegateActionEventFromDOM(ev: CustomEvent<ActionEvent<any>>) {
     const action = ev.detail as ActionEvent<any>;

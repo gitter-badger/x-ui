@@ -69,10 +69,9 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   const getDOMLocation = () => {
     let path = decodePath(getHashPath());
 
-    // warnIf(
-    //   !basename || hasBasename(path, basename),
-    //   `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
-    // );
+    warnIf(basename && !hasBasename(path, basename),
+      `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
+    );
 
     if (basename) {
       path = stripBasename(path, basename);
