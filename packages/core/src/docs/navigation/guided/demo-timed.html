@@ -1,22 +1,21 @@
 <div class="container container-fluid mx-auto" slot="content">
-  <ion-card>
+  <div class="card">
     <div style="min-height: 100px;">
-      <ion-img id="step1" hidden
+      <img id="step1" hidden
         x-in-time="1"
         x-out-time="9"
-        src="https://via.placeholder.com/728x390.png?text=Step+1"></ion-img>
-      <ion-img id="step2" hidden
+        src="https://via.placeholder.com/728x390.png?text=Step+1"></img>
+      <img id="step2" hidden
         x-in-time="10"
         x-out-time="19"
-        src="https://via.placeholder.com/728x390.png?text=Step+2"></ion-img>
-      <ion-img id="step3" hidden
+        src="https://via.placeholder.com/728x390.png?text=Step+2"></img>
+      <img id="step3" hidden
         x-in-time="20"
         x-out-time="29"
-        src="https://via.placeholder.com/728x390.png?text=Step+3"></ion-img>
+        src="https://via.placeholder.com/728x390.png?text=Step+3"></img>
     </div>
-    <ion-progress-bar color="primary"
-      x-percentage-to="value"></ion-progress-bar>
-    <ion-card-content>
+    <progress max="100" x-percentage-to="value"></progress>
+    <div class="card-content">
       <p>Progress: <span x-percentage-to></span></p>
 
       <div hidden
@@ -40,14 +39,14 @@
         <p>Fake Step 3 copy. </p>
       </div>
 
-    </ion-card-content>
-  </ion-card>
+    </div>
+  </div>
 
   <x-markdown src="/docs/navigation/guided/demo-timed.md"></x-markdown>
 
 
   <div class="navbar x-nav-bottom position-sticky">
-    <button slot="start" x-back class="btn btn-light">
+    <button slot="start" x-back class="btn btn-secondary">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>

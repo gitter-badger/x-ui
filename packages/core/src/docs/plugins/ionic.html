@@ -149,11 +149,11 @@
             <x-link href="/home/name">
               <ion-chip>
                 <ion-avatar>
-                  <ion-img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                  <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                 </ion-avatar>
-                <ion-label>
+                <label>
                   <x-data-display text="{storage:name}" show-when="{storage:name}">
-                </ion-label>
+                </label>
               </ion-chip>
             </x-link>
           </x-show>
@@ -162,7 +162,7 @@
       </div>
     </ion-header>
     <ion-menu side="start" menu-id="main" content-id="main">
-      <ion-content class="ion-padding-start ion-padding-end ion-padding-top">
+      <div class="container container-fluid mx-auto">
         <ion-list>
           <ion-list-header>
             <h2>Components</h2>
@@ -198,7 +198,7 @@
           <x-include no-render src="/docs/home/welcome.html"></x-include>
         </x-view-do>
 
-        <ion-content class="ion-padding-start ion-padding-end ion-padding-top"  id="main">
+        <div class="container container-fluid mx-auto"  id="main">
           <h1>Home Page</h1>
         </div>
 

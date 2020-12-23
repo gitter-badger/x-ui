@@ -40,7 +40,7 @@
     "lint:css": "stylelint './src/**/*.scss' --allow-empty-input",
     "lint:husky": "lint-staged",
     "--- misc ---": "---------------",
-    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui/docs"
+    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui"
   },
   "watch": {
     "build:stencil": "./src/**/*.md"

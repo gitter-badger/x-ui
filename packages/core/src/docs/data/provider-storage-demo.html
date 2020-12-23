@@ -1,20 +1,20 @@
 <div class="container container-fluid mx-auto" slot="content">
-  <ion-card>
-    <ion-card-header>
+  <div class="card">
+    <div class="card-header">
       <h2>Storage Data</h2>
-    </ion-card-header>
-    <ion-card-content>
+    </div>
+    <div class="card-content">
       <li>
-        <ion-label>Animal</ion-label>
-        <ion-input type="text" required
+        <label>Animal</label>
+        <input type="text" required
           onblur="localStorage.setItem('animal', this.value)"
           onchange="localStorage.setItem('animal', this.value)"
-          value-from="{storage:animal}"></ion-input>
+          value-from="{storage:animal}"></input>
       </li>
-    </ion-card-content>
-  </ion-card>
+    </div>
+  </div>
   <div class="navbar x-nav-bottom position-sticky">
-    <ion-button slot="start" x-back>
+    <button slot="start" x-back class="btn btn-secondary">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>

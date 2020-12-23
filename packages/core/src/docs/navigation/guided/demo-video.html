@@ -1,11 +1,11 @@
 <div class="container container-fluid mx-auto" slot="content">
-  <ion-card>
+  <div class="card">
     <video autoplay width="100%"
       src="https://cdn.videvo.net/videvo_files/video/free/2014-06/small_watermarked/Blue_Sky_and_Clouds_Timelapse_0892__Videvo_preview.webm"></video>
 
-    <ion-progress-bar color="primary"
-      x-percentage-to="value"></ion-progress-bar>
-    <ion-card-content>
+    <progress max="100" x-percentage-to="value"></progress>
+
+    <div class="card-content">
     <p>Progress: <span x-percentage-to></span></p>
 
     <div hidden
@@ -26,8 +26,8 @@
       <h1>Finally...</h1>
     </div>
 
-    </ion-card-content>
-  </ion-card>
+    </div>
+  </div>
 
   <h1>Present a video</h1>
 
@@ -37,7 +37,7 @@
 
 
   <div class="navbar x-nav-bottom position-sticky">
-    <button slot="start" x-back class="btn btn-light">
+    <button slot="start" x-back class="btn btn-secondary">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>

@@ -25,7 +25,7 @@ Content routing uses a simple declarative approach to create multi-page apps fro
 Routes can contain child-routes to semantically express nested content using HTML.
   
 <li>
-  <ion-icon slot="start" name="git-merge-outline"></ion-icon>
+  
   <x-link href="/navigation/static/nesting">
     Go Deeper on Nested Routes
   </x-link>
@@ -36,7 +36,7 @@ Routes can contain child-routes to semantically express nested content using HTM
 Routes can express dynamic parameters, to provide data-driven views. You can even use that data in your HTML, again with no code.
 
 <li>
-  <ion-icon slot="start" name="server-outline"></ion-icon>
+  
   <x-link href="/navigation/static/data">
     Using Data Routes
   </x-link>

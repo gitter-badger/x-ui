@@ -30,7 +30,7 @@ Nested routes are just as easy. You can next **`<x-view>`** elements and have th
 ````
   
 <li>
-  <ion-icon slot="start" name="trending-down-outline"></ion-icon>
+  
   <x-link href="/navigation/static/nesting/deep">
     Click here to go deeper!
   </x-link>
