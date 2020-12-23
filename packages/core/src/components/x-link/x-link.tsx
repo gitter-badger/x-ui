@@ -4,7 +4,7 @@ import { MatchResults, RouterService } from '../..';
 @Component({
   tag: 'x-link',
   styleUrl: 'x-link.scss',
-  shadow: true,
+  shadow: false,
 })
 export class XViewLink {
   @Element() el!: HTMLXLinkElement;

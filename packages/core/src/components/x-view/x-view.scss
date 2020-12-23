@@ -5,22 +5,21 @@
   --padding-top: 16px;
   --background-color: #fff;
   --color: #000;
-
   background-color: var(--background-color);
   color: var(--color);
-  display: flex;
+  contain: layout size style;
+
   height: 100%;
   overflow: auto;
-  padding: val(--padding);
-  padding-bottom: val(--padding-bottom);
-  padding-top: val(--padding-top);
+  padding: var(--padding);
+  padding-bottom: var(--padding-bottom);
+  padding-top: var(--padding-top);
 }
 
 ::slotted(x-view) {
   display: block;
   height: 100%;
   overflow: auto;
-  position: absolute;
   width: 100%;
   z-index: 1;
 }
@@ -40,14 +39,6 @@
 
 :host(.xui-active-route-exact) {
   visibility: visible !important;
-}
-
-.content {
-  display: flex;
-  height: 100%;
-  overflow: auto;
-  width: 100%;
-  z-index: 1;
 }
 
 

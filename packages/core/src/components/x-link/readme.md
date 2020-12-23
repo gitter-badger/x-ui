@@ -1,4 +1,24 @@
-# x-link
+# X-LINK
+
+The element should be used in-place of an **`a`** tag to navigate without refreshing the page. This element supports an active-class that will be applied when the route in **href** matches the route of the app. This is helpful for menus, bread-crumbs and tabs.
+
+## Usage
+
+````html
+<x-link 
+  href="/route">
+  ...
+</x-link>
+````
+
+````html
+<x-link 
+  href="/route"
+  custom="div">
+  ...
+</x-link>
+````
+
 
 
 

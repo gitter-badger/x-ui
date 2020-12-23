@@ -1,4 +1,4 @@
-# x-data-provider-cookie
+# X-DATA-PROVIDER-COOKIE
 
 ## Cookie Data Provider Registration Component
 

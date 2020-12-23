@@ -10,11 +10,11 @@
   display: flex;
   height: 100%;
   overflow: auto;
-  padding: val(--padding);
-  padding-bottom: val(--padding-bottom);
+  padding: var(--padding);
+  padding-bottom: var(--padding-bottom);
   padding-inline-end: var(--padding);
   padding-inline-start: var(--padding);
-  padding-top: val(--padding-top);
+  padding-top: var(--padding-top);
 
   width: 100%;
   z-index: 1;

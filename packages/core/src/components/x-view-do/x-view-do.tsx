@@ -216,7 +216,7 @@ export class XViewDo {
     if (this.match?.isExact) {
       await this.fetchHtml();
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
-      setTimeout(() => this.resolveChildren(), 500);
+      setTimeout(() => this.resolveChildren(), 100);
     }
   }
 
