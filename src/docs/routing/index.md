@@ -1,6 +1,6 @@
 # Routing
 
-Content routing uses a simple declarative approach to create multi-page apps from a single HTML file. By wrapping content in an  [**\<x-view\>**](/components/x-view) or [**\<x-view-do\>**](/components/x-view-do) element and setting the url, the contained-content won't be displayed until the URL path matches the path set in the **url** attribute.
+Content routing uses a simple declarative approach to create multi-page apps from a single HTML file. By wrapping content in an  [**`<x-view>`**](/components/x-view) or [**`<x-view-do>`**](/components/x-view-do) element and setting the url, the contained-content won't be displayed until the URL path matches the path set in the **url** attribute.
 
 
 ````html

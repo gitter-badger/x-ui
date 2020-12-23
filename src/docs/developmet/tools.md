@@ -1,5 +1,7 @@
 ## Other Web Components:
 
+### [Shoelace](https://github.com/shoelace-style/shoelace)
+This is a set of useful web-components for UX interactions.
 
 ### [Ionic Framework](https://ionicframework.com/docs/api)
 This set of component help create app-based layouts that look great on mobile and desktop.

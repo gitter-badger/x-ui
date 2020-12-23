@@ -96,7 +96,7 @@ export class XViewLink {
     }
 
     e.preventDefault();
-    router.history?.push(router.getUrl(this.href, router.root));
+    router.history?.push(this.href);
   }
 
   // Get the URL for this route link without the root from the router

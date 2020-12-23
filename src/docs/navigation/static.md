@@ -1,8 +1,8 @@
 # Static Routing
 
-Static content routing uses a simple declarative approach. Just put the content for your route within a ```x-view``` tag and set the url.
+Static content routing uses a simple declarative approach. Just put the content for your route within a **`<x-view>`** tag and set the url.
 
-> Content won't be displayed until the URL path matches the path set in the ```x-view```.
+> Content won't be displayed until the URL path matches the path set in the **`<x-view>`**.
 
 ````html
 <x-view url="/home"

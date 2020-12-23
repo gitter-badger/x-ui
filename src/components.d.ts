@@ -123,6 +123,16 @@ export namespace Components {
         "href": string;
         "strict": boolean;
     }
+    interface XMarkdown {
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender": boolean;
+        /**
+          * Remote Template URL
+         */
+        "src": string;
+    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
@@ -284,6 +294,12 @@ declare global {
         prototype: HTMLXLinkElement;
         new (): HTMLXLinkElement;
     };
+    interface HTMLXMarkdownElement extends Components.XMarkdown, HTMLStencilElement {
+    }
+    var HTMLXMarkdownElement: {
+        prototype: HTMLXMarkdownElement;
+        new (): HTMLXMarkdownElement;
+    };
     interface HTMLXShowElement extends Components.XShow, HTMLStencilElement {
     }
     var HTMLXShowElement: {
@@ -318,6 +334,7 @@ declare global {
         "x-data-repeat": HTMLXDataRepeatElement;
         "x-include": HTMLXIncludeElement;
         "x-link": HTMLXLinkElement;
+        "x-markdown": HTMLXMarkdownElement;
         "x-show": HTMLXShowElement;
         "x-ui": HTMLXUiElement;
         "x-view": HTMLXViewElement;
@@ -443,6 +460,16 @@ declare namespace LocalJSX {
         "href": string;
         "strict"?: boolean;
     }
+    interface XMarkdown {
+        /**
+          * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
+         */
+        "noRender"?: boolean;
+        /**
+          * Remote Template URL
+         */
+        "src"?: string;
+    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
@@ -467,6 +494,14 @@ declare namespace LocalJSX {
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
         "historyType"?: HistoryType;
+        /**
+          * Listen to all XUI events here.
+         */
+        "onInnerEvents"?: (event: CustomEvent<any>) => void;
+        /**
+          * Listen to all XUI events here.
+         */
+        "onRouteChanged"?: (event: CustomEvent<any>) => void;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
@@ -558,6 +593,7 @@ declare namespace LocalJSX {
         "x-data-repeat": XDataRepeat;
         "x-include": XInclude;
         "x-link": XLink;
+        "x-markdown": XMarkdown;
         "x-show": XShow;
         "x-ui": XUi;
         "x-view": XView;
@@ -577,6 +613,7 @@ declare module "@stencil/core" {
             "x-data-repeat": LocalJSX.XDataRepeat & JSXBase.HTMLAttributes<HTMLXDataRepeatElement>;
             "x-include": LocalJSX.XInclude & JSXBase.HTMLAttributes<HTMLXIncludeElement>;
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
+            "x-markdown": LocalJSX.XMarkdown & JSXBase.HTMLAttributes<HTMLXMarkdownElement>;
             "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;

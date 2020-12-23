@@ -69,10 +69,10 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   const getDOMLocation = () => {
     let path = decodePath(getHashPath());
 
-    warnIf(
-      !basename || hasBasename(path, basename),
-      `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
-    );
+    // warnIf(
+    //   !basename || hasBasename(path, basename),
+    //   `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
+    // );
 
     if (basename) {
       path = stripBasename(path, basename);
@@ -171,7 +171,7 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   const createHref = (location: LocationSegments) => `#${encodePath(basename + createPath(location))}`;
 
   const push = (url: string | LocationSegments, state: any) => {
-    warnIf(state === undefined, 'Hash history cannot push state; it is ignored');
+    warnIf(state, 'Hash history cannot push state; it is ignored');
 
     const action = 'PUSH';
     const location = createLocation(url, undefined, createKey(keyLength), history.location);

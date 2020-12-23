@@ -1,6 +1,6 @@
 ### Nested Routes
 
-Nested routes are just as easy. You can next ```x-view``` elements and have the path automatically inherit the parent ```x-view``` or you can just declare a deep path and provide a way to get there.
+Nested routes are just as easy. You can next **`<x-view>`** elements and have the path automatically inherit the parent **`<x-view>`** or you can just declare a deep path and provide a way to get there.
 
 #### Flat Declaration
 

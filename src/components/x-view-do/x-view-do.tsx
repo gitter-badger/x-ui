@@ -164,7 +164,6 @@ export class XViewDo {
 
   async componentDidLoad() {
     await this.route.loadCompleted();
-
   }
 
   async componentDidUpdate() {
@@ -270,10 +269,10 @@ export class XViewDo {
     } else {
       let time = 0;
       this.timer = setInterval(() => {
-        time = Math.ceil(time += 0.1);
+        time += 0.1;
         debugIf(this.debug, `x-view-do: ${time}`);
         this.timeEvent.emit(timeUpdateEvent, time);
-      }, 1000);
+      }, 100);
     }
 
     this.timeEvent.on(timeUpdateEvent, async (time) => {

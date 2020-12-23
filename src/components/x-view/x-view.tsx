@@ -175,18 +175,18 @@ export class XView {
       const nextDo = await resolveNext(viewDos);
       if (nextDo) {
         // eslint-disable-next-line no-console
-        RouterService.instance?.history.push(nextDo.url, { parent: this.url });
+        RouterService.instance?.history.push(nextDo.url);
       }
     }
   }
 
   render() {
-    if (this.url && this.match?.path) {
+    if (this.match?.path) {
       const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
       return (
         <Host class={classes} >
           <slot />
-          <slot name="content"/>
+          {this.match?.isExact ? <slot name="content"/> : null }
         </Host>
       );
     }

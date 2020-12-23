@@ -72,13 +72,6 @@ This component supports HTML string interpolation within a child template tag. T
 | `text`     | `text`      | The data expression to obtain a value for rendering as inner-text for this element.                          | `string`  | `undefined` |
 
 
-## CSS Custom Properties
-
-| Name          | Description                       |
-| ------------- | --------------------------------- |
-| `--x-display` | Display value for this component. |
-
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

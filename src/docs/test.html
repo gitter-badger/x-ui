@@ -1,7 +1,13 @@
-<ion-content class="ion-padding-start ion-padding-end ion-padding-top"  id="main">
-  <zero-md>
+<div class="ion-page ion-padding-start ion-padding-end ion-padding-top"  id="main">
+  <x-markdown >
     <script type="text/markdown" data-dedent>
       # view.DO Testing Ground
     </script>
-  </zero-md>
+  </x-markdown>
+  <div class="mermaid">
+    graph LR
+      A --- B
+      B-->C[fa:fa-ban forbidden]
+      B-->D(fa:fa-spinner);
+  </div>
 </ion-content>

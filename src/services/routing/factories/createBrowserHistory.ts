@@ -68,16 +68,15 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
     }
   };
 
-  const getDOMLocation = (historyState: LocationSegments) => {
+  function getDOMLocation(historyState: LocationSegments) {
     const { key, state } = historyState || {};
     const { pathname, search, hash } = globalLocation;
 
     let path = pathname + search + hash;
 
     warnIf(
-      !(!basename || hasBasename(path, basename)),
-      `${'You are attempting to use a basename on a page whose URL path does not begin '
-      + 'with the basename. Expected path "'}${path}" to begin with "${basename}".`,
+      !basename || hasBasename(path, basename),
+      `${'You are attempting to use a basename on a page whose URL path does not begin with the basename. Expected path "'}${path}" to begin with "${basename}".`,
     );
 
     if (basename) {
@@ -85,11 +84,11 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
     }
 
     return createLocation(path, state, key || createKey(keyLength));
-  };
+  }
 
   const transitionManager = createTransitionManager();
 
-  const setState = (nextState?: NextState) => {
+  function setState(nextState?: NextState) {
     // Capture location for the view before changing history.
     scrollHistory.capture(history.location.key);
 
@@ -103,7 +102,7 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
       history.location,
       history.action,
     );
-  };
+  }
 
   const handlePopState = (event: any) => {
     // Ignore extraneous popstate events in WebKit.

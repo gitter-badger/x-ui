@@ -16,6 +16,7 @@
     "noslash",
     "recalc",
     "rehype",
+    "stylelint",
     "unhinted",
     "unlisten"
   ],

@@ -120,7 +120,15 @@ export class XUI {
       this.innerEvents.emit(...args);
     });
 
-    const router = RouterService.initialize(writeTask, this.el, this.historyType, this.root, this.appTitle, this.transition, this.scrollTopOffset);
+    const router = RouterService.initialize(
+      writeTask,
+      this.el,
+      this.historyType,
+      this.root,
+      this.appTitle,
+      this.transition,
+      this.scrollTopOffset);
+
     router.onRouteChange(() => {
       this.location = router.location;
       setTimeout(() => {
@@ -130,7 +138,7 @@ export class XUI {
     });
 
     if (this.startUrl !== '/' && router.location.pathname === '/') {
-      router.history.replace(this.startUrl);
+      router.history.replace(router.getUrl(this.startUrl, this.root));
     }
 
     const dataListener = new DataListener();
