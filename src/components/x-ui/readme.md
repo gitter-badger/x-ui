@@ -53,6 +53,14 @@ It provides an entry-point for the guided-navigation system.
 | `transition`      | `transition`        | Navigation transition between routes. This is a CSS animation class.                                                         | `string`              | `'fade-in'` |
 
 
+## Events
+
+| Event          | Description                    | Type               |
+| -------------- | ------------------------------ | ------------------ |
+| `innerEvents`  | Listen to all XUI events here. | `CustomEvent<any>` |
+| `routeChanged` | Listen to all XUI events here. | `CustomEvent<any>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

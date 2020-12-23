@@ -3,6 +3,8 @@ import {
   h,
   Host,
   Element,
+  Event,
+  EventEmitter,
   Listen,
   Prop,
   State,
@@ -92,16 +94,39 @@ export class XUI {
     ActionBus.emit(action.topic, action);
   }
 
+  /**
+   * Listen to all XUI events here.
+   */
+  @Event({
+    eventName: 'innerEvents',
+    composed: true,
+  }) innerEvents: EventEmitter<any>;
+
+  /**
+   * Listen to all XUI events here.
+   */
+  @Event({
+    eventName: 'routeChanged',
+    composed: true,
+  }) routeChanged: EventEmitter<any>;
+
   componentWillLoad() {
     if (this.debug) log('xui: initializing <debug>');
     else log('xui: initializing');
 
     state.debug = this.debug;
 
+    ActionBus.on('*', (...args) => {
+      this.innerEvents.emit(...args);
+    });
+
     const router = RouterService.initialize(writeTask, this.el, this.historyType, this.root, this.appTitle, this.transition, this.scrollTopOffset);
     router.onRouteChange(() => {
       this.location = router.location;
-      setTimeout(() => resolveChildRemoteHtml(), 100);
+      setTimeout(() => {
+        resolveChildRemoteHtml();
+        this.routeChanged.emit(this.location);
+      }, 100);
     });
 
     if (this.startUrl !== '/' && router.location.pathname === '/') {
@@ -134,6 +159,7 @@ export class XUI {
       listener.destroy();
       listener = this.listeners.pop();
     }
+    ActionBus.removeAllListeners();
   }
 
   componentDidLoad() {
