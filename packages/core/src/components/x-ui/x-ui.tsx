@@ -140,7 +140,7 @@ export class XUI {
     });
 
     if (this.startUrl !== '/' && router.location.pathname === '/') {
-      router.history.replace(router.getUrl(this.startUrl, this.root));
+      router.history.push(router.getUrl(this.startUrl, this.root));
     }
 
     const dataListener = new DataListener();

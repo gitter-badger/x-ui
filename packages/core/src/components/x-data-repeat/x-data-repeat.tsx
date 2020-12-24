@@ -7,7 +7,7 @@ import {
   resolveExpression,
   hasExpression,
   RouterService,
-  warn,
+  warnIf,
   debugIf,
 } from '../../services';
 
@@ -72,7 +72,7 @@ export class XDataRepeat {
   }
 
   async componentWillLoad() {
-    debugIf(true, 'x-data-repeat: loading');
+    debugIf(this.debug, 'x-data-repeat: loading');
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveItemsExpression();
       await this.resolveHtml();
@@ -84,20 +84,20 @@ export class XDataRepeat {
 
     if (this.childTemplate !== null) {
       this.innerTemplate = this.childTemplate.innerHTML;
-    } else warn('x-data-repeat: missing child <template> tag');
+    } else warnIf(this.debug, 'x-data-repeat: missing child <template> tag');
 
     if (this.childScript !== null) {
       try {
         this.resolvedItems = arrify(JSON.parse(this.childScript.innerText || '[]'));
       } catch (error) {
-        warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
+        warnIf(this.debug, `x-data-repeat: unable to deserialize JSON: ${error}`);
       }
     } else if (this.itemsSrc) {
       await this.fetchJson();
     } else if (this.items) {
       await this.resolveItemsExpression();
     } else {
-      warn('x-data-repeat: you must include at least one of the following: items, json-src or a <script> element with a JSON array.');
+      warnIf(this.debug, 'x-data-repeat: you must include at least one of the following: items, json-src or a <script> element with a JSON array.');
     }
 
     // removeAllChildNodes(this.el);
@@ -106,7 +106,7 @@ export class XDataRepeat {
 
   private async fetchJson() {
     try {
-      const srcSegments = this.itemsSrc.split(':');
+      const srcSegments = this.itemsSrc.split('|');
       debugIf(this.debug, `x-data-repeat: fetching items from ${srcSegments[0]}`);
 
       const response = await fetch(srcSegments[0]);
@@ -115,10 +115,10 @@ export class XDataRepeat {
         this.resolvedItems = arrify(srcSegments[1] ? data[srcSegments[1]] : data);
         debugIf(this.debug, `x-data-repeat: remote items ${JSON.stringify(data)}`);
       } else {
-        warn(`x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);
+        warnIf(this.debug, `x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);
       }
     } catch (error) {
-      warn(`x-data-repeat: Unable to parse response from ${this.itemsSrc}`);
+      warnIf(this.debug, `x-data-repeat: Unable to parse response from ${this.itemsSrc}`);
     }
   }
 
@@ -131,13 +131,15 @@ export class XDataRepeat {
       }
       this.resolvedItems = JSON.parse(itemsString);
     } catch (error) {
-      warn(`x-data-repeat: unable to deserialize JSON: ${error}`);
+      warnIf(this.debug, `x-data-repeat: unable to deserialize JSON: ${error}`);
     }
   }
 
   private async resolveHtml() {
     debugIf(this.debug, 'x-data-repeat: resolving html');
     if (this.noRender) return;
+
+    if (!this.items && this.resolvedTemplate) return;
 
     debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.resolvedItems || [])}`);
     if (this.resolvedItems && this.innerTemplate) {
