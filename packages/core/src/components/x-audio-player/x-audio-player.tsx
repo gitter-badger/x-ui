@@ -1,5 +1,5 @@
 import { Component, h, State } from '@stencil/core';
-import {Howl, Howler} from 'howler';
+// import {Howl, Howler} from 'howler';
 import { ActionBus, state, warn, RouterService } from '../..';
 
 

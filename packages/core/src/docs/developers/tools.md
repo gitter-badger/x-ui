@@ -13,3 +13,7 @@ This set of component help create app-based layouts that look great on mobile an
 
 ### [ui-js Code Playground](https://github.com/ui-js/code-playground)
 * Code Playground
+
+
+Site Tour:
+https://introjs.com/docs/intro/attributes
