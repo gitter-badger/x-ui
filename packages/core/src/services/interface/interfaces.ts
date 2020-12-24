@@ -44,3 +44,41 @@ export type InterfaceProviderRegistration = {
   name: string;
   provider: InterfaceProvider
 };
+
+
+export const AUDIO_TOPIC ='audio';
+
+export enum AUDIO_COMMANDS {
+  Play = 'play',
+  Queue = 'queue',
+  Load = 'load',
+  Start = 'start',
+  Pause = 'pause',
+  Resume = 'resume',
+  Mute = 'mute',
+  Volume = 'volume',
+  Seek = 'seek',
+}
+
+export enum DiscardStrategy {
+  Route = 'route',
+  Video = 'video',
+  Next = 'next',
+  None = 'none'
+}
+
+export enum LoadStrategy {
+  Queue = 'queue',
+  Play = 'play',
+  Load = 'load',
+}
+
+export type AudioTrack = {
+  id:string;
+  type: 'music'|'sound';
+  src:string;
+  load: LoadStrategy;
+  discard: DiscardStrategy;
+  track: boolean;
+  loop: boolean;
+}

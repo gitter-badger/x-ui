@@ -1,7 +1,7 @@
 jest.mock('../../../services/logging');
 
 import { newSpecPage } from '@stencil/core/testing';
-import { AudioPlayer } from '../audio-player';
+import { AudioPlayer } from '../x-audio-player';
 
 describe('audio-player', () => {
   it('renders', async () => {
