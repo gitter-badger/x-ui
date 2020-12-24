@@ -2,7 +2,7 @@
 ---
 
 ## Now that it's installed...
-Then add the X-UI tag 
+Just add the [**`<x-ui>`**](/documentation/components/x-ui) tag to your page.
 
 ````html
 <x-ui

@@ -14,6 +14,7 @@
     "hashbang",
     "loadash",
     "noslash",
+    "onbeforeexit",
     "recalc",
     "rehype",
     "stylelint",

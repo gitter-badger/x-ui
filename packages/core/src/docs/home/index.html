@@ -1,53 +1,83 @@
-<div class="content container-fluid mx-auto">
+<div class="content container-fluid mx-auto" slot="content"
+data-intro="The <b>x-view</b> element created a route for '/home' that only shows this content for this path. <br/><br/> Check out the <a href='documentation/components/x-view'>documentation</a> to see what else you can do.">
 
   <h3>It's not magic, it's view.DO!</h3>
+  <p>
+    view.DO's Experience UI is the first HTML-first tool-set built
+    specifically for interactive web experiences. Create engaging
+    content without compilation or a complicated framework;
+    and in most cases, without any JavaScript at all.
+  </p>
+  <p class="card p-2 lead bg-info bg-gradient text-white">
+    This documentation was created using these components.
+    The application boasts complex routing, guided navigation,
+    automatic presentations, data-binding <br/>-- ALL WITHOUT JAVASCRIPT!
+  </p>
+  <p x-show-when="{storage:name}" class="fst-italic border-start p-2  border-secondary"
+    data-intro="The <b>x-show-when</b> attribute dynamically shows or hides content in HTML based on simple expression. <br/><br/>Check out the <a href='documentation/components/x-view'>documentation</a> to learn more."
+    >
+    💬 Psst, <x-data-display
+      data-intro="The <b>x-data-display</b> component embeds data dynamically in HTML. <br/><br/>Check out the <a href='documentation/components/x-data-display'>documentation</a> to see other ways to use data in your HTML."
+      text="{storage:name}"></x-data-display>:
+    <br/>
+    For demonstration-purposes, we just use browser data: URL,
+    cookie, local-session & local-storage.
+  </p>
 
-  <ul class="list-group float-start me-3 mt-2 d-none d-md-block">
+  <h4>How does this help?</h4>
+  <p>
+    This set of inter-working components make it simple to build engaging,
+    application-like experiences with dynamic-content, guided navigation,
+    timed-actions, voice-over audio, video, hooks for animations and much more.
+  </p>
+  <p>
+    These components use a convention-over-configuration approach to guide
+    user behavior with your content in a rule-based, presentation format.
+  </p>
+
+  <ul class="list-group btn-group-lg float-end me-3 mt-2 d-none d-md-block">
+    <li class="list-group-item" onclick="introJs().start()" style="cursor: pointer;">
+      <i class="ri-play-circle-line"></i>
+      Get a Tour!
+    </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/start">
+      <x-link href="/start">
         <i class="ri-rocket-2-line"></i>
         Get Started
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/routing">
+      <x-link href="/routing">
         <i class="ri-route-line"></i>
         Content Routing
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/navigation">
+      <x-link href="/navigation">
         <i class="ri-direction-line"></i>
         Guided Navigation
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/data">
+      <x-link href="/data">
         <i class="ri-database-2-line"></i>
         Using Data in HTML
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/audio">
+      <x-link href="/audio">
         <i class="ri-music-line"></i>
         Incorporating Audio
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/actions">
+      <x-link href="/actions">
         <i class="ri-flashlight-line"></i>
         HTML Event Actions
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link custom="div"
-        href="/document">
+      <x-link href="/document">
         <i class="ri-plug-2-line"></i>
         Plugins & Providers
       </x-link>
@@ -60,33 +90,8 @@
     </li>
   </ul>
 
-  <p>
-    view.DO's Experience UI is the first HTML-only tool-set built
-    specifically for interactive web experiences.
-  </p>
-
-  <p>
-    Create engaging content without compilation or a framework;
-    and in most cases, without any JavaScript at all.
-  </p>
-
-  <p class="lead">
-    These documents are created using these components.
-    View the source to see how it has all been done without script.
-    The HTML alone, declaratively creates a single-page app,
-    with complex routing, guided navigation with decision-trees,
-    automatic presentations and content data-binding using any
-    data source.
-  </p>
-
-  <h4 style="clear:left">How does this help?</h4>
-
-  <p>This set of inter-working elements make it simple to build engaging, application-like experiences with dynamic-content, guided navigation, timed-actions, voice-over audio, video, hooks for animations and much more.</p>
-
-  <p>These components use a convention-over-configuration approach to guide user behavior with your content in a rule-based, presentation format.</p>
-
-  <h4>Smart Guided Navigation</h4>
-  <ul>
+  <h4><i class="ri-direction-line"></i> Smart Guided Navigation</h4>
+  <ul data-intro="PLUS!<h2>So...</h2>">
     <li>Automatic Back & Forward Resolution</li>
     <li>Sequenced Content: present, educate, inform</li>
     <li>Sequenced Input: surveys, quiz and display results</li>
@@ -95,7 +100,7 @@
     <li>Stateful: pick up where a user left-off</li>
   </ul>
 
-  <h4>Built for Presentations</h4>
+  <h4 data-intro="<h2>Much...</h2>"><i class="ri-slideshow-line"></i> Built for Presentations</h4>
   <ul>
     <li>Queued, Timed & Event-based Actions</li>
     <li>Animated Transitions</li>
@@ -103,28 +108,28 @@
     <li>Animation Hooks</li>
   </ul>
 
-  <h4>Dynamic & Personalized</h4>
+  <h4 data-intro="<h2>... MORE!</h2>Thank you."><i class="ri-empathize-line"></i> Easily Personalized</h4>
   <ul>
-    <li>Data Tags that can render personalized data from a variety of sources</li>
+    <li>Data Tags to render personalized data from a variety of sources</li>
     <li>Use HTML to access data from your API</li>
     <li>Capture attention and data, with smart workflows to replace boring forms.</li>
     <li>Personalize the content for each of your visitors.</li>
   </ul>
 
-  <h4>PLUS:</h4>
+  <h4><i class="ri-heart-line"></i> Built with love:</h4>
   <ul>
     <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
-    <li><b>Themeable:</b> Bring your favorite UI components or themes. X-UI stays out of the way. </li>
-    <li><b>Extensible:</b> Data Provider System to easily connect your data</li>
+    <li><b>Themeable:</b> BYO UI and themes. <b>&lt;x-iu/&gt;</b>> stays out of the way. </li>
+    <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
     <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
-    <li><b>Portable:</b> It's JUST HTML/CSS </li>
+    <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
     <li><b>Trackable:</b> Analytics & Behavior Tracking Plugins</li>
     <li><b>Extensible:</b> The provider system makes it easy to integrate with anything.</li>
   </ul>
 
   <h6>Brought to you by:</h6>
   <a href="https://view.do" target="_blank">
-    <img id="viewdo-logo" src="https://static.view.do/view-do/viewdo-logo-color.svg" width="100vw"/>
+    <img id="viewdo-logo" src="https://static.view.do/view-do/viewdo-logo-color.svg" width="200vw"/>
   </a>
 
   <div class="position-sticky navbar x-nav-bottom float-end">
@@ -137,4 +142,5 @@
       </x-link>
     </div>
   </div>
+
 </div>

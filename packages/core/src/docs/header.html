@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
   <div class="container-fluid">
     <button slot="start"
-      class="navbar-toggler btn-sm"
+      class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
@@ -10,7 +10,8 @@
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div slot="start"  class="navbar-brand">
+    <div slot="start" class="navbar-brand"
+      data-intro="The <b>x-ui</b> components are used to create this documentation, turning static HTML into a single-page app experience. <br/><br/> View the source to see how easy it was to build or check out the <a href='documentation/components/x-ui'>documentation</a> on it.">
       <x-link href="/home">
         <h1 class="tag-line" title="view.DO Experience UI HTML">
           &lt;x-ui/&gt;
@@ -38,15 +39,13 @@
           <ul class="dropdown-menu"
             aria-labelledby="navbarDropdown">
             <li class="dropdown-item">
-              <x-link custom="div"
-                href="/routing">
+              <x-link href="/routing">
                 <i class="ri-route-line"></i>
                 Content Routing
               </x-link>
             </li>
             <li class="dropdown-item">
-              <x-link custom="div"
-                href="/navigation">
+              <x-link href="/navigation">
                 <i class="ri-direction-line"></i>
                 Guided Navigation
               </x-link>
@@ -83,7 +82,8 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown"
+          data-intro="The <b>x-data-repeat</b> element rendered this list from a remote JSON data-source. <br/><br/> Check out the <a href='documentation/components/x-data-repeat'>documentation</a> to see what else you can do.">
           <a class="nav-link dropdown-toggle"
             href="#"
             id="navbarDropdown"
@@ -94,7 +94,7 @@
           </a>
           <ul class="dropdown-menu"
             aria-labelledby="navbarDropdown">
-            <x-data-repeat items-src="/components.json:components">
+            <x-data-repeat items-src="/components.json|components">
               <template>
                 <li class="dropdown-item">
                   <x-link href="/documentation/components/{data:tag}">
@@ -109,13 +109,13 @@
       <div id="links-block">
         <a href="https://github.com/viewdo/x-ui"
           title="Check out the source on GitHub"
-           target="_blank">
+          target="_blank">
           <i class="ri-github-line"></i>
         </a>
       </div>
     </div>
-    <x-data-display class="d-none d-md-block"
-      style="padding:1em;">
+    <x-data-display class="d-none d-md-block" style="padding:1em;"
+      data-intro="The <b>x-view-do</b> component creates a special sub-route with automated navigation. It's conditioned using data expressions. <br/><br/> Check out the <a href='documentation/components/x-view-do'>documentation</a> to see what else you can do.">
       <template>
         <div class="shadow-sm bg-white rounded p-2 text-center">
           <x-link href="/home/name">
