@@ -27,11 +27,10 @@ Nested routes are just as easy. You can next **`<x-view>`** elements and have th
     </x-view>
   ... home content ...
   </x-view>
-````
-  
-<li>
-  
-  <x-link href="/navigation/static/nesting/deep">
-    Click here to go deeper!
-  </x-link>
-</li>
+````  
+ 
+<x-link href="/navigation/static/nesting/deep"
+  custom="button" anchor-class="btn btn-info text-white">
+  <i class="ri-treasure-map-fill"></i>
+  Click here to go deeper!
+</x-link>

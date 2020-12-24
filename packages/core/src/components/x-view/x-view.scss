@@ -7,7 +7,6 @@
   --color: #000;
   background-color: var(--background-color);
   color: var(--color);
-  contain: layout size style;
 
   height: 100%;
   overflow: auto;
@@ -26,7 +25,6 @@
 
 :host(.xui-active-route) {
   ::slotted(*:not(x-view):not(x-view-do)) {
-    display: none;
     visibility: hidden;
   }
 

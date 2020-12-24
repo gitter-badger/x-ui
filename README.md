@@ -40,9 +40,10 @@ These components use a convention-over-configuration approach to guide user beha
 * **Extensible:** Data Provider System to easily connect with your data
 
 
-##### Attribution
+##### Thank you to
 
 * **Stencil.js** [SDK][stencil-js] for the best way to create web-components
+* **howler.js** [howler-js][howler-js] best audio player on the market
 * **Vime.js** [media-player][vime-player] for the awesome video player
 * **SilentMatt** [expression evaluator][expr-eval] for view condition expressions
 
@@ -53,3 +54,4 @@ These components use a convention-over-configuration approach to guide user beha
 [css-vars]: https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
 [vime-player]: https://vimejs.com
 [lazy-loading]: https://www.imperva.com/learn/performance/lazy-loading
+[howler-js]: https://github.com/goldfire/howler.js

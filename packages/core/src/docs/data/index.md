@@ -1,22 +1,19 @@
 # Declarative Data & HTML
 
 ## Using Data
-
-<li>
   
-  <x-link href="/data/display">
-    Data Display
-  </x-link>
-</li>
+<x-link href="/data/display" 
+  custom="button" anchor-class="btn btn-info text-white " >
+  Data Display
+</x-link>
 
 ## Data Expressions
-
-<li>
   
-  <x-link href="/data/expressions">
-    Data Expressions & Predicates
-  </x-link>
-</li>
+<x-link href="/data/expressions" 
+  custom="button" anchor-class="btn btn-info text-white " >
+  Data Expressions & Predicates
+</x-link>
+
 
 ## Data Providers
 

@@ -1,5 +1,5 @@
 {
-  "name": "@viewdo/x-ui-dxp",
+  "name": "x-ui-dxp",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
@@ -19,7 +19,8 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui-dxp"
   },
   "dependencies": {
     "@stencil/core": "^2.0.1"

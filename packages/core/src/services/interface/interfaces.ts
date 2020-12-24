@@ -74,7 +74,7 @@ export enum LoadStrategy {
 }
 
 export type AudioTrack = {
-  id:string;
+  trackId:string;
   type: 'music'|'sound';
   src:string;
   load: LoadStrategy;

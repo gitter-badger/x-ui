@@ -1,7 +1,6 @@
 import { Component, h, State } from '@stencil/core';
-import { ActionBus, state } from '../../services';
-import { warn } from '../../services/logging';
-import { RouterService } from '../../services/routing/router';
+import {Howl, Howler} from 'howler';
+import { ActionBus, state, warn, RouterService } from '../..';
 
 
 @Component({
@@ -12,7 +11,6 @@ import { RouterService } from '../../services/routing/router';
 export class AudioPlayer {
   private actionSubscription: any;
   private player: HTMLAudioElement;
-  private havePlayed: Array<string> = [];
 
 
   @State() currentTime = 0;
@@ -27,15 +25,8 @@ export class AudioPlayer {
     RouterService.instance?.onRouteChange(() => {
 
     });
-
-
-
-
   }
 
-  private queueAmbientTrack(_track:any) {
-
-  }
 
   private onTimeUpdate(event: CustomEvent<number>) {
     this.currentTime = event.detail;

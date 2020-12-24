@@ -11,7 +11,7 @@ export class XAudioLoadSound {
   /**
   * The identifier for this music track
   */
- @Prop() id: string;
+ @Prop() trackId: string;
 
 
  /**
@@ -47,7 +47,7 @@ export class XAudioLoadSound {
      topic: AUDIO_TOPIC,
      command: this.load,
      data: {
-       id: this.id || this.src,
+      trackId: this.trackId || this.src,
        src: this.src,
        discard: this.discard,
        loop: false,

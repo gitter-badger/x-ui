@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, ActionEvent, CookieConsent, DataProviderRegistration } from ".";
+import { ActionActivationStrategy, ActionEvent, AudioTrack, CookieConsent, DataProviderRegistration, DiscardStrategy, LoadStrategy } from ".";
 import { HistoryType, VisitStrategy } from "./services";
 export namespace Components {
     interface XAction {
@@ -49,7 +49,63 @@ export namespace Components {
          */
         "time"?: number;
     }
-    interface XAudioControl {
+    interface XAudioLoadMusic {
+        /**
+          * The discard strategy the player should use for this file.
+         */
+        "discard": DiscardStrategy;
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
+        "getAction": () => Promise<ActionEvent<AudioTrack>>;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "load": LoadStrategy;
+        /**
+          * Set this to true to have the audio file loop.
+         */
+        "loop": boolean;
+        /**
+          * The path to the audio-file.
+          * @required
+         */
+        "src": string;
+        /**
+          * Set this attribute to have the audio file tracked in session effectively preventing it from playing again..
+         */
+        "track": boolean;
+        /**
+          * The identifier for this music track
+         */
+        "trackId": string;
+    }
+    interface XAudioLoadSound {
+        /**
+          * The discard strategy the player should use for this file.
+         */
+        "discard": DiscardStrategy;
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
+        "getAction": () => Promise<ActionEvent<AudioTrack>>;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "load": LoadStrategy;
+        /**
+          * The path to the audio-file.
+          * @required
+         */
+        "src": string;
+        /**
+          * Set this attribute to have the audio file tracked in session effectively preventing it from playing again..
+         */
+        "track": boolean;
+        /**
+          * The identifier for this music track
+         */
+        "trackId": string;
     }
     interface XAudioPlayer {
     }
@@ -252,11 +308,17 @@ declare global {
         prototype: HTMLXActionActivatorElement;
         new (): HTMLXActionActivatorElement;
     };
-    interface HTMLXAudioControlElement extends Components.XAudioControl, HTMLStencilElement {
+    interface HTMLXAudioLoadMusicElement extends Components.XAudioLoadMusic, HTMLStencilElement {
     }
-    var HTMLXAudioControlElement: {
-        prototype: HTMLXAudioControlElement;
-        new (): HTMLXAudioControlElement;
+    var HTMLXAudioLoadMusicElement: {
+        prototype: HTMLXAudioLoadMusicElement;
+        new (): HTMLXAudioLoadMusicElement;
+    };
+    interface HTMLXAudioLoadSoundElement extends Components.XAudioLoadSound, HTMLStencilElement {
+    }
+    var HTMLXAudioLoadSoundElement: {
+        prototype: HTMLXAudioLoadSoundElement;
+        new (): HTMLXAudioLoadSoundElement;
     };
     interface HTMLXAudioPlayerElement extends Components.XAudioPlayer, HTMLStencilElement {
     }
@@ -327,7 +389,8 @@ declare global {
     interface HTMLElementTagNameMap {
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
-        "x-audio-control": HTMLXAudioControlElement;
+        "x-audio-load-music": HTMLXAudioLoadMusicElement;
+        "x-audio-load-sound": HTMLXAudioLoadSoundElement;
         "x-audio-player": HTMLXAudioPlayerElement;
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
@@ -378,7 +441,55 @@ declare namespace LocalJSX {
          */
         "time"?: number;
     }
-    interface XAudioControl {
+    interface XAudioLoadMusic {
+        /**
+          * The discard strategy the player should use for this file.
+         */
+        "discard"?: DiscardStrategy;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "load"?: LoadStrategy;
+        /**
+          * Set this to true to have the audio file loop.
+         */
+        "loop"?: boolean;
+        /**
+          * The path to the audio-file.
+          * @required
+         */
+        "src": string;
+        /**
+          * Set this attribute to have the audio file tracked in session effectively preventing it from playing again..
+         */
+        "track"?: boolean;
+        /**
+          * The identifier for this music track
+         */
+        "trackId"?: string;
+    }
+    interface XAudioLoadSound {
+        /**
+          * The discard strategy the player should use for this file.
+         */
+        "discard"?: DiscardStrategy;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "load"?: LoadStrategy;
+        /**
+          * The path to the audio-file.
+          * @required
+         */
+        "src": string;
+        /**
+          * Set this attribute to have the audio file tracked in session effectively preventing it from playing again..
+         */
+        "track"?: boolean;
+        /**
+          * The identifier for this music track
+         */
+        "trackId"?: string;
     }
     interface XAudioPlayer {
     }
@@ -586,7 +697,8 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "x-action": XAction;
         "x-action-activator": XActionActivator;
-        "x-audio-control": XAudioControl;
+        "x-audio-load-music": XAudioLoadMusic;
+        "x-audio-load-sound": XAudioLoadSound;
         "x-audio-player": XAudioPlayer;
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
@@ -606,7 +718,8 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
-            "x-audio-control": LocalJSX.XAudioControl & JSXBase.HTMLAttributes<HTMLXAudioControlElement>;
+            "x-audio-load-music": LocalJSX.XAudioLoadMusic & JSXBase.HTMLAttributes<HTMLXAudioLoadMusicElement>;
+            "x-audio-load-sound": LocalJSX.XAudioLoadSound & JSXBase.HTMLAttributes<HTMLXAudioLoadSoundElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;

@@ -64,13 +64,13 @@ The following demonstrates how to load a track, and wait 10 seconds until it pla
 
 ## Properties
 
-| Property           | Attribute | Description                                                                                                 | Type                                                                                             | Default                 |
-| ------------------ | --------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
-| `discard`          | `discard` | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route \| DiscardStrategy.Video` | `DiscardStrategy.Route` |
-| `id`               | `id`      | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
-| `load`             | `load`    | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`                                   | `LoadStrategy.Queue`    |
-| `src` _(required)_ | `src`     | The path to the audio-file.                                                                                 | `string`                                                                                         | `undefined`             |
-| `track`            | `track`   | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                                                        | `false`                 |
+| Property           | Attribute  | Description                                                                                                 | Type                                                                                             | Default                 |
+| ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
+| `discard`          | `discard`  | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route \| DiscardStrategy.Video` | `DiscardStrategy.Route` |
+| `load`             | `load`     | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`                                   | `LoadStrategy.Queue`    |
+| `src` _(required)_ | `src`      | The path to the audio-file.                                                                                 | `string`                                                                                         | `undefined`             |
+| `track`            | `track`    | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                                                        | `false`                 |
+| `trackId`          | `track-id` | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
 
 
 ## Methods

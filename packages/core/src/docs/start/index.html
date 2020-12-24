@@ -1,13 +1,12 @@
 <div class="container container-fluid mx-auto" slot="content">
   <x-markdown src="/docs/start/index.md"></x-markdown>
-  <x-markdown src="/docs/start/installed.md"
-    hidden
+  <x-markdown src="/docs/start/installed.md" hidden
     x-show-when="{storage:installed}"></x-markdown>
 
   <div class="navbar x-nav-bottom position-sticky">
     <x-link slot="start" href="/home">
       <button class="btn btn-secondary shadow-sm">
-        <i class="ri-arrow-left-s-fill"></i>
+        <i class="ri-arrow-left-s-line"></i>
         Home
       </button>
     </x-link>

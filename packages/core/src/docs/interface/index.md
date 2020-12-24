@@ -2,25 +2,28 @@
 
 ## Interface Providers
 
-<li>
-  <x-link href="/interface/providers">
-    Interface Providers
-  </x-link>
-</li>
+
+<x-link href="/interface/providers"
+  custom="button" anchor-class="btn btn-info text-white">
+  <i class="ri-layout-masonry-line"></i>
+  Interface Providers
+</x-link>
+
 
 ## Manipulating HTML
 
-<li>
-  <x-link href="/interface/elements">
-    How to Update Elements
-  </x-link>
-</li>
+
+<x-link href="/interface/elements"
+  custom="button" anchor-class="btn btn-info text-white">
+  <i class="ri-code-box-line"></i>
+  How to Update Elements
+</x-link>
 
 ## Alerts, Toasts and Modals
 
-<li>
   
-  <x-link href="/interface/tools">
-    Other UX Tools
-  </x-link>
-</li>
+<x-link href="/interface/tools"
+  custom="button" anchor-class="btn btn-info text-white">
+  <i class="ri-hard-drive-line"></i>
+  Other UX Tools
+</x-link>

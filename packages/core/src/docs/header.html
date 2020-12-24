@@ -23,7 +23,7 @@
         <li class="nav-item">
           <x-link class="nav-link"
             href="/start">
-            Get Started
+            <b>Get Started</b>
           </x-link>
         </li>
         <li class="nav-item dropdown">
@@ -41,7 +41,7 @@
               <x-link custom="div"
                 href="/routing">
                 <i class="ri-route-line"></i>
-                Declarative Routing
+                Content Routing
               </x-link>
             </li>
             <li class="dropdown-item">
@@ -55,6 +55,12 @@
               <x-link href="/data">
                 <i class="ri-database-2-line"></i>
                 Using Data in HTML
+              </x-link>
+            </li>
+            <li class="dropdown-item">
+              <x-link href="/audio">
+                <i class="ri-music-line"></i>
+                Incorporating Audio
               </x-link>
             </li>
             <li class="dropdown-item">
@@ -100,10 +106,16 @@
           </ul>
         </li>
       </ul>
-
+      <div id="links-block">
+        <a href="https://github.com/viewdo/x-ui"
+          title="Check out the source on GitHub"
+           target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      </div>
     </div>
-    <x-data-display slot="end"
-      style="padding:1em;display:block">
+    <x-data-display class="d-none d-md-block"
+      style="padding:1em;">
       <template>
         <div class="shadow-sm bg-white rounded p-2 text-center">
           <x-link href="/home/name">
