@@ -10,10 +10,10 @@ import {
 
 
 @Component({
-  tag: 'x-data-provider-sample',
+  tag: 'x-data-provider',
   shadow: false,
 })
-export class XDataProviderSample {
+export class XDataProvider {
   private customProvider = new InMemoryProvider();
   private inputKeyEl: HTMLInputElement;
   private inputValueEl: HTMLInputElement;

@@ -1,7 +1,9 @@
 {
-  "name": "sample-data-provider",
+  "name": "@viewdo/x-ui-sample-data-provider",
   "version": "0.0.1",
+  "private": true,
   "description": "Stencil Component Starter",
+  "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -22,8 +24,9 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@stencil/core": "^2.0.1",
     "@viewdo/x-ui": "0.1.0"
   },
-  "license": "MIT"
+  "devDependencies": {
+    "@stencil/core": "^2.0.1"
+  }
 }
