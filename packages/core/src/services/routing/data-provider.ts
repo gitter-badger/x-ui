@@ -12,7 +12,6 @@ export class RoutingDataProvider implements IDataProvider {
     return this.accessor(key);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async set(_key: string, _value: string): Promise<void> {
     // do nothing
   }

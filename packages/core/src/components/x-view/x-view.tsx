@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { h, Component, Element, Host, Prop, State, Watch } from '@stencil/core';
 
 import {
@@ -8,13 +7,13 @@ import {
   hasVisited,
   markVisit,
   MatchResults,
-  normalizeChildUrl,
   resolveElementVisibility,
   resolveNext,
   Route,
   RouterService,
   warn,
 } from '../..';
+import { normalizeChildUrl } from '../../services/routing/utils/location-utils';
 
 @Component({
   tag: 'x-view',
@@ -54,7 +53,6 @@ export class XView {
   @Prop({ reflect: true, mutable: true }) url: string;
 
   @Watch('url')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validatePath(newValue: string, _oldValue: string) {
     const isBlank = typeof newValue !== 'string' || newValue === '';
     const has2chars = typeof newValue === 'string' && newValue.length >= 2;

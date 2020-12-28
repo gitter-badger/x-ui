@@ -1,14 +1,13 @@
 import { Component, h, Prop, Host, Element } from '@stencil/core';
-import { popoverController, toastController } from '@ionic/core';
-import { state } from '@viewdo/ui';
+import { popoverController } from '@ionic/core';
 
 @Component({
-  tag: 'x-preferences-popover-button',
-  styleUrl: 'x-preferences-popover.css',
-  shadow: false,
+  tag: 'x-preferences-button',
+  styleUrl: 'x-preferences-button.scss',
+  shadow: true,
 })
-export class PreferencesButton {
-  @Element() el: HTMLXPreferencesPopoverButtonElement;
+export class XPreferencesButton {
+  @Element() el: HTMLXPreferencesButtonElement;
   private popover: HTMLIonPopoverElement;
   /**
    *
@@ -17,24 +16,23 @@ export class PreferencesButton {
   @Prop() icon: string = 'settings-outline';
 
   componentWillLoad() {
-    if (!state.theme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-      document.body.classList.toggle('dark', prefersDark.matches);
-      this.presentToast('Dark mode preference was detected. Use the preferences icon to change modes.');
-    } else {
-      document.body.classList.toggle('dark', state.theme === 'dark');
-    }
+    // if (!state.theme) {
+    //   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    //   document.body.classList.toggle('dark', prefersDark.matches);
+    //   this.presentToast('Dark mode preference was detected. Use the preferences icon to change modes.');
+    // } else {
+    //   document.body.classList.toggle('dark', state.theme === 'dark');
+    // }
   }
 
-  private async presentToast(message) {
-    const toast = await toastController.create({
-      message,
-      duration: 3000,
-      position: 'middle',
-
-    });
-    toast.present();
-  }
+  //private async presentToast(message) {
+  //  const toast = await toastController.create({
+  //    message,
+  //    duration: 3000,
+  //    position: 'middle',
+  //  });
+  //  toast.present();
+  //}
 
   private async presentPopover(ev: Event, component: string) {
     this.popover = await popoverController.create({

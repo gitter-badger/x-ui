@@ -16,44 +16,28 @@ import { ExperienceDataParser, Comparison } from '../../services/experience.data
   shadow: false,
 })
 export class Show {
-
-  @Element()
-  element: HTMLBaseElement;
-
-  @State()
-  experience: Experience;
+  @Element() element: HTMLDxpShowElement;
+  @State() experience: Experience;
 
   /**
    * A JS-based expression to capture data from the the data model.
    * @example: experience.data.color
-   * @required
-   * @type {string}
-   * @memberof Show
    */
-  @Prop()
-  if!: string;
+  @Prop() if!: string;
 
   /**
    * The optional comparison operator. If omitted, general ‘truthiness’ is used.
    * @requires to
-   * @type {Comparison}
-   * @memberof Show
-   * @optional
    */
-  @Prop()
-  is: Comparison;
+  @Prop() is: Comparison;
 
   /**
    * The optional value for comparison.
    * @requires is
-   * @type {*}
-   * @memberof Show
-   * @optional
    */
-  @Prop()
-  to: any
+  @Prop() to: any
 
-  tokens: ExperienceDataParser;
+  private tokens: ExperienceDataParser;
 
   componentWillLoad() {
     if(state.experience){

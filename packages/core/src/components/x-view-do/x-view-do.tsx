@@ -1,3 +1,4 @@
+import { normalizeChildUrl } from '../../services/routing/utils/location-utils';
 import {
   Component, h, Prop,
   Element, State, Host, Watch,
@@ -19,7 +20,6 @@ import {
   storeVisit,
   markVisit,
   ActionActivationStrategy,
-  normalizeChildUrl,
   restoreElementChildTimedNodes,
   warn,
 } from '../../services';
@@ -99,7 +99,6 @@ export class XViewDo {
   @Prop() debug: boolean = false;
 
   @Watch('url')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   validatePath(newValue: string, _oldValue: string) {
     const isBlank = typeof newValue !== 'string' || newValue === '';
     const has2chars = typeof newValue === 'string' && newValue.length >= 2;

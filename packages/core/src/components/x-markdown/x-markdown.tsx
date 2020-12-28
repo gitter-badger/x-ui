@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/dot-notation */
-/* eslint-disable no-param-reassign */
 import { Component, h, Host, State, Prop, Element } from '@stencil/core';
 import { convertToFragment, warn } from '../..';
 

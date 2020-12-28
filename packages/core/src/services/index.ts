@@ -3,7 +3,4 @@ export * from './data';
 export * from './interface';
 export * from './logging';
 export * from './routing';
-export * from './interface/state';
-export * from './routing/visits';
-export * from './routing/utils/browser-utils';
 export * from './utils';

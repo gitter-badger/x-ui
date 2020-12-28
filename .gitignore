@@ -1,3 +1,5 @@
-/.scratch
+.scratch
 node_modules
-
+www
+dist
+loader

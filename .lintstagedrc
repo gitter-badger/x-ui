@@ -1,7 +1,7 @@
 {
   "*.{ts,tsx,js,jsx}": [
     "prettier --write",
-    "eslint 'src/**/*{.ts,.tsx,.js,.jsx}' --fix",
+    "eslint '**/src/**/*{.ts,.tsx,.js,.jsx}' --fix",
     "git add"
   ],
   "*.json": [
@@ -14,7 +14,7 @@
   ],
   "*.scss": [
     "prettier --write",
-    "stylelint 'src/**/*.scss' --fix",
+    "stylelint '**/src/**/*.scss' --fix",
     "git add"
   ]
 }

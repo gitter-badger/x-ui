@@ -5,9 +5,7 @@ import {
   DataProviderRegistration,
   CookieConsent,
   CookieProvider,
-  debugIf,
   evaluatePredicate,
-  state,
 } from '../..';
 
 @Component({
@@ -59,7 +57,6 @@ export class XDataProviderCookie {
   private consentKey = 'cookie-consent';
 
   async componentWillLoad() {
-    debugIf(state.debug, 'cookie-data-provider: loading');
     const consented = await this.customProvider.get(this.consentKey);
     if (consented) {
       this.hide = true;

@@ -16,7 +16,7 @@
 
 ### Used by
 
- - [x-preferences-list](../list)
+ - [x-preferences-list](../x-preferences-list)
 
 ### Depends on
 

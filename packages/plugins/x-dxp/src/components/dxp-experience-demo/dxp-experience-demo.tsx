@@ -1,3 +1,4 @@
+/* eslint-disable @stencil/render-returns-host */
 import { Component, State, h, Listen } from '@stencil/core';
 import { Namespace } from '../../models/namespace';
 
@@ -7,55 +8,31 @@ import { Namespace } from '../../models/namespace';
   shadow: false,
 })
 export class ExperienceDemo {
+  // private experienceEl: HTMLDxpExperienceElement;
 
-  experienceEl: HTMLDxpExperienceElement;
-
-  @State()
-  width: number;
-
-  @State()
-  shouldRender: boolean;
-
-  @State()
-  configType: 'namespace' | 'xapiUrl' = 'namespace';
-
-  @State()
-  namespace: Namespace = 'local';
-
-  @State()
-  xapiUrl: string = 'https://dxp-xapi.local.viewdo.run/v4';
-
-  @State()
-  storyKey: string = 'tech-sample';
-
-  @State()
-  userKey: string;
-
-  @State()
-  experienceData: string;
-
-  @State()
-  debug: boolean;
-
-  @State()
-  preview: boolean;
-
-  @State()
-  loadAssets: boolean;
-
-  @State()
-  display: 'logo' | 'debug' | 'none' = 'debug';
+  @State() width: number;
+  @State() shouldRender: boolean;
+  @State() configType: 'namespace' | 'xapiUrl' = 'namespace';
+  @State() namespace: Namespace = 'local';
+  @State() xapiUrl: string = 'https://dxp-xapi.local.viewdo.run/v4';
+  @State() storyKey: string = 'tech-sample';
+  @State() userKey: string;
+  @State() experienceData: string;
+  @State() debug: boolean;
+  @State() preview: boolean;
+  @State() loadAssets: boolean;
+  @State() display: 'logo' | 'debug' | 'none' = 'debug';
 
   @Listen('dxp:reset')
   onDXPReset() {
     this.shouldRender = false;
   }
 
-  _handleShouldRender(shouldRender) {
+  private _handleShouldRender(shouldRender) {
     this.shouldRender = shouldRender;
   }
 
-  _handleExperienceDataChanged(e) {
+  private _handleExperienceDataChanged(e) {
     let json = e.target.value;
     if (json && json != '' && json[0] == '{') {
       try {
@@ -234,7 +211,7 @@ export class ExperienceDemo {
           <DXPSample></DXPSample>
           <h3>Results:</h3>
           <dxp-experience
-            ref={el => this.experienceEl = el}
+            /** ref={el => this.experienceEl = el}*/
             {...this._getOpts()}
             style={{ '--dxp-width': `${this.width}px` }}
             ></dxp-experience>

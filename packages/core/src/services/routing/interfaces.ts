@@ -1,4 +1,4 @@
-export const ROUTE_TOPIC = 'routing';
+
 
 export enum ROUTE_COMMANDS {
   NavigateNext = 'navigate-next',
@@ -11,17 +11,15 @@ export enum ROUTE_EVENTS {
 
 export type NavigateTo = {
   url: string;
-};
+}
+
+export const ROUTE_TOPIC = 'routing';
 
 export type NavigateNext = {
-};
+
+}
 
 export type Path = string | RegExp | Array<string | RegExp>;
-
-// export interface ActiveRouter {
-//   subscribe: (location: LocationSegments, nextListeners: RouteSubscription[], routeSubscription: RouteSubscription) => Listener
-//   dispatch: (location: LocationSegments, nextListeners: RouteSubscription[]) => void;
-// }
 
 export type Prompt = (location: LocationSegments, action: string) => string;
 

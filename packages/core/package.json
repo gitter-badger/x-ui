@@ -1,28 +1,22 @@
 {
-  "name": "x-ui",
+  "name": "@viewdo/x-ui",
   "version": "0.1.0",
-  "homepage": "https://github.com/viewdo/ui#readme",
-  "bugs": {
-    "url": "https://github.com/viewdo/ui/issues",
-    "email": "project@hostname.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/viewdo/ui.git"
-  },
+  "description": "view.DO X-UI",
   "license": "MIT",
-  "distDirs": {
-    "stencil": "dist"
-  },
   "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
-  "es2015": "dist/esm/index.js",
-  "es2017": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
   "loader": "dist/loader",
   "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/x-ui/index.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
   "scripts": {
-    "npm:install": "npm install",
     "--- development ---": "---------------",
     "start": "npm run watch",
     "watch": "stencil build --docs --dev --watch --serve --port 3002",
@@ -30,78 +24,18 @@
     "--- production ---": "---------------",
     "build": "stencil build --docs",
     "--- test ---": "---------------",
-    "test": "stencil test --spec --coverage",
+    "test": "stencil test --spec --e2e --coverage",
     "test:spec": "stencil test --spec",
     "test:e2e": "stencil test --e2e",
-    "test:watch": "stencil test --spec --watch",
-    "--- lint ---": "---------------",
-    "lint": "run-p lint:js lint:css",
-    "lint:js": "eslint ./src/**/*{.ts,.tsx}",
-    "lint:css": "stylelint './src/**/*.scss' --allow-empty-input",
-    "lint:husky": "lint-staged",
-    "--- misc ---": "---------------",
-    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui"
-  },
-  "watch": {
-    "build:stencil": "./src/**/*.md"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test:spec"
-    }
+    "test:watch": "stencil test --spec --watch"
   },
   "dependencies": {
     "expr-eval": "^2.0.2",
     "howler": "^2.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.12.9",
     "@stencil/core": "2.3.0",
-    "@stencil/eslint-plugin": "0.3.1",
     "@stencil/sass": "1.4.1",
-    "@stencil/store": "1.3.0",
-    "@types/jest": "26.0.18",
-    "@types/node": "14.14.11",
-    "@types/puppeteer": "3.0.5",
-    "@typescript-eslint/eslint-plugin": "4.9.1",
-    "@typescript-eslint/parser": "4.9.1",
-    "chalk": "4.1.0",
-    "eslint": "7.15.0",
-    "eslint-config-airbnb-typescript": "10.0.2",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-react": "7.21.5",
-    "http-proxy-middleware": "1.0.6",
-    "husky": "4.3.5",
-    "jest": "26.6.3",
-    "jest-cli": "26.6.3",
-    "lint-staged": "10.5.3",
-    "lit-html": "1.3.0",
-    "node-fetch": "2.6.1",
-    "npm-run-all": "4.1.5",
-    "prettier": "2.2.1",
-    "puppeteer": "5.5.0",
-    "stylelint": "13.8.0",
-    "stylelint-config-sass-guidelines": "7.1.0",
-    "typescript": "4.1.2",
-    "yargs": "16.2.0"
-  },
-  "jest": {
-    "preset": "@stencil/core/testing"
-  },
-  "stylelint": {
-    "extends": "stylelint-config-sass-guidelines"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "workspaces": [
-    "projects/docs",
-    "projects/examples/new-data-provider",
-    "projects/plugins/x-dxp",
-    "projects/plugins/x-ionic"
-  ]
+    "@stencil/store": "1.3.0"
+  }
 }

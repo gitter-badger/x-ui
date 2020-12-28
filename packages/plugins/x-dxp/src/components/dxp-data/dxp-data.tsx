@@ -15,26 +15,18 @@ import { ExperienceDataParser } from '../../services/experience.data.parser';
 })
 export class Data {
 
-  @State()
-  experience: Experience;
+  @State()  experience: Experience;
 
   /**
    * The JS-based expression to capture data from the above model.
    * @example experience.data.color
-   * @type {string}
-   * @memberof Data
-   * @required
    */
-  @Prop()
-  get!: string;
+  @Prop() get!: string;
 
   /**
    * A default value to display if the data in get is not found.
-   * @type {string}
-   * @memberof Data
    */
-  @Prop()
-  default: string;
+  @Prop() default: string;
 
   /**
    * A pipe separated list of modifier expressions to modify the captured data.
@@ -51,13 +43,10 @@ export class Data {
    *  currency
    *
    * @example clip:5|capitalize
-   * @type {string}
-   * @memberof Data
    */
-  @Prop()
-  modify: string;
+  @Prop()  modify: string;
 
-  tokens: ExperienceDataParser;
+  private tokens: ExperienceDataParser;
 
   componentWillLoad() {
     if (state.experience) {

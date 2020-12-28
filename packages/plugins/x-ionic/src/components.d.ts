@@ -6,56 +6,90 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface XAutoplayToggle {
+        "autoplay": boolean;
+    }
+    interface XPreferencesButton {
+        "icon": string;
+    }
+    interface XPreferencesList {
+    }
+    interface XSoundToggle {
+        "muted": boolean;
+    }
+    interface XThemeToggle {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLXAutoplayToggleElement extends Components.XAutoplayToggle, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLXAutoplayToggleElement: {
+        prototype: HTMLXAutoplayToggleElement;
+        new (): HTMLXAutoplayToggleElement;
+    };
+    interface HTMLXPreferencesButtonElement extends Components.XPreferencesButton, HTMLStencilElement {
+    }
+    var HTMLXPreferencesButtonElement: {
+        prototype: HTMLXPreferencesButtonElement;
+        new (): HTMLXPreferencesButtonElement;
+    };
+    interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
+    }
+    var HTMLXPreferencesListElement: {
+        prototype: HTMLXPreferencesListElement;
+        new (): HTMLXPreferencesListElement;
+    };
+    interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
+    }
+    var HTMLXSoundToggleElement: {
+        prototype: HTMLXSoundToggleElement;
+        new (): HTMLXSoundToggleElement;
+    };
+    interface HTMLXThemeToggleElement extends Components.XThemeToggle, HTMLStencilElement {
+    }
+    var HTMLXThemeToggleElement: {
+        prototype: HTMLXThemeToggleElement;
+        new (): HTMLXThemeToggleElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "x-autoplay-toggle": HTMLXAutoplayToggleElement;
+        "x-preferences-button": HTMLXPreferencesButtonElement;
+        "x-preferences-list": HTMLXPreferencesListElement;
+        "x-sound-toggle": HTMLXSoundToggleElement;
+        "x-theme-toggle": HTMLXThemeToggleElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface XAutoplayToggle {
+        "autoplay"?: boolean;
+    }
+    interface XPreferencesButton {
+        "icon"?: string;
+    }
+    interface XPreferencesList {
+    }
+    interface XSoundToggle {
+        "muted"?: boolean;
+    }
+    interface XThemeToggle {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "x-autoplay-toggle": XAutoplayToggle;
+        "x-preferences-button": XPreferencesButton;
+        "x-preferences-list": XPreferencesList;
+        "x-sound-toggle": XSoundToggle;
+        "x-theme-toggle": XThemeToggle;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "x-autoplay-toggle": LocalJSX.XAutoplayToggle & JSXBase.HTMLAttributes<HTMLXAutoplayToggleElement>;
+            "x-preferences-button": LocalJSX.XPreferencesButton & JSXBase.HTMLAttributes<HTMLXPreferencesButtonElement>;
+            "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
+            "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
+            "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
         }
     }
 }

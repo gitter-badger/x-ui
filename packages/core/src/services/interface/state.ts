@@ -8,6 +8,7 @@ class StateModel {
   hasAudio: boolean;
   storedVisits: Array<string>;
   sessionVisits: Array<string>;
+  references: Array<string>;
 }
 
 const { state, onChange } = createStore<StateModel>({
@@ -18,6 +19,7 @@ const { state, onChange } = createStore<StateModel>({
   hasAudio: false,
   storedVisits: [],
   sessionVisits: [],
+  references: [],
 });
 
 onChange('theme', (t) => localStorage.setItem('theme', t.toString()));

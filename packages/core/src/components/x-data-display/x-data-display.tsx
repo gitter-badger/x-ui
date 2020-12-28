@@ -1,8 +1,8 @@
 import { Element, Component, h, Prop, State, Fragment } from '@stencil/core';
+import { removeAllChildNodes } from '../../services/routing/utils/browser-utils';
 import {
   ActionBus,
   DATA_EVENTS,
-  removeAllChildNodes,
   resolveExpression,
   RouterService,
   warn,

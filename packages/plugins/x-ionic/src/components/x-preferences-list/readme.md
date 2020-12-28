@@ -12,9 +12,9 @@
 - ion-list
 - ion-item
 - ion-label
-- [x-theme-toggle](../theme-toggle)
-- [x-sound-toggle](../sound-toggle)
-- [x-autoplay-toggle](../autoplay-toggle)
+- [x-theme-toggle](../x-theme-toggle)
+- [x-sound-toggle](../x-sound-toggle)
+- [x-autoplay-toggle](../x-autoplay-toggle)
 
 ### Graph
 ```mermaid

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
 import { createLocation, locationsAreEqual, createKey } from '../utils/location-utils';
@@ -7,7 +6,7 @@ import { warnIf } from '../../logging';
 import { addLeadingSlash, stripLeadingSlash, stripTrailingSlash, hasBasename, stripBasename, createPath } from '../utils/path-utils';
 import { getConfirmation } from '../utils/browser-utils';
 import { supportsGoWithoutReloadUsingHash } from '../utils/nav-utils';
-import createTransitionManager from './createTransitionManager';
+import { createTransitionManager}  from './createTransitionManager';
 
 export interface CreateHashHistoryOptions {
   getUserConfirmation?: (message: string, callback: (confirmed: boolean) => {}) => {};
@@ -32,7 +31,7 @@ const HashPathCoders = {
   },
 };
 
-const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) => {
+export function createHashHistory (win: Window, props: CreateHashHistoryOptions = {}) {
   let forceNextPop = false;
   let ignorePath: any = null;
   let listenerCount = 0;
@@ -303,6 +302,4 @@ const createHashHistory = (win: Window, props: CreateHashHistoryOptions = {}) =>
   };
 
   return history;
-};
-
-export default createHashHistory;
+}

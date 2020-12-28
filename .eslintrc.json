@@ -1,17 +1,9 @@
 {
-  "root": true,
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "extends": [
-    "airbnb-typescript",
     "plugin:@stencil/recommended"
-  ],
-  "ignorePatterns": [
-    "**/*.spec.*",
-    "**/*.e2e.*",
-    "**/ig-*",
-    "**/__*"
   ],
   "rules": {
     "@stencil/required-jsdoc": 1,

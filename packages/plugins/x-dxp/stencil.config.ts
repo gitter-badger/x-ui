@@ -1,11 +1,14 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
-  namespace: 'x-ui-dxp',
+  namespace: 'x-dxp',
+  plugins: [
+    sass(),
+  ],
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader',
     },
     {
       type: 'dist-custom-elements-bundle',

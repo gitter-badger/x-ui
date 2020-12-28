@@ -1,0 +1,34 @@
+{
+  "include": [
+    "**/src/**/*.ts",
+    "**/src/**/*.tsx",
+    "**/src/**/*.md",
+    "**/src/*.d.ts",
+    "**/stencil.config.ts",
+    "typings.d.ts",
+  ],
+  "exclude": [
+    "**/node_modules/**/*.*",
+    "**/dist/**/*.*",
+    "**/www/**/*.*",
+    "**/loader/**/*.*",
+    "**/.scratch/**/*.*",
+  ],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "lib": ["dom", "es2017"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es2017",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "preserveConstEnums": true,
+    "resolveJsonModule": true,
+    "stripInternal": true,
+  }
+}

@@ -3,7 +3,7 @@
 import { warnIf } from '../../logging';
 import { LocationSegments, Prompt } from '../interfaces';
 
-const createTransitionManager = () => {
+export function createTransitionManager () {
   let prompt: Prompt | string | null;
   let listeners: Function[] = [];
 
@@ -73,6 +73,4 @@ const createTransitionManager = () => {
     appendListener,
     notifyListeners,
   };
-};
-
-export default createTransitionManager;
+}

@@ -5,9 +5,108 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, ActionEvent, AudioTrack, CookieConsent, DataProviderRegistration, DiscardStrategy, LoadStrategy } from ".";
-import { HistoryType, VisitStrategy } from "./services";
+import { Namespace } from "../packages/plugins/x-dxp/src/models/namespace";
+import { Experience } from "../packages/plugins/x-dxp/src";
+import { Comparison } from "../packages/plugins/x-dxp/src/services/experience.data.parser";
+import { ActionActivationStrategy, ActionEvent, AudioTrack, CookieConsent, DataProviderRegistration as DataProviderRegistration1, DiscardStrategy, LoadStrategy } from "../packages/core/src";
+import { ActionEvent as ActionEvent1, DataProviderRegistration } from "@viewdo/x-ui";
+import { HistoryType, VisitStrategy } from "../packages/core/src/services";
 export namespace Components {
+    interface DxpActionListener {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug": boolean;
+        /**
+          * Customize the name used for this sample data provider.
+         */
+        "name": string;
+    }
+    interface DxpData {
+        /**
+          * A default value to display if the data in get is not found.
+         */
+        "default": string;
+        /**
+          * The JS-based expression to capture data from the above model.
+          * @example experience.data.color
+         */
+        "get": string;
+        /**
+          * A pipe separated list of modifier expressions to modify the captured data. clip:<length>    truncate:<length>   date   format:<expression>   lowercase   uppercase   capitalize   size   encode   currency
+          * @example clip:5|capitalize
+         */
+        "modify": string;
+    }
+    interface DxpExperience {
+        /**
+          * Enable Debug mode to prevent API calls. (falls back to ?debug )
+          * @default false
+         */
+        "debug": boolean;
+        /**
+          * Display mode for this element.
+          * @default none
+         */
+        "display": 'logo' | 'debug' | 'none';
+        /**
+          * Experience data (bypasses XAPI to retrieve it)
+         */
+        "experienceData": string;
+        /**
+          * This method gets waits for the experience.
+         */
+        "getExperience": (timeout: number) => Promise<Experience>;
+        /**
+          * Enable Debug mode to prevent API calls.
+          * @default false
+         */
+        "loadAssets": boolean;
+        /**
+          * The platform environment target. (optional)
+         */
+        "namespace": Namespace;
+        /**
+          * Enable preview mode to fake data and prevent API calls. (falls back to ?preview )
+          * @default false
+         */
+        "preview": boolean;
+        /**
+          * This method resets the stored session-id & experience-key, effectively resetting the current experience. Useful for testing or dynamically switching experiences in-page.
+         */
+        "reset": () => Promise<void>;
+        /**
+          * Story Key (falls back to ?storyKey )
+         */
+        "storyKey": string;
+        /**
+          * User Key (falls back to ?userKey )
+         */
+        "userKey": string;
+        /**
+          * Experience API Url (optional)
+         */
+        "xapiUrl": string;
+    }
+    interface DxpExperienceDemo {
+    }
+    interface DxpShow {
+        /**
+          * A JS-based expression to capture data from the the data model.
+          * @example : experience.data.color
+         */
+        "if": string;
+        /**
+          * The optional comparison operator. If omitted, general ‘truthiness’ is used.
+          * @requires to
+         */
+        "is": Comparison;
+        /**
+          * The optional value for comparison.
+          * @requires is
+         */
+        "to": any;
+    }
     interface XAction {
         /**
           * The command to execute.
@@ -109,6 +208,9 @@ export namespace Components {
     }
     interface XAudioPlayer {
     }
+    interface XAutoplayToggle {
+        "autoplay": boolean;
+    }
     interface XDataDisplay {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
@@ -120,6 +222,16 @@ export namespace Components {
           * @default null
          */
         "text"?: string;
+    }
+    interface XDataProvider {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug": boolean;
+        /**
+          * Customize the name used for this sample data provider.
+         */
+        "name": string;
     }
     interface XDataProviderCookie {
         /**
@@ -189,12 +301,22 @@ export namespace Components {
          */
         "src": string;
     }
+    interface XPreferencesList {
+    }
+    interface XPreferencesPopoverButton {
+        "icon": string;
+    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
           * @example {session:user.name}
          */
         "when": string;
+    }
+    interface XSoundToggle {
+        "muted": boolean;
+    }
+    interface XThemeToggle {
     }
     interface XUi {
         /**
@@ -301,6 +423,36 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLDxpActionListenerElement extends Components.DxpActionListener, HTMLStencilElement {
+    }
+    var HTMLDxpActionListenerElement: {
+        prototype: HTMLDxpActionListenerElement;
+        new (): HTMLDxpActionListenerElement;
+    };
+    interface HTMLDxpDataElement extends Components.DxpData, HTMLStencilElement {
+    }
+    var HTMLDxpDataElement: {
+        prototype: HTMLDxpDataElement;
+        new (): HTMLDxpDataElement;
+    };
+    interface HTMLDxpExperienceElement extends Components.DxpExperience, HTMLStencilElement {
+    }
+    var HTMLDxpExperienceElement: {
+        prototype: HTMLDxpExperienceElement;
+        new (): HTMLDxpExperienceElement;
+    };
+    interface HTMLDxpExperienceDemoElement extends Components.DxpExperienceDemo, HTMLStencilElement {
+    }
+    var HTMLDxpExperienceDemoElement: {
+        prototype: HTMLDxpExperienceDemoElement;
+        new (): HTMLDxpExperienceDemoElement;
+    };
+    interface HTMLDxpShowElement extends Components.DxpShow, HTMLStencilElement {
+    }
+    var HTMLDxpShowElement: {
+        prototype: HTMLDxpShowElement;
+        new (): HTMLDxpShowElement;
+    };
     interface HTMLXActionElement extends Components.XAction, HTMLStencilElement {
     }
     var HTMLXActionElement: {
@@ -331,11 +483,23 @@ declare global {
         prototype: HTMLXAudioPlayerElement;
         new (): HTMLXAudioPlayerElement;
     };
+    interface HTMLXAutoplayToggleElement extends Components.XAutoplayToggle, HTMLStencilElement {
+    }
+    var HTMLXAutoplayToggleElement: {
+        prototype: HTMLXAutoplayToggleElement;
+        new (): HTMLXAutoplayToggleElement;
+    };
     interface HTMLXDataDisplayElement extends Components.XDataDisplay, HTMLStencilElement {
     }
     var HTMLXDataDisplayElement: {
         prototype: HTMLXDataDisplayElement;
         new (): HTMLXDataDisplayElement;
+    };
+    interface HTMLXDataProviderElement extends Components.XDataProvider, HTMLStencilElement {
+    }
+    var HTMLXDataProviderElement: {
+        prototype: HTMLXDataProviderElement;
+        new (): HTMLXDataProviderElement;
     };
     interface HTMLXDataProviderCookieElement extends Components.XDataProviderCookie, HTMLStencilElement {
     }
@@ -367,11 +531,35 @@ declare global {
         prototype: HTMLXMarkdownElement;
         new (): HTMLXMarkdownElement;
     };
+    interface HTMLXPreferencesListElement extends Components.XPreferencesList, HTMLStencilElement {
+    }
+    var HTMLXPreferencesListElement: {
+        prototype: HTMLXPreferencesListElement;
+        new (): HTMLXPreferencesListElement;
+    };
+    interface HTMLXPreferencesPopoverButtonElement extends Components.XPreferencesPopoverButton, HTMLStencilElement {
+    }
+    var HTMLXPreferencesPopoverButtonElement: {
+        prototype: HTMLXPreferencesPopoverButtonElement;
+        new (): HTMLXPreferencesPopoverButtonElement;
+    };
     interface HTMLXShowElement extends Components.XShow, HTMLStencilElement {
     }
     var HTMLXShowElement: {
         prototype: HTMLXShowElement;
         new (): HTMLXShowElement;
+    };
+    interface HTMLXSoundToggleElement extends Components.XSoundToggle, HTMLStencilElement {
+    }
+    var HTMLXSoundToggleElement: {
+        prototype: HTMLXSoundToggleElement;
+        new (): HTMLXSoundToggleElement;
+    };
+    interface HTMLXThemeToggleElement extends Components.XThemeToggle, HTMLStencilElement {
+    }
+    var HTMLXThemeToggleElement: {
+        prototype: HTMLXThemeToggleElement;
+        new (): HTMLXThemeToggleElement;
     };
     interface HTMLXUiElement extends Components.XUi, HTMLStencilElement {
     }
@@ -398,18 +586,29 @@ declare global {
         new (): HTMLXViewDoElement;
     };
     interface HTMLElementTagNameMap {
+        "dxp-action-listener": HTMLDxpActionListenerElement;
+        "dxp-data": HTMLDxpDataElement;
+        "dxp-experience": HTMLDxpExperienceElement;
+        "dxp-experience-demo": HTMLDxpExperienceDemoElement;
+        "dxp-show": HTMLDxpShowElement;
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
         "x-audio-load-music": HTMLXAudioLoadMusicElement;
         "x-audio-load-sound": HTMLXAudioLoadSoundElement;
         "x-audio-player": HTMLXAudioPlayerElement;
+        "x-autoplay-toggle": HTMLXAutoplayToggleElement;
         "x-data-display": HTMLXDataDisplayElement;
+        "x-data-provider": HTMLXDataProviderElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-repeat": HTMLXDataRepeatElement;
         "x-include": HTMLXIncludeElement;
         "x-link": HTMLXLinkElement;
         "x-markdown": HTMLXMarkdownElement;
+        "x-preferences-list": HTMLXPreferencesListElement;
+        "x-preferences-popover-button": HTMLXPreferencesPopoverButtonElement;
         "x-show": HTMLXShowElement;
+        "x-sound-toggle": HTMLXSoundToggleElement;
+        "x-theme-toggle": HTMLXThemeToggleElement;
         "x-ui": HTMLXUiElement;
         "x-use": HTMLXUseElement;
         "x-view": HTMLXViewElement;
@@ -417,6 +616,105 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface DxpActionListener {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug"?: boolean;
+        /**
+          * Customize the name used for this sample data provider.
+         */
+        "name"?: string;
+    }
+    interface DxpData {
+        /**
+          * A default value to display if the data in get is not found.
+         */
+        "default"?: string;
+        /**
+          * The JS-based expression to capture data from the above model.
+          * @example experience.data.color
+         */
+        "get": string;
+        /**
+          * A pipe separated list of modifier expressions to modify the captured data. clip:<length>    truncate:<length>   date   format:<expression>   lowercase   uppercase   capitalize   size   encode   currency
+          * @example clip:5|capitalize
+         */
+        "modify"?: string;
+    }
+    interface DxpExperience {
+        /**
+          * Enable Debug mode to prevent API calls. (falls back to ?debug )
+          * @default false
+         */
+        "debug"?: boolean;
+        /**
+          * Display mode for this element.
+          * @default none
+         */
+        "display"?: 'logo' | 'debug' | 'none';
+        /**
+          * Experience data (bypasses XAPI to retrieve it)
+         */
+        "experienceData"?: string;
+        /**
+          * Enable Debug mode to prevent API calls.
+          * @default false
+         */
+        "loadAssets"?: boolean;
+        /**
+          * The platform environment target. (optional)
+         */
+        "namespace"?: Namespace;
+        /**
+          * When an experience is unable to be retrieved, this event fires with 'event.detail' = error message.
+         */
+        "onDxp:errored"?: (event: CustomEvent<string>) => void;
+        /**
+          * When an experience is retrieved, this event fires with 'event.detail' being the full experience, w/ data methods like 'setData()' and 'setComplete()'.
+         */
+        "onDxp:initialized"?: (event: CustomEvent<Experience>) => void;
+        /**
+          * This event is raised when reset() is called.
+         */
+        "onDxp:reset"?: (event: CustomEvent<void>) => void;
+        /**
+          * Enable preview mode to fake data and prevent API calls. (falls back to ?preview )
+          * @default false
+         */
+        "preview"?: boolean;
+        /**
+          * Story Key (falls back to ?storyKey )
+         */
+        "storyKey"?: string;
+        /**
+          * User Key (falls back to ?userKey )
+         */
+        "userKey"?: string;
+        /**
+          * Experience API Url (optional)
+         */
+        "xapiUrl"?: string;
+    }
+    interface DxpExperienceDemo {
+    }
+    interface DxpShow {
+        /**
+          * A JS-based expression to capture data from the the data model.
+          * @example : experience.data.color
+         */
+        "if": string;
+        /**
+          * The optional comparison operator. If omitted, general ‘truthiness’ is used.
+          * @requires to
+         */
+        "is"?: Comparison;
+        /**
+          * The optional value for comparison.
+          * @requires is
+         */
+        "to"?: any;
+    }
     interface XAction {
         /**
           * The command to execute.
@@ -505,6 +803,9 @@ declare namespace LocalJSX {
     }
     interface XAudioPlayer {
     }
+    interface XAutoplayToggle {
+        "autoplay"?: boolean;
+    }
     interface XDataDisplay {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
@@ -516,6 +817,20 @@ declare namespace LocalJSX {
           * @default null
          */
         "text"?: string;
+    }
+    interface XDataProvider {
+        /**
+          * When debug is true, a reactive table of values is displayed.
+         */
+        "debug"?: boolean;
+        /**
+          * Customize the name used for this sample data provider.
+         */
+        "name"?: string;
+        /**
+          * This event is raised when the component loads. The data-provider system should capture this event and register the provider for use in expressions.
+         */
+        "onRegister"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
     }
     interface XDataProviderCookie {
         /**
@@ -593,12 +908,22 @@ declare namespace LocalJSX {
          */
         "src"?: string;
     }
+    interface XPreferencesList {
+    }
+    interface XPreferencesPopoverButton {
+        "icon"?: string;
+    }
     interface XShow {
         /**
           * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
           * @example {session:user.name}
          */
         "when": string;
+    }
+    interface XSoundToggle {
+        "muted"?: boolean;
+    }
+    interface XThemeToggle {
     }
     interface XUi {
         /**
@@ -712,18 +1037,29 @@ declare namespace LocalJSX {
         "when"?: string;
     }
     interface IntrinsicElements {
+        "dxp-action-listener": DxpActionListener;
+        "dxp-data": DxpData;
+        "dxp-experience": DxpExperience;
+        "dxp-experience-demo": DxpExperienceDemo;
+        "dxp-show": DxpShow;
         "x-action": XAction;
         "x-action-activator": XActionActivator;
         "x-audio-load-music": XAudioLoadMusic;
         "x-audio-load-sound": XAudioLoadSound;
         "x-audio-player": XAudioPlayer;
+        "x-autoplay-toggle": XAutoplayToggle;
         "x-data-display": XDataDisplay;
+        "x-data-provider": XDataProvider;
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-repeat": XDataRepeat;
         "x-include": XInclude;
         "x-link": XLink;
         "x-markdown": XMarkdown;
+        "x-preferences-list": XPreferencesList;
+        "x-preferences-popover-button": XPreferencesPopoverButton;
         "x-show": XShow;
+        "x-sound-toggle": XSoundToggle;
+        "x-theme-toggle": XThemeToggle;
         "x-ui": XUi;
         "x-use": XUse;
         "x-view": XView;
@@ -734,18 +1070,29 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "dxp-action-listener": LocalJSX.DxpActionListener & JSXBase.HTMLAttributes<HTMLDxpActionListenerElement>;
+            "dxp-data": LocalJSX.DxpData & JSXBase.HTMLAttributes<HTMLDxpDataElement>;
+            "dxp-experience": LocalJSX.DxpExperience & JSXBase.HTMLAttributes<HTMLDxpExperienceElement>;
+            "dxp-experience-demo": LocalJSX.DxpExperienceDemo & JSXBase.HTMLAttributes<HTMLDxpExperienceDemoElement>;
+            "dxp-show": LocalJSX.DxpShow & JSXBase.HTMLAttributes<HTMLDxpShowElement>;
             "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
             "x-audio-load-music": LocalJSX.XAudioLoadMusic & JSXBase.HTMLAttributes<HTMLXAudioLoadMusicElement>;
             "x-audio-load-sound": LocalJSX.XAudioLoadSound & JSXBase.HTMLAttributes<HTMLXAudioLoadSoundElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
+            "x-autoplay-toggle": LocalJSX.XAutoplayToggle & JSXBase.HTMLAttributes<HTMLXAutoplayToggleElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
+            "x-data-provider": LocalJSX.XDataProvider & JSXBase.HTMLAttributes<HTMLXDataProviderElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-repeat": LocalJSX.XDataRepeat & JSXBase.HTMLAttributes<HTMLXDataRepeatElement>;
             "x-include": LocalJSX.XInclude & JSXBase.HTMLAttributes<HTMLXIncludeElement>;
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
             "x-markdown": LocalJSX.XMarkdown & JSXBase.HTMLAttributes<HTMLXMarkdownElement>;
+            "x-preferences-list": LocalJSX.XPreferencesList & JSXBase.HTMLAttributes<HTMLXPreferencesListElement>;
+            "x-preferences-popover-button": LocalJSX.XPreferencesPopoverButton & JSXBase.HTMLAttributes<HTMLXPreferencesPopoverButtonElement>;
             "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
+            "x-sound-toggle": LocalJSX.XSoundToggle & JSXBase.HTMLAttributes<HTMLXSoundToggleElement>;
+            "x-theme-toggle": LocalJSX.XThemeToggle & JSXBase.HTMLAttributes<HTMLXThemeToggleElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-use": LocalJSX.XUse & JSXBase.HTMLAttributes<HTMLXUseElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;

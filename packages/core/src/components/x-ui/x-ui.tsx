@@ -16,7 +16,7 @@ import {
   log,
   debugIf,
   RouterService,
-  state,
+  interfaceState,
   ActionBus,
   DataListener,
   InterfaceListener,
@@ -116,7 +116,7 @@ export class XUI {
     if (this.debug) log('xui: initializing <debug>');
     else log('xui: initializing');
 
-    state.debug = this.debug;
+    interfaceState.debug = this.debug;
 
     ActionBus.on('*', (...args) => {
       this.innerEvents.emit(...args);
@@ -154,7 +154,7 @@ export class XUI {
   }
 
   private addListener(name: string, listener: IActionEventListener) {
-    debugIf(state.debug, `x-ui: ${name}-listener registered`);
+    debugIf(interfaceState.debug, `x-ui: ${name}-listener registered`);
     listener.initialize(ActionBus);
     this.listeners.push(listener);
   }

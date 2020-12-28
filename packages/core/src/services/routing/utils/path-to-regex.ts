@@ -1,5 +1,4 @@
 /* eslint-disable no-continue */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /**
  * TS adaption of https://github.com/pillarjs/path-to-regexp/blob/master/index.js
  */

@@ -1,6 +1,6 @@
 import { RafCallback } from '@stencil/core/internal';
-import createHistory from './factories/createBrowserHistory';
-import createHashHistory from './factories/createHashHistory';
+import { createBrowserHistory } from './factories/createBrowserHistory';
+import { createHashHistory } from './factories/createHashHistory';
 import { matchPath } from './utils/match-path';
 import { getUrl, getLocation } from './utils/location-utils';
 import { addDataProvider } from '../data/providers/factory';
@@ -15,7 +15,7 @@ import {
 } from './interfaces';
 
 const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
-  browser: createHistory,
+  browser: createBrowserHistory,
   hash: createHashHistory,
 };
 

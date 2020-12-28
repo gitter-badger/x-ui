@@ -2,21 +2,13 @@
   "extends": "stylelint-config-sass-guidelines",
   "defaultSeverity": "warning",
   "plugins": [
-    "stylelint-scss",
-    "stylelint-order",
-    "stylelint-declaration-strict-value",
-    "stylelint-declaration-block-no-ignored-properties",
-    "stylelint-high-performance-animation"
+    "stylelint-scss"
   ],
   "rules": {
-    "declaration-no-important": [true, { "severity": "warning" }],
+    "selector-max-id": 5,
+    "declaration-no-important": true,
     "function-parentheses-space-inside": null,
-    "max-nesting-depth": [
-      5,
-      {
-        "ignoreAtRules": ["each", "media", "supports", "include"]
-      }
-    ],
+    "max-nesting-depth": 5,
     "no-descending-specificity": null,
     "selector-class-pattern": [
       "(^(((?!(is|has|my))[a-z]+){4,20}(\\-[a-z]+){0,2})(\\_\\_[a-z]+(\\-[a-z]+){0,2})?(\\-\\-[a-z]+(\\-[a-z]+){0,2}){0,2}$)|(^(row|container)$)",
@@ -27,8 +19,6 @@
     ],
     "declaration-block-no-duplicate-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
-    "order/properties-alphabetical-order": false,
-    "order/order": null,
     "scale-unlimited/declaration-strict-value": [
       ["/color/", "font-size", "font-weight"],
       {
@@ -39,8 +29,6 @@
         },
         "disableFix": false
       }
-    ],
-    "plugin/declaration-block-no-ignored-properties": true,
-    "plugin/no-low-performance-animation-properties": [true, { "severity": "warning" }]
+    ]
   }
 }

@@ -11,11 +11,7 @@ describe('x-link', () => {
     });
     expect(page.root).toEqualHtml(`
       <x-link>
-        <mock:shadow-root>
-          <a>
-            <slot></slot>
-          </a>
-        </mock:shadow-root>
+        <a></a>
       </x-link>
     `);
   });

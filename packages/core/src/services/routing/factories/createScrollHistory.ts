@@ -1,6 +1,6 @@
 import { storageAvailable } from '../utils/browser-utils';
 
-const createScrollHistory = (win: Window, applicationScrollKey: string = 'scrollPositions') => {
+export function createScrollHistory(win: Window, applicationScrollKey: string = 'scrollPositions') {
   let scrollPositions = new Map<string, [number, number]>();
 
   const set = (key: string, value: [number, number]) => {
@@ -40,6 +40,4 @@ const createScrollHistory = (win: Window, applicationScrollKey: string = 'scroll
     has,
     capture,
   };
-};
-
-export default createScrollHistory;
+}

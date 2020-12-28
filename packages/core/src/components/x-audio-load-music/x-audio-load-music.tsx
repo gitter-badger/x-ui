@@ -6,9 +6,7 @@ import { ActionEvent, AudioTrack, DiscardStrategy, LoadStrategy, AUDIO_TOPIC } f
   shadow: true,
 })
 export class XAudioLoadMusic {
-
-  @Element() el: HTMLXActionElement;
-
+  @Element() el: HTMLXAudioLoadMusicElement;
 
   /**
   * The identifier for this music track

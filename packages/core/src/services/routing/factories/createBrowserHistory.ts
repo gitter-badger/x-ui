@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/no-shadow */
 // Adapted from the https://github.com/ReactTraining/history and converted to TypeScript
 
-import createTransitionManager from './createTransitionManager';
-import createScrollHistory from './createScrollHistory';
+import { createTransitionManager } from './createTransitionManager';
+import { createScrollHistory } from './createScrollHistory';
 import { createLocation, createKey } from '../utils/location-utils';
 import { RouterHistory, LocationSegments } from '../interfaces';
 import { warnIf } from '../../logging';
+
 import {
   addLeadingSlash,
   stripTrailingSlash,
@@ -14,7 +13,6 @@ import {
   stripBasename,
   createPath,
 } from '../utils/path-utils';
-
 import {
   supportsPopStateOnHashChange,
   isExtraneousPopstateEvent,
@@ -43,7 +41,7 @@ const HashChangeEvent = 'hashchange';
  * Creates a history object that uses the HTML5 history API including
  * pushState, replaceState, and the popstate event.
  */
-const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = {}) => {
+export function createBrowserHistory (win: Window, props: CreateBrowserHistoryOptions = {}) {
   let forceNextPop = false;
 
   const globalHistory = win.history;
@@ -315,6 +313,4 @@ const createBrowserHistory = (win: Window, props: CreateBrowserHistoryOptions = 
   };
 
   return history;
-};
-
-export default createBrowserHistory;
+}

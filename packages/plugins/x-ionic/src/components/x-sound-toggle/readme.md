@@ -7,16 +7,16 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default       |
-| -------- | --------- | ----------- | --------- | ------------- |
-| `muted`  | `muted`   |             | `boolean` | `state.muted` |
+| Property | Attribute | Description | Type      | Default     |
+| -------- | --------- | ----------- | --------- | ----------- |
+| `muted`  | `muted`   |             | `boolean` | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [x-preferences-list](../list)
+ - [x-preferences-list](../x-preferences-list)
 
 ### Depends on
 

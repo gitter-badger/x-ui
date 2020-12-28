@@ -2,11 +2,8 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 // const scssVariables = 'src/scss/variables.scss';
-const { distDirs } = require('./package.json');
-
 export const config: Config = {
   namespace: 'x-ui',
-  buildEs5: false,
   plugins: [
     sass(),
   ],
@@ -22,13 +19,11 @@ export const config: Config = {
     // creates /dist dir
     {
       type: 'dist',
-      dir: distDirs.stencil,
       esmLoaderPath: 'loader',
     },
     // one file in es6
     {
-      type: 'dist-custom-elements-bundle',
-      dir: distDirs.stencil,
+      type: 'dist-custom-elements-bundle'
     },
     // creates readme.md for components
     {
@@ -37,7 +32,7 @@ export const config: Config = {
     // create components(.d.ts|json) into dist
     {
       type: 'docs-json',
-      file: `${distDirs.stencil}/components.json`,
+      file: `dist/components.json`,
     },
     // create components(.d.ts|json) into www
     {

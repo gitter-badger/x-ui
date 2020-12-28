@@ -68,7 +68,7 @@ This method gets waits for the experience.
 
 Type: `Promise<Experience>`
 
-[object Object]
+
 
 ### `reset() => Promise<void>`
 

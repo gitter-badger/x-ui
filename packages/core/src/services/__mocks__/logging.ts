@@ -1,22 +1,21 @@
-/* eslint-disable no-console */
 
-export function log(message: string) {
+export function log(_message: string) {
 }
 
-export function debug(message: string) {
+export function debug(_message: string) {
 }
 
-export function warn(warning: string, ...params: any[]) {
+export function warn(_warning: string, ..._params: any[]) {
 }
 
-export function error(message: string, err?: Error) {;
+export function error(_message: string, _err?: Error) {;
 }
 
-export function warnIf(value:boolean, message: any) {
+export function warnIf(_value:boolean, _message: any) {
 }
 
-export function logIf(value:boolean, message: any) {
+export function logIf(_value:boolean, _message: any) {
 }
 
-export function debugIf(value:boolean, message: any) {
+export function debugIf(_value:boolean, _message: any) {
 }

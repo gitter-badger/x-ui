@@ -12,7 +12,7 @@ import {
   shadow: true,
 })
 export class XActionActivator {
-  @State() actions: Array<ActionEvent<any>> = [];
+  @State() actions: Array<ActionEvent<unknown>> = [];
   @Element() el: HTMLXActionActivatorElement;
   @State() activated = false;
 
@@ -33,7 +33,7 @@ export class XActionActivator {
   /**
    * This is the name of the event to listen to on the target element.
    */
-  @Prop() targetEvent: string = 'click';
+  @Prop() targetEvent = 'click';
 
   /**
    * The time, in seconds at which the contained actions should be submitted.
@@ -45,14 +45,13 @@ export class XActionActivator {
   /**
   * Turn on debug statements for load, update and render events.
   */
-  @Prop() debug: boolean = false;
+  @Prop() debug = false;
 
   /**
   *
   */
   @Method()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async activateActions() {
+  activateActions(): Promise<void> {
     if (this.activated) return;
     // activate children
     this.actions.forEach((action) => {
@@ -66,6 +65,7 @@ export class XActionActivator {
       }
     });
     this.activated = true;
+    return Promise.resolve();
   }
 
   private get parent(): HTMLXViewDoElement | HTMLXViewElement {

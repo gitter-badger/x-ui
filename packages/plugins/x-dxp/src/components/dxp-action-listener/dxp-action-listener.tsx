@@ -1,3 +1,6 @@
+/* eslint-disable @stencil/own-methods-must-be-private */
+/* eslint-disable @stencil/own-props-must-be-private */
+
 import { Element, Component, h, Prop } from '@stencil/core';
 import { Experience, onChange, state, EventEmitter as Emitter } from '../..';
 
@@ -7,9 +10,7 @@ import { Experience, onChange, state, EventEmitter as Emitter } from '../..';
 })
 export class DxpActionListener {
   @Element() el: HTMLDxpActionListenerElement;
-  experience: Experience;
-  changed: Emitter;
-
+  private experience: Experience;
 
   /**
    * When debug is true, a reactive table of values is displayed.
@@ -46,6 +47,8 @@ export class DxpActionListener {
     this.el.parentElement.closest('x-ui')?.dispatchEvent(registerAction);
   }
 
+  changed: Emitter;
+
   async get(key: string): Promise<string> {
     return this.experience.data[key] as string;
   }
@@ -53,8 +56,6 @@ export class DxpActionListener {
   async set(key: string, value: any) {
     await this.experience.setData(key, value);
   }
-
-
 
   render() {
     return (<slot></slot>);

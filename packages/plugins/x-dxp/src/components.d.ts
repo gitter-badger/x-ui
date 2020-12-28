@@ -22,23 +22,16 @@ export namespace Components {
     interface DxpData {
         /**
           * A default value to display if the data in get is not found.
-          * @type {string}
-          * @memberof Data
          */
         "default": string;
         /**
           * The JS-based expression to capture data from the above model.
           * @example experience.data.color
-          * @type {string}
-          * @memberof Data
-          * @required
          */
         "get": string;
         /**
           * A pipe separated list of modifier expressions to modify the captured data. clip:<length>    truncate:<length>   date   format:<expression>   lowercase   uppercase   capitalize   size   encode   currency
           * @example clip:5|capitalize
-          * @type {string}
-          * @memberof Data
          */
         "modify": string;
     }
@@ -59,9 +52,6 @@ export namespace Components {
         "experienceData": string;
         /**
           * This method gets waits for the experience.
-          * @param timeout
-          * @return {Promise<Experience>}
-          * @memberof DXPExperience
          */
         "getExperience": (timeout: number) => Promise<Experience>;
         /**
@@ -101,25 +91,16 @@ export namespace Components {
         /**
           * A JS-based expression to capture data from the the data model.
           * @example : experience.data.color
-          * @required 
-          * @type {string}
-          * @memberof Show
          */
         "if": string;
         /**
           * The optional comparison operator. If omitted, general ‘truthiness’ is used.
           * @requires to
-          * @type {Comparison}
-          * @memberof Show
-          * @optional
          */
         "is": Comparison;
         /**
           * The optional value for comparison.
           * @requires is
-          * @type {*}
-          * @memberof Show
-          * @optional
          */
         "to": any;
     }
@@ -177,23 +158,16 @@ declare namespace LocalJSX {
     interface DxpData {
         /**
           * A default value to display if the data in get is not found.
-          * @type {string}
-          * @memberof Data
          */
         "default"?: string;
         /**
           * The JS-based expression to capture data from the above model.
           * @example experience.data.color
-          * @type {string}
-          * @memberof Data
-          * @required
          */
         "get": string;
         /**
           * A pipe separated list of modifier expressions to modify the captured data. clip:<length>    truncate:<length>   date   format:<expression>   lowercase   uppercase   capitalize   size   encode   currency
           * @example clip:5|capitalize
-          * @type {string}
-          * @memberof Data
          */
         "modify"?: string;
     }
@@ -257,25 +231,16 @@ declare namespace LocalJSX {
         /**
           * A JS-based expression to capture data from the the data model.
           * @example : experience.data.color
-          * @required 
-          * @type {string}
-          * @memberof Show
          */
         "if": string;
         /**
           * The optional comparison operator. If omitted, general ‘truthiness’ is used.
           * @requires to
-          * @type {Comparison}
-          * @memberof Show
-          * @optional
          */
         "is"?: Comparison;
         /**
           * The optional value for comparison.
           * @requires is
-          * @type {*}
-          * @memberof Show
-          * @optional
          */
         "to"?: any;
     }
