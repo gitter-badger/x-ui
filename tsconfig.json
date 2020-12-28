@@ -1,18 +1,10 @@
 {
-  "include": [
-    "**/src/**/*.ts",
-    "**/src/**/*.tsx",
-    "**/src/**/*.md",
-    "**/src/*.d.ts",
-    "**/stencil.config.ts",
-    "typings.d.ts",
-  ],
   "exclude": [
-    "**/node_modules/**/*.*",
-    "**/dist/**/*.*",
-    "**/www/**/*.*",
-    "**/loader/**/*.*",
-    "**/.scratch/**/*.*",
+    "node_modules/",
+    "dist/",
+    "www/",
+    "loader/",
+    ".scratch/",
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

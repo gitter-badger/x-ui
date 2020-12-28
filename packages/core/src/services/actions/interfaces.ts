@@ -1,7 +1,13 @@
-import { EventEmitter } from './event-emitter';
+export interface IEventEmitter  {
+  on(event: string, listener: Listener): () => void;
+  removeListener(event: string, listener: Listener): void;
+  removeAllListeners(): void;
+  emit(event: string, ...args: any[]): void;
+  once(event: string, listener: Listener): () => void;
+}
 
 export interface IActionEventListener {
-  initialize(bus: EventEmitter): void;
+  initialize(bus: IEventEmitter): void;
   destroy(): void;
 }
 
@@ -10,4 +16,16 @@ export enum ActionActivationStrategy {
   OnExit = 'OnExit',
   AtTime = 'AtTime',
   OnElementEvent = 'OnElementEvent',
+}
+
+export interface ActionEvent<T> {
+  topic: string;
+  command: string;
+  data: T;
+}
+
+export type Listener = (...args: any[]) => void;
+
+export interface IEvents {
+  [event: string]: Listener[]
 }

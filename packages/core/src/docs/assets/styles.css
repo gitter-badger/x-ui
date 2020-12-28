@@ -1,5 +1,6 @@
 :root {
   --bs-primary: #7566a0;
+  --text-color: #000;
 }
 
 .btn-primary {
@@ -19,15 +20,26 @@
 a,
 a:link,
 a:visited,
-a:active {
+a:active, {
   color: var(--bs-primary);
+  text-decoration: none;
 }
 
-a:hover,
-a:link:hover,
-a:visited:hover,
-a:active:hover {
+a:hover {
   color: #a0ec88;
+}
+
+a,
+a:link,
+a:visited,
+a:active,
+a:hover {
+  color: var(--text-color, #000);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-color-hover, #000);
 }
 
 .container-fluid {

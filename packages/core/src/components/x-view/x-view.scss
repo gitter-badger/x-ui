@@ -7,36 +7,25 @@
   --color: #000;
   background-color: var(--background-color);
   color: var(--color);
-  display: flex;
-  height: 100%;
+  display: none;
   overflow: auto;
   padding: var(--padding);
   padding-bottom: var(--padding-bottom);
   padding-top: var(--padding-top);
+
+  ::slotted([slot='content']) {
+    display: none;
+  }
 }
 
-::slotted(x-view) {
+:host(.active-route) {
   display: block;
-  height: 100%;
-  overflow: auto;
-  width: 100%;
-  z-index: 1;
 }
 
-:host(.xui-active-route) {
-  ::slotted(*:not(x-view):not(x-view-do)) {
-    visibility: hidden;
+:host(.active-route-exact) {
+  ::slotted([slot='content']) {
+    display: block;
   }
-
-  ::slotted(x-view),
-  ::slotted(x-view-do) {
-    visibility: visible;
-  }
-
-}
-
-:host(.xui-active-route-exact) {
-  visibility: visible !important;
 }
 
 

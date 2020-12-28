@@ -16,8 +16,16 @@ export function convertToFragment(html:string):DocumentFragment {
   return tpl.content;
 }
 
+export function wrapFragment(html:string, slot?: string, id?: string): HTMLDivElement {
+  const wrapper = document.createElement('div');
+  if (slot) wrapper.slot = slot;
+  if (id) wrapper.id = id;
+  wrapper.innerHTML = html;
+  return wrapper;
+}
+
 export function resolveChildRemoteHtml() {
-  const manualRendering = document.querySelectorAll('.xui-active-route-exact [no-render], .xui-active-route [no-render]');
+  const manualRendering = document.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]');
   manualRendering.forEach(async (el) => {
     el.removeAttribute('no-render');
   });

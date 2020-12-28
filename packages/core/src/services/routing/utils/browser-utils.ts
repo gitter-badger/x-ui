@@ -37,7 +37,7 @@ export const getConfirmation = (win: Window, message: string, callback: (confirm
 );
 
 export function removeAllChildNodes(parent: HTMLElement) {
-  while (parent.firstChild) {
+  while (parent?.firstChild) {
     parent.removeChild(parent.firstChild);
   }
 }

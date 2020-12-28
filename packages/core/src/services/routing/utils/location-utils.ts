@@ -16,7 +16,7 @@ export const getUrl = (url: string, root: string) => {
 
 export function normalizeChildUrl(childUrl: string, parentUrl: string) {
   let normalizedUrl = childUrl;
-  if (!childUrl?.startsWith(parentUrl)) {
+  if (!childUrl.startsWith(parentUrl)) {
     normalizedUrl = `${parentUrl}/${childUrl}`;
   }
   return normalizedUrl.replace('//', '/');

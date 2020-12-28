@@ -1,10 +1,6 @@
-type Listener = (...args: any[]) => void;
+import { IEvents, Listener, IEventEmitter } from "./interfaces";
 
-interface IEvents {
-  [event: string]: Listener[]
-}
-
-export class EventEmitter {
+export class EventEmitter implements IEventEmitter {
   readonly events: IEvents = {};
   private wildcardEvents: string[] = [];
 

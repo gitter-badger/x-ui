@@ -42,8 +42,6 @@ export interface RouteSubscription {
 
 export type HistoryType = 'browser' | 'hash';
 
-export type Listener = () => void;
-
 export interface LocationSegments {
   params: { [key: string]: any };
   pathname: string;

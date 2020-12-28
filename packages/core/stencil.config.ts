@@ -14,38 +14,44 @@ export const config: Config = {
     reloadStrategy: 'pageReload',
     port: 3333,
   },
-  watch: true,
   outputTargets: [
-    // creates /dist dir
     {
       type: 'dist',
-      esmLoaderPath: 'loader',
+      esmLoaderPath: 'loader'
     },
-    // one file in es6
     {
-      type: 'dist-custom-elements-bundle'
+      type: 'dist-custom-elements-bundle',
     },
-    // creates readme.md for components
     {
       type: 'docs-readme',
     },
-    // create components(.d.ts|json) into dist
     {
       type: 'docs-json',
-      file: `dist/components.json`,
+      file: `dist/components.json`
     },
     // create components(.d.ts|json) into www
     {
       type: 'docs-json',
-      file: `www/components.json`,
+      file: `../../www/data/x-components.json`,
     },
     {
       type: 'www',
+      dir: '../../www',
+      buildDir: 'x-ui',
+      empty: false,
       serviceWorker: null, // disable service workers
       copy: [
-        { src: 'index.html' },
-        { src: '**/*.md' },
-        { src: 'docs/**/*.*' },
+        { src: 'docs' },
+        {
+          src: 'components/**/*.md',
+          dest: 'docs',
+          keepDirStructure: true
+        },
+        {
+          src: 'services/**/*.md',
+          dest: 'docs',
+          keepDirStructure: true
+        },
       ],
     },
   ],

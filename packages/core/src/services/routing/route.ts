@@ -2,6 +2,7 @@ import { RouteViewOptions, MatchResults } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
 import { RouterService } from './router';
 import { hasExpression, resolveExpression } from '../data/expression-evaluator';
+import { normalizeChildUrl } from './utils/location-utils';
 
 export class Route {
   public match: MatchResults;
@@ -18,7 +19,7 @@ export class Route {
     matchSetter: (m: MatchResults) => void,
   ) {
     this.router = RouterService.instance;
-    this.router?.onRouteChange(async () => {
+    this.router?.onChange(async () => {
       this.previousMatch = this.match;
       this.match = this.router.matchPath({
         path: this.path,
@@ -27,6 +28,10 @@ export class Route {
       });
       matchSetter(this.match);
     });
+  }
+
+  normalizeChildUrl(childUrl:string, parentUrl: string) {
+    return normalizeChildUrl(childUrl, parentUrl);
   }
 
   async loadCompleted() {

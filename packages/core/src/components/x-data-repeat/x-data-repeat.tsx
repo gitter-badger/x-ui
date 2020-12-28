@@ -78,7 +78,7 @@ export class XDataRepeat {
       await this.resolveHtml();
     });
 
-    RouterService.instance?.onRouteChange(async () => {
+    RouterService.instance?.onChange(async () => {
       await this.resolveHtml();
     });
 

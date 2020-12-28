@@ -5,23 +5,20 @@
     <h1>Introductions</h1>
     <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
     <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>
-
-    <h3>What should we call you?</h3>
   </x-show>
-  <x-show when="'{storage:name}' != empty">
-    <h3>Your Profile</h3></1>
+
+  <x-show when="{storage:name}">
+    <h1>Your Profile</h1>
+    <p>This data does not leave your browser. It is only for demonstration purposes.</p>
   </x-show>
 
   <div class="form-floating mb-3">
     <input id="name" type="text" required class="form-control"
       onblur="localStorage.setItem('name', this.value)"
       onchange="localStorage.setItem('name', this.value)"
-      placeholder="Skippy"
       value-from="{storage:name}"/>
     <label for="floatingInput">Nickname</label>
   </div>
-
-
 
   <div class="navbar x-nav-bottom position-sticky">
     <button slot="start" x-back class="btn btn-light">

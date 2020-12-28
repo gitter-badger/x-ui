@@ -2,9 +2,10 @@ import { RafCallback } from '@stencil/core/internal';
 import { createBrowserHistory } from './factories/createBrowserHistory';
 import { createHashHistory } from './factories/createHashHistory';
 import { matchPath } from './utils/match-path';
-import { getUrl, getLocation } from './utils/location-utils';
+import { getUrl, getLocation, normalizeChildUrl } from './utils/location-utils';
 import { addDataProvider } from '../data/providers/factory';
 import { RoutingDataProvider } from './data-provider';
+import { EventEmitter } from '../actions';
 import {
   LocationSegments,
   RouterHistory,
@@ -21,7 +22,8 @@ const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
 
 export class RouterService {
   location: LocationSegments;
-  history?: RouterHistory;
+  history: RouterHistory;
+  events: EventEmitter;
 
   private constructor(
     private writeTask: (t:RafCallback) => void,
@@ -35,10 +37,15 @@ export class RouterService {
     this.history = HISTORIES[historyType]((rootElement.ownerDocument as any).defaultView);
     if (!this.history) return;
 
+    this.events = new EventEmitter();
+
     this.history.listen((location: LocationSegments) => {
-      this.history.location = getLocation(location, root);
-      this.location = getLocation(location, root);
+      const newLocation =  getLocation(location, root);
+      this.history.location = newLocation
+      this.location = newLocation;
+      this.events.emit('changed', newLocation)
     });
+
     this.location = getLocation(this.history.location, root);
 
     addDataProvider('route', new RoutingDataProvider(
@@ -48,7 +55,6 @@ export class RouterService {
       (key:string) => this.location?.query[key]));
   }
 
-  // eslint-disable-next-line consistent-return
   viewsUpdated = (options: RouteViewOptions = {}) => {
     if (this.history && options.scrollToId && this.historyType === 'browser') {
       const elm = this.history?.win.document.getElementById(options.scrollToId);
@@ -99,13 +105,21 @@ export class RouterService {
     return getUrl(url, root || this.root);
   }
 
+  normalizeChildUrl(childUrl:string, parentUrl: string) {
+    return normalizeChildUrl(childUrl, parentUrl);
+  }
+
   isModifiedEvent(ev: MouseEvent) {
     return (ev.metaKey || ev.altKey || ev.ctrlKey || ev.shiftKey);
   }
 
-  onRouteChange(listener: () => void) {
-    this.history?.listen(listener);
-    listener();
+  onChange(listener: (location: LocationSegments) => void) {
+    this.events.on('changed', (l) => listener(l))
+    listener(this.location);
+  }
+
+  destroy() {
+    this.events.removeAllListeners();
   }
 
   static instance: RouterService;
@@ -128,10 +142,6 @@ export class RouterService {
       transition,
       scrollTopOffset);
 
-    return this.instance;
-  }
-
-  static getInstance() {
     return this.instance;
   }
 }

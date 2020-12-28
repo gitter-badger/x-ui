@@ -1,6 +1,7 @@
 import { IDataProvider } from '../interfaces';
 import { requireValue } from '../../utils/misc-utils';
-import { debug } from '../../logging';
+import { debugIf } from '../../logging';
+import { interfaceState } from '../../interface';
 
 type DataProviders = {
   [key: string]: IDataProvider;
@@ -13,7 +14,7 @@ export function addDataProvider(name: string, provider:IDataProvider) {
   if (typeof provider.get !== 'function') throw new Error(`The provider ${name} is missing the get(key) function.`);
   if (typeof provider.set !== 'function') throw new Error(`The provider ${name} is missing the set(key) function.`);
   providers[name.toLowerCase()] = provider as IDataProvider;
-  debug(`data-provider: ${name} registered`);
+  debugIf(interfaceState.debug, `data-provider: ${name} registered`);
 }
 
 export function getDataProvider(name: string): IDataProvider {

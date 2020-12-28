@@ -24,7 +24,7 @@ export class AudioPlayer {
     this.actionSubscription = ActionBus.on('audio', (..._args) => {
 
     });
-    RouterService.instance?.onRouteChange(() => {
+    RouterService.instance?.onChange(() => {
 
     });
   }

@@ -1,24 +1,7 @@
 :host {
-  --padding: 0;
-  --padding-bottom: 16px;
-  --padding-top: 16px;
-  --background-color: #fff;
-  --color: #000;
-
-  background-color: var(--background-color);
-  color: var(--color);
-  display: flex;
+  display: block;
   height: 100%;
   overflow: auto;
-  padding: var(--padding);
-  padding-bottom: var(--padding-bottom);
-  padding-inline-end: var(--padding);
-  padding-inline-start: var(--padding);
-  padding-top: var(--padding-top);
-
-  width: 100%;
   z-index: 1;
-
-  .hide { display: none; }
 }
 

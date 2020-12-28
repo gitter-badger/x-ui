@@ -231,9 +231,18 @@ export namespace Components {
         "transition": string;
     }
     interface XUse {
-        "cssSrc": string;
+        /**
+          * When inline the link/script tags are rendered in-place rather than added to the head.
+         */
         "inline": boolean;
+        /**
+          * The script file to reference.
+         */
         "scriptSrc": string;
+        /**
+          * The css file to reference
+         */
+        "styleSrc": string;
     }
     interface XView {
         /**
@@ -643,9 +652,18 @@ declare namespace LocalJSX {
         "transition"?: string;
     }
     interface XUse {
-        "cssSrc"?: string;
+        /**
+          * When inline the link/script tags are rendered in-place rather than added to the head.
+         */
         "inline"?: boolean;
+        /**
+          * The script file to reference.
+         */
         "scriptSrc"?: string;
+        /**
+          * The css file to reference
+         */
+        "styleSrc"?: string;
     }
     interface XView {
         /**
@@ -671,7 +689,7 @@ declare namespace LocalJSX {
         /**
           * The url for this route, including the parent's routes.
          */
-        "url"?: string;
+        "url": string;
     }
     interface XViewDo {
         /**

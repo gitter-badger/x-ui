@@ -13,8 +13,7 @@
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/x-ui/index.esm.js",
   "files": [
-    "dist/",
-    "loader/"
+    "dist/"
   ],
   "scripts": {
     "--- development ---": "---------------",
@@ -22,7 +21,7 @@
     "watch": "stencil build --docs --dev --watch --serve --port 3002",
     "gen": "stencil generate",
     "--- production ---": "---------------",
-    "build": "stencil build --docs",
+    "build": "stencil build --docs --www",
     "--- test ---": "---------------",
     "test": "stencil test --spec --e2e --coverage",
     "test:spec": "stencil test --spec",

@@ -41,27 +41,17 @@
       media="print" onload="this.media='all'"/>
 
     <!-- Experience UI -->
-    <script type="module" src="build/x-ui.esm.js"></script>
+    <script type="module" src="x-ui/x-ui.esm.js"></script>
     <link rel="stylesheet"
-      href="build/x-ui.css"
-      media="print" onload="this.media='all'" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-ui.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-data-display.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-data-provider-cookie.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-include.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-action-activator.entry.js(" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-view.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-link.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-action.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-data-repeat.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-show.entry.js" />
-    <link rel="preload" as="script" crossorigin="anonymous" href="/build/x-view-do.entry.js" />
+      href="x-ui/x-ui.css"
+      />
 
-    <!-- Tour -->
-    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-    <link rel="stylesheet"
-      href="https://unpkg.com/intro.js/minified/introjs.min.css"
-      media="print" onload="this.media='all'" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-include.entry.js" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-ui.entry.js" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-view.entry.js" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-view-do.entry.js" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-link.entry.js" />
+    <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-data-repeat.entry.js" />
 
     <!-- Animate.css -->
     <link rel="stylesheet"
@@ -70,29 +60,20 @@
 
     <!-- Markdown -->
     <script async src="https://cdn.jsdelivr.net/gh/markedjs/marked@1/marked.min.js"></script>
-    <script async src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js" data-manual=""></script>
-    <script async src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js"></script>
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css"
-      media="print" onload="this.media='all'" />
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@4/github-markdown.min.css"
-      media="print" onload="this.media='all'" />
 
 
   </head>
 
   <body>
+    <x-include src="docs/header.html"></x-include>
+
     <x-ui start-url="/home"
       app-title="view.DO :: <x-ui/>"
       transition="animate__animated animate__fadeIn">
 
-      <x-include src="docs/header.html"></x-include>
-
       <x-view url="/home"
         page-title="Home"
-        content-src="docs/home/index.html"
-        >
+        content-src="docs/home/index.html">
 
         <x-view-do url="/name"
           page-title="Introductions"
@@ -114,14 +95,8 @@
         <x-view-do url="/use"
           page-title="Use w/CDN"
           visit="optional"
-          content-src="docs/start/use.html">
-          <!-- This is how you react to the user and perform function-calls -->
-          <x-action-activator activate="OnEnter">
-            <x-action topic="data"
-              command="set-data"
-              data='{"provider": "storage", "values": {"installed": "cdn" }}'>
-            </x-action>
-          </x-action-activator>
+          content-src="docs/start/use.html" debug>
+
         </x-view-do>
 
         <x-view-do url="/install"
@@ -385,22 +360,9 @@
         </x-view-do>
       </x-view>
 
-      <x-view url="/documentation/components/:component"
-        page-title="{route:component}">
-        <div class="container container-fluid mx-auto">
-          <x-data-display no-render
-            x-show-when="{route:component}"
-            x-hide-when="!{route:component}">
-            <template>
-              <x-markdown src="components/{route:component}/readme.md"></x-markdown>
-            </template>
-          </x-data-display>
-        </div>
-      </x-view>
-
-      <x-view url="/test"
-        page-title="Testing"
-        content-src="docs/test.html">
+      <x-view url="/components/:component"
+        page-title="Component: <{route:component}>"
+        content-src="docs/components/index.html">
       </x-view>
 
       <!-- Not Found Route -->

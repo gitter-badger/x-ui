@@ -1,19 +1,17 @@
 import { h, Component, Element, Host, Prop, State, Watch } from '@stencil/core';
-
 import {
   ActionBus,
   DATA_EVENTS,
   debugIf,
   hasVisited,
   markVisit,
-  MatchResults,
   resolveElementVisibility,
   resolveNext,
   Route,
   RouterService,
   warn,
+  wrapFragment,
 } from '../..';
-import { normalizeChildUrl } from '../../services/routing/utils/location-utils';
 
 @Component({
   tag: 'x-view',
@@ -23,8 +21,8 @@ import { normalizeChildUrl } from '../../services/routing/utils/location-utils';
 export class XView {
   private route: Route;
   @Element() el!: HTMLXViewElement;
-  @State() content: string;
-  @State() match: MatchResults;
+  @State() match: boolean;
+  @State() exact: boolean;
 
   /**
    * The title for this view. This is prefixed
@@ -48,9 +46,8 @@ export class XView {
   /**
    * The url for this route, including the parent's
    * routes.
-   *
   */
-  @Prop({ reflect: true, mutable: true }) url: string;
+  @Prop() url!: string;
 
   @Watch('url')
   validatePath(newValue: string, _oldValue: string) {
@@ -78,23 +75,30 @@ export class XView {
     return this.el.parentElement?.closest('x-ui') as HTMLXUiElement;
   }
 
-  private get parentUrl() {
-    return this.parent?.getAttribute('url') || this.parent?.getAttribute('root');
-  }
-
   private get childViewDos(): Array<HTMLXViewDoElement> {
     if (!this.el.hasChildNodes()) return [];
     return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW-DO')
       .map((v) => v as HTMLXViewDoElement);
   }
 
+  private get childViews(): Array<HTMLXViewElement> {
+    if (!this.el.hasChildNodes()) return [];
+    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW')
+      .map((v) => v as HTMLXViewElement);
+  }
+
   componentWillLoad() {
+    this.childViews.forEach(v => {
+      const url = v.getAttribute('url');
+      v.setAttribute('url', RouterService.instance?.normalizeChildUrl(url, this.url))
+    });
+
+    this.childViewDos.forEach(v => {
+      const url = v.getAttribute('url');
+      v.setAttribute('url', RouterService.instance?.normalizeChildUrl(url, this.url))
+    });
+
     debugIf(this.debug, `x-view: ${this.url} loading`);
-
-    if (this.parentUrl && !this.url?.startsWith(this.parentUrl)) {
-      this.url = normalizeChildUrl(this.url, this.parentUrl);
-    }
-
     this.route = new Route(
       this.el,
       this.url,
@@ -102,47 +106,37 @@ export class XView {
       this.pageTitle,
       this.transition || this.parent?.transition,
       this.scrollTopOffset,
-      (match) => {
-        this.match = {...match};
-        if (this.match.isExact) {
-          markVisit(this.url);
+      async (match) => {
+        this.match = !!match;
+        this.exact = match?.isExact;
+
+        debugIf(this.debug, `x-view: ${this.url} location changed match: ${JSON.stringify(this.match || null)}`);
+        if (this.exact) {
+          markVisit(match.url);
         }
+        await this.resolveView();
       },
     );
 
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+      debugIf(this.debug, `x-view: ${this.url} data changed `);
       await this.resolveView();
     });
   }
 
-  async componentDidLoad() {
-    await this.route.loadCompleted();
-  }
-
-  async componentDidUpdate() {
-    await this.route.loadCompleted();
-    resolveElementVisibility(this.el);
-  }
-
-  async componentWillRender() {
-    if (this.match) {
-      await this.resolveView();
-    }
-  }
-
-  async componentDidRender() {
+  componentDidRender() {
+    debugIf(this.debug, `x-view: ${this.url} did render`);
     resolveElementVisibility(this.el);
   }
 
   private async fetchHtml() {
-    if (this.content || !this.contentSrc) return;
+    if (!this.contentSrc) return;
     try {
-      debugIf(this.debug, `x-view: fetching content from ${this.contentSrc}`);
+      debugIf(this.debug, `x-view: ${this.url} fetching content from ${this.contentSrc}`);
       const response = await fetch(this.contentSrc);
       if (response.status === 200) {
         const data = await response.text();
-        this.content = data;
-        this.el.innerHTML += data;
+        this.el.appendChild(wrapFragment(data,'content','content'));
       } else {
         warn(`x-view: ${this.url} Unable to retrieve from ${this.contentSrc}`);
       }
@@ -152,38 +146,40 @@ export class XView {
   }
 
   private async resolveView() {
-    if (this.match?.isExact) {
-      await this.fetchHtml();
+    debugIf(this.debug, `x-view: ${this.url} resolve view called`);
+    this.el.classList.remove('active-route');
+    this.el.classList.remove('active-route-exact');
+    this.el.querySelector('#content')?.remove();
+    if (this.match) {
+      this.el.classList.add('active-route');
+      if (this.exact) {
+        debugIf(this.debug, `x-view: ${this.url} route is matched `);
 
-      const viewDos = this.childViewDos.map((viewDo) => {
-        const { when, visit, url } = viewDo;
-        const cleanUrl = normalizeChildUrl(url, this.url);
-        const visited = hasVisited(cleanUrl);
-        return { when, visit, visited, url: cleanUrl };
-      });
+        const viewDos = this.childViewDos.map((viewDo) => {
+          const { when, visit, url } = viewDo;
+          const visited = hasVisited(url);
+          return { when, visit, visited, url };
+        });
 
-      const nextDo = await resolveNext(viewDos);
-      if (nextDo) {
-        // eslint-disable-next-line no-console
-        RouterService.instance?.history.push(nextDo.url);
+        const nextDo = await resolveNext(viewDos);
+        if (nextDo) {
+          // eslint-disable-next-line no-console
+          RouterService.instance?.history.push(nextDo.url);
+        } else {
+          await this.fetchHtml();
+          this.el.classList.add('active-route-exact');
+          await this.route.loadCompleted();
+        }
       }
     }
   }
 
   render() {
-    if (this.match?.path) {
-      const classes = `${this.route.transition} ${this.match?.isExact ? 'xui-active-route-exact' : 'xui-active-route'}`;
-      return (
-        <Host class={classes}>
-          <slot />
-          {this.match?.isExact ? <slot name="content"/> : null }
-        </Host>
-      );
-    }
-
+    debugIf(this.debug, `x-view: ${this.url} render`);
     return (
-      <Host hidden>
-        <slot/>
+      <Host>
+        <slot />
+        <slot name="content" />
       </Host>
     );
   }

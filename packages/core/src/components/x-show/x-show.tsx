@@ -25,7 +25,7 @@ export class XShow {
     ActionBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.evaluatePredicate();
     });
-    RouterService.instance?.onRouteChange(async () => {
+    RouterService.instance?.onChange(async () => {
       await this.evaluatePredicate();
     });
   }

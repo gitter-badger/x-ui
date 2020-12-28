@@ -3,5 +3,5 @@
   "include": [
     "src",
     "types/jsx.d.ts"
-  ]
+   ]
 }

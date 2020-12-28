@@ -18,17 +18,6 @@
       }
     ],
     "declaration-block-no-duplicate-properties": true,
-    "declaration-block-no-shorthand-property-overrides": true,
-    "scale-unlimited/declaration-strict-value": [
-      ["/color/", "font-size", "font-weight"],
-      {
-        "ignoreKeywords": {
-          "/color/": ["transparent", "inherit"],
-          "font-size": ["modular-scale(/d)", "ms(/d)", "inherit"],
-          "font-weight": ["inherit"]
-        },
-        "disableFix": false
-      }
-    ]
+    "declaration-block-no-shorthand-property-overrides": true
   }
 }

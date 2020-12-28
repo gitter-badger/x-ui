@@ -1,11 +1,9 @@
 <div class="container container-fluid mx-auto" slot="content">
-  <h1>Welcome <x-data-display text="{storage:name?Friend}"></x-data-display>!</h1>
+  <h1>
+    Welcome <span hidden x-show-when="didVisit('/start')">back</span>
+    <x-data-display text="{storage:name?Friend}"></x-data-display>!
+  </h1>
 
-  <x-data-display>
-    <template>
-      <p>Glad you are here!</p>
-    </template>
-  </x-data-display>
   <p>
     This page shows up each visit. This kind of route is helpful for notifications,
     consent forms or announcements.

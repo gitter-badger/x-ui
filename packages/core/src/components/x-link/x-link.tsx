@@ -81,7 +81,7 @@ export class XViewLink {
   @Prop() ariaLabel?: string;
 
   componentWillLoad() {
-    RouterService.instance?.onRouteChange(() => {
+    RouterService.instance?.onChange(() => {
       this.match = RouterService.instance.matchPath({
         path: this.href,
         exact: this.exact,

@@ -18,8 +18,16 @@ export const config: Config = {
       type: 'docs-readme',
     },
     {
+      type: 'docs-json',
+      file: `../../../www/data/x-ionic-components.json`,
+    },
+    {
       type: 'www',
+      buildDir: 'x-ionic',
       serviceWorker: null, // disable service workers
+      copy: [
+        { src: '**/*.md' },
+      ],
     },
   ],
 };

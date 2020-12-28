@@ -31,6 +31,7 @@ import {
   shadow: true,
 })
 export class XUI {
+  private router: RouterService;
   private listeners: Array<IActionEventListener> = [];
   @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
@@ -122,7 +123,7 @@ export class XUI {
       this.innerEvents.emit(...args);
     });
 
-    const router = RouterService.initialize(
+    this.router = RouterService.initialize(
       writeTask,
       this.el,
       this.historyType,
@@ -131,16 +132,16 @@ export class XUI {
       this.transition,
       this.scrollTopOffset);
 
-    router.onRouteChange(() => {
-      this.location = router.location;
+    this.router.onChange((location) => {
+      this.location = location;
       setTimeout(() => {
         resolveChildRemoteHtml();
         this.routeChanged.emit(this.location);
       }, 100);
     });
 
-    if (this.startUrl !== '/' && router.location.pathname === '/') {
-      router.history.push(router.getUrl(this.startUrl, this.root));
+    if (this.startUrl !== '/' && this.router.location.pathname === '/') {
+      this.router.history.push(this.router.getUrl(this.startUrl, this.root));
     }
 
     const dataListener = new DataListener();
@@ -169,6 +170,7 @@ export class XUI {
       listener.destroy();
       listener = this.listeners.pop();
     }
+    this.router.destroy();
     ActionBus.removeAllListeners();
   }
 

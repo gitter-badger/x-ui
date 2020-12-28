@@ -1,10 +1,11 @@
 import { InterfaceProvider } from '../interfaces';
-import { debug } from '../../logging';
+import { debugIf } from '../../logging';
+import { state } from '../state';
 
 let provider: InterfaceProvider = null;
 
 export function setInterfaceProvider(name: string, p:InterfaceProvider) {
-  debug(`document-provider: ${name} registered`);
+  debugIf(state.debug, `document-provider: ${name} registered`);
   provider = p;
 }
 

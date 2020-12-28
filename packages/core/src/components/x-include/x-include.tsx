@@ -3,7 +3,6 @@ import { warn } from '../..';
 
 @Component({
   tag: 'x-include',
-  styleUrl: 'x-include.scss',
   shadow: false,
 })
 export class XInclude {

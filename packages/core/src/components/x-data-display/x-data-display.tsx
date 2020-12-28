@@ -64,7 +64,7 @@ export class XDataDisplay {
       await this.resolveTemplate();
     });
 
-    RouterService.instance?.onRouteChange(async () => {
+    RouterService.instance?.onChange(async () => {
       await this.resolveTemplate();
     });
 
