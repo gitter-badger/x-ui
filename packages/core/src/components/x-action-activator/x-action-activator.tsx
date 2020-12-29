@@ -2,9 +2,10 @@ import { Component, Element, Prop, h, Host, Method, State } from '@stencil/core'
 import {
   ActionBus,
   ActionActivationStrategy,
-  ActionEvent,
+  EventAction,
   warn,
   debugIf,
+  IActionElement,
 } from '../..';
 
 /**
@@ -15,7 +16,7 @@ import {
   shadow: true,
 })
 export class XActionActivator {
-  @State() actions: Array<ActionEvent<unknown>> = [];
+  @State() actions: Array<EventAction<unknown>> = [];
   @Element() el: HTMLXActionActivatorElement;
   @State() activated = false;
 
@@ -51,11 +52,16 @@ export class XActionActivator {
   @Prop() debug = false;
 
   /**
+  * Allow the actions to fire more than once per the event.
+  */
+  @Prop() multiple = false;
+
+  /**
   *
   */
   @Method()
   activateActions(): Promise<void> {
-    if (this.activated) return;
+    if (!this.multiple && this.activated) return;
     // activate children
     this.actions.forEach((action) => {
       const dataString = JSON.stringify(action.data);
@@ -76,11 +82,17 @@ export class XActionActivator {
       || this.el.closest('x-view');
   }
 
-  private get childActions(): Array<HTMLXActionElement> {
+  private get childActions(): Array<IActionElement> {
     if (!this.el.hasChildNodes()) return [];
-    return Array.from(this.el.childNodes)
+    const actions = Array.from(this.el.childNodes)
       .filter((c) => c.nodeName === 'X-ACTION')
       .map((v) => v as HTMLXActionElement);
+
+    const audioActions = Array.from(this.el.childNodes)
+      .filter((c) => c.nodeName === 'X-AUDIO-ACTION')
+      .map((v) => v as HTMLXAudioActionElement);
+
+    return [...actions, ...audioActions];
   }
 
   componentDidLoad() {

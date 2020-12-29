@@ -1,5 +1,5 @@
 import { Component, Host, h, Method, Prop, Element } from '@stencil/core';
-import { ActionEvent, warn } from '../..';
+import { EventAction, IActionElement, warn } from '../..';
 
 /**
  * This element just holds data to express the actionEvent to fire. This element
@@ -11,14 +11,14 @@ import { ActionEvent, warn } from '../..';
   tag: 'x-action',
   shadow: true,
 })
-export class XAction {
+export class XAction implements IActionElement {
   private deserializedData: { [key: string] : any };
 
   @Element() el: HTMLXActionElement;
   /**
   * This is the topic this action-command is targeting.
   */
-  @Prop() topic: 'data'|'routing'|'document';
+  @Prop() topic: 'data'|'routing'|'document'|'audio'|'video';
 
   /**
   * The command to execute.
@@ -34,7 +34,7 @@ export class XAction {
   * Get the underlying actionEvent instance. Used by the x-action-activator element.
   */
   @Method()
-  async getAction(): Promise<ActionEvent<any>> {
+  async getAction(): Promise<EventAction<any>> {
     return {
       topic: this.topic,
       command: this.command,

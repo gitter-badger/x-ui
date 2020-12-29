@@ -13,7 +13,6 @@ export class DefaultInterfaceProvider implements InterfaceProvider {
       theme: win?.localStorage.getItem('theme') || null,
       muted: win?.localStorage.getItem('muted') === 'true',
       autoplay: win?.localStorage.getItem('autoplay') === 'true',
-      hasAudio: false,
     });
 
     onChange('theme', (t) => win?.localStorage.setItem('theme', t.toString()));
@@ -33,7 +32,7 @@ export class DefaultInterfaceProvider implements InterfaceProvider {
     this.state.autoplay = autoplay;
   }
 
-  async setSound(muted: boolean): Promise<void> {
+  async setMute(muted: boolean): Promise<void> {
     this.state.muted = muted;
   }
 

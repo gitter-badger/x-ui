@@ -1,6 +1,6 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import {
-  ActionEvent,
+  EventAction,
   DATA_TOPIC, DATA_COMMANDS,
   DataProviderRegistration,
   CookieConsent,
@@ -45,7 +45,7 @@ export class XDataProviderCookie {
     bubbles: true,
     composed: true,
     cancelable: true,
-  }) register: EventEmitter<ActionEvent<DataProviderRegistration>>;
+  }) register: EventEmitter<EventAction<DataProviderRegistration>>;
 
   /**
    * This event is raised when the consents to cookies.
@@ -100,11 +100,9 @@ export class XDataProviderCookie {
   render() {
     return (
       <Host hidden={this.hide}>
-        <div part="container">
-          <slot></slot>
-          <button part="accept-button" type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
-          <button part="reject-button" type="button" onClick={() => this.handleConsentResponse(false)}>No Thanks</button>
-        </div>
+        <slot></slot>
+        <button class="btn btn-primary" part="accept-button" type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
+        <button class="btn btn-light" part="reject-button" type="button" onClick={() => this.handleConsentResponse(false)}>No Thanks</button>
       </Host>
     );
   }

@@ -10,13 +10,13 @@ import {
 import { addDataProvider, getDataProvider } from './providers/factory';
 import { SessionProvider } from './providers/session';
 import { StorageProvider } from './providers/storage';
-import { IActionEventListener, ActionEvent } from '../actions';
+import { IEventActionListener, EventAction } from '../actions';
 import { warn, debugIf } from '../logging';
 import { state } from '../interface/state';
 import { storageAvailable } from '../routing/utils/browser-utils';
 import { EventEmitter } from '../actions/event-emitter';
 
-export class DataListener implements IActionEventListener {
+export class DataListener implements IEventActionListener {
   bus: EventEmitter;
   window: Window;
   eventOptions: EventListenerOptions = { capture: false };
@@ -53,7 +53,7 @@ export class DataListener implements IActionEventListener {
     this.bus.emit(DATA_EVENTS.DataChanged);
   }
 
-  handleEvent(actionEvent: ActionEvent<DataProviderRegistration|SetData>) {
+  handleEvent(actionEvent: EventAction<DataProviderRegistration|SetData>) {
     debugIf(state.debug, `data-listener: action received {command:${actionEvent.command}}`);
     if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data as DataProviderRegistration;

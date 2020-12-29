@@ -44,7 +44,7 @@ Alternatively, you can skip this by including the 'skip-consent' attribute.
 
 | Event         | Description                                                                                                                                                                                | Type                                                 |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- |
-| `actionEvent` | This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<ActionEvent<DataProviderRegistration>>` |
+| `actionEvent` | This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions. | `CustomEvent<EventAction<DataProviderRegistration>>` |
 | `didConsent`  | This event is raised when the consents to cookies.                                                                                                                                         | `CustomEvent<{ consented: boolean; }>`               |
 
 
@@ -53,7 +53,6 @@ Alternatively, you can skip this by including the 'skip-consent' attribute.
 | Part              | Description |
 | ----------------- | ----------- |
 | `"accept-button"` |             |
-| `"container"`     |             |
 | `"reject-button"` |             |
 
 

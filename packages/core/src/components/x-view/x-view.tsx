@@ -90,6 +90,17 @@ export class XView {
       .map((v) => v as HTMLXViewElement);
   }
 
+  private get childAudio() {
+    if (!this.el.hasChildNodes()) return null;
+    const music = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-MUSIC'))
+      .map((v) => v as HTMLXAudioLoadMusicElement);
+
+    const sounds = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-SOUND'))
+      .map((v) => v as HTMLXAudioLoadSoundElement);
+
+    return [...music, ...sounds];
+  }
+
   componentWillLoad() {
     this.childViews.forEach(v => {
       v.url = RouterService.instance?.normalizeChildUrl(v.url, this.url);
@@ -171,6 +182,13 @@ export class XView {
         } else {
           await this.fetchHtml();
           this.el.classList.add('active-route-exact');
+
+          this.childAudio.forEach(async a => {
+            const audioTrack = await a.getAction();
+            debugIf(this.debug, `x-view: ${this.url} sending audio track ${audioTrack.data.trackId}`)
+            ActionBus.emit(audioTrack.topic, audioTrack);
+          });
+
           await this.route.loadCompleted();
         }
       }

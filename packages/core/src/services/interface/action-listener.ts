@@ -1,4 +1,4 @@
-import { ActionEvent, IActionEventListener } from '../actions';
+import { EventAction, IEventActionListener } from '../actions';
 import { EventEmitter } from '../actions/event-emitter';
 import { debugIf } from '../logging';
 import { state } from './state';
@@ -7,7 +7,7 @@ import { DefaultInterfaceProvider } from './providers/default';
 import { getInterfaceProvider, setInterfaceProvider } from './providers/factory';
 import { kebabToCamelCase } from '../utils/string-utils';
 
-export class InterfaceListener implements IActionEventListener {
+export class InterfaceListener implements IEventActionListener {
   bus: EventEmitter;
   unsubscribe: () => void;
   defaultProvider: DefaultInterfaceProvider;
@@ -41,7 +41,7 @@ export class InterfaceListener implements IActionEventListener {
     setInterfaceProvider(name, provider as InterfaceProvider);
   }
 
-  async handleEvent(actionEvent: ActionEvent<any>) {
+  async handleEvent(actionEvent: EventAction<any>) {
     debugIf(state.debug, `document-listener: action received ${JSON.stringify(actionEvent)}`);
 
     if (actionEvent.command === INTERFACE_COMMANDS.RegisterProvider) {

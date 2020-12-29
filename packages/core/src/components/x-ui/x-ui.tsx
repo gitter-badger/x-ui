@@ -11,7 +11,7 @@ import {
   writeTask } from '@stencil/core';
 import {
   HistoryType,
-  IActionEventListener,
+  IEventActionListener,
   LocationSegments,
   log,
   debugIf,
@@ -21,7 +21,7 @@ import {
   DataListener,
   InterfaceListener,
   RoutingListener,
-  ActionEvent,
+  EventAction,
   resolveChildRemoteHtml,
 } from '../../services';
 
@@ -35,7 +35,7 @@ import {
 })
 export class XUI {
   private router: RouterService;
-  private listeners: Array<IActionEventListener> = [];
+  private listeners: Array<IEventActionListener> = [];
   @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
 
@@ -95,8 +95,8 @@ export class XUI {
     target: 'body',
     capture: true,
   })
-  delegateActionEventFromDOM(ev: CustomEvent<ActionEvent<any>>) {
-    const action = ev.detail as ActionEvent<any>;
+  delegateActionEventFromDOM(ev: CustomEvent<EventAction<any>>) {
+    const action = ev.detail as EventAction<any>;
     ActionBus.emit(action.topic, action);
   }
 
@@ -157,7 +157,7 @@ export class XUI {
     this.addListener('document', documentListener);
   }
 
-  private addListener(name: string, listener: IActionEventListener) {
+  private addListener(name: string, listener: IEventActionListener) {
     debugIf(interfaceState.debug, `x-ui: ${name}-listener registered`);
     listener.initialize(ActionBus);
     this.listeners.push(listener);

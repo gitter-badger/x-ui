@@ -108,6 +108,17 @@ export class XViewDo {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
+  private get childAudio() {
+    if (!this.el.hasChildNodes()) return null;
+    const music = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-MUSIC'))
+      .map((v) => v as HTMLXAudioLoadMusicElement);
+
+    const sounds = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-SOUND'))
+      .map((v) => v as HTMLXAudioLoadSoundElement);
+
+    return [...music, ...sounds];
+  }
+
 
   private get childVideo(): HTMLVideoElement {
     if (!this.el.hasChildNodes()) return null;
@@ -206,6 +217,11 @@ export class XViewDo {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
       this.el.removeAttribute('hidden');
+      this.childAudio.forEach(async a => {
+        const audioTrack = await a.getAction();
+        debugIf(this.debug, `x-view-do: ${this.url} sending audio track ${audioTrack.data.trackId}`)
+        ActionBus.emit(audioTrack.topic, audioTrack);
+      });
       writeTask(() => this.resolveChildren());
     } else {
       this.el.setAttribute('hidden', '');
@@ -246,6 +262,7 @@ export class XViewDo {
     this.actionActivators
       .filter((activator) => activator.activate === ActionActivationStrategy.OnEnter)
       .forEach((activator) => activator.activateActions());
+
 
     await this.route.loadCompleted();
   }

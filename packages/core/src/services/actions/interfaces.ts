@@ -6,7 +6,7 @@ export interface IEventEmitter  {
   once(event: string, listener: Listener): () => void;
 }
 
-export interface IActionEventListener {
+export interface IEventActionListener {
   initialize(bus: IEventEmitter): void;
   destroy(): void;
 }
@@ -18,7 +18,7 @@ export enum ActionActivationStrategy {
   OnElementEvent = 'OnElementEvent',
 }
 
-export interface ActionEvent<T> {
+export interface EventAction<T> {
   topic: string;
   command: string;
   data: T;
@@ -28,4 +28,9 @@ export type Listener = (...args: any[]) => void;
 
 export interface IEvents {
   [event: string]: Listener[]
+}
+
+
+export interface IActionElement {
+  getAction(): Promise<EventAction<any>>;
 }
