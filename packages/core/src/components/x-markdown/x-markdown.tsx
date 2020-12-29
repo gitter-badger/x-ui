@@ -1,6 +1,9 @@
 import { Component, h, Host, State, Prop, Element } from '@stencil/core';
 import { convertToFragment, warn } from '../..';
 
+/**
+ *  @system content
+ */
 @Component({
   tag: 'x-markdown',
   styleUrl: 'x-markdown.scss',

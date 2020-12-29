@@ -1,11 +1,11 @@
 import { Component, Host, h, Method, Prop, Element } from '@stencil/core';
 import { ActionEvent, warn } from '../..';
+
 /**
  * This element just holds data to express the actionEvent to fire. This element
  * should always be the child of a x-action-activator.
  *
- * @export
- * @class XAction
+ * @system actions
  */
 @Component({
   tag: 'x-action',

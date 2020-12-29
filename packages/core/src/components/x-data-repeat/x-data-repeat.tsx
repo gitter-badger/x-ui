@@ -1,9 +1,10 @@
 import { Element, Component, h, Prop, State, Host } from '@stencil/core';
 import { arrify } from '../../services/utils/misc-utils';
+import jsonata from 'jsonata';
+
 import {
   ActionBus,
   DATA_EVENTS,
-  // removeAllChildNodes,
   resolveExpression,
   hasExpression,
   RouterService,
@@ -24,15 +25,21 @@ export class XDataRepeat {
 
   /**
    The array-string or data expression to obtain a collection for rendering the template.
-   @example {session:cartItems}
+   @example {session:cart.items}
    */
   @Prop() items?: string;
 
   /**
    * The URL to remote JSON collection to use for the items.
-   * @example {session:user.name}
+   * @example /data.json
    */
   @Prop() itemsSrc?: string;
+
+  /**
+   * The JSONata query to filter the json items
+   * see https://try.jsonata.org/ for more info.
+   */
+  @Prop() filter?: string;
 
   /**
    * If set, disables auto-rendering of this instance.
@@ -106,13 +113,13 @@ export class XDataRepeat {
 
   private async fetchJson() {
     try {
-      const srcSegments = this.itemsSrc.split('|');
-      debugIf(this.debug, `x-data-repeat: fetching items from ${srcSegments[0]}`);
 
-      const response = await fetch(srcSegments[0]);
+      debugIf(this.debug, `x-data-repeat: fetching items from ${this.itemsSrc}`);
+
+      const response = await fetch(this.itemsSrc);
       if (response.status === 200) {
         const data = await response.json();
-        this.resolvedItems = arrify(srcSegments[1] ? data[srcSegments[1]] : data);
+        this.resolvedItems = arrify(data);
         debugIf(this.debug, `x-data-repeat: remote items ${JSON.stringify(data)}`);
       } else {
         warnIf(this.debug, `x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);
@@ -144,7 +151,13 @@ export class XDataRepeat {
     debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.resolvedItems || [])}`);
     if (this.resolvedItems && this.innerTemplate) {
       this.resolvedTemplate = '';
-      this.resolvedItems
+      let items = this.resolvedItems;
+      if (this.filter) {
+        const filter = jsonata(this.filter);
+        items = arrify(filter.evaluate(this.resolvedItems));
+      }
+
+      items
         .reduce((previousPromise, item) => previousPromise
           .then(() => resolveExpression(this.innerTemplate, item)
             .then((html) => {

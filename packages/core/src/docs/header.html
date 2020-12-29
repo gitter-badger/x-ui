@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-lg-top">
+<nav class="navbar navbar-expand-sm navbar-light text-white bg-light sticky-lg-top">
   <div class="container-fluid">
     <button slot="start"
       class="navbar-toggler"
@@ -10,8 +10,7 @@
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div slot="start" class="navbar-brand"
-      data-intro="The <b>x-ui</b> components are used to create this documentation, turning static HTML into a single-page app experience. <br/><br/> View the source to see how easy it was to build or check out the <a href='documentation/components/x-ui'>documentation</a> on it.">
+    <div slot="start" class="navbar-brand">
       <x-link href="/home">
         <h1 class="tag-line" title="view.DO Experience UI HTML">
           &lt;x-ui/&gt;
@@ -21,7 +20,7 @@
     <div class="collapse navbar-collapse"
       id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item d-none d-md-block">
           <x-link class="nav-link"
             href="/start">
             <b>Get Started</b>
@@ -94,7 +93,41 @@
           </a>
           <ul class="dropdown-menu"
             aria-labelledby="navbarDropdown">
-            <x-data-repeat items-src="data/x-components.json|components">
+            <li class="dropdown-item-text">Routing</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]" debug>
+              <template>
+                <li class="dropdown-item">
+                  <x-link href="/components/{data:tag}">
+                    &lt;{data:tag}&gt;
+                  </x-link>
+                </li>
+              </template>
+            </x-data-repeat>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item-text">Dynamic Content</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]" debug>
+              <template>
+                <li class="dropdown-item">
+                  <x-link href="/components/{data:tag}">
+                    &lt;{data:tag}&gt;
+                  </x-link>
+                </li>
+              </template>
+            </x-data-repeat>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item-text">Embed Data</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]" debug>
+              <template>
+                <li class="dropdown-item">
+                  <x-link href="/components/{data:tag}">
+                    &lt;{data:tag}&gt;
+                  </x-link>
+                </li>
+              </template>
+            </x-data-repeat>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item-text">Declare Actions</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]" debug>
               <template>
                 <li class="dropdown-item">
                   <x-link href="/components/{data:tag}">
@@ -106,18 +139,18 @@
           </ul>
         </li>
       </ul>
-      <div style="display: flex; flex-direction: row;gap: 1em;">
+      <div style="display: flex; flex-direction: row; gap:1em;">
         <a href="https://github.com/viewdo/x-ui"
           title="Check out the source on GitHub"
           target="_blank">
-          <i class="ri-github-line fs-3"></i>
+          <i class="ri-github-line fs-2"></i>
         </a>
         <x-data-display>
           <template>
             <x-link href="/home/name"
               title="{storage:name}"
               data-intro="Click this to see a <b>x-view-do</b> component in action. It creates a special sub-route with automated navigation. It's conditioned using data expressions. <br/><br/> Check out the <a href='documentation/components/x-view-do'>documentation</a> to see what else you can do.">
-              <i class="ri-user-5-line fs-3"></i>
+              <i class="ri-user-5-line fs-2"></i>
             </x-link>
           </template>
         </x-data-display>

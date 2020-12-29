@@ -1,10 +1,10 @@
 :root {
-  --bs-primary: #7566a0;
+  --bs-primary: #6f6196;
   --text-color: #000;
 }
 
 .btn-primary {
-  background-color: var(--bs-primary);
+  --background-color: --bs-primary;
 }
 
 .list-group {
@@ -12,7 +12,7 @@
 }
 
 .list-group-item:hover {
-  background-color: var(--bs-primary);
+  background-color: var(--bs-primary, #ccc);
   color: #fff;
   cursor: pointer;
 }
@@ -21,7 +21,7 @@ a,
 a:link,
 a:visited,
 a:active, {
-  color: var(--bs-primary);
+  color: #7566a0;
   text-decoration: none;
 }
 
@@ -60,4 +60,14 @@ a:hover {
 
 #viewdo-logo {
   padding: 1em 0 1em 1em;
+}
+
+.brand {
+  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+b.brand {
+  color: #7566a0;
+  font-size: 1.3em;
 }

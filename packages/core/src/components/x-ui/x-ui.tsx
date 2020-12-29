@@ -25,6 +25,9 @@ import {
   resolveChildRemoteHtml,
 } from '../../services';
 
+/**
+ *  @set routing
+ */
 @Component({
   tag: 'x-ui',
   styleUrl: 'x-ui.scss',

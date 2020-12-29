@@ -13,6 +13,9 @@ import {
   wrapFragment,
 } from '../..';
 
+/**
+ *  @system routing
+ */
 @Component({
   tag: 'x-view',
   styleUrl: 'x-view.scss',
@@ -89,13 +92,13 @@ export class XView {
 
   componentWillLoad() {
     this.childViews.forEach(v => {
-      const url = v.getAttribute('url');
-      v.setAttribute('url', RouterService.instance?.normalizeChildUrl(url, this.url))
+      v.url = RouterService.instance?.normalizeChildUrl(v.url, this.url);
+      v.transition = v.transition || this.transition || this.parent?.transition;
     });
 
     this.childViewDos.forEach(v => {
-      const url = v.getAttribute('url');
-      v.setAttribute('url', RouterService.instance?.normalizeChildUrl(url, this.url))
+      v.url = RouterService.instance?.normalizeChildUrl(v.url, this.url);
+      v.transition = v.transition || this.transition || this.parent?.transition;
     });
 
     debugIf(this.debug, `x-view: ${this.url} loading`);
@@ -177,7 +180,7 @@ export class XView {
   render() {
     debugIf(this.debug, `x-view: ${this.url} render`);
     return (
-      <Host>
+      <Host class={this.route?.transition}>
         <slot />
         <slot name="content" />
       </Host>

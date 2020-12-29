@@ -10,9 +10,10 @@ describe('x-view', () => {
       html: `<x-view></x-view>`,
     });
     expect(page.root).toEqualHtml(`
-      <x-view hidden="">
+      <x-view>
         <mock:shadow-root>
           <slot></slot>
+          <slot name="content"></slot>
         </mock:shadow-root>
       </x-view>
     `);

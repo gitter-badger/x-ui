@@ -6,6 +6,9 @@ import {
   RouterService,
 } from '../..';
 
+/**
+ *  @system content
+ */
 @Component({
   tag: 'x-show',
   styleUrl: 'x-show.scss',

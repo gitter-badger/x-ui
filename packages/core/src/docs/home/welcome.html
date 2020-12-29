@@ -1,6 +1,6 @@
-<div class="container container-fluid mx-auto" slot="content">
+<div class="container container-fluid mx-auto">
   <h1>
-    Welcome <span hidden x-show-when="didVisit('/start')">back</span>
+    Welcome <span hidden x-show-when="{storage:installed}">back</span>
     <x-data-display text="{storage:name?Friend}"></x-data-display>!
   </h1>
 
@@ -9,13 +9,9 @@
     consent forms or announcements.
   </p>
 
-  <div class="navbar x-nav-bottom position-sticky">
-    <button slot="start" x-back class="btn btn-light">
-      <i class="ri-arrow-left-s-line"></i>
-      Back
-    </button>
+  <div class="x-nav-bottom">
     <button slot="end" x-next class="btn btn-primary">
-      Next
+      Continue
       <i class="ri-arrow-right-s-line"></i>
     </button>
   </div>

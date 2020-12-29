@@ -1,4 +1,4 @@
-<div class="container container-fluid mx-auto" slot="content">
+<div class="container container-fluid mx-auto">
 
   <label class="form-library">Favorite</label>
   <input type="text" required class="form-control"
@@ -6,7 +6,7 @@
     onchange="sessionStorage.setItem('favorite', this.value)"
     value-from="{session:favorite}"></input>
 
-  <div class="navbar x-nav-bottom position-sticky">
+  <div class="x-nav-bottom">
     <button slot="start" class="btn btn-secondary" x-back>
       <i class="ri-arrow-left-s-line"></i>
       Back

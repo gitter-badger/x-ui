@@ -1,50 +1,11 @@
 <!-- Tour -->
-<x-use
+<x-use inline
   script-src="https://unpkg.com/intro.js/minified/intro.min.js"
   style-src="https://unpkg.com/intro.js/minified/introjs.min.css">
 </x-use>
-<div class="content container-fluid container-md mx-auto" slot="content"
-  data-intro="The <b>x-view</b> element created a route for '/home' that only shows this content for this path. <br/><br/> Check out the <a href='documentation/components/x-view'>documentation</a> to see what else you can do.">
+<div class="container container-fluid container-md mx-auto">
 
-  <h3>It's not magic, it's view.DO!</h3>
-  <p>
-    view.DO's Experience UI is the first HTML-first tool-set built
-    specifically for interactive web experiences. Create engaging
-    content without compilation or a complicated framework;
-    and in most cases, without any JavaScript at all.
-  </p>
-  <p class="card p-2 lead bg-info bg-gradient text-white">
-    This documentation was created using these components.
-    The application boasts complex routing, guided navigation,
-    automatic presentations, data-binding <br/>-- ALL WITHOUT JAVASCRIPT!
-  </p>
-  <p x-show-when="{storage:name}" class="fst-italic border-start p-2  border-secondary"
-    data-intro="The <b>x-show-when</b> attribute dynamically shows or hides content in HTML based on simple expression. <br/><br/>Check out the <a href='documentation/components/x-view'>documentation</a> to learn more."
-    >
-    💬 Psst, <x-data-display
-      data-intro="The <b>x-data-display</b> component embeds data dynamically in HTML. <br/><br/>Check out the <a href='documentation/components/x-data-display'>documentation</a> to see other ways to use data in your HTML."
-      text="{storage:name}"></x-data-display>:
-    <br/>
-    For demonstration-purposes, we just use browser data: URL,
-    cookie, local-session & local-storage.
-  </p>
-
-  <h4>How does this help?</h4>
-  <p>
-    This set of inter-working components make it simple to build engaging,
-    application-like experiences with dynamic-content, guided navigation,
-    timed-actions, voice-over audio, video, hooks for animations and much more.
-  </p>
-  <p>
-    These components use a convention-over-configuration approach to guide
-    user behavior with your content in a rule-based, presentation format.
-  </p>
-
-  <ul class="list-group btn-group-lg float-end me-3 mt-2 d-none d-md-block">
-    <li class="list-group-item" onclick="introJs().start()" style="cursor: pointer;">
-      <i class="ri-play-circle-line"></i>
-      Get a Tour!
-    </li>
+  <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
     <li class="list-group-item">
       <x-link href="/start">
         <i class="ri-rocket-2-line"></i>
@@ -95,8 +56,53 @@
     </li>
   </ul>
 
+  <h2>What is <span class="brand">&lt;x-ui/&gt;</span>?</h2>
+  <p>
+    <a href="https://view.do" target="_blank">view.DO</a>'s <b class="brand">&lt;x-ui/&gt;</b> is
+    the first UI component toolkit built specifically for turning static content into interactive
+    web experiences.
+  </p>
+
+  <h4>How does this help?</h4>
+  <p>
+    For most developers, building a web-app begins by choosing an app framework or static
+    site generation tool. These tools are often complex and time-consuming to learn, set up
+    and operate. Once a framework is adopted, you are locked-in and it's difficult to change
+    direction, without a costly endeavor.
+  </p>
+  <p>
+    Frameworks exist to minimize the effort to create and maintain web pages. There are many tools
+    that do this well, but they all come with a huge cost and a long-term commitment.
+  </p>
+
+  <h4>No Framework</h4>
+  <p>
+    <b class="brand">&lt;x-ui/&gt;</b> is different. Without interpolation, a framework or
+    even a build-process, developers get the same time-saving techniques using web components
+    directly in HTML. Better yet, it can be added to any site or page with a simple
+    script reference. Have a framework already? No problem!
+  </p>
+  <p>
+    <b class="brand">&lt;x-ui/&gt;</b> components make it simple! We created special elements
+    for expressing routes, navigation, dynamic-content, data-binding and much more. We
+    use a convention-over-configuration approach to take simplify things freeing you up to focus
+    on the content.
+  </p>
+  <h2>It's not magic, it's view.DO!</h2>
+
+  <p onclick="introJs().start()" class="p-2 lead bg-info bg-gradient text-white" style="cursor: pointer;display:flex;flex-direction: row;gap:1ch;">
+    <span>
+      <i class="ri-play-line text-light fs-1"></i>
+    </span>
+    <span>
+      This documentation was created with <b class="brand">&lt;x-ui/&gt;</b>.
+      See how complex routing, guided navigation, automatic presentations, data-binding and more
+      work when you take the tour. Click to begin.
+    </span>
+  </p>
+
   <h4><i class="ri-direction-line"></i> Smart Guided Navigation</h4>
-  <ul data-intro="PLUS!<h2>So...</h2>">
+  <ul>
     <li>Automatic Back & Forward Resolution</li>
     <li>Sequenced Content: present, educate, inform</li>
     <li>Sequenced Input: surveys, quiz and display results</li>
@@ -106,7 +112,7 @@
   </ul>
 
   <h4><i class="ri-slideshow-line"></i> Built for Presentations</h4>
-  <ul data-intro="<h2>Much...</h2>">
+  <ul>
     <li>Queued, Timed & Event-based Actions</li>
     <li>Animated Transitions</li>
     <li>Timed Ambient & Voice-Over Audio</li>
@@ -114,7 +120,7 @@
   </ul>
 
   <h4><i class="ri-empathize-line"></i> Easily Personalized</h4>
-  <ul data-intro="<h2>... MORE!</h2>Thank you.">
+  <ul>
     <li>Data Tags to render personalized data from a variety of sources</li>
     <li>Use HTML to access data from your API</li>
     <li>Capture attention and data, with smart workflows to replace boring forms.</li>
@@ -124,7 +130,7 @@
   <h4><i class="ri-heart-line"></i> Built with love:</h4>
   <ul>
     <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
-    <li><b>Themeable:</b> BYO UI and themes. <b>&lt;x-iu/&gt;</b>> stays out of the way. </li>
+    <li><b>Themeable:</b> BYO UI and themes. <b class="brand">&lt;x-ui/&gt;</b> stays out of the way. </li>
     <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
     <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
     <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
@@ -137,7 +143,7 @@
     <img id="viewdo-logo" src="https://static.view.do/view-do/viewdo-logo-color.svg" width="200vw"/>
   </a>
 
-  <div class="navbar x-nav-bottom ">
+  <div class="x-nav-bottom ">
     <div slot="end" class="nav-item">
       <x-link href="/start">
         <button class="btn btn-primary btn-lg">

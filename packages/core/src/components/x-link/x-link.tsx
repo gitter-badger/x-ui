@@ -1,6 +1,9 @@
 import { Element, Component, State, Prop, h } from '@stencil/core';
 import { MatchResults, RouterService } from '../..';
 
+/**
+ *  @system routing
+ */
 @Component({
   tag: 'x-link',
   styleUrl: 'x-link.scss',

@@ -7,6 +7,9 @@ import {
   debugIf,
 } from '../..';
 
+/**
+ * @system actions
+ */
 @Component({
   tag: 'x-action-activator',
   shadow: true,

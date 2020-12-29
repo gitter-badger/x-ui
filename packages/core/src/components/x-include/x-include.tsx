@@ -1,6 +1,9 @@
 import { Host, Component, h, State, Prop, Element } from '@stencil/core';
 import { warn } from '../..';
 
+/**
+ *  @system content
+ */
 @Component({
   tag: 'x-include',
   shadow: false,
@@ -45,7 +48,8 @@ export class XInclude {
   render() {
     if (this.content) {
       return (
-        <Host innerHTML={this.content}>
+        <Host>
+          <div innerHTML={this.content}></div>
         </Host>
       );
     }

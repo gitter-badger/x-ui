@@ -20,9 +20,33 @@ body {
   visibility: hidden;
 }
 
+x-view,
+x-view-do {
+  #content {
+    min-height: 90%;
+    padding-bottom: 10ch;
+  }
+}
+
 .x-nav-bottom {
+
+  background-image: linear-gradient(to bottom, transparent, #fff);
   bottom: 0;
-  contain: content;
-  margin-top: 5ch;
-  position: sticky;
+  height: 10ch;
+  left: 0;
+  position: fixed;
+  width: 100%;
+
+  [slot='end'] {
+    bottom: 2ch;
+    opacity: 1;
+    position: fixed;
+    right: 3ch;
+  }
+
+  [slot='start'] {
+    bottom: 2ch;
+    left: 3ch;
+    position: fixed;
+  }
 }

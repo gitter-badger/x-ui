@@ -8,6 +8,9 @@ import {
   evaluatePredicate,
 } from '../..';
 
+/**
+ *  @system data
+ */
 @Component({
   tag: 'x-data-provider-cookie',
   styleUrl: 'x-data-provider-cookie.scss',

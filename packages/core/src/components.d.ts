@@ -138,13 +138,17 @@ export namespace Components {
          */
         "debug": boolean;
         /**
+          * The JSONata query to filter the json items see https://try.jsonata.org/ for more info.
+         */
+        "filter"?: string;
+        /**
           * The array-string or data expression to obtain a collection for rendering the template.
-          * @example {session:cartItems}
+          * @example {session:cart.items}
          */
         "items"?: string;
         /**
           * The URL to remote JSON collection to use for the items.
-          * @example {session:user.name}
+          * @example /data.json
          */
         "itemsSrc"?: string;
         /**
@@ -238,11 +242,11 @@ export namespace Components {
         /**
           * The script file to reference.
          */
-        "scriptSrc": string;
+        "scriptSrc"?: string;
         /**
           * The css file to reference
          */
-        "styleSrc": string;
+        "styleSrc"?: string;
     }
     interface XView {
         /**
@@ -551,13 +555,17 @@ declare namespace LocalJSX {
          */
         "debug"?: boolean;
         /**
+          * The JSONata query to filter the json items see https://try.jsonata.org/ for more info.
+         */
+        "filter"?: string;
+        /**
           * The array-string or data expression to obtain a collection for rendering the template.
-          * @example {session:cartItems}
+          * @example {session:cart.items}
          */
         "items"?: string;
         /**
           * The URL to remote JSON collection to use for the items.
-          * @example {session:user.name}
+          * @example /data.json
          */
         "itemsSrc"?: string;
         /**

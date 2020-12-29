@@ -1,6 +1,9 @@
 import { Component, Element, Prop} from '@stencil/core';
 import { hasReference, markReference } from '../../services';
 
+/**
+ *  @system content
+ */
 @Component({
   tag: 'x-use',
   shadow: false,
@@ -11,12 +14,12 @@ export class XUse {
   /**
    * The css file to reference
    */
-  @Prop() styleSrc: string;
+  @Prop() styleSrc?: string;
 
   /**
    * The script file to reference.
    */
-  @Prop() scriptSrc: string;
+  @Prop() scriptSrc?: string;
 
   /**
    * When inline the link/script tags are rendered in-place
@@ -24,13 +27,9 @@ export class XUse {
    */
   @Prop() inline: boolean;
 
-  async componentWillLoad() {
-    const elem = this.inline ? this.el : this.el.ownerDocument?.head;
-    const resultsAggregator = [];
-
-    resultsAggregator.push(new Promise((resolve) => {
-      // resolve the style reference
-      if (this.styleSrc && !hasReference(this.styleSrc)) {
+  private getStylePromise(elem) {
+    if (this.styleSrc && !hasReference(this.styleSrc)) {
+      return new Promise((resolve) => {
         const link = document?.createElement("link");
         link.href = this.styleSrc;
         link.rel = "stylesheet"
@@ -38,22 +37,33 @@ export class XUse {
           markReference(this.styleSrc);
           resolve({});
         }
-        elem.appendChild(link)
-      } else return Promise.resolve();
-    }));
+        elem.appendChild(link);
+      });
+    } else return Promise.resolve();
+  }
 
-    resultsAggregator.push(new Promise((resolve) => {
+  private getScriptPromise(elem) {
       // make the style reference
-      if (this.scriptSrc && !hasReference(this.scriptSrc)) {
+    if (this.scriptSrc && !hasReference(this.scriptSrc)) {
+      return new Promise((resolve) => {
         const script = document?.createElement("script");
         script.src = this.scriptSrc;
         script.onload = () => {
           markReference(this.scriptSrc);
           resolve({});
         }
-        elem.appendChild(script)
-      } else return Promise.resolve();
-    }));
+        elem.appendChild(script);
+      });
+    } else return Promise.resolve();
+  }
+
+  async componentWillLoad() {
+    const elem = this.inline ? this.el : this.el.ownerDocument?.head;
+    const resultsAggregator = [];
+
+    resultsAggregator.push(this.getStylePromise(elem));
+
+    resultsAggregator.push(this.getScriptPromise(elem));
 
     return Promise.all(resultsAggregator);
   }

@@ -23,6 +23,9 @@ import {
   wrapFragment,
 } from '../../services';
 
+/**
+ *  @system routing
+ */
 @Component({
   tag: 'x-view-do',
   styleUrl: 'x-view-do.scss',
@@ -30,7 +33,7 @@ import {
 })
 export class XViewDo {
   private timedNodes: Array<TimedNode> = [];
-  private timer: NodeJS.Timeout;
+  private timer: any;
   private timeEvent: EventEmitter;
   private lastTime: number;
   private route: Route;
@@ -82,7 +85,7 @@ export class XViewDo {
   @Prop() when?: string;
 
   /**
-  * Set a duration for this view. When this value exists, the page will
+  * Set a duration in milliseconds for this view. When this value exists, the page will
   * automatically progress when the duration in seconds has passed.
   */
   @Prop() duration?: number;
@@ -105,9 +108,6 @@ export class XViewDo {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  private get parent(): HTMLXViewElement {
-    return this.el.parentElement?.closest('x-view') as HTMLXViewElement;
-  }
 
   private get childVideo(): HTMLVideoElement {
     if (!this.el.hasChildNodes()) return null;
@@ -134,7 +134,7 @@ export class XViewDo {
       this.url,
       true,
       this.pageTitle,
-      this.transition || this.parent?.transition,
+      this.transition,
       this.scrollTopOffset,
       async (match) => {
         this.match = !!match;
@@ -264,11 +264,19 @@ export class XViewDo {
       });
     } else {
       let time = 0;
-      this.timer = setInterval(() => {
-        time += 0.1;
-        // debugIf(this.debug, `x-view-do: ${time}`);
+      const started = performance.now();
+
+      const emitTime = () => {
+        time = (performance.now() - started) / 1000;
+        debugIf(true, `x-view-do: ${time}`);
         this.timeEvent.emit(timeUpdateEvent, time);
-      }, 100);
+
+        if (time < this.duration) {
+          this.timer = requestAnimationFrame(emitTime);
+        }
+      }
+
+      this.timer = requestAnimationFrame(emitTime);
     }
 
     this.timeEvent.on(timeUpdateEvent, async (time) => {
@@ -282,8 +290,8 @@ export class XViewDo {
         });
 
       // monitor next-when
-      if ((duration > 0) && (time >= duration)) {
-        clearInterval(timer);
+      if ((duration > 0) && (time > duration)) {
+        cancelAnimationFrame(timer);
         debugIf(debug, `x-view-do: presentation ended at ${time} [not redirecting]`);
         if (!debug) {
           this.next('timer', timeUpdateEvent);
@@ -321,7 +329,7 @@ export class XViewDo {
 
   render() {
     return (
-      <Host>
+      <Host class={this.route?.transition}>
         <slot />
         <slot name="content"/>
       </Host>

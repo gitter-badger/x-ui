@@ -8,6 +8,9 @@ import {
   warn,
 } from '../../services';
 
+/**
+ *  @system data
+ */
 @Component({
   tag: 'x-data-display',
   styleUrl: 'x-data-display.scss',

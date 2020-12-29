@@ -1,4 +1,4 @@
-<div class="container container-fluid mx-auto" slot="content">
+<div class="container container-fluid mx-auto">
   <x-use debug
     script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
     style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
@@ -9,7 +9,7 @@
   <x-markdown src="/docs/start/index.md"></x-markdown>
   <x-markdown src="/docs/start/installed.md" x-show-when="{storage:installed}"></x-markdown>
 
-  <div class="navbar x-nav-bottom position-sticky">
+  <div class="x-nav-bottom">
     <x-link slot="start" href="/home">
       <button class="btn btn-secondary shadow-sm">
         <i class="ri-arrow-left-s-line"></i>

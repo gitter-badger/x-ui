@@ -27,7 +27,9 @@
     "lint:css": "stylelint '/packages/core/*.scss' --allow-empty-input",
     "lint:husky": "lint-staged",
     "--- misc ---": "---------------",
-    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui"
+    "gs:push": "gsutil cp -r ./www gs://viewdo-static/x-ui",
+    "docker:build": "docker build -t viewdo/x-ui-docs .",
+    "docker:push": "docker push viewdo/x-ui-docs"
   },
   "devDependencies": {
     "@babel/core": "7.12.9",

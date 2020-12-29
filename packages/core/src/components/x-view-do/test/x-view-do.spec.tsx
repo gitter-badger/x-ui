@@ -10,9 +10,10 @@ describe('x-view-do', () => {
       html: `<x-view-do url="/go"></x-view-do>`,
     });
     expect(page.root).toEqualHtml(`
-      <x-view-do hidden="" url="/go">
+      <x-view-do url="/go">
         <mock:shadow-root>
           <slot></slot>
+          <slot name="content"></slot>
         </mock:shadow-root>
       </x-view-do>
     `);
