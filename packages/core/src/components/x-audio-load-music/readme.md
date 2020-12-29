@@ -69,13 +69,13 @@ All audio files are
 
 ## Methods
 
-### `getAction() => Promise<ActionEvent<AudioTrack>>`
+### `getAction() => Promise<EventAction<AudioTrack>>`
 
 Get the underlying actionEvent instance. Used by the x-action-activator element.
 
 #### Returns
 
-Type: `Promise<ActionEvent<AudioTrack>>`
+Type: `Promise<EventAction<AudioTrack>>`
 
 
 

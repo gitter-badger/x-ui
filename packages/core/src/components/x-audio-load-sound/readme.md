@@ -64,24 +64,24 @@ The following demonstrates how to load a track, and wait 10 seconds until it pla
 
 ## Properties
 
-| Property           | Attribute  | Description                                                                                                 | Type                                                                                             | Default                 |
-| ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
-| `discard`          | `discard`  | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route \| DiscardStrategy.Video` | `DiscardStrategy.Route` |
-| `load`             | `load`     | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`                                   | `LoadStrategy.Queue`    |
-| `src` _(required)_ | `src`      | The path to the audio-file.                                                                                 | `string`                                                                                         | `undefined`             |
-| `track`            | `track`    | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                                                        | `false`                 |
-| `trackId`          | `track-id` | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
+| Property               | Attribute  | Description                                                                                                 | Type                                                                                             | Default                 |
+| ---------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------- |
+| `discard`              | `discard`  | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route \| DiscardStrategy.Video` | `DiscardStrategy.Video` |
+| `load`                 | `load`     | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`                                   | `LoadStrategy.Load`     |
+| `src` _(required)_     | `src`      | The path to the audio-file.                                                                                 | `string`                                                                                         | `undefined`             |
+| `track`                | `track`    | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                                                        | `false`                 |
+| `trackId` _(required)_ | `track-id` | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
 
 
 ## Methods
 
-### `getAction() => Promise<ActionEvent<AudioTrack>>`
+### `getAction() => Promise<EventAction<AudioTrack>>`
 
 Get the underlying actionEvent instance. Used by the x-action-activator element.
 
 #### Returns
 
-Type: `Promise<ActionEvent<AudioTrack>>`
+Type: `Promise<EventAction<AudioTrack>>`
 
 
 

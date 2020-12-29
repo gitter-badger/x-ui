@@ -1,5 +1,6 @@
 import { Element, Prop, Method, Component, Host, h } from '@stencil/core';
-import { ActionEvent, AudioTrack, DiscardStrategy, LoadStrategy, AUDIO_TOPIC } from '../..';
+import { EventAction, AudioTrack, DiscardStrategy, LoadStrategy, AUDIO_TOPIC } from '../..';
+import { AudioType } from '../../services';
 
 @Component({
   tag: 'x-audio-load-music',
@@ -9,10 +10,15 @@ export class XAudioLoadMusic {
   @Element() el: HTMLXAudioLoadMusicElement;
 
   /**
+  * The path to the audio-file.
+  * @required
+  */
+  @Prop() src!: string;
+
+  /**
   * The identifier for this music track
   */
   @Prop() trackId: string;
-
 
   /**
   * This is the topic this action-command is targeting.
@@ -24,11 +30,7 @@ export class XAudioLoadMusic {
   */
   @Prop() discard: DiscardStrategy = DiscardStrategy.Route;
 
-  /**
-  * The path to the audio-file.
-  * @required
-  */
-  @Prop() src!: string;
+
 
   /**
   * Set this to true to have the audio file loop.
@@ -46,7 +48,7 @@ export class XAudioLoadMusic {
   * Get the underlying actionEvent instance. Used by the x-action-activator element.
   */
   @Method()
-  async getAction(): Promise<ActionEvent<AudioTrack>> {
+  async getAction(): Promise<EventAction<AudioTrack>> {
     return {
       topic: AUDIO_TOPIC,
       command: this.load,
@@ -56,7 +58,7 @@ export class XAudioLoadMusic {
         discard: this.discard,
         loop: this.loop,
         track: this.track,
-        type: 'music',
+        type: AudioType.Music,
         load: this.load,
       },
     };

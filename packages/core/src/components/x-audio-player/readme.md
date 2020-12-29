@@ -137,6 +137,14 @@ Hard discards or play-src should ease out the audio with a .5 second fade-out be
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property      | Attribute      | Description                                                                                                                                    | Type                           | Default     |
+| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
+| `debug`       | `debug`        |                                                                                                                                                | `boolean`                      | `undefined` |
+| `displayMode` | `display-mode` | The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed. | `"icon" \| "none" \| "player"` | `undefined` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
