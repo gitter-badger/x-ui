@@ -2106,7 +2106,14 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.92":
+"@types/lodash-es@^4.17.4":
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.4.tgz#b2e440d2bf8a93584a9fd798452ec497986c9b97"
+  integrity sha512-BBz79DCJbD2CVYZH67MBeHZRX++HF+5p8Mo5MzjZi64Wac39S3diedJYHZtScbRVf4DjZyN6LzA0SB0zy+HSSQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*", "@types/lodash@^4.14.92":
   version "4.14.166"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.166.tgz#07e7f2699a149219dbc3c35574f126ec8737688f"
   integrity sha512-A3YT/c1oTlyvvW/GQqG86EyqWNrT/tisOIh2mW3YCgcx71TNjiTZA3zYZWA5BCmtsOTXjhliy4c4yEkErw6njA==
@@ -2183,10 +2190,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/puppeteer@3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.5.tgz#5ef5d023f45c0dfcc82e97548891b11b6ce868fb"
-  integrity sha512-NkphUMkpbr/us6hp1AqUh/UxX5Tf2UJU94MvaF8OOgIUPBipYodql+yRjcysJKqwnDkchp+cD/8jntI/C9StzA==
+"@types/puppeteer@5.4.2":
+  version "5.4.2"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.2.tgz#80f3a1f54dedbbf750779716de81401549062072"
+  integrity sha512-yjbHoKjZFOGqA6bIEI2dfBE5UPqU0YGWzP+ipDVP1iGzmlhksVKTBVZfT3Aj3wnvmcJ2PQ9zcncwOwyavmafBw==
   dependencies:
     "@types/node" "*"
 
@@ -2233,6 +2240,11 @@
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
+
+"@types/searchjs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/searchjs/-/searchjs-1.0.0.tgz#987ecc3c4d91f9505d48160ddcf45fcbade65d67"
+  integrity sha512-g7dZSN5buR4vYgCuwwKRyzJJCdQ83m8rz23jNxlDWrn71Yeh8cHL29XMVVAPsPqItIt3N/Qt8bvN7x5IEIc5Mg==
 
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
@@ -10686,6 +10698,11 @@ json5@^2.1.2, json5@^2.1.3:
   dependencies:
     minimist "^1.2.5"
 
+jsonata@^1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/jsonata/-/jsonata-1.8.4.tgz#de96dec822053b83064d1b5ed616ee2fcb26fcab"
+  integrity sha512-OqzmM5IICtm/687zckG5BROZzInGCEuKojpYs48H8RnkII8Np+o912ryvhnYwsRrSI24TQRG/qqrSwBuaneDbg==
+
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
@@ -15079,6 +15096,11 @@ scss-tokenizer@^0.2.3:
   dependencies:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
+
+searchjs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/searchjs/-/searchjs-1.1.0.tgz#c9f96e9761ffc69a31b4c6334897f136ceeccd49"
+  integrity sha512-reIbCxanRxsbrzwDyJKH7UuxjUWJTz5LVcTEIxQ+7joLDaNkomaLZ6YerF6BcvTPdJR7E2Z7TzFkjPI4ksiW7g==
 
 section-matter@^1.0.0:
   version "1.0.0"
