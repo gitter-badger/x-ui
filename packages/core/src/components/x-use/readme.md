@@ -96,6 +96,7 @@ If inline is present, the source would be nested inside this element, otherwise 
 | Property    | Attribute    | Description                                                                           | Type      | Default     |
 | ----------- | ------------ | ------------------------------------------------------------------------------------- | --------- | ----------- |
 | `inline`    | `inline`     | When inline the link/script tags are rendered in-place rather than added to the head. | `boolean` | `undefined` |
+| `module`    | `module`     | Import the script file as a module.                                                   | `boolean` | `undefined` |
 | `scriptSrc` | `script-src` | The script file to reference.                                                         | `string`  | `undefined` |
 | `styleSrc`  | `style-src`  | The css file to reference                                                             | `string`  | `undefined` |
 

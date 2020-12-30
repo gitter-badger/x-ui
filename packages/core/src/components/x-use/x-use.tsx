@@ -22,6 +22,11 @@ export class XUse {
   @Prop() scriptSrc?: string;
 
   /**
+   * Import the script file as a module.
+   */
+  @Prop() module: boolean;
+
+  /**
    * When inline the link/script tags are rendered in-place
    * rather than added to the head.
    */
@@ -48,6 +53,11 @@ export class XUse {
       return new Promise((resolve) => {
         const script = document?.createElement("script");
         script.src = this.scriptSrc;
+        if (this.module) {
+          script.type = "module";
+        } else {
+          script.noModule = true;
+        }
         script.onload = () => {
           markReference(this.scriptSrc);
           resolve({});

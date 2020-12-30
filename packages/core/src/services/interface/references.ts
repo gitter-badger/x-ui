@@ -11,3 +11,10 @@ export function markReference(url: string) {
 export function clearReferences() {
   state.references = [];
 }
+
+export interface ISwipeEvent {
+  up: boolean;
+  down: boolean;
+  left: boolean;
+  right: boolean;
+}

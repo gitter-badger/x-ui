@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, ActionEvent, AudioTrack, CookieConsent, DataProviderRegistration, DiscardStrategy, LoadStrategy } from ".";
-import { HistoryType, VisitStrategy } from "./services";
+import { ActionActivationStrategy, AudioTrack, AudioType, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
+import { HistoryType } from "./services";
 export namespace Components {
     interface XAction {
         /**
@@ -20,11 +20,11 @@ export namespace Components {
         /**
           * Get the underlying actionEvent instance. Used by the x-action-activator element.
          */
-        "getAction": () => Promise<ActionEvent<any>>;
+        "getAction": () => Promise<EventAction<any>>;
         /**
           * This is the topic this action-command is targeting.
          */
-        "topic": 'data'|'routing'|'document';
+        "topic": 'data'|'routing'|'document'|'audio'|'video';
     }
     interface XActionActivator {
         /**
@@ -36,6 +36,10 @@ export namespace Components {
           * Turn on debug statements for load, update and render events.
          */
         "debug": boolean;
+        /**
+          * Allow the actions to fire more than once per the event.
+         */
+        "multiple": boolean;
         /**
           * The element to watch for events when using the OnElementEvent activation strategy. This element uses the HTML Element querySelector function to find the element.  For use with activate="OnElementEvent" Only!
          */
@@ -49,6 +53,28 @@ export namespace Components {
          */
         "time"?: number;
     }
+    interface XAudioAction {
+        /**
+          * The command to execute.
+         */
+        "command": 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
+        "getAction": () => Promise<EventAction<any>>;
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The track to target.
+         */
+        "type": AudioType;
+        /**
+          * The value payload for the command.
+         */
+        "value": string|boolean|number;
+    }
     interface XAudioLoadMusic {
         /**
           * The discard strategy the player should use for this file.
@@ -57,15 +83,15 @@ export namespace Components {
         /**
           * Get the underlying actionEvent instance. Used by the x-action-activator element.
          */
-        "getAction": () => Promise<ActionEvent<AudioTrack>>;
-        /**
-          * This is the topic this action-command is targeting.
-         */
-        "load": LoadStrategy;
+        "getAction": () => Promise<EventAction<AudioTrack>>;
         /**
           * Set this to true to have the audio file loop.
          */
         "loop": boolean;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "mode": LoadStrategy;
         /**
           * The path to the audio-file.
           * @required
@@ -88,11 +114,11 @@ export namespace Components {
         /**
           * Get the underlying actionEvent instance. Used by the x-action-activator element.
          */
-        "getAction": () => Promise<ActionEvent<AudioTrack>>;
+        "getAction": () => Promise<EventAction<AudioTrack>>;
         /**
           * This is the topic this action-command is targeting.
          */
-        "load": LoadStrategy;
+        "mode": LoadStrategy;
         /**
           * The path to the audio-file.
           * @required
@@ -108,6 +134,11 @@ export namespace Components {
         "trackId": string;
     }
     interface XAudioPlayer {
+        "debug": boolean;
+        /**
+          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
+         */
+        "displayMode": 'icon' | 'player' | 'none';
     }
     interface XDataDisplay {
         /**
@@ -200,6 +231,20 @@ export namespace Components {
          */
         "when": string;
     }
+    interface XSwipe {
+        /**
+          * How many units must be covered to determine if it was a swipe
+         */
+        "thresholdX": number;
+        /**
+          * How many units must be covered to determine if it was a swipe
+         */
+        "thresholdY": number;
+        /**
+          * The amount of touch-time required before issuing an event
+         */
+        "timeThreshold": number;
+    }
     interface XUi {
         /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
@@ -239,6 +284,10 @@ export namespace Components {
           * When inline the link/script tags are rendered in-place rather than added to the head.
          */
         "inline": boolean;
+        /**
+          * Import the script file as a module.
+         */
+        "module": boolean;
         /**
           * The script file to reference.
          */
@@ -284,7 +333,7 @@ export namespace Components {
          */
         "debug": boolean;
         /**
-          * Set a duration for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+          * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */
         "duration"?: number;
         /**
@@ -325,6 +374,12 @@ declare global {
     var HTMLXActionActivatorElement: {
         prototype: HTMLXActionActivatorElement;
         new (): HTMLXActionActivatorElement;
+    };
+    interface HTMLXAudioActionElement extends Components.XAudioAction, HTMLStencilElement {
+    }
+    var HTMLXAudioActionElement: {
+        prototype: HTMLXAudioActionElement;
+        new (): HTMLXAudioActionElement;
     };
     interface HTMLXAudioLoadMusicElement extends Components.XAudioLoadMusic, HTMLStencilElement {
     }
@@ -386,6 +441,12 @@ declare global {
         prototype: HTMLXShowElement;
         new (): HTMLXShowElement;
     };
+    interface HTMLXSwipeElement extends Components.XSwipe, HTMLStencilElement {
+    }
+    var HTMLXSwipeElement: {
+        prototype: HTMLXSwipeElement;
+        new (): HTMLXSwipeElement;
+    };
     interface HTMLXUiElement extends Components.XUi, HTMLStencilElement {
     }
     var HTMLXUiElement: {
@@ -413,6 +474,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
+        "x-audio-action": HTMLXAudioActionElement;
         "x-audio-load-music": HTMLXAudioLoadMusicElement;
         "x-audio-load-sound": HTMLXAudioLoadSoundElement;
         "x-audio-player": HTMLXAudioPlayerElement;
@@ -423,6 +485,7 @@ declare global {
         "x-link": HTMLXLinkElement;
         "x-markdown": HTMLXMarkdownElement;
         "x-show": HTMLXShowElement;
+        "x-swipe": HTMLXSwipeElement;
         "x-ui": HTMLXUiElement;
         "x-use": HTMLXUseElement;
         "x-view": HTMLXViewElement;
@@ -442,7 +505,7 @@ declare namespace LocalJSX {
         /**
           * This is the topic this action-command is targeting.
          */
-        "topic"?: 'data'|'routing'|'document';
+        "topic"?: 'data'|'routing'|'document'|'audio'|'video';
     }
     interface XActionActivator {
         /**
@@ -453,6 +516,10 @@ declare namespace LocalJSX {
           * Turn on debug statements for load, update and render events.
          */
         "debug"?: boolean;
+        /**
+          * Allow the actions to fire more than once per the event.
+         */
+        "multiple"?: boolean;
         /**
           * The element to watch for events when using the OnElementEvent activation strategy. This element uses the HTML Element querySelector function to find the element.  For use with activate="OnElementEvent" Only!
          */
@@ -466,19 +533,37 @@ declare namespace LocalJSX {
          */
         "time"?: number;
     }
+    interface XAudioAction {
+        /**
+          * The command to execute.
+         */
+        "command"?: 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The track to target.
+         */
+        "type"?: AudioType;
+        /**
+          * The value payload for the command.
+         */
+        "value"?: string|boolean|number;
+    }
     interface XAudioLoadMusic {
         /**
           * The discard strategy the player should use for this file.
          */
         "discard"?: DiscardStrategy;
         /**
-          * This is the topic this action-command is targeting.
-         */
-        "load"?: LoadStrategy;
-        /**
           * Set this to true to have the audio file loop.
          */
         "loop"?: boolean;
+        /**
+          * This is the topic this action-command is targeting.
+         */
+        "mode"?: LoadStrategy;
         /**
           * The path to the audio-file.
           * @required
@@ -501,7 +586,7 @@ declare namespace LocalJSX {
         /**
           * This is the topic this action-command is targeting.
          */
-        "load"?: LoadStrategy;
+        "mode"?: LoadStrategy;
         /**
           * The path to the audio-file.
           * @required
@@ -514,9 +599,14 @@ declare namespace LocalJSX {
         /**
           * The identifier for this music track
          */
-        "trackId"?: string;
+        "trackId": string;
     }
     interface XAudioPlayer {
+        "debug"?: boolean;
+        /**
+          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
+         */
+        "displayMode"?: 'icon' | 'player' | 'none';
     }
     interface XDataDisplay {
         /**
@@ -539,7 +629,7 @@ declare namespace LocalJSX {
         /**
           * This event is raised when the component obtains consent from the user to use cookies. The data-provider system should capture this event and register the provider for use in expressions.
          */
-        "onActionEvent"?: (event: CustomEvent<ActionEvent<DataProviderRegistration>>) => void;
+        "onActionEvent"?: (event: CustomEvent<EventAction<DataProviderRegistration>>) => void;
         /**
           * This event is raised when the consents to cookies.
          */
@@ -617,6 +707,24 @@ declare namespace LocalJSX {
          */
         "when": string;
     }
+    interface XSwipe {
+        /**
+          * Handle the touch start event, store the coordinates and set the timer for touch event
+         */
+        "onSwipe"?: (event: CustomEvent<ISwipeEvent>) => void;
+        /**
+          * How many units must be covered to determine if it was a swipe
+         */
+        "thresholdX"?: number;
+        /**
+          * How many units must be covered to determine if it was a swipe
+         */
+        "thresholdY"?: number;
+        /**
+          * The amount of touch-time required before issuing an event
+         */
+        "timeThreshold"?: number;
+    }
     interface XUi {
         /**
           * This is the application / site title. If the views or dos have titles, this is added as a suffix.
@@ -665,6 +773,10 @@ declare namespace LocalJSX {
          */
         "inline"?: boolean;
         /**
+          * Import the script file as a module.
+         */
+        "module"?: boolean;
+        /**
           * The script file to reference.
          */
         "scriptSrc"?: string;
@@ -709,7 +821,7 @@ declare namespace LocalJSX {
          */
         "debug"?: boolean;
         /**
-          * Set a duration for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+          * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */
         "duration"?: number;
         /**
@@ -740,6 +852,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "x-action": XAction;
         "x-action-activator": XActionActivator;
+        "x-audio-action": XAudioAction;
         "x-audio-load-music": XAudioLoadMusic;
         "x-audio-load-sound": XAudioLoadSound;
         "x-audio-player": XAudioPlayer;
@@ -750,6 +863,7 @@ declare namespace LocalJSX {
         "x-link": XLink;
         "x-markdown": XMarkdown;
         "x-show": XShow;
+        "x-swipe": XSwipe;
         "x-ui": XUi;
         "x-use": XUse;
         "x-view": XView;
@@ -762,6 +876,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
+            "x-audio-action": LocalJSX.XAudioAction & JSXBase.HTMLAttributes<HTMLXAudioActionElement>;
             "x-audio-load-music": LocalJSX.XAudioLoadMusic & JSXBase.HTMLAttributes<HTMLXAudioLoadMusicElement>;
             "x-audio-load-sound": LocalJSX.XAudioLoadSound & JSXBase.HTMLAttributes<HTMLXAudioLoadSoundElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
@@ -772,6 +887,7 @@ declare module "@stencil/core" {
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
             "x-markdown": LocalJSX.XMarkdown & JSXBase.HTMLAttributes<HTMLXMarkdownElement>;
             "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
+            "x-swipe": LocalJSX.XSwipe & JSXBase.HTMLAttributes<HTMLXSwipeElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-use": LocalJSX.XUse & JSXBase.HTMLAttributes<HTMLXUseElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;
