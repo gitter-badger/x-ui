@@ -2,6 +2,10 @@ import { Element, Prop, Method, Component, Host, h } from '@stencil/core';
 import { EventAction, AudioTrack, DiscardStrategy, LoadStrategy, AUDIO_TOPIC } from '../..';
 import { AudioType } from '../../services';
 
+/**
+ *
+ * @system audio
+ */
 @Component({
   tag: 'x-audio-load-music',
   shadow: true,
@@ -23,7 +27,7 @@ export class XAudioLoadMusic {
   /**
   * This is the topic this action-command is targeting.
   */
-  @Prop() load: LoadStrategy = LoadStrategy.Queue;
+  @Prop() mode: LoadStrategy = LoadStrategy.Queue;
 
   /**
   * The discard strategy the player should use for this file.
@@ -51,7 +55,7 @@ export class XAudioLoadMusic {
   async getAction(): Promise<EventAction<AudioTrack>> {
     return {
       topic: AUDIO_TOPIC,
-      command: this.load,
+      command: this.mode,
       data: {
         trackId: this.trackId || this.src,
         src: this.src,
@@ -59,7 +63,7 @@ export class XAudioLoadMusic {
         loop: this.loop,
         track: this.track,
         type: AudioType.Music,
-        load: this.load,
+        mode: this.mode,
       },
     };
   }

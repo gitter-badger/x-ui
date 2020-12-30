@@ -18,6 +18,10 @@ import { audioState } from '../../services';
 import { hasPlayed, trackPlayed } from '../../services/audio/tracked';
 
 
+/**
+ *
+ * @system audio
+ */
 @Component({
   tag: 'x-audio-player',
   styleUrl: 'x-audio-player.scss',
@@ -151,14 +155,14 @@ export class AudioPlayer {
     if (current) {
       current.stop();
       if (current.discard == DiscardStrategy.None) {
-        current.load = LoadStrategy.Load;
+        current.mode = LoadStrategy.Load;
         this.addToQueue(current.type, current);
       } else {
         current.destroy();
       }
     }
 
-    const nextUp = audio || this.queue[type]?.find(a => a.load != LoadStrategy.Load);
+    const nextUp = audio || this.queue[type]?.find(a => a.mode != LoadStrategy.Load);
 
     if (nextUp) {
       if (nextUp.track) {

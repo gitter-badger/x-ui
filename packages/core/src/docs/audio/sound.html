@@ -1,0 +1,44 @@
+<x-audio-load-sound
+  track-id="buzzer"
+  src="/docs/assets/buzzer.wav">
+</x-audio-load-sound>
+<x-audio-load-sound
+  track-id="thanks"
+  src="/docs/assets/robot-thank-you.wav"
+  discard="none">
+</x-audio-load-sound>
+<div class="container container-fluid mx-auto">
+  <h1>
+    Sounds!
+  </h1>
+
+  <p>
+    <x-action-activator
+      activate="OnElementEvent"
+      target-event="click"
+      multiple
+      >
+      <x-audio-action
+        command="start">
+        <script type="application/json">
+          {
+            "trackId": "thanks",
+            "type": "sound"
+          }
+        </script>
+      </x-audio-action>
+      <button class="btn" id="button1">Thanks Button</button>
+    </x-action-activator>
+  </p>
+
+  <div class="x-nav-bottom">
+    <button slot="start" x-back class="btn btn-light">
+      <i class="ri-arrow-left-s-line"></i>
+      Back
+    </button>
+    <button slot="end" x-next class="btn btn-primary">
+      Continue
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+  </div>
+</div>

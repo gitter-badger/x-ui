@@ -1,0 +1,50 @@
+<x-audio-load-music
+  track-id="music"
+  src="/docs/assets/sample-music-1.mp3">
+</x-audio-load-music>
+<x-audio-load-sound
+  track-id="cheer"
+  src="/docs/assets/crowd-cheer.wav">
+</x-audio-load-sound>
+<div class="container container-fluid mx-auto">
+  <h1>
+    Listen to the sound!
+  </h1>
+  <p>
+    <x-action-activator
+      activate="OnElementEvent"
+      target-event="click"
+      multiple debug>
+      <x-audio-action
+        command="start"
+        track-id="cheer"
+        type="sound">
+      </x-audio-action>
+      <button class="btn btn-primary">Thanks Button</button>
+    </x-action-activator>
+  </p>
+
+  <p>
+    <x-action-activator
+      activate="OnElementEvent"
+      target-event="click">
+      <x-audio-action
+        command="start"
+        track-id="music"
+        type="music">
+      </x-audio-action>
+      <button class="btn btn-primary">Music Button</button>
+    </x-action-activator>
+  </p>
+
+  <div class="x-nav-bottom">
+    <button slot="start" x-back class="btn btn-light">
+      <i class="ri-arrow-left-s-line"></i>
+      Back
+    </button>
+    <button slot="end" x-next class="btn btn-primary">
+      Continue
+      <i class="ri-arrow-right-s-line"></i>
+    </button>
+  </div>
+</div>

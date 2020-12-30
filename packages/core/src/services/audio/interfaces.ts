@@ -46,7 +46,7 @@ export class AudioTrack {
   trackId:string;
   type: AudioType;
   src:string;
-  load: LoadStrategy;
+  mode: LoadStrategy;
   discard: DiscardStrategy;
   track: boolean;
   loop: boolean;
