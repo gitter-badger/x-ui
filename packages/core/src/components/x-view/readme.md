@@ -1,6 +1,6 @@
-# X-UI / X-VIEW Component
+# X-VIEW Component
 
-The View component is a child component for the \<x-ui\> component for adding a page-route. It is a container element that displays its inner HTML for a given route or sub-route. This provides a declarative mechanism for in-page content/component routing by URL. 
+The View component is a child component for the **\<x-ui\>** component for adding a page-route. It is a container element that displays its inner HTML for a given route or sub-route. This provides a declarative mechanism for in-page content/component routing by URL. 
 
 > ℹ️) This component enables single-page app functionality, with full path routing without scripting.
 
@@ -60,7 +60,7 @@ At that point, the inner HTML content is finally revealed. Using this convention
 
 The following attributes are queried to resolve certain data-values or show/hide conditions for all child elements. 
 
-#### Hide When:  [hide-when]
+#### Hide When:  [x-hide-when]
 
 For each child element with this attribute, the value of the attribute is evaluated for a predicate – and if TRUE, the element is hidden. This evaluation occurs whenever data-changes.
 
@@ -68,7 +68,7 @@ For each child element with this attribute, the value of the attribute is evalua
 <any hide-when="predicate" />
 ````
 
-#### Show When:  [show-when]
+#### Show When:  [x-show-when]
 
 For each child element with this attribute, the value of the attribute is evaluated for a predicate – and if FALSE, the element is shown. This evaluation occurs whenever data-changes. 
 
@@ -93,6 +93,19 @@ For each child element with this attribute, the value of the attribute is evalua
 | `transition`       | `transition`        | Navigation transition between routes. This is a CSS animation class.              | `string`  | `undefined` |
 | `url` _(required)_ | `url`               | The url for this route, including the parent's routes.                            | `string`  | `undefined` |
 
+
+## Dependencies
+
+### Depends on
+
+- [x-swipe](../x-swipe)
+
+### Graph
+```mermaid
+graph TD;
+  x-view --> x-swipe
+  style x-view fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

@@ -1,4 +1,4 @@
-# X-VIEW / X-VIEW-DO
+# X-VIEW-DO
 
 This component is a child of the <x-view> component that turns HTML into a slide-like presentation. The parent displays <view-do> items, one at a time in sequence until they have all been visited, conditionally skipped, or completed. 
 
@@ -131,6 +131,19 @@ This attribute instructs **\<x-view-do\>** to inject the current time percentage
 | `visit`            | `visit`             | The visit strategy for this do. once: persist the visit and never force it again always: do not persist, but don't don't show again in-session optional: do not force this view-do ever. It will be available by URL | `VisitStrategy.always \| VisitStrategy.once \| VisitStrategy.optional` | `VisitStrategy.once` |
 | `when`             | `when`              | If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy                                                         | `string`                                                               | `undefined`          |
 
+
+## Dependencies
+
+### Depends on
+
+- [x-swipe](../x-swipe)
+
+### Graph
+```mermaid
+graph TD;
+  x-view-do --> x-swipe
+  style x-view-do fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

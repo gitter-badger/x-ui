@@ -2,6 +2,8 @@ import {
   Component, h, Prop,
   Element, State, Host, Watch, writeTask,
 } from '@stencil/core';
+import '../x-swipe/x-swipe';
+import '../x-view/x-view';
 import {
   EventEmitter,
   Route,
@@ -21,7 +23,9 @@ import {
   restoreElementChildTimedNodes,
   warn,
   wrapFragment,
-} from '../../services';
+  ISwipeEvent,
+} from '../..';
+
 
 /**
  *  @system routing
@@ -99,6 +103,7 @@ export class XViewDo {
   * To debug timed elements, set this value to true.
   */
   @Prop() debug: boolean = false;
+
 
   @Watch('url')
   validatePath(newValue: string, _oldValue: string) {
@@ -188,8 +193,9 @@ export class XViewDo {
     }
   }
 
-  private next(element:string, eventName: string) {
-    debugIf(this.debug, `x-view-do: next fired from ${element}:${eventName}`);
+
+
+  private beforeExit() {
 
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
@@ -199,12 +205,43 @@ export class XViewDo {
         valid = false;
       }
     });
-    if (valid) {
+
+    if (!valid) return false;
+
+    this.childVideo?.pause();
+
+    clearInterval(this.timer);
+    this.timer = null;
+    this.lastTime = 0;
+
+    restoreElementChildTimedNodes(
+      this.el,
+      this.timedNodes);
+
+    this.actionActivators
+      .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
+      .forEach((activator) => {
+        activator.activateActions();
+      });
+
+    return true;
+  }
+
+  private back(element:string, eventName: string) {
+    debugIf(this.debug, `x-view-do: back fired from ${element}:${eventName}`);
+    if (this.beforeExit()) {
+      RouterService.instance.history.goBack();
+    }
+  }
+
+  private next(element:string, eventName: string) {
+    debugIf(this.debug, `x-view-do: next fired from ${element}:${eventName}`);
+
+    if (this.beforeExit()) {
       if (this.visit === VisitStrategy.once) {
         storeVisit(this.url);
       }
       markVisit(this.url);
-      this.beforeExit();
       RouterService.instance.goToParentRoute();
     }
   }
@@ -243,8 +280,7 @@ export class XViewDo {
     const backElement = this.el?.querySelector('[x-back]');
     backElement?.addEventListener('click', (e) => {
       e.preventDefault();
-      this.beforeExit();
-      RouterService.instance.history.goBack();
+      this.back(nextElement?.localName, 'clicked');
     });
     backElement?.removeAttribute('x-back');
 
@@ -325,30 +361,29 @@ export class XViewDo {
     });
   }
 
-  private beforeExit() {
-    this.childVideo?.pause();
+  private handleSwipe(ev: CustomEvent<ISwipeEvent>) {
+    const { left, right } = ev.detail;
+    if (right) {
+      this.back(this.el.localName, 'swipe');
+    }
 
-    clearInterval(this.timer);
-    this.timer = null;
-
-    this.lastTime = 0;
-
-    restoreElementChildTimedNodes(
-      this.el,
-      this.timedNodes);
-
-    this.actionActivators
-      .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
-      .forEach((activator) => {
-        activator.activateActions();
-      });
+    if (left) {
+      this.next(this.el.localName, 'swipe');
+    }
   }
 
   render() {
+    debugIf(this.debug, `x-view-do: ${this.url} render`);
     return (
       <Host class={this.route?.transition}>
         <slot />
-        <slot name="content"/>
+        <x-swipe
+          thresholdX={100}
+          thresholdY={30}
+          timeThreshold={30}
+          onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
+          <slot name="content" />
+        </x-swipe>
       </Host>
     );
   }
