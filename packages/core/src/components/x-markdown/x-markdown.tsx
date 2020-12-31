@@ -71,7 +71,7 @@ export class XMarkdown {
 
   private async setContentFromScript() {
     const el = this.childScript;
-    const md = el.hasAttribute('data-dedent') ? this.dedent(el.text) : el.text;
+    const md = this.dedent(el.text);
     this.content = window['marked'] ? window['marked'](md) : null;
   }
 

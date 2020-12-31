@@ -267,7 +267,7 @@ export class XViewDo {
     nextElement?.removeAttribute('x-next');
 
     // Attach route
-    this.el.querySelectorAll('[x-link],x-link')
+    this.el.querySelectorAll('[x-link]')
       .forEach(el => {
         el.addEventListener('click', (e) => {
           e.preventDefault();
@@ -304,67 +304,72 @@ export class XViewDo {
   }
 
   private setupTimer() {
-    const timeUpdateEvent = 'timeupdate';
     const video = this.childVideo;
+    const { debug, duration = video?.duration || 0 } = this;
+    const timeUpdateEvent = 'timeupdate';
+
     this.timeEvent = new EventEmitter();
     this.lastTime = 0;
+
+
+
+
     if (video) {
       video.addEventListener(timeUpdateEvent, () => {
         this.timeEvent.emit(timeUpdateEvent, video.currentTime);
+        this.lastTime = video.currentTime;
       });
       video.addEventListener('click', () => {
         this.childVideo.play();
       });
+      video.addEventListener('end', () => {
+        this.next('video', 'ended');
+      });
     } else {
       let time = 0;
       const started = performance.now();
-
-      const emitTime = () => {
-        this.lastTime = time;
+      const emitTime = (time?: number) => {
         time = (performance.now() - started) / 1000;
-        debugIf(true, `x-view-do: ${this.lastTime} - ${time}`);
+        debugIf(this.debug, `x-view-do: ${this.lastTime} - ${time}`);
         this.timeEvent.emit(timeUpdateEvent, time);
 
-        // if (time < this.duration) {
-        this.timer = setTimeout(() => {
-          emitTime();
-        }, 1000);
-            // requestAnimationFrame(emitTime);
-        //}
-      }
+        if ((duration > 0 && time < duration) || duration == 0) {
+          this.timer = setTimeout(() => {
+            this.timer = requestAnimationFrame(() => {
+              emitTime(time);
+            });
+          }, 500);
 
-      this.timer = setTimeout(() => {
-        emitTime();
-      }, 500); // requestAnimationFrame(emitTime);
+          this.lastTime = time;
+        }
+        debugIf(debug, `x-view-do: presentation ended at ${time} [not redirecting]`);
+        if (duration > 0 && time > duration) {
+          cancelAnimationFrame(this.timer);
+          clearInterval(this.timer)
+          this.next('timer', timeUpdateEvent);
+        }
+      }
+      this.timer = requestAnimationFrame(() => {
+        emitTime(time);
+      });
     }
 
     this.timeEvent.on(timeUpdateEvent, (time) => {
-      const { debug, el, timedNodes, timer, duration = video?.duration } = this;
+      const { debug, el, timedNodes, duration = video?.duration } = this;
 
       this.actionActivators
-        .filter((activator) =>
-          activator.activate === ActionActivationStrategy.AtTime
-          && (activator.time <= time))
+        .filter((activator) => activator.activate === ActionActivationStrategy.AtTime)
+        .filter((activator) => time >= activator.time)
         .forEach(async (activator) => {
           await activator.activateActions();
         });
 
-      // monitor next-when
-      if ((duration > 0) && (time > duration)) {
-        // cancelAnimationFrame(timer);
-        clearInterval(timer);
-        debugIf(debug, `x-view-do: presentation ended at ${time} [not redirecting]`);
-        if (!debug) {
-          this.next('timer', timeUpdateEvent);
-        }
-      } else {
-        resolveElementChildTimedNodesByTime(
-          el,
-          timedNodes,
-          time,
-          duration,
-          debug);
-      }
+      resolveElementChildTimedNodesByTime(
+        el,
+        timedNodes,
+        time,
+        duration,
+        debug);
     });
   }
 

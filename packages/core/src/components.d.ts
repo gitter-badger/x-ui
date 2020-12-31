@@ -51,7 +51,7 @@ export namespace Components {
         /**
           * The time, in seconds at which the contained actions should be submitted.  For use with activate="AtTime" Only!
          */
-        "time"?: number;
+        "time": number;
     }
     interface XAudioAction {
         /**
@@ -225,11 +225,11 @@ export namespace Components {
     }
     interface XSwipe {
         /**
-          * How many units must be covered to determine if it was a swipe
+          * How many units must be covered in the x-axis to determine if it was a swipe
          */
         "thresholdX": number;
         /**
-          * How many units must be covered to determine if it was a swipe
+          * How many units must be covered in the y-axis to determine if it was a swipe
          */
         "thresholdY": number;
         /**
@@ -253,7 +253,7 @@ export namespace Components {
         /**
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
-        "historyType": HistoryType;
+        "pathMode": HistoryType;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
@@ -328,6 +328,10 @@ export namespace Components {
           * To debug timed elements, set this value to true.
          */
         "debug": boolean;
+        /**
+          * How should this page be presented (coming soon)
+         */
+        "display": 'page'|'modal'|'full';
         /**
           * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */
@@ -709,11 +713,11 @@ declare namespace LocalJSX {
          */
         "onSwipe"?: (event: CustomEvent<ISwipeEvent>) => void;
         /**
-          * How many units must be covered to determine if it was a swipe
+          * How many units must be covered in the x-axis to determine if it was a swipe
          */
         "thresholdX"?: number;
         /**
-          * How many units must be covered to determine if it was a swipe
+          * How many units must be covered in the y-axis to determine if it was a swipe
          */
         "thresholdY"?: number;
         /**
@@ -735,10 +739,6 @@ declare namespace LocalJSX {
          */
         "fullPage"?: boolean;
         /**
-          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
-         */
-        "historyType"?: HistoryType;
-        /**
           * Listen to all X-UI actions here.
          */
         "onAction"?: (event: CustomEvent<any>) => void;
@@ -746,6 +746,10 @@ declare namespace LocalJSX {
           * Listen to all X-UI events here.
          */
         "onRouteChanged"?: (event: CustomEvent<any>) => void;
+        /**
+          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
+         */
+        "pathMode"?: HistoryType;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
@@ -820,6 +824,10 @@ declare namespace LocalJSX {
           * To debug timed elements, set this value to true.
          */
         "debug"?: boolean;
+        /**
+          * How should this page be presented (coming soon)
+         */
+        "display"?: 'page'|'modal'|'full';
         /**
           * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */

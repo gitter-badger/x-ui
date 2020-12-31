@@ -15,7 +15,7 @@ export class CookieProvider implements IDataProvider {
   }
 
   async set(key: string, value: any) {
-    setCookie(this.document, key, value);
+    setCookie(this.document, key, value, { sameSite: 'strict'});
   }
 
   changed:EventEmitter;

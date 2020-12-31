@@ -126,12 +126,13 @@ export function resolveElementChildTimedNodesByTime(
   // resolve x-time-to
   const timeValueElements = element.querySelectorAll('[x-time-to]');
   timeValueElements.forEach((el) => {
+    const seconds = Math.floor(time);
     const attributeName = el.getAttribute('x-time-to');
     if (attributeName) {
-      el.setAttribute(attributeName, time.toString());
+      el.setAttribute(attributeName, seconds.toString());
     } else {
       el.childNodes.forEach((cn) => el.removeChild(cn));
-      el.appendChild(document.createTextNode(time.toString()));
+      el.appendChild(document.createTextNode(seconds.toString()));
     }
   });
 

@@ -1,6 +1,7 @@
 :root {
   --bs-primary: #a06cb4;
   --text-color: #000;
+  --content-max-width: 800px;
 }
 
 body {
@@ -10,12 +11,43 @@ body {
   height: 100vh;
 }
 
-.navbar {
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: var(--bs-primary);
+  border-color: #5f45a7;
+}
 
+.btn-primary:hover {
+  background-color: #5f45a7;
+  border-color: #5f45a7;
+}
+
+x-ui {
+  color: var(--text-color);
+}
+
+h1 {
+  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 3em;
+  color: var(--text-color);
+}
+
+h2,
+h3,
+h4 {
+  color: var(--bs-primary);
+  margin: .75em 0 .25em 0;
+}
+
+h3 {
+  border-bottom: 1px dotted var(--bs-primary);
+  padding-bottom: .2em;
 }
 
 .btn-primary {
-  --background-color: --bs-primary;
+  --background-color: var(--bs-primary);
 }
 
 .list-group {
@@ -31,30 +63,20 @@ body {
 a,
 a:link,
 a:visited,
-a:active, {
-  color: #7566a0;
+a:active
+{
+  color: #353e3f;
   text-decoration: none;
 }
 
 a:hover {
   color: #a0ec88;
+  text-decoration: underline;
 }
 
-a,
-a:link,
-a:visited,
-a:active,
-a:hover {
-  color: var(--text-color, #000);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--text-color-hover, #000);
-}
 
 .container-fluid {
-  max-width: 900px;
+  max-width: var(--content-max-width);
 }
 
 .tag-line {
@@ -63,6 +85,7 @@ a:hover {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 3em;
   position: relative;
+  margin: 0;
 }
 
 #viewdo-logo {
@@ -79,6 +102,10 @@ b.brand {
   font-size: 1.3em;
 }
 
+#content {
+  padding: 2em 0;
+}
+
 .x-nav-bottom {
   background-image: linear-gradient(to bottom, transparent, #fff);
   background-size: fill;
@@ -87,6 +114,7 @@ b.brand {
   float: left;
   width: 100%;
   padding: 5em 0 2em 0;
+  z-index:10;
 }
 
 
@@ -96,5 +124,36 @@ b.brand {
 }
 
 .x-nav-bottom  [slot='start'] {
- float: left;
+  float: left;
+}
+
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid var(--bs-primary);
+  margin: 2em 0;
+  padding: 1em;
+}
+blockquote > p {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border: solid 1px var(--bs-primary);;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow-x: scroll;
+}
+table thead th {
+  background-color:var(--bs-primary);;
+  border: solid 1px var(--bs-primary);;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+table tbody td {
+  border: solid 1px #DDEEEE;
+  color: #333;
+  padding: 10px;
 }

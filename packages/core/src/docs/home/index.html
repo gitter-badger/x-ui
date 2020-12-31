@@ -10,7 +10,7 @@
       <i class="ri-play-line text-light fs-1"></i>
     </span>
     <span>
-      This documentation was created with <b class="brand">&lt;x-ui/&gt;</b>.
+      This documentation was created with <b class="brand text-white">&lt;x-ui/&gt;</b>.
       See how complex routing, guided navigation, automatic presentations, data-binding and more
       work when you take the tour. Click to begin.
     </span>
@@ -23,7 +23,7 @@
         Get Started
       </x-link>
     </li>
-    <li class="list-group-item">
+    <li hidden class="list-group-item">
       <x-link href="/routing">
         <i class="ri-route-line"></i>
         Content Routing
@@ -32,7 +32,7 @@
     <li class="list-group-item">
       <x-link href="/navigation">
         <i class="ri-direction-line"></i>
-        Guided Navigation
+        Routing & Navigation
       </x-link>
     </li>
     <li class="list-group-item">
@@ -41,7 +41,7 @@
         Incorporating Audio
       </x-link>
     </li>
-    <li class="list-group-item">
+    <li hidden class="list-group-item">
       <x-link href="/video">
         <i class="ri-video-line"></i>
         Interactive Video
@@ -54,18 +54,18 @@
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link href="/data">
+      <x-link href="/data-binding">
         <i class="ri-database-2-line"></i>
         Embedding Data
       </x-link>
     </li>
-    <li class="list-group-item">
+    <li hidden class="list-group-item">
       <x-link href="/interface">
         <i class="ri-plug-2-line"></i>
         Plugins & Providers
       </x-link>
     </li>
-    <li class="list-group-item">
+    <li hidden class="list-group-item">
       <x-link href="/developers">
         <i class="ri-git-pull-request-line"></i>
         Contributing
@@ -75,9 +75,9 @@
 
   <h2>What is <span class="brand">&lt;x-ui/&gt;</span>?</h2>
   <p>
-    <a href="https://view.do" target="_blank">view.DO</a>'s <b class="brand">&lt;x-ui/&gt;</b> is
-    the first UI component toolkit built specifically for turning static content into interactive
-    web experiences.
+    <b class="brand">&lt;x-ui/&gt;</b> (aka, experience UI) is
+    the first UI component toolkit built specifically for turning
+    static content into interactive web experiences.
   </p>
 
   <h4>How does this help?</h4>
@@ -110,9 +110,8 @@
   </p>
 
 
-  <h2>It's not magic, it's view.DO!</h2>
 
-
+  <h3>Features</h3>
 
   <div class="accordion accordion-flush" id="specialFeatures">
     <div class="accordion-item">
@@ -170,7 +169,7 @@
         </div>
       </div>
     </div>
-    <div class="accordion-item">
+    <div hidden class="accordion-item">
       <h2 class="accordion-header" id="headingFour">
         <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
           <i class="ri-slideshow-line me-5"></i>
@@ -183,7 +182,7 @@
             <li>Interactive Videos</li>
             <li>Queued, Timed & Event-based Actions</li>
             <li>Animated Transitions</li>
-            <li>Timed Ambient & Voice-Over Audio</li>
+            <li>Background Music & Voice-Overs</li>
             <li>Animation Hooks</li>
           </ul>
         </div>
@@ -212,7 +211,12 @@
     </div>
   </div>
 
-  <h6 class="mt-5">Brought to you by:</h6>
+  <x-data-display>
+    <template>
+      <h5 class="mt-5">It's not magic {storage:name}, it's view.DO!</h5>
+    </template>
+  </x-data-display>
+
   <a href="https://view.do" target="_blank">
     <img id="viewdo-logo" src="https://static.view.do/view-do/viewdo-logo-color.svg" width="200vw"/>
   </a>

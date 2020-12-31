@@ -7,49 +7,68 @@
 </x-use>
 <x-audio-load-sound
   track-id="buzzer"
-  src="/docs/assets/buzzer.wav">
-</x-audio-load-sound>
-<x-audio-load-sound
-  track-id="thanks"
-  src="/docs/assets/robot-thank-you.wav"
+  src="/docs/assets/buzzer.wav"
   discard="none">
 </x-audio-load-sound>
+
 <div class="container container-fluid mx-auto">
-  <x-markdown>
-    <script type="text/markdown" data-dedent>
-      # Sound
 
-      This page has on-demand sounds configured to play
-      when the button below is clicked.
+  <h1>Sounds</h1>
+  <p class="lead">
+    This page has on-demand sounds configured to play
+    when buttons are clicked.
+  </p>
 
+  <h2>Add sound-effects or voice-overs declaratively</h2>
+  <p>
+    Sounds are a little different than music. We don't loop sounds
+    and they need to play on-demand. There are multiple ways to
+    trigger them, but this page attaches them to a button.
+  </p>
 
-      ````html
-      <x-audio-load-sound
-        track-id="buzzer"
-        src="/docs/assets/buzzer.wav">
-      </x-audio-load-sound>
-      <x-audio-load-sound
-        track-id="thanks"
-        src="/docs/assets/robot-thank-you.wav"
-        discard="none">
-      </x-audio-load-sound>
-
-      <x-action-activator
-        activate="OnElementEvent"
-        target-event="click"
-        multiple>
-        <x-audio-action
-          command="start"
-          track-id="thanks"
-          type="sound"
-          discard="none">
-        </x-audio-action>
-        <button type="button" class="btn btn-primary btn-lg" id="button1">Thanks Button</button>
-      </x-action-activator>
-      ````
-    </script>
-  </x-markdown>
-
+  <h3>First: Preload</h3>
+  <p>
+    To get the timing perfect, we have
+    to pre-load all sounds for a route using the
+    <x-link href="/components/x-audio-load-sound"><b>&lt;x-audio-load-sound&gt;</b></x-link>
+    component. The default
+    mode for sounds is load. This gets the audio ready
+    to play and waits for the start command.
+  </p>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#loadSource"
+      aria-expanded="false" aria-controls="loadSource">
+      <i class="ri-code-s-slash-line"></i>
+      View Route Source
+    </button>
+    <div class="collapse" id="loadSource">
+      <x-markdown>
+        <script type="text/markdown">
+        ````html
+        <x-view-do ...>
+          <x-audio-load-sound
+            track-id="buzzer"
+            src="/docs/assets/buzzer.wav"
+            discard="none">
+          </x-audio-load-sound>
+          ...
+        </x-view-do>
+        ````
+        > We set the discard to **none** to tell the player not to discard
+        the sound after it has played, so it can be played again.
+        </script>
+      </x-markdown>
+    </div>
+  </p>
+  <h3 class="mt-3">Then: Activate</h3>
+  <p>
+    We play the sound by sending an <x-link href="/actions">event action</x-link> with
+    start command. We can use the <x-link href="/components/x-action-activator">
+    <b>&lt;x-action-activator&gt;</b></x-link> component and special
+    <x-link href="/components/x-audio-action"><b>&lt;x-audio-action&gt;</b></x-link>
+    components with the command, audio-type and track-id.
+  </p>
   <p>
     <x-action-activator
       activate="OnElementEvent"
@@ -58,24 +77,45 @@
       <x-audio-action
         command="start"
         track-id="buzzer"
-        type="sound"
-        discard="route">
+        type="sound">
       </x-audio-action>
-      <button type="button" class="btn btn-primary btn-lg">Sound 1</button>
-    </x-action-activator>
-    <x-action-activator
-      activate="OnElementEvent"
-      target-event="click"
-      multiple>
-      <x-audio-action
-        command="start"
-        track-id="thanks"
-        type="sound"
-        discard="route">
-      </x-audio-action>
-      <button type="button" class="btn btn-primary btn-lg">Sound 2</button>
+      <button type="button" class="btn btn-info text-white">
+        <i class="ri-play-circle-line"></i>
+        Sound
+      </button>
     </x-action-activator>
   </p>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#buttonSource"
+      aria-expanded="false" aria-controls="buttonSource">
+      <i class="ri-code-s-slash-line"></i>
+      View Button Source
+    </button>
+    <div class="collapse" id="buttonSource">
+      <x-markdown>
+        <script type="text/markdown">
+        ````html
+        <x-action-activator
+          activate="OnElementEvent"
+          target-event="click"
+          multiple>
+          <x-audio-action
+            command="start"
+            track-id="buzzer"
+            type="sound">
+          </x-audio-action>
+          <button type="button" class="btn btn-info">Sound</button>
+        </x-action-activator>
+        ````
+        > We set the activator to **multiple** so it allows us to send
+        the same action more than once. By default, this is not allowed.
+        </script>
+      </x-markdown>
+    </div>
+  </p>
+
+
 
   <div class="x-nav-bottom">
     <button slot="start" x-back class="btn btn-light btn-lg">

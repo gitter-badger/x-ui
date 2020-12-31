@@ -41,7 +41,10 @@ export const config: Config = {
       empty: false,
       serviceWorker: null, // disable service workers
       copy: [
-        { src: 'docs' },
+        { src: 'docs', dest: './', keepDirStructure: true },
+        {
+          src: 'docs/*.html', dest: './'
+        },
         {
           src: 'components/**/*.md',
           dest: 'docs',
