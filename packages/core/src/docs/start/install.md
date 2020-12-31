@@ -1,5 +1,8 @@
 ## Install with NPM
 
+If you want library assets to be local to your application, you have a build-process or framework for your web-application, install it.
+
+
 ### 1. Install the NPM package.
 
 ````bash

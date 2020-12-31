@@ -83,14 +83,12 @@ export class XActionActivator {
   }
 
   private get childActions(): Array<IActionElement> {
-    if (!this.el.hasChildNodes()) return [];
-    const actions = Array.from(this.el.childNodes)
-      .filter((c) => c.nodeName === 'X-ACTION')
-      .map((v) => v as HTMLXActionElement);
 
-    const audioActions = Array.from(this.el.childNodes)
-      .filter((c) => c.nodeName === 'X-AUDIO-ACTION')
-      .map((v) => v as HTMLXAudioActionElement);
+    const actions = Array.from(this.el
+      .querySelectorAll('x-action'));
+
+    const audioActions = Array.from(this.el
+      .querySelectorAll('x-audio-action'));
 
     return [...actions, ...audioActions];
   }
@@ -116,7 +114,7 @@ export class XActionActivator {
       } else {
         element = Array.from(this.el.childNodes)
           .filter((e) => e.nodeType === e.ELEMENT_NODE)
-          .find((el) => el.nodeName !== 'X-ACTION');
+          .find((el) => !el.nodeName.startsWith('X-'));
       }
 
       if (element === undefined) {
@@ -133,7 +131,9 @@ export class XActionActivator {
 
   render() {
     return (
-      <Host><slot></slot></Host>
+      <Host>
+        <slot/>
+      </Host>
     );
   }
 }

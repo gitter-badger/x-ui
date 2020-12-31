@@ -10,7 +10,7 @@ This component declares audio used within this **`<x-view-do>`** route. The **`<
     mode="queue|play|load"
     track-id="<unique-id>"
     src="<url>"    
-    discard="route|video|next|none"
+    discard="route|next|none"
     loop
     track
     ></x-audio-load-music>

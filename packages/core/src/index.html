@@ -65,7 +65,187 @@
   </head>
 
   <body>
-    <x-include src="docs/header.html"></x-include>
+
+    <nav class="navbar navbar-expand-sm navbar-light text-primary bg-light sticky-lg-top">
+      <div class="container-fluid">
+        <button slot="start"
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div slot="start" class="navbar-brand">
+          <x-link href="/home">
+            <h1 class="tag-line" title="view.DO Experience UI HTML">
+              &lt;x-ui/&gt;
+            </h1>
+          </x-link>
+        </div>
+        <div class="collapse navbar-collapse"
+          id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item d-none d-md-block">
+              <x-link class="nav-link"
+                href="/start">
+                <b>Get Started</b>
+              </x-link>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Guides
+              </a>
+              <ul class="dropdown-menu"
+                aria-labelledby="navbarDropdown">
+                <li class="dropdown-item">
+                  <x-link href="/routing">
+                    <i class="ri-route-line"></i>
+                    Content Routing
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/navigation">
+                    <i class="ri-direction-line"></i>
+                    Guided Navigation
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/data">
+                    <i class="ri-database-2-line"></i>
+                    Embedding Data
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/audio">
+                    <i class="ri-music-line"></i>
+                    Incorporating Audio
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/video">
+                    <i class="ri-video-line"></i>
+                    Interactive Video
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/actions">
+                    <i class="ri-flashlight-line"></i>
+                    Event Actions
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/document">
+                    <i class="ri-plug-2-line"></i>
+                    Plugins & Providers
+                  </x-link>
+                </li>
+                <li class="dropdown-item">
+                  <x-link href="/developers">
+                    <i class="ri-git-pull-request-line"></i>
+                    Contributing
+                  </x-link>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown"
+              data-intro="The <b>x-data-repeat</b> element rendered this list from a remote JSON data-source. <br/><br/> Check out the <a href='documentation/components/x-data-repeat'>documentation</a> to see what else you can do.">
+              <a class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Components
+              </a>
+              <ul class="dropdown-menu"
+                aria-labelledby="navbarDropdown">
+                <li class="dropdown-item-text">Routing</li>
+                <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
+                  <template>
+                    <li class="dropdown-item">
+                      <x-link href="/components/{data:tag}">
+                        &lt;{data:tag}&gt;
+                      </x-link>
+                    </li>
+                  </template>
+                </x-data-repeat>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item-text">Layout & Content</li>
+                <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]">
+                  <template>
+                    <li class="dropdown-item">
+                      <x-link href="/components/{data:tag}">
+                        &lt;{data:tag}&gt;
+                      </x-link>
+                    </li>
+                  </template>
+                </x-data-repeat>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item-text">Embedding Data</li>
+                <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
+                  <template>
+                    <li class="dropdown-item">
+                      <x-link href="/components/{data:tag}">
+                        &lt;{data:tag}&gt;
+                      </x-link>
+                    </li>
+                  </template>
+                </x-data-repeat>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item-text">Event Actions</li>
+                <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]">
+                  <template>
+                    <li class="dropdown-item">
+                      <x-link href="/components/{data:tag}">
+                        &lt;{data:tag}&gt;
+                      </x-link>
+                    </li>
+                  </template>
+                </x-data-repeat>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item-text">Audio Enhancements</li>
+                <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='audio']]">
+                  <template>
+                    <li class="dropdown-item">
+                      <x-link href="/components/{data:tag}">
+                        &lt;{data:tag}&gt;
+                      </x-link>
+                    </li>
+                  </template>
+                </x-data-repeat>
+              </ul>
+            </li>
+          </ul>
+          <div style="display: flex;flex-direction: row;gap: 1em;">
+            <x-audio-player title="Audio" debug>
+            </x-audio-player>
+            <a href="https://github.com/viewdo/x-ui"
+              title="Check out the source on GitHub"
+              target="_blank">
+              <i class="ri-github-line fs-2"></i>
+            </a>
+            <x-data-display>
+              <template>
+                <x-link href="/home/name"
+                  title="{storage:name}"
+                  data-intro="Click this to see a <b>x-view-do</b> component in action. It creates a special sub-route with automated navigation. It's conditioned using data expressions. <br/><br/> Check out the <a href='documentation/components/x-view-do'>documentation</a> to see what else you can do.">
+                  <i class="ri-user-5-line fs-2"></i>
+                </x-link>
+              </template>
+            </x-data-display>
+          </div>
+        </div>
+      </div>
+
+    </nav>
 
     <x-ui start-url="/home"
       app-title="view.DO :: <x-ui/>"
@@ -86,37 +266,30 @@
           content-src="docs/home/welcome.html"
           transition="animate__animated animate__bounceIn">
         </x-view-do>
+
       </x-view>
+
 
       <x-view url="/start"
         page-title="Get Started"
         content-src="docs/start/index.html">
 
+        <x-view-do url="/select"
+          when="!{storage:installed}"
+          page-title="Select Installation"
+          content-src="docs/start/select.html">
+        </x-view-do>
+
         <x-view-do url="/use"
           page-title="Use w/CDN"
           visit="optional"
           content-src="docs/start/use.html">
-
         </x-view-do>
 
         <x-view-do url="/install"
           page-title="Install"
           visit="optional"
           content-src="docs/start/install.html">
-          <!-- You can express data in JSON directly in a script tag, but don't call it scripting! -->
-          <x-action-activator activate="OnEnter">
-            <x-action topic="data"
-              command="set-data">
-              <script type="application/json">
-                {
-                  "provider": "storage",
-                  "values": {
-                    "installed": "npm"
-                  }
-                }
-              </script>
-            </x-action>
-          </x-action-activator>
         </x-view-do>
 
       </x-view>
@@ -360,6 +533,28 @@
         </x-view-do>
       </x-view>
 
+      <x-view url="/audio"
+        page-title="Audio Systems"
+        content-src="docs/audio/index.html">
+        <x-view-do url="/music" page-title="Music"
+          visit="optional"
+          content-src="docs/audio/music.html">
+        </x-view-do>
+        <x-view-do url="/sound" page-title="Sounds"
+          visit="optional"
+          content-src="docs/audio/sound.html">
+        </x-view-do>
+        <x-view-do url="/both" page-title="Music & Sound"
+          visit="optional"
+          content-src="docs/audio/both.html">
+        </x-view-do>
+      </x-view>
+
+      <x-view url="/animations"
+        page-title="Animations"
+        content-src="docs/animations/index.html">
+      </x-view>
+
       <x-view url="/components/:component"
         page-title="Component: <{route:component}>"
         content-src="docs/components/index.html">
@@ -370,12 +565,8 @@
         page-title="Page not Found"
         content-src="docs/not-found.html">
       </x-view>
-
-      <x-data-provider-cookie>
-        <h5>Cookies</h3>
-          <p>This site uses cookies for tracking.</p>
-      </x-data-provider-cookie>
     </x-ui>
+
   </body>
 
 </html>

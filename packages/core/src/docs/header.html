@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light text-white bg-light sticky-lg-top">
+<nav class="navbar navbar-expand-sm navbar-light text-primary bg-light sticky-lg-top">
   <div class="container-fluid">
     <button slot="start"
       class="navbar-toggler"
@@ -52,7 +52,7 @@
             <li class="dropdown-item">
               <x-link href="/data">
                 <i class="ri-database-2-line"></i>
-                Using Data in HTML
+                Embedding Data
               </x-link>
             </li>
             <li class="dropdown-item">
@@ -62,20 +62,26 @@
               </x-link>
             </li>
             <li class="dropdown-item">
+              <x-link href="/video">
+                <i class="ri-video-line"></i>
+                Interactive Video
+              </x-link>
+            </li>
+            <li class="dropdown-item">
               <x-link href="/actions">
                 <i class="ri-flashlight-line"></i>
-                HTML Event Actions
+                Event Actions
               </x-link>
             </li>
             <li class="dropdown-item">
               <x-link href="/document">
                 <i class="ri-plug-2-line"></i>
-                Plugins & Integrations
+                Plugins & Providers
               </x-link>
             </li>
             <li class="dropdown-item">
               <x-link href="/developers">
-                <i class="ri-git-pull-request-fill"></i>
+                <i class="ri-git-pull-request-line"></i>
                 Contributing
               </x-link>
             </li>
@@ -94,7 +100,7 @@
           <ul class="dropdown-menu"
             aria-labelledby="navbarDropdown">
             <li class="dropdown-item-text">Routing</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]" debug>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
               <template>
                 <li class="dropdown-item">
                   <x-link href="/components/{data:tag}">
@@ -104,8 +110,8 @@
               </template>
             </x-data-repeat>
             <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Dynamic Content</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]" debug>
+            <li class="dropdown-item-text">Layout & Content</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]">
               <template>
                 <li class="dropdown-item">
                   <x-link href="/components/{data:tag}">
@@ -115,8 +121,8 @@
               </template>
             </x-data-repeat>
             <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Embed Data</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]" debug>
+            <li class="dropdown-item-text">Embedding Data</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
               <template>
                 <li class="dropdown-item">
                   <x-link href="/components/{data:tag}">
@@ -126,8 +132,8 @@
               </template>
             </x-data-repeat>
             <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Declare Actions</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]" debug>
+            <li class="dropdown-item-text">Event Actions</li>
+            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]">
               <template>
                 <li class="dropdown-item">
                   <x-link href="/components/{data:tag}">

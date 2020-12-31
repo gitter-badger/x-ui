@@ -30,7 +30,7 @@ export class XAudioLoadSound {
    /**
    * The discard strategy the player should use for this file.
    */
-  @Prop() discard: DiscardStrategy = DiscardStrategy.Video;
+  @Prop() discard: DiscardStrategy = DiscardStrategy.Route;
 
    /**
    * The path to the audio-file.

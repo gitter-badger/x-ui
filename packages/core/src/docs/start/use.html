@@ -14,7 +14,27 @@
 </x-use>
 
 <div class="container container-fluid mx-auto">
-  <x-markdown src="/docs/start/use.md"></x-markdown>
+  <h1>Installation</h1>
+
+  <h3>Use with a CDN</H3>
+
+  <x-markdown>
+    <script type="text/markdown" data-dedent>
+      Use these components directly from a CDN.
+
+      #### Add the following script tags to the head:
+
+      ````html
+      <head>
+        ...
+        <script type="module" src="https://unpkg.com/@viewdo/x-ui/dist/x-ui.esm.js">
+        <script nomodule src="https://unpkg.com/@viewdo/x-ui/dist/x-ui.js">
+        ...
+      </head>
+      ````
+    </script>
+  </x-markdown>
+
   <div class="x-nav-bottom">
     <button slot="start" x-back class="btn btn-light">
       <i class="ri-arrow-left-s-line"></i>

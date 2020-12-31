@@ -1,6 +1,5 @@
 import { Component, Host, h, State, Element, Prop } from '@stencil/core';
 import { Howler } from 'howler';
-import { ROUTE_EVENTS } from '../../services/routing/interfaces';
 import {
   actionBus,
   EventAction,
@@ -17,7 +16,8 @@ import {
   AUDIO_EVENTS,
   DiscardStrategy,
   LoadStrategy,
-  eventBus
+  ROUTE_EVENTS,
+  eventBus,
 }
 from '../..';
 
@@ -82,6 +82,7 @@ export class AudioPlayer {
       case AUDIO_COMMANDS.Load: {
         const audio = this.getQueuedAudio(data as AudioTrack);
         this.addToQueue(audio.type, audio);
+        eventBus.emit(AUDIO_EVENTS.Loaded);
         break;
       }
       case AUDIO_COMMANDS.Play: {
@@ -93,21 +94,26 @@ export class AudioPlayer {
         const audio = this.getQueuedAudio(data as AudioTrack);
         if (!this.current[audio.type]) {
           this.playNext(audio.type, audio);
+          eventBus.emit(AUDIO_EVENTS.Played);
         } else {
           this.addToQueue(audio.type, audio);
+          eventBus.emit(AUDIO_EVENTS.Queued);
         }
         break;
       }
       case AUDIO_COMMANDS.Pause: {
         this.pause();
+        eventBus.emit(AUDIO_EVENTS.Paused);
         break;
       }
       case AUDIO_COMMANDS.Resume: {
         this.resume();
+        eventBus.emit(AUDIO_EVENTS.Resumed);
         break;
       }
       case AUDIO_COMMANDS.Mute: {
         this.mute(data as AudioRequest);
+        eventBus.emit(AUDIO_EVENTS.Muted);
         break;
       }
       case AUDIO_COMMANDS.Seek: {
@@ -116,6 +122,7 @@ export class AudioPlayer {
       }
       case AUDIO_COMMANDS.Start: {
         this.start(data as AudioRequest);
+        eventBus.emit(AUDIO_EVENTS.Started);
         break;
       }
       case AUDIO_COMMANDS.Volume: {
@@ -143,11 +150,16 @@ export class AudioPlayer {
     this.queue = {...this.queue, [type]: queue.filter(x => !!x) };
   }
 
+  private discardFromQueue(type:AudioType, ...reasons: DiscardStrategy[]) {
+    const eligibleAudio = (audio:QueuedAudio) => reasons.includes(audio.discard);
+    const queue = this.queue[type]?.filter(eligibleAudio) || [];
+    this.queue = { ...this.queue, [type]: queue};
+  }
+
   private start(start: AudioRequest) {
     debugIf(this.debug, `start requested for ${start.trackId}`);
     const audio = this.queue[start.type]?.find(a => a.trackId == start.trackId);
     if (audio) {
-      this.removeFromQueue(audio.type, audio);
       this.playNext(audio.type, audio);
     }
   }
@@ -157,12 +169,6 @@ export class AudioPlayer {
     const current = this.current[type];
     if (current) {
       this.haltAudio(type, DiscardStrategy.Next);
-      if (current.discard == DiscardStrategy.None) {
-        current.mode = LoadStrategy.Load;
-        this.addToQueue(current.type, current);
-      } else {
-        current.destroy();
-      }
     }
 
     const nextUp = audio || this.queue[type]?.find(a => a.mode != LoadStrategy.Load);
@@ -170,6 +176,7 @@ export class AudioPlayer {
     if (nextUp) {
       if (nextUp.track) {
         if (hasPlayed(nextUp.trackId)) {
+          this.removeFromQueue(audio.type, audio);
           nextUp.destroy();
           this.playNext(type);
           return;
@@ -183,7 +190,6 @@ export class AudioPlayer {
       this.isPlaying = true;
     }
   }
-
 
   private pause() {
     this.current[AudioType.Music]?.pause();
@@ -217,23 +223,20 @@ export class AudioPlayer {
   private routeChanged() {
     this.haltAudio(AudioType.Sound, DiscardStrategy.Route);
     this.haltAudio(AudioType.Music, DiscardStrategy.Route);
-
-    const eligibleAudio = (audio:QueuedAudio) => ['none','next'].includes(audio?.discard);
-    const musicQueue = this.queue[AudioType.Music]?.filter(eligibleAudio) || [];
-    const soundQueue = this.queue[AudioType.Sound]?.filter(eligibleAudio) || [];
-
-    this.queue = {
-      [AudioType.Music]: [...musicQueue],
-      [AudioType.Sound]: [...soundQueue]
-    }
+    this.discardFromQueue(AudioType.Sound, DiscardStrategy.Route);
+    this.discardFromQueue(AudioType.Music, DiscardStrategy.Route);
   }
 
   private haltAudio(type: AudioType, ...reasons: DiscardStrategy[]) {
     if (!this.current) return;
-
     const current = this.current[type];
-    if (current && reasons.includes(current.discard)) {
+    if (current) {
       current.stop();
+      this.current = {...this.current, [type]:null};
+      if (reasons.includes(current.discard)) {
+        this.removeFromQueue(type, current);
+        current.destroy();
+      }
     }
   }
 
@@ -246,7 +249,7 @@ export class AudioPlayer {
     return (
       <Host>
         { this.isPlaying
-          ? <i onClick={() => this.pause()}class="ri-pause-fill fs-2"></i>
+          ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
           : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
         }
       </Host>

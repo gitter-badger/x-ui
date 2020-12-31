@@ -13,21 +13,17 @@
   </h1>
 
   <p>
-    <x-action-activator
+    <x-action-activator debug
       activate="OnElementEvent"
       target-event="click"
-      multiple
-      >
+      multiple>
       <x-audio-action
-        command="start">
-        <script type="application/json">
-          {
-            "trackId": "thanks",
-            "type": "sound"
-          }
-        </script>
+        command="start"
+        track-id="thanks"
+        type="sound"
+        discard="none">
       </x-audio-action>
-      <button class="btn" id="button1">Thanks Button</button>
+      <button type="button" class="btn btn-primary" id="button1">Thanks Button</button>
     </x-action-activator>
   </p>
 

@@ -1,5 +1,5 @@
 <!-- Tour -->
-<x-use inline
+<x-use
   script-src="https://unpkg.com/intro.js/minified/intro.min.js"
   style-src="https://unpkg.com/intro.js/minified/introjs.min.css">
 </x-use>
@@ -25,32 +25,38 @@
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link href="/data">
-        <i class="ri-database-2-line"></i>
-        Using Data in HTML
-      </x-link>
-    </li>
-    <li class="list-group-item">
       <x-link href="/audio">
         <i class="ri-music-line"></i>
         Incorporating Audio
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link href="/actions">
-        <i class="ri-flashlight-line"></i>
-        HTML Event Actions
+      <x-link href="/video">
+        <i class="ri-video-line"></i>
+        Interactive Video
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link href="/document">
+      <x-link href="/actions">
+        <i class="ri-flashlight-line"></i>
+        Event Actions
+      </x-link>
+    </li>
+    <li class="list-group-item">
+      <x-link href="/data">
+        <i class="ri-database-2-line"></i>
+        Embedding Data
+      </x-link>
+    </li>
+    <li class="list-group-item">
+      <x-link href="/interface">
         <i class="ri-plug-2-line"></i>
         Plugins & Providers
       </x-link>
     </li>
     <li class="list-group-item">
       <x-link href="/developers">
-        <i class="ri-git-pull-request-fill"></i>
+        <i class="ri-git-pull-request-line"></i>
         Contributing
       </x-link>
     </li>
@@ -71,23 +77,28 @@
     direction, without a costly endeavor.
   </p>
   <p>
-    Frameworks exist to minimize the effort to create and maintain web pages. There are many tools
-    that do this well, but they all come with a huge cost and a long-term commitment.
+    Frameworks exist to minimize the effort to create and maintain web pages. They do
+    that well, but at a high costs and a long-term commitment not suited for
+    every use-case.
   </p>
 
-  <h4>No Framework</h4>
+  <h4>No Framework, No Problem</h4>
   <p>
-    <b class="brand">&lt;x-ui/&gt;</b> is different. Without interpolation, a framework or
-    even a build-process, developers get the same time-saving techniques using web components
-    directly in HTML. Better yet, it can be added to any site or page with a simple
-    script reference. Have a framework already? No problem!
+    <b class="brand">&lt;x-ui/&gt;</b> is different. Without transpilation, a framework or
+    even a build-process, developers get the same time-saving techniques (layouts, routing,
+    data-binding, etc) using specialized web components directly in HTML. They are so easy
+    to bring into any project; these tools can be quickly added to any site or page
+    with a simple script reference. No need to check if your site is compatible -- if you
+    can inject a <b>&lt;script&gt;</b> tag, you can start using these today.
   </p>
   <p>
     <b class="brand">&lt;x-ui/&gt;</b> components make it simple! We created special elements
     for expressing routes, navigation, dynamic-content, data-binding and much more. We
-    use a convention-over-configuration approach to take simplify things freeing you up to focus
+    use a convention-over-configuration approach to simplify things freeing you up to focus
     on the content.
   </p>
+
+
   <h2>It's not magic, it's view.DO!</h2>
 
   <p onclick="introJs().start()" class="p-2 lead bg-info bg-gradient text-white" style="cursor: pointer;display:flex;flex-direction: row;gap:1ch;">
@@ -101,44 +112,105 @@
     </span>
   </p>
 
-  <h4><i class="ri-direction-line"></i> Smart Guided Navigation</h4>
-  <ul>
-    <li>Automatic Back & Forward Resolution</li>
-    <li>Sequenced Content: present, educate, inform</li>
-    <li>Sequenced Input: surveys, quiz and display results</li>
-    <li>Sequenced Video: interactive video story-telling</li>
-    <li>Declarative: Expression-based Conditions</li>
-    <li>Stateful: pick up where a user left-off</li>
-  </ul>
+  <div class="accordion accordion-flush" id="specialFeatures">
+    <div class="accordion-item">
+      <h2 class="accordion-header " id="flush-headingOne">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <i class="ri-route-line me-5"></i>
+          Content Routing
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <ul>
+            <li>Content Routes w/Lazy Loaded HTML</li>
+            <li>Support for Data Routes for Data-Driven Content</li>
+            <li>Use Route Data Directly in HTML w/Route and URL Data Providers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          <i class="ri-direction-line me-5"></i>
+          Guided Navigation
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <ul>
+            <li>Automatic Back & Forward Resolution</li>
+            <li>Sequenced Content: present, educate, inform</li>
+            <li>Sequenced Input: surveys, quiz and display results</li>
+            <li>Sequenced Video: interactive video story-telling</li>
+            <li>Declarative: Expression-based Conditions</li>
+            <li>Stateful: pick up where a user left-off</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          <i class="ri-empathize-line me-5"></i>
+          Embedded Data
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <ul>
+            <li>Data Tags to render personalized data from a variety of sources</li>
+            <li>Use HTML to access data from your API</li>
+            <li>Capture attention and data, with smart workflows to replace boring forms.</li>
+            <li>Personalize the content for each of your visitors.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingFour">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
+          <i class="ri-slideshow-line me-5"></i>
+          Made for Presentations
+        </button>
+      </h2>
+      <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <ul>
+            <li>Interactive Videos</li>
+            <li>Queued, Timed & Event-based Actions</li>
+            <li>Animated Transitions</li>
+            <li>Timed Ambient & Voice-Over Audio</li>
+            <li>Animation Hooks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingFive">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseThree">
+          <i class="ri-heart-line me-5"></i>
+          Built with love
+        </button>
+      </h2>
+      <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <ul>
+            <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
+            <li><b>Themeable:</b> BYO UI and themes. <b class="brand">&lt;x-ui/&gt;</b> stays out of the way. </li>
+            <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
+            <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
+            <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
+            <li><b>Trackable:</b> Analytics & Behavior Tracking Plugins</li>
+            <li><b>Extensible:</b> The provider system makes it easy to integrate with anything.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <h4><i class="ri-slideshow-line"></i> Built for Presentations</h4>
-  <ul>
-    <li>Queued, Timed & Event-based Actions</li>
-    <li>Animated Transitions</li>
-    <li>Timed Ambient & Voice-Over Audio</li>
-    <li>Animation Hooks</li>
-  </ul>
-
-  <h4><i class="ri-empathize-line"></i> Easily Personalized</h4>
-  <ul>
-    <li>Data Tags to render personalized data from a variety of sources</li>
-    <li>Use HTML to access data from your API</li>
-    <li>Capture attention and data, with smart workflows to replace boring forms.</li>
-    <li>Personalize the content for each of your visitors.</li>
-  </ul>
-
-  <h4><i class="ri-heart-line"></i> Built with love:</h4>
-  <ul>
-    <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
-    <li><b>Themeable:</b> BYO UI and themes. <b class="brand">&lt;x-ui/&gt;</b> stays out of the way. </li>
-    <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
-    <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
-    <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
-    <li><b>Trackable:</b> Analytics & Behavior Tracking Plugins</li>
-    <li><b>Extensible:</b> The provider system makes it easy to integrate with anything.</li>
-  </ul>
-
-  <h6>Brought to you by:</h6>
+  <h6 class="mt-5">Brought to you by:</h6>
   <a href="https://view.do" target="_blank">
     <img id="viewdo-logo" src="https://static.view.do/view-do/viewdo-logo-color.svg" width="200vw"/>
   </a>
