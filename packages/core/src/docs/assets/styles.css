@@ -3,6 +3,17 @@
   --text-color: #000;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.navbar {
+
+}
+
 .btn-primary {
   --background-color: --bs-primary;
 }
@@ -43,7 +54,7 @@ a:hover {
 }
 
 .container-fluid {
-  max-width: 1200px;
+  max-width: 900px;
 }
 
 .tag-line {
@@ -52,10 +63,6 @@ a:hover {
   font-family: 'Ubuntu Mono', monospace;
   font-size: 3em;
   position: relative;
-}
-
-.x-nav-bottom {
-  bottom: 1em;
 }
 
 #viewdo-logo {
@@ -70,4 +77,24 @@ a:hover {
 b.brand {
   color: #7566a0;
   font-size: 1.3em;
+}
+
+.x-nav-bottom {
+  background-image: linear-gradient(to bottom, transparent, #fff);
+  background-size: fill;
+  position: sticky;
+  bottom: 0;
+  float: left;
+  width: 100%;
+  padding: 5em 0 2em 0;
+}
+
+
+.x-nav-bottom  [slot='end'] {
+  float: right;
+  right: 0;
+}
+
+.x-nav-bottom  [slot='start'] {
+ float: left;
 }

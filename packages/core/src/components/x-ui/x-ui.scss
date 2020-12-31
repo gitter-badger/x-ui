@@ -1,9 +1,11 @@
 :host {
   /* Component styles go here */
-
+  display: block;
 }
 
 :host(.fill) {
-  contain: layout size style;
+  display: flex;
+  flex-flow: column;
   height: 100%;
+  overflow: auto;
 }

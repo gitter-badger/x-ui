@@ -1,25 +1,14 @@
 
 :host {
-  --padding: 16px;
-  --padding-bottom: 16px;
-  --padding-top: 16px;
-  --background-color: #fff;
-  --color: #000;
-  background-color: var(--background-color);
-  color: var(--color);
   display: none;
-  overflow: auto;
-  padding: var(--padding);
-  padding-bottom: var(--padding-bottom);
-  padding-top: var(--padding-top);
-
-  ::slotted([slot='content']) {
-    display: none;
-  }
 }
 
 :host(.active-route) {
   display: block;
+
+  ::slotted([slot='content']) {
+    display: none;
+  }
 }
 
 :host(.active-route-exact) {
@@ -27,5 +16,4 @@
     display: block;
   }
 }
-
 

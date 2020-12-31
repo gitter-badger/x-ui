@@ -52,7 +52,7 @@ export class XUI {
    * To support browser history, the HTTP server
    * must be setup for a PWA
    */
-  @Prop() historyType: HistoryType = 'browser';
+  @Prop() pathMode: HistoryType = 'browser';
 
   /**
    * Header height or offset for scroll-top on this
@@ -141,7 +141,7 @@ export class XUI {
       eventBus,
       actionBus,
       this.el,
-      this.historyType,
+      this.pathMode,
       this.root,
       this.appTitle,
       this.transition,

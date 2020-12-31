@@ -6,9 +6,19 @@
   script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
 <div class="container container-fluid mx-auto">
+  <h1>Get Started</h1>
+
+  <x-link custom="button" anchor-class="btn btn-info text-white" href="/start/use">
+    <i class="ri-download-cloud-2-line text-bold"></i>
+    CDN Reference
+  </x-link>
+
+  <x-link custom="button" anchor-class="btn btn-info text-white" href="/start/install">
+    <i class="ri-npmjs-line text-bold"></i>
+    Install Package
+  </x-link>
 
   <x-markdown src="/docs/start/index.md"></x-markdown>
-  <x-markdown src="/docs/start/installed.md" x-show-when="{storage:installed}"></x-markdown>
 
   <div class="x-nav-bottom">
     <x-link slot="start" href="/home">
@@ -18,7 +28,7 @@
       </button>
     </x-link>
     <x-link slot="end" href="/navigation">
-      <button class="btn btn-primary">
+      <button class="btn btn-primary btn-lg">
         Next: Navigation
         <i class="ri-arrow-right-s-line"></i>
       </button>

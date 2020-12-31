@@ -1,6 +1,9 @@
 :host {
-  height: 100%;
-  overflow: auto;
-  z-index: 1;
+  display: none;
+  flex: 0 1 auto;
+}
+
+:host(.active-route-exact) {
+  display: block;
 }
 

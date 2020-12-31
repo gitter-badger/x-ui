@@ -1,10 +1,4 @@
-<!-- This is how you react to the user and perform function-calls -->
-<x-action-activator activate="OnEnter">
-  <x-action topic="data"
-    command="set-data"
-    data='{"provider": "storage", "values": {"installed": "cdn" }}'>
-  </x-action>
-</x-action-activator>
+
 <x-use
   script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
   style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
@@ -36,11 +30,11 @@
   </x-markdown>
 
   <div class="x-nav-bottom">
-    <button slot="start" x-back class="btn btn-light">
+    <button slot="start" x-back class="btn btn-light btn-lg">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>
-    <button slot="end" x-next class="btn btn-primary">
+    <button slot="end" x-link="/start/installed" class="btn btn-primary btn-lg">
       Next
       <i class="ri-arrow-right-s-line"></i>
     </button>

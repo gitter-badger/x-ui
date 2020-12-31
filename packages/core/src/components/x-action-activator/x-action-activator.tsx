@@ -44,7 +44,7 @@ export class XActionActivator {
    *
    * For use with activate="AtTime" Only!
    */
-  @Prop() time?: number;
+  @Prop() time: number;
 
   /**
   * Turn on debug statements for load, update and render events.

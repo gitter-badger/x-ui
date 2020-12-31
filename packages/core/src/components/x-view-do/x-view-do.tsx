@@ -4,6 +4,7 @@ import {
 } from '@stencil/core';
 import '../x-swipe/x-swipe';
 import '../x-view/x-view';
+import { ROUTE_EVENTS } from '../../services/routing/interfaces';
 import {
   EventEmitter,
   Route,
@@ -24,6 +25,7 @@ import {
   warn,
   wrapFragment,
   ISwipeEvent,
+  eventBus,
 } from '../..';
 
 
@@ -100,6 +102,12 @@ export class XViewDo {
   @Prop() contentSrc: string;
 
   /**
+   *  How should this page be presented
+   *  (coming soon)
+   */
+  @Prop() display: 'page'|'modal'|'full' = 'page';
+
+  /**
   * To debug timed elements, set this value to true.
   */
   @Prop() debug: boolean = false;
@@ -143,7 +151,6 @@ export class XViewDo {
       async (match) => {
         this.match = !!match;
         this.exact = match?.isExact;
-        debugIf(this.debug, `x-view-do: ${this.url} location changed match: ${JSON.stringify(this.match || null)}`);
         await this.resolveView();
       },
     );
@@ -181,10 +188,7 @@ export class XViewDo {
     }
   }
 
-
-
   private beforeExit() {
-
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
     inputElements.forEach((i) => {
@@ -193,26 +197,7 @@ export class XViewDo {
         valid = false;
       }
     });
-
-    if (!valid) return false;
-
-    this.childVideo?.pause();
-
-    clearInterval(this.timer);
-    this.timer = null;
-    this.lastTime = 0;
-
-    restoreElementChildTimedNodes(
-      this.el,
-      this.timedNodes);
-
-    this.actionActivators
-      .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
-      .forEach((activator) => {
-        activator.activateActions();
-      });
-
-    return true;
+    return valid;
   }
 
   private back(element:string, eventName: string) {
@@ -248,6 +233,23 @@ export class XViewDo {
       await this.fetchHtml();
       this.el.removeAttribute('hidden');
       writeTask(() => this.resolveChildren());
+
+      eventBus.once(ROUTE_EVENTS.RouteChanged, () => {
+        clearInterval(this.timer);
+        this.timer = null;
+        this.lastTime = 0;
+
+        restoreElementChildTimedNodes(
+          this.el,
+          this.timedNodes);
+
+        this.actionActivators
+          .filter((activator) => activator.activate === ActionActivationStrategy.OnExit)
+          .forEach((activator) => {
+            activator.activateActions();
+          });
+      });
+
     } else {
       this.el.setAttribute('hidden', '');
     }
@@ -265,13 +267,14 @@ export class XViewDo {
     nextElement?.removeAttribute('x-next');
 
     // Attach route
-    const linkElement = this.el.querySelector('[x-link]');
-    linkElement?.addEventListener('click', (e) => {
-      e.preventDefault();
-      const route = linkElement.getAttribute('x-link')
-      this.next(linkElement?.localName, 'clicked', route);
-    });
-    linkElement?.removeAttribute('x-next');
+    this.el.querySelectorAll('[x-link],x-link')
+      .forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const route = el.getAttribute('x-link')
+          this.next(el.localName, 'clicked', route);
+        });
+      });
 
     // Attach back
     const backElement = this.el?.querySelector('[x-back]');
@@ -317,31 +320,39 @@ export class XViewDo {
       const started = performance.now();
 
       const emitTime = () => {
+        this.lastTime = time;
         time = (performance.now() - started) / 1000;
-        debugIf(true, `x-view-do: ${time}`);
+        debugIf(true, `x-view-do: ${this.lastTime} - ${time}`);
         this.timeEvent.emit(timeUpdateEvent, time);
 
-        if (time < this.duration) {
-          this.timer = requestAnimationFrame(emitTime);
-        }
+        // if (time < this.duration) {
+        this.timer = setTimeout(() => {
+          emitTime();
+        }, 1000);
+            // requestAnimationFrame(emitTime);
+        //}
       }
 
-      this.timer = requestAnimationFrame(emitTime);
+      this.timer = setTimeout(() => {
+        emitTime();
+      }, 500); // requestAnimationFrame(emitTime);
     }
 
-    this.timeEvent.on(timeUpdateEvent, async (time) => {
+    this.timeEvent.on(timeUpdateEvent, (time) => {
       const { debug, el, timedNodes, timer, duration = video?.duration } = this;
 
       this.actionActivators
-        .filter((activator) => activator.activate === ActionActivationStrategy.AtTime
-            && (activator.time >= this.lastTime && activator.time >= time))
+        .filter((activator) =>
+          activator.activate === ActionActivationStrategy.AtTime
+          && (activator.time <= time))
         .forEach(async (activator) => {
           await activator.activateActions();
         });
 
       // monitor next-when
       if ((duration > 0) && (time > duration)) {
-        cancelAnimationFrame(timer);
+        // cancelAnimationFrame(timer);
+        clearInterval(timer);
         debugIf(debug, `x-view-do: presentation ended at ${time} [not redirecting]`);
         if (!debug) {
           this.next('timer', timeUpdateEvent);
@@ -354,7 +365,6 @@ export class XViewDo {
           duration,
           debug);
       }
-      this.lastTime = time;
     });
   }
 
@@ -369,12 +379,21 @@ export class XViewDo {
     }
   }
 
+  get classes() {
+    if (this.match == null) {
+      return this.route?.transition;
+    }
+    return `${this.route?.transition} active-route-exact`
+  }
+
   render() {
     debugIf(this.debug, `x-view-do: ${this.url} render`);
+
     return (
-      <Host class={this.route?.transition}>
+      <Host class={this.classes}>
         <slot />
         <x-swipe
+          part="content"
           thresholdX={100}
           thresholdY={30}
           timeThreshold={30}

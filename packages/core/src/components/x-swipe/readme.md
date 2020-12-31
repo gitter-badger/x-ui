@@ -25,11 +25,11 @@ Special thanks to [@ranjeetsinghbnl](https://github.com/ranjeetsinghbnl). This c
 
 ## Properties
 
-| Property        | Attribute        | Description                                                   | Type     | Default |
-| --------------- | ---------------- | ------------------------------------------------------------- | -------- | ------- |
-| `thresholdX`    | `threshold-x`    | How many units must be covered to determine if it was a swipe | `number` | `30`    |
-| `thresholdY`    | `threshold-y`    | How many units must be covered to determine if it was a swipe | `number` | `30`    |
-| `timeThreshold` | `time-threshold` | The amount of touch-time required before issuing an event     | `number` | `100`   |
+| Property        | Attribute        | Description                                                                 | Type     | Default |
+| --------------- | ---------------- | --------------------------------------------------------------------------- | -------- | ------- |
+| `thresholdX`    | `threshold-x`    | How many units must be covered in the x-axis to determine if it was a swipe | `number` | `80`    |
+| `thresholdY`    | `threshold-y`    | How many units must be covered in the y-axis to determine if it was a swipe | `number` | `80`    |
+| `timeThreshold` | `time-threshold` | The amount of touch-time required before issuing an event                   | `number` | `500`   |
 
 
 ## Events

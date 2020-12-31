@@ -51,7 +51,20 @@ The following demonstrates how to load a track, and wait 10 seconds until it pla
 </x-view-do>
 ````
 
+#### Mode:
+- **queue**: (default) plays after the previous audio is complete or when it's requested.
+- **play**: stop any playing audio and play now, buffering be-damned.
+- **wait**: wait for an event action before playing, any currently playing audio continues.
 
+#### Discard:
+- video: when any video plays (default for sound)
+- state: state changes
+- event: wait for a stop event (or any other activation)
+- none: loop until stopped or updated by new state (default for music)
+
+#### Track:
+
+If audio has replay set to true, re-entry to the originating state will re-activate the audio if the previous audio has been deactivated. The default is false.
 
 
 <!-- Auto Generated Below -->

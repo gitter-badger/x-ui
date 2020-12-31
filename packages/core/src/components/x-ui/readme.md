@@ -51,7 +51,7 @@ For more information on routing, check out the [documentation](/routing). Also, 
 | `appTitle`        | `app-title`         | This is the application / site title. If the views or dos have titles, this is added as a suffix.                            | `string`              | `undefined` |
 | `debug`           | `debug`             | Turn on debugging to get helpful messages from the routing, data and action systems.                                         | `boolean`             | `false`     |
 | `fullPage`        | `full-page`         | Set this to false if you don't want the UI component to take up the full page size.   *                                      | `boolean`             | `true`      |
-| `historyType`     | `history-type`      | Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA                     | `"browser" \| "hash"` | `'browser'` |
+| `pathMode`        | `path-mode`         | Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA                     | `"browser" \| "hash"` | `'browser'` |
 | `root`            | `root`              | This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths. | `string`              | `'/'`       |
 | `scrollTopOffset` | `scroll-top-offset` | Header height or offset for scroll-top on this and all views.                                                                | `number`              | `undefined` |
 | `startUrl`        | `start-url`         | This is the start path a user should land on when they first land on this app.                                               | `string`              | `'/'`       |

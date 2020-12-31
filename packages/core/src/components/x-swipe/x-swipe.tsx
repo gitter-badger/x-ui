@@ -3,7 +3,8 @@ import { ISwipeEvent } from '../..';
 
 @Component({
   tag: 'x-swipe',
-  styleUrl: 'x-swipe.css'
+  styleUrl: 'x-swipe.css',
+  shadow: false
 })
 export class XSwipe {
   @Element() el: HTMLXSwipeElement;
@@ -23,7 +24,7 @@ export class XSwipe {
   /**
    * The amount of touch-time required before issuing an event
   */
-  @Prop() timeThreshold: number = 100
+  @Prop() timeThreshold: number = 500
   @Watch('timeThreshold')
   validateTimeThreshold(newValue: number) {
     const isUndefined = typeof newValue === 'undefined' || newValue === null;
@@ -31,9 +32,10 @@ export class XSwipe {
   }
 
   /**
-   * How many units must be covered to determine if it was a swipe
+   * How many units must be covered in the x-axis to
+   * determine if it was a swipe
   */
-  @Prop() thresholdX: number = 30
+  @Prop() thresholdX: number = 80
   @Watch('thresholdX')
   validateThresholdX(newValue: number) {
     const isUndefined = typeof newValue === 'undefined' || newValue === null;
@@ -41,9 +43,9 @@ export class XSwipe {
   }
 
   /**
-   * How many units must be covered to determine if it was a swipe
+   * How many units must be covered in the y-axis to determine if it was a swipe
    */
-  @Prop() thresholdY: number = 30
+  @Prop() thresholdY: number = 80
 
   @Watch('thresholdY')
   validateThresholdY(newValue: number) {
@@ -70,56 +72,61 @@ export class XSwipe {
     });
   }
 
-  // Local Methods
-
-  private handleTouchStart(e) {
+  private handleTouchStart(e: TouchEvent) {
     this.startX = e.touches[0].clientX; //This is where touchstart coordinates are stored
     this.startY = e.touches[0].clientY;;
 
     this.time = setInterval(() => { //Let's see how long the swipe lasts.
-      this.totalTime += 10;
-    }, 10);
+      this.totalTime += 100;
+    }, 100);
   }
 
-  private handleTouchEnd(e) {
+  private handleTouchEnd(e: TouchEvent) {
     this.endX = e.changedTouches[0].clientX;
     this.endY = e.changedTouches[0].clientY;
-    // Let's stop calculating time and free up resources.
     clearInterval(this.time);
     if (this.totalTime >= this.timeThreshold) {
-      let res = this.calculateSwipeDirection(this.startX, this.startY, this.endX, this.endY, 30, 30)
+      const res = this.calculateSwipeDirection(
+        this.startX,
+        this.startY,
+        this.endX,
+        this.endY,
+        this.thresholdX,
+        this.thresholdY)
       this.swipe.emit(res);
     }
     this.totalTime = 0;
   }
 
-  /*
-  * @name calculateSwipeDirection
-  * @Params
-  * startX {Number} Touch event start  x-axis
-  * startY {Number} Touch event start y-axis
-  * endX {Number} Touch event end x-axis
-  * endY {Number} Touch event end y-axis
-  * thresholdX {Number}
-  * thresholdY {Number}
-  * @Description Calculate the swipe direction and determine the swipe events
-  * @return {Object}
-  * up {boolean} false
-  * right {boolean} false
-  * down {boolean} false
-  * left {boolean} false
+  /**
+  * Calculate the swipe direction and determine the swipe events
   */
- private calculateSwipeDirection = (startX, startY, endX, endY, thresholdX, thresholdY): ISwipeEvent => {
-    var swipeDirection: ISwipeEvent = { up: false, right: false, down: false, left: false };
-    if (startX > endX && startX - endX >= thresholdX)
-      swipeDirection.left = true;
-    else if (startX < endX && endX - startX >= thresholdX)
-      swipeDirection.right = true;
-
+ private calculateSwipeDirection = (
+   startX: number,
+   startY: number,
+   endX: number,
+   endY: number,
+   thresholdX: number,
+   thresholdY: number): ISwipeEvent => {
+    var swipeDirection: ISwipeEvent = {
+      up: false,
+      right: false,
+      down: false,
+      left: false
+    };
     if (startY < endY && endY - startY >= thresholdY)
       swipeDirection.down = true
     else if (startY > endY && startY - endY >= thresholdY)
       swipeDirection.up = true;
+
+    if (swipeDirection.up || swipeDirection.down) {
+      return swipeDirection;
+    }
+
+    if (startX > endX && startX - endX >= thresholdX)
+      swipeDirection.left = true;
+    else if (startX < endX && endX - startX >= thresholdX)
+      swipeDirection.right = true;
 
     return swipeDirection;
   }
@@ -127,7 +134,6 @@ export class XSwipe {
   render() {
     return (
       <Host>
-        <slot />
       </Host>
     );
   }

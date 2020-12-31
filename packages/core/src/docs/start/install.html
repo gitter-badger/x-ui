@@ -5,30 +5,17 @@
 <x-use debug
   script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
-<!-- You can express data in JSON directly in a script tag, but don't call it scripting! -->
-<x-action-activator activate="OnEnter">
-  <x-action topic="data"
-    command="set-data">
-    <script type="application/json">
-      {
-        "provider": "storage",
-        "values": {
-          "installed": "npm"
-        }
-      }
-    </script>
-  </x-action>
-</x-action-activator>
+
 <div class="container container-fluid mx-auto">
   <h1>Installation</h1>
 
   <x-markdown src="/docs/start/install.md"></x-markdown>
   <div class="x-nav-bottom">
-    <button slot="start" x-back class="btn btn-light">
+    <button slot="start" x-back class="btn btn-light btn-lg">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>
-    <button slot="end" x-next class="btn btn-primary">
+    <button slot="end" x-link="/start/installed" class="btn btn-primary btn-lg">
       Next
       <i class="ri-arrow-right-s-line"></i>
     </button>

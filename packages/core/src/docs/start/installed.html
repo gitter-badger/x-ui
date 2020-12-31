@@ -5,3 +5,67 @@
 <x-use
   script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
+<div class="container container-fluid mx-auto">
+  <x-markdown x-show-when="'{storage:installed}' == 'cdn'">
+    <script type="text/markdown" data-dedent>
+      ## Once Referenced:
+
+      Add the [**`<x-ui>`**](/components/x-ui) tag to your page.
+      </script>
+    </x-markdown>
+
+    <script type="text/markdown" data-dedent>
+      ## Once Installed Locally:
+
+      Add the [**`<x-ui>`**](/components/x-ui) tag to your page.
+      </script>
+    </x-markdown>
+
+    <x-markdown>
+      <script type="text/markdown" data-dedent>
+        ````html
+        <x-ui
+          app-title="My HTML App"
+          transition="fade-in"
+          start-url="/page-1">
+          <x-view url="/page-1" page-title="Page 1">
+            <h1>Hello World!</h1>
+            <h2>Now you have a basic content router.</h2>
+            <p>
+              It's a good idea to include the main page contents in-line for
+              ultra-fast rendering.
+            </p>
+            <p>
+              To keep the initial size lightweight, retrieve additional
+              pages on-demand by using the <b>content-src=""</b> attribute
+              of the &lt;x-view&gt; component.
+            </p>
+          </x-view>
+          <x-view url="/page-2" page-title="Page 2"
+            content-src="/pages/page-2">
+          </x-view>
+        </x-ui>
+        ````
+      </script>
+    </x-markdown>
+
+
+
+  <x-markdown src="/docs/start/installed.md" </x-markdown>
+
+  <div class="x-nav-bottom">
+    <x-link slot="start" href="/home">
+      <button class="btn btn-secondary shadow-sm">
+        <i class="ri-arrow-left-s-line"></i>
+        Home
+      </button>
+    </x-link>
+    <x-link slot="end" href="/navigation">
+      <button class="btn btn-primary btn-lg">
+        Next: Navigation
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </x-link>
+  </div>
+
+</div>
