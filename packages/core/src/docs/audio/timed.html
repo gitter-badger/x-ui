@@ -17,7 +17,7 @@
 <div class="container container-fluid mx-auto">
   <x-markdown>
     <script type="text/markdown" data-dedent>
-      # Sound
+      # Route Sounds
 
       This page has on-demand sounds configured to play
       when the button below is clicked.
@@ -34,7 +34,7 @@
         discard="none">
       </x-audio-load-sound>
 
-      <x-action-activator
+      <x-action-activator debug
         activate="OnElementEvent"
         target-event="click"
         multiple>
@@ -51,7 +51,7 @@
   </x-markdown>
 
   <p>
-    <x-action-activator
+    <x-action-activator debug
       activate="OnElementEvent"
       target-event="click"
       multiple>
@@ -63,7 +63,7 @@
       </x-audio-action>
       <button type="button" class="btn btn-primary">Sound 1</button>
     </x-action-activator>
-    <x-action-activator
+    <x-action-activator debug
       activate="OnElementEvent"
       target-event="click"
       multiple>
@@ -82,7 +82,7 @@
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>
-    <button slot="end" x-link="/audio/both" class="btn btn-primary">
+    <button slot="end" x-next class="btn btn-primary">
       Continue
       <i class="ri-arrow-right-s-line"></i>
     </button>

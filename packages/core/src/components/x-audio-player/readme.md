@@ -11,7 +11,8 @@ This player can be configured to display in full or minimal mode. When fully dis
 
 ````html
 <x-audio-player
-  display>
+  display
+  debug>
 </x-audio-player>
 ````
 
@@ -162,10 +163,10 @@ Hard discards or play-src should ease out the audio with a .5 second fade-out be
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                    | Type                           | Default     |
-| ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
-| `debug`       | `debug`        |                                                                                                                                                | `boolean`                      | `undefined` |
-| `displayMode` | `display-mode` | The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed. | `"icon" \| "none" \| "player"` | `undefined` |
+| Property  | Attribute | Description                                                                                                                                    | Type      | Default     |
+| --------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `debug`   | `debug`   |                                                                                                                                                | `boolean` | `undefined` |
+| `display` | `display` | The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed. | `boolean` | `undefined` |
 
 
 ----------------------------------------------

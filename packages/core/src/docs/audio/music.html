@@ -1,22 +1,42 @@
-<x-audio-load-music
-  track-id="music"
-  src="/docs/assets/sample-music-1.mp3">
-</x-audio-load-music>
+<x-use
+  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+  style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
+</x-use>
+<x-use
+  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+</x-use>
 <div class="container container-fluid mx-auto">
-  <h1>
-   Wait for the music
-  </h1>
+  <x-audio-load-music
+    track-id="music"
+    src="/docs/assets/sample-music-1.mp3">
+  </x-audio-load-music>
 
-  <p>
+  <x-markdown>
+    <script type="text/markdown" data-dedent>
+      # Route Music
 
-  </p>
+      You should start to hear music. The following HTML
+      configured it to play for this route only.
+
+      Navigating away, ends the tune.
+
+      ````html
+      <x-view-do ...>
+        <x-audio-load-music
+          track-id="music"
+          src="/docs/assets/sample-music-1.mp3">
+        </x-audio-load-music>
+      </x-view-do>
+      ````
+    </script>
+  </x-markdown>
 
   <div class="x-nav-bottom">
     <button slot="start" x-back class="btn btn-light">
       <i class="ri-arrow-left-s-line"></i>
       Back
     </button>
-    <button slot="end" x-next class="btn btn-primary">
+    <button slot="end" x-link="/audio/sound" class="btn btn-primary">
       Continue
       <i class="ri-arrow-right-s-line"></i>
     </button>

@@ -4,55 +4,56 @@ import { debug, EventEmitter } from '../..';
 
 
 export class QueuedAudio extends AudioTrack {
-  private howl: Howl;
+  private sound: Howl;
   events: EventEmitter;
   previousVolume: number;
+  position: number;
 
   constructor(track: AudioTrack) {
     super();
     this.events = new EventEmitter();
     Object.assign(this, track);
     debug(`Loading howl: ${track.src}`)
-    this.howl = new Howl({
+    this.sound = new Howl({
+      loop: this.loop,
       src: this.src,
-      html5: true,
       onend: () => this.events.emit(AUDIO_EVENTS.Ended)
     });
-    this.previousVolume = this.howl.volume();
-    this.howl.once('load', () => {
+    this.previousVolume = this.sound.volume();
+    this.sound.once('load', () => {
       this.events.emit(AUDIO_EVENTS.Loaded);
     });
   }
 
   get state() {
-    return this.howl.state();
+    return this.sound.state();
   }
 
   get isPlaying() {
-    return this.howl.playing();
+    return this.sound.playing();
   }
 
   play() {
-    this.howl.volume(0);
-    this.howl.play();
-    this.howl.fade(0, this.previousVolume, 2);
+    this.sound.volume(0);
+    this.sound.play();
+    this.sound.fade(0, this.previousVolume, 1);
     this.events.emit(AUDIO_EVENTS.Played);
   }
 
   stop() {
-    this.howl.fade(this.previousVolume, 0, 2);
-    this.howl.stop();
+    this.sound.fade(this.previousVolume, 0, 1);
+    this.sound.stop();
     this.events.emit(AUDIO_EVENTS.Stopped)
   }
 
   pause() {
-    this.howl.pause();
+    this.sound.pause();
     this.events.emit(AUDIO_EVENTS.Paused);
   }
 
   resume() {
-    this.howl.play();
-    this.events.emit(AUDIO_EVENTS.Played);
+    this.sound.play();
+    this.events.emit(AUDIO_EVENTS.Resumed);
   }
 
   start() {
@@ -64,11 +65,11 @@ export class QueuedAudio extends AudioTrack {
   }
 
   seek(time) {
-    this.howl.seek(time);
+    this.sound.seek(time);
   }
 
   destroy() {
-    this.howl.unload();
+    this.sound.unload();
     this.events.removeAllListeners();
   }
 

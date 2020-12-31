@@ -222,7 +222,7 @@ export class XViewDo {
     }
   }
 
-  private next(element:string, eventName: string) {
+  private next(element:string, eventName: string, route?: string) {
     debugIf(this.debug, `x-view-do: next fired from ${element}:${eventName}`);
 
     if (this.beforeExit()) {
@@ -230,9 +230,14 @@ export class XViewDo {
         storeVisit(this.url);
       }
       markVisit(this.url);
-      RouterService.instance.goToParentRoute();
+      if (route) {
+        RouterService.instance.history.push(route);
+      } else {
+        RouterService.instance.goToParentRoute();
+      }
     }
   }
+
 
   private async resolveView() {
     debugIf(this.debug, `x-view-do: ${this.url} resolve view called`);
@@ -254,10 +259,19 @@ export class XViewDo {
     // Attach next
     const nextElement = this.el.querySelector('[x-next]');
     nextElement?.addEventListener('click', (e) => {
-      this.next(nextElement?.localName, 'clicked');
       e.preventDefault();
+      this.next(nextElement?.localName, 'clicked');
     });
     nextElement?.removeAttribute('x-next');
+
+    // Attach route
+    const linkElement = this.el.querySelector('[x-link]');
+    linkElement?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const route = linkElement.getAttribute('x-link')
+      this.next(linkElement?.localName, 'clicked', route);
+    });
+    linkElement?.removeAttribute('x-next');
 
     // Attach back
     const backElement = this.el?.querySelector('[x-back]');

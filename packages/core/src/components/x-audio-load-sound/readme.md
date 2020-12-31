@@ -11,8 +11,8 @@ This component declares audio used within this **`<x-view-do>`** route. The **`<
     track-id="<unique-id>"
     src="<url>"    
     discard="route|next|none"
-    track
-    ></x-audio-load-sound>    
+    track>
+    </x-audio-load-sound>    
 </x-view-do>
 ````
 

@@ -62,10 +62,10 @@ export class XMarkdown {
         const data = await response.text();
         this.content = window['marked'] ? window['marked'](data, { baseUrl: this.getBaseUrl(this.src)}) : null;
       } else {
-        warn(`x-include: Unable to retrieve from ${this.src}`);
+        warn(`x-markdown: unable to retrieve from ${this.src}`);
       }
     } catch (error) {
-      warn(`x-include: Unable to retrieve from ${this.src}`);
+      warn(`x-markdown: unable to retrieve from ${this.src}`);
     }
   }
 

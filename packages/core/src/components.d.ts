@@ -130,7 +130,7 @@ export namespace Components {
         /**
           * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
          */
-        "displayMode": 'icon' | 'player' | 'none';
+        "display": boolean;
     }
     interface XDataDisplay {
         /**
@@ -602,7 +602,7 @@ declare namespace LocalJSX {
         /**
           * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
          */
-        "displayMode"?: 'icon' | 'player' | 'none';
+        "display"?: boolean;
     }
     interface XDataDisplay {
         /**
