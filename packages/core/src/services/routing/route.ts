@@ -1,15 +1,17 @@
-import { RouteViewOptions, MatchResults } from './interfaces';
+import { RouteViewOptions, MatchResults, ROUTE_EVENTS } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
 import { RouterService } from './router';
 import { hasExpression, resolveExpression } from '../data/expression-evaluator';
 import { normalizeChildUrl } from './utils/location-utils';
+import { eventBus } from '..';
 
 export class Route {
   public match: MatchResults;
   public scrollOnNextRender: boolean = false;
   public previousMatch: MatchResults | null = null;
-  private router: RouterService;
+
   constructor(
+    public router: RouterService,
     public routeElement: HTMLElement,
     public path: string,
     public exact: boolean = false,
@@ -18,8 +20,8 @@ export class Route {
     public scrollTopOffset: number,
     matchSetter: (m: MatchResults) => void,
   ) {
-    this.router = RouterService.instance;
-    this.router?.onChange(async () => {
+
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       this.previousMatch = this.match;
       this.match = this.router.matchPath({
         path: this.path,
@@ -28,6 +30,13 @@ export class Route {
       });
       matchSetter(this.match);
     });
+
+    this.match = this.router.matchPath({
+      path: this.path,
+      exact: this.exact,
+      strict: true,
+    });
+    matchSetter(this.match);
   }
 
   normalizeChildUrl(childUrl:string, parentUrl: string) {

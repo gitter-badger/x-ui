@@ -1,3 +1,4 @@
+import { ROUTE_EVENTS } from '../../services/routing/interfaces';
 import {
   Component,
   h,
@@ -17,12 +18,12 @@ import {
   debugIf,
   RouterService,
   interfaceState,
-  ActionBus,
+  actionBus,
   DataListener,
   InterfaceListener,
-  RoutingListener,
   EventAction,
   resolveChildRemoteHtml,
+  eventBus,
 } from '../../services';
 
 /**
@@ -97,51 +98,54 @@ export class XUI {
   })
   delegateActionEventFromDOM(ev: CustomEvent<EventAction<any>>) {
     const action = ev.detail as EventAction<any>;
-    ActionBus.emit(action.topic, action);
+    actionBus.emit(action.topic, action);
   }
 
   /**
-   * Listen to all XUI events here.
+   * Listen to all X-UI actions here.
    */
   @Event({
-    eventName: 'innerEvents',
     composed: true,
-  }) innerEvents: EventEmitter<any>;
+  }) action: EventEmitter<any>;
 
   /**
-   * Listen to all XUI events here.
+   * Listen to all X-UI events here.
    */
   @Event({
     eventName: 'routeChanged',
     composed: true,
-  }) routeChanged: EventEmitter<any>;
+  }) event: EventEmitter<any>;
 
   componentWillLoad() {
-    if (this.debug) log('xui: initializing <debug>');
-    else log('xui: initializing');
-
     interfaceState.debug = this.debug;
 
-    ActionBus.on('*', (...args) => {
-      this.innerEvents.emit(...args);
+    if (this.debug) log('x-ui: initializing <debug>');
+    else log('x-ui: initializing');
+
+    actionBus.on('*', (_topic, args) => {
+      this.action.emit(args);
+    });
+
+    eventBus.on('*', (topic, args) => {
+      this.event.emit(args);
+      if (topic == ROUTE_EVENTS.RouteChanged) {
+        this.location = args as LocationSegments;
+        setTimeout(() => {
+          resolveChildRemoteHtml();
+        }, 100);
+      }
     });
 
     this.router = RouterService.initialize(
       writeTask,
+      eventBus,
+      actionBus,
       this.el,
       this.historyType,
       this.root,
       this.appTitle,
       this.transition,
       this.scrollTopOffset);
-
-    this.router.onChange((location) => {
-      this.location = location;
-      setTimeout(() => {
-        resolveChildRemoteHtml();
-        this.routeChanged.emit(this.location);
-      }, 100);
-    });
 
     if (this.startUrl !== '/' && this.router.location.pathname === '/') {
       this.router.history.push(this.router.getUrl(this.startUrl, this.root));
@@ -150,16 +154,13 @@ export class XUI {
     const dataListener = new DataListener();
     this.addListener('data', dataListener);
 
-    const routeListener = new RoutingListener();
-    this.addListener('route', routeListener);
-
-    const documentListener = new InterfaceListener(window);
+    const documentListener = new InterfaceListener();
     this.addListener('document', documentListener);
   }
 
   private addListener(name: string, listener: IEventActionListener) {
     debugIf(interfaceState.debug, `x-ui: ${name}-listener registered`);
-    listener.initialize(ActionBus);
+    listener.initialize(window, actionBus, eventBus);
     this.listeners.push(listener);
   }
 
@@ -168,13 +169,8 @@ export class XUI {
   }
 
   private destroyListeners() {
-    let listener = this.listeners.pop();
-    while (listener) {
-      listener.destroy();
-      listener = this.listeners.pop();
-    }
-    this.router.destroy();
-    ActionBus.removeAllListeners();
+    eventBus.removeAllListeners();
+    actionBus.removeAllListeners();
   }
 
   componentDidLoad() {

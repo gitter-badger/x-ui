@@ -15,7 +15,7 @@ import {
   resolveElementChildTimedNodesByTime,
   resolveElementValues,
   TimedNode,
-  ActionBus,
+  actionBus,
   DATA_EVENTS,
   markVisit,
   storeVisit,
@@ -113,17 +113,6 @@ export class XViewDo {
     if (!has2chars) { throw new Error('url: too short'); }
   }
 
-  private get childAudio() {
-    if (!this.el.hasChildNodes()) return null;
-    const music = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-MUSIC'))
-      .map((v) => v as HTMLXAudioLoadMusicElement);
-
-    const sounds = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-SOUND'))
-      .map((v) => v as HTMLXAudioLoadSoundElement);
-
-    return [...music, ...sounds];
-  }
-
 
   private get childVideo(): HTMLVideoElement {
     if (!this.el.hasChildNodes()) return null;
@@ -137,15 +126,14 @@ export class XViewDo {
   }
 
   private get actionActivators(): Array<HTMLXActionActivatorElement> {
-    if (!this.el.hasChildNodes()) return [];
-    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-ACTION-ACTIVATOR')
-      .map((v) => v as HTMLXActionActivatorElement);
+    return Array.from(this.el.querySelectorAll('x-action-activator'));
   }
 
   componentWillLoad() {
     debugIf(this.debug, `x-view-do: ${this.url} loading`);
 
     this.route = new Route(
+      RouterService.instance,
       this.el,
       this.url,
       true,
@@ -160,7 +148,7 @@ export class XViewDo {
       },
     );
 
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+    actionBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view-do: data changed `);
       await this.resolveView();
     });
@@ -254,11 +242,6 @@ export class XViewDo {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
       this.el.removeAttribute('hidden');
-      this.childAudio.forEach(async a => {
-        const audioTrack = await a.getAction();
-        debugIf(this.debug, `x-view-do: ${this.url} sending audio track ${audioTrack.data.trackId}`)
-        ActionBus.emit(audioTrack.topic, audioTrack);
-      });
       writeTask(() => this.resolveChildren());
     } else {
       this.el.setAttribute('hidden', '');

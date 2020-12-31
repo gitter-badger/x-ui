@@ -1,5 +1,5 @@
 import { Element, Component, State, Prop, h } from '@stencil/core';
-import { MatchResults, RouterService } from '../..';
+import { MatchResults, RouterService, eventBus, ROUTE_EVENTS } from '../..';
 
 /**
  *  @system routing
@@ -84,7 +84,7 @@ export class XViewLink {
   @Prop() ariaLabel?: string;
 
   componentWillLoad() {
-    RouterService.instance?.onChange(() => {
+    eventBus.on(ROUTE_EVENTS.RouteChanged, () => {
       this.match = RouterService.instance.matchPath({
         path: this.href,
         exact: this.exact,

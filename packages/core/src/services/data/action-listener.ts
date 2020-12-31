@@ -1,34 +1,32 @@
+import { IEventEmitter } from '../../../dist/types/services/actions/interfaces';
+import { EventAction, IEventActionListener } from '../actions';
+import { } from '../actions/event-emitter';
+import { state } from '../interface/state';
+import { debugIf, warn } from '../logging';
+import { storageAvailable } from '../routing/utils/browser-utils';
 import {
-  DATA_COMMANDS,
-  DATA_PROVIDER,
+  DataProviderRegistration, DATA_COMMANDS,
+  DATA_EVENTS, DATA_PROVIDER,
   DATA_TOPIC,
   IDataProvider,
-  DATA_EVENTS,
-  DataProviderRegistration,
-  SetData,
+  SetData
 } from './interfaces';
 import { addDataProvider, getDataProvider } from './providers/factory';
 import { SessionProvider } from './providers/session';
 import { StorageProvider } from './providers/storage';
-import { IEventActionListener, EventAction } from '../actions';
-import { warn, debugIf } from '../logging';
-import { state } from '../interface/state';
-import { storageAvailable } from '../routing/utils/browser-utils';
-import { EventEmitter } from '../actions/event-emitter';
 
 export class DataListener implements IEventActionListener {
-  bus: EventEmitter;
-  window: Window;
-  eventOptions: EventListenerOptions = { capture: false };
-  unsubscribe: () => void;
-  constructor(win?: Window) {
-    this.window = win || window;
-  }
+  private eventBus: IEventEmitter;
 
-  public initialize(bus: EventEmitter) {
-    this.bus = bus;
-    this.registerBrowserProviders(this.window);
-    this.unsubscribe = bus.on(DATA_TOPIC, (e) => this.handleEvent(e));
+  public initialize(
+    window: Window,
+    actionBus: IEventEmitter,
+    eventBus: IEventEmitter)
+  {
+    this.eventBus = eventBus;
+    actionBus.on(DATA_TOPIC, (e) => this.handleAction(e));
+
+    this.registerBrowserProviders(window);
   }
 
   registerBrowserProviders(win: Window) {
@@ -41,19 +39,15 @@ export class DataListener implements IEventActionListener {
   }
 
   registerProvider(name: string, provider: IDataProvider) {
-    const self = this;
     provider.changed.on(DATA_EVENTS.DataChanged, () => {
       debugIf(state.debug, `data-provider: ${name} changed`);
-      self.dispatchDataChangedEvent();
+      this.eventBus.emit(DATA_EVENTS.DataChanged);
     });
     addDataProvider(name, provider as IDataProvider);
   }
 
-  private dispatchDataChangedEvent() {
-    this.bus.emit(DATA_EVENTS.DataChanged);
-  }
 
-  handleEvent(actionEvent: EventAction<DataProviderRegistration|SetData>) {
+  handleAction(actionEvent: EventAction<DataProviderRegistration|SetData>) {
     debugIf(state.debug, `data-listener: action received {command:${actionEvent.command}}`);
     if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data as DataProviderRegistration;
@@ -73,7 +67,4 @@ export class DataListener implements IEventActionListener {
     }
   }
 
-  destroy(): void {
-    this.unsubscribe();
-  }
 }

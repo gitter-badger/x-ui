@@ -1,25 +1,28 @@
+import { IEventEmitter } from '../../../dist/types/services/actions/interfaces';
 import { EventAction, IEventActionListener } from '../actions';
-import { EventEmitter } from '../actions/event-emitter';
 import { debugIf } from '../logging';
-import { state } from './state';
-import { INTERFACE_TOPIC, INTERFACE_COMMANDS, InterfaceProvider } from './interfaces';
+import { kebabToCamelCase } from '../utils/string-utils';
+import { InterfaceProvider, INTERFACE_COMMANDS, INTERFACE_TOPIC, INTERFACE_EVENTS } from './interfaces';
 import { DefaultInterfaceProvider } from './providers/default';
 import { getInterfaceProvider, setInterfaceProvider } from './providers/factory';
-import { kebabToCamelCase } from '../utils/string-utils';
+import { state } from './state';
 
 export class InterfaceListener implements IEventActionListener {
-  bus: EventEmitter;
-  unsubscribe: () => void;
   defaultProvider: DefaultInterfaceProvider;
+  eventBus: IEventEmitter;
 
-  constructor(private win: Window) {
-
+  initialize(
+    window: Window,
+    actionBus: IEventEmitter,
+    eventBus: IEventEmitter): void
+  {
+    this.eventBus = eventBus;
+    actionBus.on(INTERFACE_TOPIC, (e) => this.handleAction(e));
+    this.registerBrowserProviders(window);
   }
 
-  initialize(bus: EventEmitter): void {
-    this.bus = bus;
-    this.unsubscribe = this.bus.on(INTERFACE_TOPIC, (e) => this.handleEvent(e));
-    this.defaultProvider = new DefaultInterfaceProvider(this.win);
+  registerBrowserProviders(win: Window) {
+    this.defaultProvider = new DefaultInterfaceProvider(win);
     setInterfaceProvider('default', this.defaultProvider);
   }
 
@@ -28,20 +31,23 @@ export class InterfaceListener implements IEventActionListener {
 
     provider?.onChange('theme', (theme) => {
       this.defaultProvider.state.theme = theme;
+      this.eventBus.emit(INTERFACE_EVENTS.ThemeChanged);
     });
 
     provider?.onChange('muted', (muted) => {
       this.defaultProvider.state.muted = muted;
+      this.eventBus.emit(INTERFACE_EVENTS.SoundChanged);
     });
 
     provider?.onChange('autoplay', (autoplay) => {
       this.defaultProvider.state.autoplay = autoplay;
+      this.eventBus.emit(INTERFACE_EVENTS.AutoPlayChanged);
     });
 
     setInterfaceProvider(name, provider as InterfaceProvider);
   }
 
-  async handleEvent(actionEvent: EventAction<any>) {
+  async handleAction(actionEvent: EventAction<any>) {
     debugIf(state.debug, `document-listener: action received ${JSON.stringify(actionEvent)}`);
 
     if (actionEvent.command === INTERFACE_COMMANDS.RegisterProvider) {
@@ -63,7 +69,4 @@ export class InterfaceListener implements IEventActionListener {
     }
   }
 
-  destroy(): void {
-    this.unsubscribe();
-  }
 }

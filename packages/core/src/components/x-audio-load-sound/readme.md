@@ -68,19 +68,6 @@ The following demonstrates how to load a track, and wait 10 seconds until it pla
 | `trackId` _(required)_ | `track-id` | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
 
 
-## Methods
-
-### `getAction() => Promise<EventAction<AudioTrack>>`
-
-Get the underlying actionEvent instance. Used by the x-action-activator element.
-
-#### Returns
-
-Type: `Promise<EventAction<AudioTrack>>`
-
-
-
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

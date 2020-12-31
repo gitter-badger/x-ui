@@ -1,4 +1,3 @@
-export * from './action-listener';
 export * from './data-provider';
 export * from './interfaces';
 export * from './next-resolver';

@@ -1,10 +1,10 @@
 import { Element, Component, h, Prop, State, Fragment } from '@stencil/core';
 import { removeAllChildNodes } from '../../services/routing/utils/browser-utils';
 import {
-  ActionBus,
   DATA_EVENTS,
+  eventBus,
   resolveExpression,
-  RouterService,
+  ROUTE_EVENTS,
   warn,
 } from '../../services';
 
@@ -63,11 +63,11 @@ export class XDataDisplay {
   }
 
   async componentWillLoad() {
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveTemplate();
     });
 
-    RouterService.instance?.onChange(async () => {
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.resolveTemplate();
     });
 

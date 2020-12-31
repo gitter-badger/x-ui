@@ -1,6 +1,6 @@
 import { Component, Element, Prop, h, Host, Method, State } from '@stencil/core';
 import {
-  ActionBus,
+  actionBus,
   ActionActivationStrategy,
   EventAction,
   warn,
@@ -68,7 +68,7 @@ export class XActionActivator {
       debugIf(this.debug, `x-action-activator:  ${this.parent?.url} Activating [${this.activate}~{topic: ${action?.topic}, command:${action?.command}, data: ${dataString}}]`);
 
       try {
-        ActionBus.emit(action.topic, action);
+        actionBus.emit(action.topic, action);
       } catch (err) {
         warn(`x-action-activator: ${err}`);
       }

@@ -27,6 +27,12 @@ export class XUse {
   @Prop() module: boolean;
 
   /**
+   * Declare the script only for use when
+   * modules aren't supported
+   */
+  @Prop() noModule: boolean;
+
+  /**
    * When inline the link/script tags are rendered in-place
    * rather than added to the head.
    */
@@ -55,7 +61,7 @@ export class XUse {
         script.src = this.scriptSrc;
         if (this.module) {
           script.type = "module";
-        } else {
+        } else if (this.noModule) {
           script.noModule = true;
         }
         script.onload = () => {

@@ -1,7 +1,11 @@
-import { Element, Prop, Method, Component, Host, h } from '@stencil/core';
-import { EventAction, AudioTrack, AUDIO_TOPIC, DiscardStrategy, LoadStrategy } from '../..';
-import { AudioType } from '../../services';
-
+import { Component, Element, h, Host, Prop } from '@stencil/core';
+import {
+  actionBus,
+  AudioType,
+  AUDIO_TOPIC,
+  DiscardStrategy,
+  LoadStrategy
+} from '../..';
 /**
  *
  * @system audio
@@ -41,11 +45,7 @@ export class XAudioLoadSound {
    */
   @Prop() track: boolean = false;
 
-   /**
-   * Get the underlying actionEvent instance. Used by the x-action-activator element.
-   */
-  @Method()
-   async getAction(): Promise<EventAction<AudioTrack>> {
+  private getAction() {
     return {
       topic: AUDIO_TOPIC,
       command: this.mode,
@@ -59,6 +59,10 @@ export class XAudioLoadSound {
         mode: this.mode,
       },
     };
+  }
+
+  componentDidLoad() {
+    actionBus.emit(AUDIO_TOPIC, this.getAction());
   }
 
   render() {

@@ -19,11 +19,13 @@ describe('data-provider-listener', () => {
   let subject: DataListener = null;
   let mockWindow:any;
   let mockDataProvider: IDataProvider;
-  let bus: EventEmitter;
+  let actionBus: EventEmitter;
+  let eventBus: EventEmitter;
   beforeEach(() => {
     mockDataProvider = new MockDataProvider();
     clearDataProviders();
-    bus = new EventEmitter();
+    actionBus = new EventEmitter();
+    eventBus = new EventEmitter();
     mockWindow = {
       sessionStorage: mockDataProvider,
       localStorage: mockDataProvider,
@@ -32,8 +34,8 @@ describe('data-provider-listener', () => {
 
 
   it('detects session', async () => {
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow, actionBus, eventBus);
     const session = getDataProvider('session');
     expect(session).toBeDefined();
   });
@@ -41,16 +43,16 @@ describe('data-provider-listener', () => {
 
   it('detects session failed', async () => {
     delete mockWindow.sessionStorage;
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow,actionBus, eventBus);
     const session = getDataProvider('session');
     expect(session).toBeNull();
   });
 
 
   it('detects storage', async () => {
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow,actionBus, eventBus);
     const storage = getDataProvider('storage');
     expect(storage).toBeDefined();
   });
@@ -58,22 +60,22 @@ describe('data-provider-listener', () => {
 
   it('detects storage failed', async () => {
     delete mockWindow.localStorage;
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow,actionBus, eventBus);
     const storage = getDataProvider('storage');
     expect(storage).toBeNull();
   });
 
   it('eventListener: registers listeners events', async () => {
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow,actionBus, eventBus);
     const listeners = getDataProviders();
     expect(Object.keys(listeners).length).toBe(2);
   });
 
   it('eventListener: handles listeners events', async () => {
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
+    subject = new DataListener();
+    subject.initialize(mockWindow,actionBus, eventBus);
     const listeners = getDataProviders();
     expect(Object.keys(listeners).length).toBe(2);
 
@@ -85,7 +87,7 @@ describe('data-provider-listener', () => {
       },
     };
 
-    bus.emit(DATA_TOPIC, event);
+    actionBus.emit(DATA_TOPIC, event);
 
     const mock = getDataProvider('mock');
     expect(mock).toBeDefined();
@@ -93,15 +95,5 @@ describe('data-provider-listener', () => {
 
   });
 
-  it('eventListener: destroys', async () => {
-    subject = new DataListener(mockWindow);
-    subject.initialize(bus);
-    const listeners = getDataProviders();
-    expect(Object.keys(listeners).length).toBe(2);
-
-    subject.destroy();
-
-    expect(bus.events[DATA_TOPIC].length).toBe(0);
-  });
 
 });

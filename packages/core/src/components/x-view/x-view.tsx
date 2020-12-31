@@ -2,7 +2,7 @@ import { h, Component, Element, Host, Prop, State, Watch } from '@stencil/core';
 import '../x-swipe/x-swipe';
 import '../x-view-do/x-view-do';
 import {
-  ActionBus,
+  actionBus,
   DATA_EVENTS,
   debugIf,
   hasVisited,
@@ -93,16 +93,6 @@ export class XView {
       .map((v) => v as HTMLXViewElement);
   }
 
-  private get childAudio() {
-    if (!this.el.hasChildNodes()) return null;
-    const music = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-MUSIC'))
-      .map((v) => v as HTMLXAudioLoadMusicElement);
-
-    const sounds = Array.from(this.el.childNodes).filter((c) => c.nodeName.startsWith('X-AUDIO-LOAD-SOUND'))
-      .map((v) => v as HTMLXAudioLoadSoundElement);
-
-    return [...music, ...sounds];
-  }
 
   componentWillLoad() {
     this.childViews.forEach(v => {
@@ -116,7 +106,9 @@ export class XView {
     });
 
     debugIf(this.debug, `x-view: ${this.url} loading`);
+
     this.route = new Route(
+      RouterService.instance,
       this.el,
       this.url,
       false,
@@ -135,7 +127,7 @@ export class XView {
       },
     );
 
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+    actionBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view: ${this.url} data changed `);
       await this.resolveView();
     });
@@ -185,12 +177,6 @@ export class XView {
         } else {
           await this.fetchHtml();
           this.el.classList.add('active-route-exact');
-
-          this.childAudio.forEach(async a => {
-            const audioTrack = await a.getAction();
-            debugIf(this.debug, `x-view: ${this.url} sending audio track ${audioTrack.data.trackId}`)
-            ActionBus.emit(audioTrack.topic, audioTrack);
-          });
 
           await this.route.loadCompleted();
         }

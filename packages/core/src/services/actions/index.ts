@@ -1,3 +1,9 @@
+import { EventEmitter } from './event-emitter';
+
 export * from './interfaces';
 export * from './event-emitter';
-export * from './action-bus';
+
+const actionBus = new EventEmitter();
+const eventBus = new EventEmitter();
+
+export { actionBus, eventBus };

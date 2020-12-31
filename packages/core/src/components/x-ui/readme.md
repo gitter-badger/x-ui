@@ -1,8 +1,8 @@
-# X-UI Component
+# X-UI
+
 The root component is the base container for the view-engine and its child components.  This element should contain root-level HTML that is global to every view along with x-view components placed within any global-html.
 
-## Routing
-
+## Usage
 
 ````html
 <x-ui
@@ -13,25 +13,30 @@ The root component is the base container for the view-engine and its child compo
   full-page="false"
   start-url="/"
   root=""
-  debug
-  audio
-  >
+  debug>
   ...
   <x-view ...></x-view>
   <x-view ...></x-view>
   ...
 </x-ui>
 ````
-This is where routing is established and the start path is configured. 
 
-It provides an entry-point for the guided-navigation system.
+## Routing
+
+This component is the root container for all routing. It provides an entry-point for the content-routing.
 
 **Responsibilities:**
-* Content navigation settings & control actions
-* Document actions
-* Audio preference management & control actions
+* Content navigation settings
+* Event Action Listener Registrations 
+* Event Action event delegation to and from the bus
+* Page title
 
-> If you want to have a special page for routes that are not resolved. Add a single **\<x-view\>**, with **url="*"**.
+> If you want to have a special page for routes that are not resolved. Add a route wildcard route as the last route **`<x-view url="*">`**.
+
+
+For more information on routing, check out the [documentation](/routing). Also, check out the documentation for [**`<x-view>`**](/components/x-view) and [**`<x-view-do>`**](/components/x-view-do) components
+
+
 
 
 
@@ -55,10 +60,10 @@ It provides an entry-point for the guided-navigation system.
 
 ## Events
 
-| Event          | Description                    | Type               |
-| -------------- | ------------------------------ | ------------------ |
-| `innerEvents`  | Listen to all XUI events here. | `CustomEvent<any>` |
-| `routeChanged` | Listen to all XUI events here. | `CustomEvent<any>` |
+| Event          | Description                      | Type               |
+| -------------- | -------------------------------- | ------------------ |
+| `action`       | Listen to all X-UI actions here. | `CustomEvent<any>` |
+| `routeChanged` | Listen to all X-UI events here.  | `CustomEvent<any>` |
 
 
 ----------------------------------------------

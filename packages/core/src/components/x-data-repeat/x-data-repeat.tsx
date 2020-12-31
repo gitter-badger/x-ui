@@ -3,11 +3,11 @@ import { arrify } from '../../services/utils/misc-utils';
 import jsonata from 'jsonata';
 
 import {
-  ActionBus,
+  eventBus,
+  ROUTE_EVENTS,
   DATA_EVENTS,
   resolveExpression,
   hasExpression,
-  RouterService,
   warnIf,
   debugIf,
 } from '../../services';
@@ -80,12 +80,12 @@ export class XDataRepeat {
 
   async componentWillLoad() {
     debugIf(this.debug, 'x-data-repeat: loading');
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveItemsExpression();
       await this.resolveHtml();
     });
 
-    RouterService.instance?.onChange(async () => {
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.resolveHtml();
     });
 

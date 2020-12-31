@@ -7,8 +7,10 @@ export interface IEventEmitter  {
 }
 
 export interface IEventActionListener {
-  initialize(bus: IEventEmitter): void;
-  destroy(): void;
+  initialize(
+    win: Window,
+    actions: IEventEmitter,
+    events: IEventEmitter): void;
 }
 
 export enum ActionActivationStrategy {

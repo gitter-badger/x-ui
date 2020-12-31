@@ -1,9 +1,9 @@
 import { Prop, State, Component, Host, h } from '@stencil/core';
 import {
-  ActionBus,
   DATA_EVENTS,
   evaluatePredicate,
-  RouterService,
+  eventBus,
+  ROUTE_EVENTS,
 } from '../..';
 
 /**
@@ -25,10 +25,10 @@ export class XShow {
   @Prop() when!: string;
 
   componentWillLoad() {
-    ActionBus.on(DATA_EVENTS.DataChanged, async () => {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.evaluatePredicate();
     });
-    RouterService.instance?.onChange(async () => {
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.evaluatePredicate();
     });
   }

@@ -57,19 +57,6 @@ This component declares audio used within this **`<x-view-do>`** route. The **`<
 | `trackId`          | `track-id` | The identifier for this music track                                                                         | `string`                                                                                         | `undefined`             |
 
 
-## Methods
-
-### `getAction() => Promise<EventAction<AudioTrack>>`
-
-Get the underlying actionEvent instance. Used by the x-action-activator element.
-
-#### Returns
-
-Type: `Promise<EventAction<AudioTrack>>`
-
-
-
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

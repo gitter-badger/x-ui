@@ -1,6 +1,6 @@
 # X-ACTION-ACTIVATOR
 
-This element defines how and when a group of Actions, defined with the **\<x-action\>** element, are submitted to the [Action Bus](/actions/bus).
+This element defines how and when a group of Actions, defined with the **\<x-action\>** element, are submitted to the [Action Bus](/actions).
 
 ## Usage
 
@@ -36,8 +36,8 @@ The **OnEnter** activation-strategy only works when this element is a child of *
 </x-view-do>
 ````
 
-### OnExit
-The **OnEnter** activation-strategy only works when this element is a child of **\<x-view-do\>**. The child actions will fire when the parent route is de-activated and the next route is displayed.
+#### OnExit
+The **OnEnter** activation-strategy only works when this element is a child of **`<x-view-do>`**. The child actions will fire when the parent route is de-activated and the next route is displayed.
 
 ````html
 <x-view-do ...>
@@ -51,7 +51,7 @@ The **OnEnter** activation-strategy only works when this element is a child of *
 </x-view-do>
 ````
 
-### AtTime
+#### AtTime
 The **AtTime** activation-strategy only work when this element is a child of **\<x-view-do\>**. The child actions will fire when the parent route has been activated for the given time within the **time** attribute.
 
 
@@ -68,7 +68,7 @@ The **AtTime** activation-strategy only work when this element is a child of **\
 </x-view-do>
 ````
 
-### OnElementEvent
+#### OnElementEvent
 
 The **OnElementEvent** activation-strategy can be used anywhere within the **\<x-ui\>** container. The child actions will fire when the target element raises the target event. 
 
@@ -77,7 +77,7 @@ The **OnElementEvent** activation-strategy can be used anywhere within the **\<x
   activate="OnElementEvent"
   target-element="#submit"
   target-event="click"
-  >
+  multiple>
   <x-action ...></x-action>
   <x-action ...></x-action>
   <x-action ...></x-action>
@@ -87,8 +87,7 @@ The **OnElementEvent** activation-strategy can be used anywhere within the **\<x
 ````html
 <x-action-activator
   activate="OnElementEvent"
-  target-event="click"
-  >
+  target-event="click">
   <x-action ...></x-action>
   <x-action ...></x-action>
   <x-action ...></x-action>

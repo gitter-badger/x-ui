@@ -1,21 +1,25 @@
 import { Component, Host, h, State, Element, Prop } from '@stencil/core';
 import { Howler } from 'howler';
-import { AudioRequest, AUDIO_EVENTS, DiscardStrategy, LoadStrategy } from '../../services/audio/interfaces';
+import { ROUTE_EVENTS } from '../../services/routing/interfaces';
 import {
-  ActionBus,
+  actionBus,
   EventAction,
   interfaceState,
-  RouterService,
   debugIf,
   AudioTrack,
   AUDIO_TOPIC,
   AUDIO_COMMANDS,
   QueuedAudio,
   AudioType,
+  hasPlayed,
+  trackPlayed,
+  AudioRequest,
+  AUDIO_EVENTS,
+  DiscardStrategy,
+  LoadStrategy,
+  eventBus
 }
 from '../..';
-import { audioState } from '../../services';
-import { hasPlayed, trackPlayed } from '../../services/audio/tracked';
 
 
 /**
@@ -28,7 +32,6 @@ import { hasPlayed, trackPlayed } from '../../services/audio/tracked';
   shadow: false,
 })
 export class AudioPlayer {
-  private actionSubscription: () => void;
 
   @Element() el: HTMLXAudioPlayerElement
 
@@ -57,12 +60,12 @@ export class AudioPlayer {
   @Prop() debug: boolean;
 
   componentWillLoad() {
-    this.actionSubscription = ActionBus.on(AUDIO_TOPIC, (ev: EventAction<any>) => {
+    actionBus.on(AUDIO_TOPIC, (ev: EventAction<any>) => {
       debugIf(this.debug, `x-audio-player: event received ${ev.topic}:${ev.command}`);
       this.commandReceived(ev.command, ev.data);
     });
 
-    RouterService.instance?.onChange(() => {
+    eventBus.on(ROUTE_EVENTS.RouteChanged, () => {
       debugIf(this.debug, `x-audio-player: route changed received`);
       this.routeChanged();
     });
@@ -96,11 +99,11 @@ export class AudioPlayer {
         break;
       }
       case AUDIO_COMMANDS.Pause: {
-        this.pause(data.type);
+        this.pause();
         break;
       }
       case AUDIO_COMMANDS.Resume: {
-        this.resume(data.type);
+        this.resume();
         break;
       }
       case AUDIO_COMMANDS.Mute: {
@@ -123,8 +126,8 @@ export class AudioPlayer {
   }
 
   private soundEnded(type:AudioType) {
+    this.isPlaying = false;
     debugIf(this.debug, `${type} player ended`);
-    audioState.hasAudio = false;
     this.playNext(type);
   }
 
@@ -153,7 +156,7 @@ export class AudioPlayer {
     debugIf(this.debug, `play next requested for ${type}`);
     const current = this.current[type];
     if (current) {
-      current.stop();
+      this.haltAudio(type, DiscardStrategy.Next);
       if (current.discard == DiscardStrategy.None) {
         current.mode = LoadStrategy.Load;
         this.addToQueue(current.type, current);
@@ -177,35 +180,27 @@ export class AudioPlayer {
       }
       this.current = {...this.current, [type]: nextUp };
       nextUp.start();
-      audioState.hasAudio = true;
-
-
+      this.isPlaying = true;
     }
   }
 
-  private play(type:AudioType) {
-    const current = this.current[type];
-    if (current) {
-      current.play();
-    }
+
+  private pause() {
+    this.current[AudioType.Music]?.pause();
+    this.current[AudioType.Sound]?.pause();
+    this.isPlaying = false;
   }
 
-  private pause(type:AudioType) {
-    const current = this.current[type];
-    if (current) {
-      current.pause();
-    }
-  }
-
-  private resume(type:AudioType) {
-    const current = this.current[type];
-    if (current) {
-      current.play();
-    }
+  private resume() {
+    this.current[AudioType.Music]?.resume();
+    this.current[AudioType.Sound]?.resume();
+    this.isPlaying = this.current[AudioType.Music]?.isPlaying
+                  || this.current[AudioType.Sound]?.isPlaying;
   }
 
   private mute(request: AudioRequest) {
     Howler.mute(request.value);
+    this.isPlaying = !request.value;
   }
 
   private seek(seek: AudioRequest) {
@@ -223,7 +218,7 @@ export class AudioPlayer {
     this.haltAudio(AudioType.Sound, DiscardStrategy.Route);
     this.haltAudio(AudioType.Music, DiscardStrategy.Route);
 
-    const eligibleAudio = (audio:QueuedAudio) => ['none','event'].includes(audio?.discard);
+    const eligibleAudio = (audio:QueuedAudio) => ['none','next'].includes(audio?.discard);
     const musicQueue = this.queue[AudioType.Music]?.filter(eligibleAudio) || [];
     const soundQueue = this.queue[AudioType.Sound]?.filter(eligibleAudio) || [];
 
@@ -233,64 +228,28 @@ export class AudioPlayer {
     }
   }
 
-  private haltAudio(type: AudioType, reason: DiscardStrategy) {
+  private haltAudio(type: AudioType, ...reasons: DiscardStrategy[]) {
     if (!this.current) return;
 
     const current = this.current[type];
-    if (current && current.discard == reason) {
+    if (current && reasons.includes(current.discard)) {
       current.stop();
-      setTimeout(() => {
-        current.destroy();
-      },2000);
     }
   }
 
   public disconnectedCallback(): void {
     interfaceState.hasAudio = false;
     this.current = {};
-    this.actionSubscription();
   }
 
   render() {
-    const isPlaying = this.current[AudioType.Music]?.isPlaying || this.current[AudioType.Sound]?.isPlaying;
     return (
       <Host>
-        { isPlaying
-          ? <i onClick={() => this.pause(AudioType.Music)}class="ri-play-fill fs-2"></i>
-          : <i onClick={() => this.play(AudioType.Music)} class="ri-play-line fs-2"></i>
+        { this.isPlaying
+          ? <i onClick={() => this.pause()}class="ri-pause-fill fs-2"></i>
+          : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
         }
       </Host>
       );
   }
-
-  /**
-   * <audio
-      id="ambient"
-      class="fade-in"
-      autoplay={autoplay}
-      // loop={this.currentState.audio?.loop || false}
-      controls
-      muted={muted}
-      onTimeUpdate={this.onTimeUpdate.bind(this)}
-      onCanPlay={this.onPlaybackReady.bind(this)}
-      onEnded={this.onPlaybackEnded.bind(this)}
-    //   src={this.src}
-      // eslint-disable-next-line no-return-assign
-      ref={(el) => this.player = el}>
-    </audio>,
-    <audio
-      id="voice"
-      class="fade-in"
-      autoplay={autoplay}
-      // loop={this.currentState.audio?.loop || false}
-      controls
-      muted={muted}
-      onTimeUpdate={this.onTimeUpdate.bind(this)}
-      onCanPlay={this.onPlaybackReady.bind(this)}
-      onEnded={this.onPlaybackEnded.bind(this)}
-    //   src={this.src}
-      // eslint-disable-next-line no-return-assign
-      ref={(el) => this.player = el}>
-    </audio>
-   */
 }

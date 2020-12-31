@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, AudioTrack, AudioType, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
+import { ActionActivationStrategy, AudioType, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
 import { HistoryType } from "./services";
 export namespace Components {
     interface XAction {
@@ -81,10 +81,6 @@ export namespace Components {
          */
         "discard": DiscardStrategy;
         /**
-          * Get the underlying actionEvent instance. Used by the x-action-activator element.
-         */
-        "getAction": () => Promise<EventAction<AudioTrack>>;
-        /**
           * Set this to true to have the audio file loop.
          */
         "loop": boolean;
@@ -111,10 +107,6 @@ export namespace Components {
           * The discard strategy the player should use for this file.
          */
         "discard": DiscardStrategy;
-        /**
-          * Get the underlying actionEvent instance. Used by the x-action-activator element.
-         */
-        "getAction": () => Promise<EventAction<AudioTrack>>;
         /**
           * This is the topic this action-command is targeting.
          */
@@ -288,6 +280,10 @@ export namespace Components {
           * Import the script file as a module.
          */
         "module": boolean;
+        /**
+          * Declare the script only for use when modules aren't supported
+         */
+        "noModule": boolean;
         /**
           * The script file to reference.
          */
@@ -743,11 +739,11 @@ declare namespace LocalJSX {
          */
         "historyType"?: HistoryType;
         /**
-          * Listen to all XUI events here.
+          * Listen to all X-UI actions here.
          */
-        "onInnerEvents"?: (event: CustomEvent<any>) => void;
+        "onAction"?: (event: CustomEvent<any>) => void;
         /**
-          * Listen to all XUI events here.
+          * Listen to all X-UI events here.
          */
         "onRouteChanged"?: (event: CustomEvent<any>) => void;
         /**
@@ -776,6 +772,10 @@ declare namespace LocalJSX {
           * Import the script file as a module.
          */
         "module"?: boolean;
+        /**
+          * Declare the script only for use when modules aren't supported
+         */
+        "noModule"?: boolean;
         /**
           * The script file to reference.
          */

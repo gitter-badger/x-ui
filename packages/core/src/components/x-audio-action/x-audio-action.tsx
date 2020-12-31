@@ -63,7 +63,7 @@ export class XAudioAction implements IActionElement {
 
   componentWillLoad() {
     if (this.parent === undefined) {
-      warn('The x-action component must be wrapped with an x-action-activator component to work.');
+      warn('The x-audio-action component must be wrapped with an x-action-activator component to work.');
     }
   }
 
