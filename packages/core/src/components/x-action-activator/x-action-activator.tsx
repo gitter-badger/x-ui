@@ -87,10 +87,13 @@ export class XActionActivator {
     const actions = Array.from(this.el
       .querySelectorAll('x-action'));
 
-    const audioActions = Array.from(this.el
-      .querySelectorAll('x-audio-action'));
+    const audioMusicActions = Array.from(this.el
+      .querySelectorAll('x-audio-music-action'));
 
-    return [...actions, ...audioActions];
+    const audioSoundActions = Array.from(this.el
+      .querySelectorAll('x-audio-sound-action'));
+
+    return [...actions, ...audioMusicActions, ...audioSoundActions];
   }
 
   componentDidLoad() {

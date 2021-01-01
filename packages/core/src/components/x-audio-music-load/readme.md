@@ -1,19 +1,19 @@
 # X-AUDIO-LOAD-MUSIC
 
-This component declares audio used within this **`<x-view-do>`** route. The **`<x-audio-load-music>`** represents audio files and play behaviors. They are all sent to the global-audio player to pre-load or play when the route is active. The player manages them according to their settings. 
+This component declares audio used within this **`<x-view-do>`** route. The **`<x-audio-music-load>`** represents audio files and play behaviors. They are all sent to the global-audio player to pre-load or play when the route is active. The player manages them according to their settings. 
 
 ## Usage
 
 ````html
 <x-view-do>
-  <x-audio-load-music
+  <x-audio-music-load
     mode="play|load" 
     track-id="<unique-id>"
     src="<url>"    
     discard="route|video|next|none"
     loop
     track
-    ></x-audio-load-music>
+    ></x-audio-music-load>
     
 </x-view-do>
 ````
@@ -22,9 +22,9 @@ This component declares audio used within this **`<x-view-do>`** route. The **`<
 
 ````html
 <x-view-do>
-  <x-audio-load-music    
+  <x-audio-music-load    
     track-id="<unique-id>"
-    src="<url>"></x-audio-load-music>
+    src="<url>"></x-audio-music-load>
     
 </x-view-do>
 ````

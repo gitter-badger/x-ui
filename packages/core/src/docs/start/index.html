@@ -1,38 +1,172 @@
-<x-use
-  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
   style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
 </x-use>
-<x-use
-  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
 <div class="container container-fluid mx-auto">
-  <h1>Get Started</h1>
+  <h1>Installation Complete</h1>
 
-  <x-link custom="button" anchor-class="btn btn-info text-white" href="/start/use">
-    <i class="ri-download-cloud-2-line text-bold"></i>
-    CDN Reference
+  <p class="lead">
+    <b class="brand">&lt;x-ui/&gt;</b> uses a smart lazy-loading technique
+    that only downloads scripts for the tags you use in your HTML.
+  </p>
+
+  <div x-hide-when="'{storage:installed}' != 'cdn'">
+    <h2>CDN Referenced</h2>
+    <p>
+      <button class="btn btn-light"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#loadCDNSource"
+        aria-expanded="false"
+        aria-controls="loadCDNSource">
+        <i class="ri-code-s-slash-line"></i>
+        View CDN Reference
+      </button>
+    <div class="collapse"
+      id="loadCDNSource">
+      <x-markdown src="/docs/start/ref-cdn.md"> </x-markdown>
+    </div>
+    </p>
+  </div>
+
+  <div x-hide-when="'{storage:installed}' != 'npm'">
+    <h2>NPM Installed</h2>
+    <p>
+      <button class="btn btn-light"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#loadCDNSource"
+        aria-expanded="false"
+        aria-controls="loadCDNSource">
+        <i class="ri-code-s-slash-line"></i>
+        View NPM Reference
+      </button>
+    <div class="collapse"
+      id="loadCDNSource">
+      <x-markdown src="/docs/start/ref-npm.md">
+      </x-markdown>
+    </div>
+    </p>
+  </div>
+
+  <h4>Change your mind?</h4>
+
+  <x-link x-hide-when="'{storage:installed}' == 'cdn'"
+    custom="button"
+    anchor-class="btn btn-light"
+    href="/start/cdn">
+    <i class="ri-download-cloud-2-line "></i>
+    CDN Reference Instead
   </x-link>
 
-  <x-link custom="button" anchor-class="btn btn-info text-white" href="/start/install">
-    <i class="ri-npmjs-line text-bold"></i>
-    Install Package
+  <x-link x-hide-when="'{storage:installed}' == 'npm'"
+    custom="button"
+    anchor-class="btn btn-light"
+    href="/start/npm">
+    <i class="ri-npmjs-line"></i>
+    Install Package Instead
   </x-link>
 
-  <x-markdown src="/docs/start/index.md"></x-markdown>
+  <h3>Start Using</h3>
+  <p>
+    Once referenced you can use any part of these components, depending on your
+    use case. This guide will walk you through all systems and components, but
+    you can jump to the area you need most.
+  </p>
+
+  <ul class="nav nav-pills mb-3" id="start-tab">
+    <li class="nav-item">
+      <a class="nav-link active"
+        id="start-routing-tab"
+        data-bs-toggle="pill"
+        href="#start-routing">
+        <i class="ri-direction-line"></i>
+        Routing
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        id="start-presentations-tab"
+        data-bs-toggle="pill"
+        href="#start-presentations">
+        <i class="ri-video-line"></i>
+        Presentations
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        id="start-personalizations-tab"
+        data-bs-toggle="pill"
+        href="#start-personalizations">
+        <i class="ri-database-2-line"></i>
+        Personalizations
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="start-routing">
+      <ul>
+        <li>Content Routes w/Lazy Loaded HTML</li>
+        <li>Support for Data Routes for Data-Driven Content</li>
+        <li>Use Route Data Directly in HTML w/Route and URL Data Providers</li>
+      </ul>
+      <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
+        <template>
+          <x-link href="/components/{data:tag}">
+            <b>&lt;{data:tag}&gt;</b>
+          </x-link>
+        </template>
+      </x-data-repeat>
+    </div>
+    <div class="tab-pane fade" id="start-presentations">
+      <ul>
+        <li>Automatic Back & Forward Resolution</li>
+        <li>Sequenced Content: present, educate, inform</li>
+        <li>Sequenced Input: surveys, quiz and display results</li>
+        <li>Sequenced Video: interactive video story-telling</li>
+        <li>Declarative: Expression-based Conditions</li>
+        <li>Stateful: pick up where a user left-off</li>
+      </ul>
+      <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='audio']]">
+        <template>
+          <x-link href="/components/{data:tag}">
+           <b>&lt;{data:tag}&gt;</b>
+          </x-link>
+        </template>
+      </x-data-repeat>
+    </div>
+    <div class="tab-pane fade" id="start-personalizations">
+      <ul>
+        <li>Data Tags to render personalized data from a variety of sources</li>
+        <li>Use HTML to access data from your API</li>
+        <li>Capture attention and data, with smart workflows to replace boring forms.</li>
+        <li>Personalize the content for each of your visitors.</li>
+      </ul>
+      <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
+        <template>
+          <x-link href="/components/{data:tag}">
+            <b>&lt;{data:tag}&gt;</b>
+          </x-link>
+        </template>
+      </x-data-repeat>
+    </div>
+  </div>
 
   <div class="x-nav-bottom">
-    <x-link slot="start" href="/home">
+    <x-link slot="start"
+      href="/home">
       <button class="btn btn-light btn-lg">
         <i class="ri-arrow-left-s-line"></i>
         Home
       </button>
     </x-link>
-    <x-link slot="end" href="/navigation">
+    <x-link slot="end"
+      href="/navigation">
       <button class="btn btn-primary btn-lg">
         Next: Navigation
         <i class="ri-arrow-right-s-line"></i>
       </button>
     </x-link>
   </div>
-
 </div>

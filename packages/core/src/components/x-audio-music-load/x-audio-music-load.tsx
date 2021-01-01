@@ -12,11 +12,11 @@ import {
  * @system audio
  */
 @Component({
-  tag: 'x-audio-load-music',
+  tag: 'x-audio-music-load',
   shadow: true,
 })
-export class XAudioLoadMusic {
-  @Element() el: HTMLXAudioLoadMusicElement;
+export class XAudioMusicLoad {
+  @Element() el: HTMLXAudioMusicLoadElement;
 
   /**
   * The path to the audio-file.

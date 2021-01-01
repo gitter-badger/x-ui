@@ -5,11 +5,11 @@
 <x-use
   script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
-<x-audio-load-sound
+<x-audio-sound-load
   track-id="buzzer"
   src="/docs/assets/buzzer.wav"
   discard="none">
-</x-audio-load-sound>
+</x-audio-sound-load>
 
 <div class="container container-fluid mx-auto">
 
@@ -30,7 +30,7 @@
   <p>
     To get the timing perfect, we have
     to pre-load all sounds for a route using the
-    <x-link href="/components/x-audio-load-sound"><b>&lt;x-audio-load-sound&gt;</b></x-link>
+    <x-link href="/components/x-audio-sound-load"><b>&lt;x-audio-sound-load&gt;</b></x-link>
     component. The default
     mode for sounds is load. This gets the audio ready
     to play and waits for the start command.
@@ -47,11 +47,11 @@
         <script type="text/markdown">
         ````html
         <x-view-do ...>
-          <x-audio-load-sound
+          <x-audio-sound-load
             track-id="buzzer"
             src="/docs/assets/buzzer.wav"
             discard="none">
-          </x-audio-load-sound>
+          </x-audio-sound-load>
           ...
         </x-view-do>
         ````
@@ -72,7 +72,6 @@
   <p>
     <x-action-activator
       activate="OnElementEvent"
-      target-event="click"
       multiple>
       <x-audio-action
         command="start"
@@ -98,7 +97,6 @@
         ````html
         <x-action-activator
           activate="OnElementEvent"
-          target-event="click"
           multiple>
           <x-audio-action
             command="start"

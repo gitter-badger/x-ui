@@ -29,10 +29,10 @@ To operate the player, it is easiest to just use the **`<x-audio-load-*>`** comp
 
 ````html
 <x-view-do>
-  <x-audio-load-sound
+  <x-audio-sound-load
     track-id="<unique-id>"
     src="<url>">
-  </x-audio-load-sound>   
+  </x-audio-sound-load>   
   <x-action-activator ...>
     <x-audio-action
       type="sound"

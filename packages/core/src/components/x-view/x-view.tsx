@@ -1,8 +1,8 @@
-import { h, Component, Element, Host, Prop, State, Watch } from '@stencil/core';
+import { h, Component, Element, Host, Prop, State, Watch, writeTask } from '@stencil/core';
 import '../x-swipe/x-swipe';
 import '../x-view-do/x-view-do';
 import {
-  actionBus,
+  eventBus,
   DATA_EVENTS,
   debugIf,
   hasVisited,
@@ -118,24 +118,24 @@ export class XView {
       async (match) => {
         this.match = !!match;
         this.exact = match?.isExact;
-
-        debugIf(this.debug, `x-view: ${this.url} location changed match: ${JSON.stringify(this.match || null)}`);
+        await this.resolveView();
         if (this.exact) {
           markVisit(match.url);
+          writeTask(() => resolveElementVisibility(this.el));
         }
-        await this.resolveView();
-      },
+      }
     );
 
-    actionBus.on(DATA_EVENTS.DataChanged, async () => {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view: ${this.url} data changed `);
       await this.resolveView();
+      writeTask(() => resolveElementVisibility(this.el));
     });
   }
 
   componentDidRender() {
     debugIf(this.debug, `x-view: ${this.url} did render`);
-    resolveElementVisibility(this.el);
+    writeTask(() => resolveElementVisibility(this.el));
   }
 
   private async fetchHtml() {
@@ -211,11 +211,7 @@ export class XView {
     return (
       <Host class={this.route?.transition}>
         <slot />
-        <x-swipe
-          thresholdX={100}
-          thresholdY={30}
-          timeThreshold={30}
-          onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
+        <x-swipe onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
           <slot name="content" />
         </x-swipe>
       </Host>

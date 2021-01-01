@@ -123,7 +123,7 @@
                     </x-link>
                   </li>
                   <li class="dropdown-item">
-                    <x-link href="/data-binding">
+                    <x-link href="/use-data">
                       <i class="ri-database-2-line"></i>
                       Embedding Data
                     </x-link>
@@ -280,10 +280,10 @@
           content-src="/docs/start/select.html">
         </x-view-do>
 
-        <x-view-do url="/use"
+        <x-view-do url="/cdn"
           page-title="Use w/CDN"
           visit="optional"
-          content-src="/docs/start/use.html">
+          content-src="/docs/start/cdn.html">
           <x-action-activator activate="OnEnter">
             <x-action topic="data"
               command="set-data"
@@ -292,30 +292,16 @@
           </x-action-activator>
         </x-view-do>
 
-        <x-view-do url="/install"
+        <x-view-do url="/npm"
           page-title="Install w/NPM"
           visit="optional"
-          content-src="/docs/start/install.html">
-          <!-- You can express data in JSON directly in a script tag, but don't call it scripting! -->
+          content-src="/docs/start/npm.html">
           <x-action-activator activate="OnEnter">
             <x-action topic="data"
-              command="set-data">
-              <script type="application/json">
-                {
-                  "provider": "storage",
-                  "values": {
-                    "installed": "npm"
-                  }
-                }
-              </script>
+              command="set-data"
+              data='{"provider": "storage", "values": {"installed": "npm" }}'>
             </x-action>
           </x-action-activator>
-        </x-view-do>
-
-        <x-view-do url="/installed"
-          page-title="Installed"
-          visit="optional"
-          content-src="/docs/start/installed.html">
         </x-view-do>
 
       </x-view>
@@ -336,7 +322,7 @@
               content-src="/docs/navigation/static/nesting-deep.html">
             </x-view>
           </x-view>
-          <x-view url="/data"
+          <x-view url="/use-data"
             page-title="Data Routes"
             content-src="/docs/navigation/static/data.html">
             <x-view url="/:item"
@@ -493,7 +479,7 @@
 
       </x-view>
 
-      <x-view url="/data-binding"
+      <x-view url="/use-data"
         page-title="Data System"
         content-src="/docs/data/index.html">
 

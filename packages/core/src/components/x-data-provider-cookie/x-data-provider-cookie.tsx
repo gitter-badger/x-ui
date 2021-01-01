@@ -81,6 +81,20 @@ export class XDataProviderCookie {
     }
   }
 
+  componentDidLoad() {
+    const acceptElement = this.el.querySelector('[x-accept]');
+    acceptElement?.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.handleConsentResponse(true);
+    });
+
+    const rejectElement = this.el.querySelector('[x-reject]');
+    rejectElement?.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.handleConsentResponse(false);
+    });
+  }
+
   private handleConsentResponse(consented: boolean) {
     if (consented) {
       this.register.emit({
@@ -100,9 +114,7 @@ export class XDataProviderCookie {
   render() {
     return (
       <Host hidden={this.hide}>
-        <slot></slot>
-        <button class="btn btn-primary" part="accept-button" type="button" onClick={() => this.handleConsentResponse(true)}>Accept</button>
-        <button class="btn btn-light" part="reject-button" type="button" onClick={() => this.handleConsentResponse(false)}>No Thanks</button>
+        <slot/>
       </Host>
     );
   }

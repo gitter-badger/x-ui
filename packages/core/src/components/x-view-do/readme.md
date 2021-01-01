@@ -232,13 +232,6 @@ This attribute instructs **\<x-view-do\>** to inject the current time percentage
 | `when`             | `when`              | If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy                                                         | `string`                                                               | `undefined`          |
 
 
-## Shadow Parts
-
-| Part        | Description |
-| ----------- | ----------- |
-| `"content"` |             |
-
-
 ## Dependencies
 
 ### Depends on

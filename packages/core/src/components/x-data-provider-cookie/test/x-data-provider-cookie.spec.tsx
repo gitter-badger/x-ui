@@ -12,15 +12,7 @@ describe('x-data-provider-cookie', () => {
     expect(page.root).toEqualHtml(`
       <x-data-provider-cookie>
         <mock:shadow-root>
-          <div part="container">
-            <slot></slot>
-            <button part="accept-button" type="button">
-              Accept
-            </button>
-            <button part="reject-button" type="button">
-              No Thanks
-            </button>
-          </div>
+          <slot/>
         </mock:shadow-root>
       </x-data-provider-cookie>
     `);

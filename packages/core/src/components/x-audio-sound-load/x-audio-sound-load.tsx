@@ -6,16 +6,17 @@ import {
   DiscardStrategy,
   LoadStrategy
 } from '../..';
+
 /**
  *
  * @system audio
  */
 @Component({
-  tag: 'x-audio-load-sound',
+  tag: 'x-audio-sound-load',
   shadow: true,
 })
-export class XAudioLoadSound {
-  @Element() el: HTMLXAudioLoadSoundElement;
+export class XAudioSoundLoad {
+  @Element() el: HTMLXAudioSoundLoadElement;
 
   /**
    * The identifier for this music track

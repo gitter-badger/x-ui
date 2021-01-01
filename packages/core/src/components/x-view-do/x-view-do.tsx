@@ -16,7 +16,6 @@ import {
   resolveElementChildTimedNodesByTime,
   resolveElementValues,
   TimedNode,
-  actionBus,
   DATA_EVENTS,
   markVisit,
   storeVisit,
@@ -152,12 +151,14 @@ export class XViewDo {
         this.match = !!match;
         this.exact = match?.isExact;
         await this.resolveView();
+        writeTask(() => resolveElementVisibility(this.el));
       },
     );
 
-    actionBus.on(DATA_EVENTS.DataChanged, async () => {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view-do: data changed `);
       await this.resolveView();
+      writeTask(() => resolveElementVisibility(this.el));
     });
 
     // Attach enter-key for next
@@ -170,6 +171,7 @@ export class XViewDo {
 
   componentDidRender() {
     debugIf(this.debug, `x-view-do: ${this.url} did render`);
+    writeTask(() => resolveElementVisibility(this.el));
   }
 
   private async fetchHtml() {
@@ -388,7 +390,10 @@ export class XViewDo {
     if (this.match == null) {
       return this.route?.transition;
     }
-    return `${this.route?.transition} active-route-exact`
+    if (this.exact) {
+      return `${this.route?.transition||''} active-route-exact`
+    }
+    return '';
   }
 
   render() {
@@ -397,14 +402,11 @@ export class XViewDo {
     return (
       <Host class={this.classes}>
         <slot />
-        <x-swipe
-          part="content"
-          thresholdX={100}
-          thresholdY={30}
-          timeThreshold={30}
-          onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
-          <slot name="content" />
-        </x-swipe>
+        { this.exact
+          ? <x-swipe onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
+              <slot name="content" />
+            </x-swipe>
+          : null }
       </Host>
     );
   }

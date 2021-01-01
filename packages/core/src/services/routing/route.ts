@@ -31,7 +31,7 @@ export class Route {
       matchSetter(this.match);
     });
 
-    this.match = this.router.matchPath({
+    this.match = this.router?.matchPath({
       path: this.path,
       exact: this.exact,
       strict: true,

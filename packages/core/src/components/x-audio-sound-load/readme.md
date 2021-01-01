@@ -1,18 +1,18 @@
 # X-AUDIO-LOAD-SOUND
 
-This component declares audio used within this **`<x-view-do>`** route. The **`<x-audio-load-sound>`** represents audio files and play behaviors. They are all sent to the global-audio player to pre-load or play when the route is active. The player manages them according to their settings.  
+This component declares audio used within this **`<x-view-do>`** route. The **`<x-audio-sound-load>`** represents audio files and play behaviors. They are all sent to the global-audio player to pre-load or play when the route is active. The player manages them according to their settings.  
 
 ## Usage
 
 ````html
 <x-view-do>
-  <x-audio-load-sound
+  <x-audio-sound-load
     mode="queue|play|load"
     track-id="<unique-id>"
     src="<url>"    
     discard="route|next|none"
     track>
-    </x-audio-load-sound>    
+    </x-audio-sound-load>    
 </x-view-do>
 ````
 
@@ -20,9 +20,9 @@ This component declares audio used within this **`<x-view-do>`** route. The **`<
 
 ````html
 <x-view-do>
-  <x-audio-load-sound   
+  <x-audio-sound-load   
     track-id="<unique-id>"
-    src="<url>"></x-audio-load-sound>    
+    src="<url>"></x-audio-sound-load>    
 </x-view-do>
 ````
 
@@ -35,10 +35,10 @@ The following demonstrates how to load a track, and wait 10 seconds until it pla
 
 ````html
 <x-view-do>
-  <x-audio-load-sound 
+  <x-audio-sound-load 
     track-id="audio1"
     src="<url>">
-  </x-audio-load-sound>
+  </x-audio-sound-load>
   <x-action-activator
     activate="AtTime"
     time="10">

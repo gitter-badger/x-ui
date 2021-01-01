@@ -5,13 +5,26 @@
 </x-use>
 <div class="container container-fluid mx-auto">
 
+  <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
+    <li class="list-group-item fw-bold">Components</li>
+    <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='audio']]">
+      <template>
+        <li class="list-group-item">
+          <x-link href="/components/{data:tag}">
+            &lt;{data:tag}&gt;
+          </x-link>
+        </li>
+      </template>
+    </x-data-repeat>
+  </ul>
+
   <h1>Audio</h1>
   <p class="lead">The audio player component is a set of two HTML Audio players designed to allow two layers of sound to play during
     an experience. There is an music and a sound layer for audio timed with the experience through route-changes and
     event actions.
   </p>
 
-  <h3>Enable Audio</h3>
+  <h2>Enable Audio</h2>
   <p>
     To enable audio, you must first add the
     <x-link href="/components/x-audio-player"><b>&lt;x-audio-player&gt;</b></x-link> to the
@@ -44,24 +57,28 @@
   <x-link href="/audio/music"
     custom="button"
     anchor-class="btn btn-info text-white">
+    <i class="ri-music-line"></i>
     Music
   </x-link>
 
   <x-link href="/audio/sound"
     custom="button"
     anchor-class="btn btn-info text-white">
+    <i class="ri-surround-sound-line"></i>
     Sounds
   </x-link>
 
   <x-link href="/audio/both"
     custom="button"
     anchor-class="btn btn-info text-white">
+    <i class="ri-sound-module-fill"></i>
     Music & Sounds
   </x-link>
 
   <x-link href="/audio/timed"
     custom="button"
     anchor-class="btn btn-info text-white">
+    <i class="ri-timer-flash-line"></i>
     Timed Sounds
   </x-link>
 

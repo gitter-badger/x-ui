@@ -5,6 +5,15 @@
 </x-use>
 <div class="container container-fluid container-md mx-auto">
 
+
+
+  <h1>What is <span class="brand">&lt;x-ui/&gt;</span>?</h1>
+  <p class="lead">
+    <b class="brand">&lt;x-ui/&gt;</b> (aka, experience UI) is
+    the first UI component toolkit built specifically for turning
+    static content into interactive web experiences.
+  </p>
+
   <p onclick="introJs().start()" class="p-2 lead bg-info bg-gradient text-white" style="cursor: pointer;display:flex;flex-direction: row;gap:1ch;">
     <span>
       <i class="ri-play-line text-light fs-1"></i>
@@ -18,54 +27,72 @@
 
   <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
     <li class="list-group-item">
+      <i x-hide-when="didVisit('/start')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/start')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/start">
         <i class="ri-rocket-2-line"></i>
         Get Started
       </x-link>
     </li>
     <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/routing')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/routing')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/routing">
         <i class="ri-route-line"></i>
         Content Routing
       </x-link>
     </li>
     <li class="list-group-item">
+      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/navigation">
         <i class="ri-direction-line"></i>
         Routing & Navigation
       </x-link>
     </li>
     <li class="list-group-item">
+      <i x-hide-when="didVisit('/audio')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/audio')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/audio">
         <i class="ri-music-line"></i>
         Incorporating Audio
       </x-link>
     </li>
     <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/video')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/video')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/video">
         <i class="ri-video-line"></i>
         Interactive Video
       </x-link>
     </li>
     <li class="list-group-item">
+      <i x-hide-when="didVisit('/actions')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/actions')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/actions">
         <i class="ri-flashlight-line"></i>
         Event Actions
       </x-link>
     </li>
     <li class="list-group-item">
-      <x-link href="/data-binding">
+      <i x-hide-when="didVisit('/use-data')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/use-data')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <x-link href="/use-data">
         <i class="ri-database-2-line"></i>
-        Embedding Data
+        Using Data
       </x-link>
     </li>
     <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/interface')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/interface')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/interface">
         <i class="ri-plug-2-line"></i>
         Plugins & Providers
       </x-link>
     </li>
     <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/developers">
         <i class="ri-git-pull-request-line"></i>
         Contributing
@@ -73,14 +100,19 @@
     </li>
   </ul>
 
-  <h2>What is <span class="brand">&lt;x-ui/&gt;</span>?</h2>
   <p>
-    <b class="brand">&lt;x-ui/&gt;</b> (aka, experience UI) is
-    the first UI component toolkit built specifically for turning
-    static content into interactive web experiences.
+    <b class="brand">&lt;x-ui/&gt;</b> components make single-page apps simple!
+    We created special elements for expressing routes, navigation, dynamic-content,
+    data-binding and much more.
+  </p>
+  <p>
+    <b>PLUS</b> we use a convention-over-configuration approach to dramatically
+    simplify everything. There is no longer a need to be an experienced web developer
+    to create robust web experiences - if you know HTML and CSS you can start
+    building NOW.
   </p>
 
-  <h4>How does this help?</h4>
+  <h3>How does this help?</h3>
   <p>
     For most developers, building a web-app begins by choosing an app framework or static
     site generation tool. These tools are often complex and time-consuming to learn, set up
@@ -93,7 +125,7 @@
     every use-case.
   </p>
 
-  <h4>No Framework, No Problem</h4>
+  <h3>No Framework, No Problem</h3>
   <p>
     <b class="brand">&lt;x-ui/&gt;</b> is different. Without transpilation, a framework or
     even a build-process, developers get the same time-saving techniques (layouts, routing,
@@ -102,26 +134,20 @@
     with a simple script reference. No need to check if your site is compatible -- if you
     can inject a <b>&lt;script&gt;</b> tag, you can start using these today.
   </p>
-  <p>
-    <b class="brand">&lt;x-ui/&gt;</b> components make it simple! We created special elements
-    for expressing routes, navigation, dynamic-content, data-binding and much more. We
-    use a convention-over-configuration approach to simplify things freeing you up to focus
-    on the content.
-  </p>
 
-
-
-  <h3>Features</h3>
+  <h4>Features</h4>
 
   <div class="accordion accordion-flush" id="specialFeatures">
     <div class="accordion-item">
       <h2 class="accordion-header " id="headingOne">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           <i class="ri-route-line me-5"></i>
           Content Routing
         </button>
       </h2>
-      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#specialFeatures">
+      <div id="collapseOne" class="accordion-collapse collapse"
+        aria-labelledby="headingOne" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>
             <li>Content Routes w/Lazy Loaded HTML</li>
@@ -133,7 +159,9 @@
     </div>
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <button class="accordion-button collapsed fs-4" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           <i class="ri-direction-line me-5"></i>
           Guided Navigation
         </button>

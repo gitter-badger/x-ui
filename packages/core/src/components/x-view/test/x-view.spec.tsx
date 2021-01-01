@@ -13,7 +13,9 @@ describe('x-view', () => {
       <x-view>
         <mock:shadow-root>
           <slot></slot>
-          <slot name="content"></slot>
+          <x-swipe>
+            <slot name="content"></slot>
+          </x-swipe>
         </mock:shadow-root>
       </x-view>
     `);

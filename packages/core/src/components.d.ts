@@ -75,7 +75,25 @@ export namespace Components {
          */
         "value": string|boolean|number;
     }
-    interface XAudioLoadMusic {
+    interface XAudioMusicAction {
+        /**
+          * The command to execute.
+         */
+        "command": 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
+        "getAction": () => Promise<EventAction<any>>;
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The value payload for the command.
+         */
+        "value": string|boolean|number;
+    }
+    interface XAudioMusicLoad {
         /**
           * The discard strategy the player should use for this file.
          */
@@ -102,7 +120,32 @@ export namespace Components {
          */
         "trackId": string;
     }
-    interface XAudioLoadSound {
+    interface XAudioPlayer {
+        "debug": boolean;
+        /**
+          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
+         */
+        "display": boolean;
+    }
+    interface XAudioSoundAction {
+        /**
+          * The command to execute.
+         */
+        "command": 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * Get the underlying actionEvent instance. Used by the x-action-activator element.
+         */
+        "getAction": () => Promise<EventAction<any>>;
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The value payload for the command.
+         */
+        "value": string|boolean|number;
+    }
+    interface XAudioSoundLoad {
         /**
           * The discard strategy the player should use for this file.
          */
@@ -124,13 +167,6 @@ export namespace Components {
           * The identifier for this music track
          */
         "trackId": string;
-    }
-    interface XAudioPlayer {
-        "debug": boolean;
-        /**
-          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
-         */
-        "display": boolean;
     }
     interface XDataDisplay {
         /**
@@ -381,23 +417,35 @@ declare global {
         prototype: HTMLXAudioActionElement;
         new (): HTMLXAudioActionElement;
     };
-    interface HTMLXAudioLoadMusicElement extends Components.XAudioLoadMusic, HTMLStencilElement {
+    interface HTMLXAudioMusicActionElement extends Components.XAudioMusicAction, HTMLStencilElement {
     }
-    var HTMLXAudioLoadMusicElement: {
-        prototype: HTMLXAudioLoadMusicElement;
-        new (): HTMLXAudioLoadMusicElement;
+    var HTMLXAudioMusicActionElement: {
+        prototype: HTMLXAudioMusicActionElement;
+        new (): HTMLXAudioMusicActionElement;
     };
-    interface HTMLXAudioLoadSoundElement extends Components.XAudioLoadSound, HTMLStencilElement {
+    interface HTMLXAudioMusicLoadElement extends Components.XAudioMusicLoad, HTMLStencilElement {
     }
-    var HTMLXAudioLoadSoundElement: {
-        prototype: HTMLXAudioLoadSoundElement;
-        new (): HTMLXAudioLoadSoundElement;
+    var HTMLXAudioMusicLoadElement: {
+        prototype: HTMLXAudioMusicLoadElement;
+        new (): HTMLXAudioMusicLoadElement;
     };
     interface HTMLXAudioPlayerElement extends Components.XAudioPlayer, HTMLStencilElement {
     }
     var HTMLXAudioPlayerElement: {
         prototype: HTMLXAudioPlayerElement;
         new (): HTMLXAudioPlayerElement;
+    };
+    interface HTMLXAudioSoundActionElement extends Components.XAudioSoundAction, HTMLStencilElement {
+    }
+    var HTMLXAudioSoundActionElement: {
+        prototype: HTMLXAudioSoundActionElement;
+        new (): HTMLXAudioSoundActionElement;
+    };
+    interface HTMLXAudioSoundLoadElement extends Components.XAudioSoundLoad, HTMLStencilElement {
+    }
+    var HTMLXAudioSoundLoadElement: {
+        prototype: HTMLXAudioSoundLoadElement;
+        new (): HTMLXAudioSoundLoadElement;
     };
     interface HTMLXDataDisplayElement extends Components.XDataDisplay, HTMLStencilElement {
     }
@@ -475,9 +523,11 @@ declare global {
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
         "x-audio-action": HTMLXAudioActionElement;
-        "x-audio-load-music": HTMLXAudioLoadMusicElement;
-        "x-audio-load-sound": HTMLXAudioLoadSoundElement;
+        "x-audio-music-action": HTMLXAudioMusicActionElement;
+        "x-audio-music-load": HTMLXAudioMusicLoadElement;
         "x-audio-player": HTMLXAudioPlayerElement;
+        "x-audio-sound-action": HTMLXAudioSoundActionElement;
+        "x-audio-sound-load": HTMLXAudioSoundLoadElement;
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-repeat": HTMLXDataRepeatElement;
@@ -551,7 +601,21 @@ declare namespace LocalJSX {
          */
         "value"?: string|boolean|number;
     }
-    interface XAudioLoadMusic {
+    interface XAudioMusicAction {
+        /**
+          * The command to execute.
+         */
+        "command"?: 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The value payload for the command.
+         */
+        "value"?: string|boolean|number;
+    }
+    interface XAudioMusicLoad {
         /**
           * The discard strategy the player should use for this file.
          */
@@ -578,7 +642,28 @@ declare namespace LocalJSX {
          */
         "trackId"?: string;
     }
-    interface XAudioLoadSound {
+    interface XAudioPlayer {
+        "debug"?: boolean;
+        /**
+          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
+         */
+        "display"?: boolean;
+    }
+    interface XAudioSoundAction {
+        /**
+          * The command to execute.
+         */
+        "command"?: 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
+        /**
+          * The track to target.
+         */
+        "trackId"?: string;
+        /**
+          * The value payload for the command.
+         */
+        "value"?: string|boolean|number;
+    }
+    interface XAudioSoundLoad {
         /**
           * The discard strategy the player should use for this file.
          */
@@ -600,13 +685,6 @@ declare namespace LocalJSX {
           * The identifier for this music track
          */
         "trackId": string;
-    }
-    interface XAudioPlayer {
-        "debug"?: boolean;
-        /**
-          * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
-         */
-        "display"?: boolean;
     }
     interface XDataDisplay {
         /**
@@ -861,9 +939,11 @@ declare namespace LocalJSX {
         "x-action": XAction;
         "x-action-activator": XActionActivator;
         "x-audio-action": XAudioAction;
-        "x-audio-load-music": XAudioLoadMusic;
-        "x-audio-load-sound": XAudioLoadSound;
+        "x-audio-music-action": XAudioMusicAction;
+        "x-audio-music-load": XAudioMusicLoad;
         "x-audio-player": XAudioPlayer;
+        "x-audio-sound-action": XAudioSoundAction;
+        "x-audio-sound-load": XAudioSoundLoad;
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-repeat": XDataRepeat;
@@ -885,9 +965,11 @@ declare module "@stencil/core" {
             "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
             "x-audio-action": LocalJSX.XAudioAction & JSXBase.HTMLAttributes<HTMLXAudioActionElement>;
-            "x-audio-load-music": LocalJSX.XAudioLoadMusic & JSXBase.HTMLAttributes<HTMLXAudioLoadMusicElement>;
-            "x-audio-load-sound": LocalJSX.XAudioLoadSound & JSXBase.HTMLAttributes<HTMLXAudioLoadSoundElement>;
+            "x-audio-music-action": LocalJSX.XAudioMusicAction & JSXBase.HTMLAttributes<HTMLXAudioMusicActionElement>;
+            "x-audio-music-load": LocalJSX.XAudioMusicLoad & JSXBase.HTMLAttributes<HTMLXAudioMusicLoadElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;
+            "x-audio-sound-action": LocalJSX.XAudioSoundAction & JSXBase.HTMLAttributes<HTMLXAudioSoundActionElement>;
+            "x-audio-sound-load": LocalJSX.XAudioSoundLoad & JSXBase.HTMLAttributes<HTMLXAudioSoundLoadElement>;
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-repeat": LocalJSX.XDataRepeat & JSXBase.HTMLAttributes<HTMLXDataRepeatElement>;
