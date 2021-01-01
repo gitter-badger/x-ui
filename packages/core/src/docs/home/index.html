@@ -34,7 +34,7 @@
         Get Started
       </x-link>
     </li>
-    <li hidden class="list-group-item">
+    <li class="list-group-item">
       <i x-hide-when="didVisit('/routing')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
       <i x-show-when="didVisit('/routing')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/routing">
@@ -47,7 +47,7 @@
       <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/navigation">
         <i class="ri-direction-line"></i>
-        Routing & Navigation
+        Navigation
       </x-link>
     </li>
     <li class="list-group-item">
@@ -100,10 +100,11 @@
     </li>
   </ul>
 
+  <h2>Pure HTML</h2>
   <p>
     <b class="brand">&lt;x-ui/&gt;</b> components make single-page apps simple!
     We created special elements for expressing routes, navigation, dynamic-content,
-    data-binding and much more.
+    data-binding and much more, using HTML semantics and no JavaScript.
   </p>
   <p>
     <b>PLUS</b> we use a convention-over-configuration approach to dramatically
@@ -139,13 +140,13 @@
 
   <div class="accordion accordion-flush" id="specialFeatures">
     <div class="accordion-item">
-      <h2 class="accordion-header " id="headingOne">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse"
+      <h4 class="accordion-header " id="headingOne">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse"
           data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
           <i class="ri-route-line me-5"></i>
           Content Routing
         </button>
-      </h2>
+      </h4>
       <div id="collapseOne" class="accordion-collapse collapse"
         aria-labelledby="headingOne" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
@@ -158,14 +159,14 @@
       </div>
     </div>
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingTwo">
-        <button class="accordion-button collapsed fs-4" type="button"
+      <h4 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed fs-5" type="button"
           data-bs-toggle="collapse"
           data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           <i class="ri-direction-line me-5"></i>
           Guided Navigation
         </button>
-      </h2>
+      </h4>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>
@@ -180,12 +181,12 @@
       </div>
     </div>
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingThree">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      <h4 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           <i class="ri-empathize-line me-5"></i>
           Embedded Data
         </button>
-      </h2>
+      </h4>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>
@@ -198,12 +199,12 @@
       </div>
     </div>
     <div hidden class="accordion-item">
-      <h2 class="accordion-header" id="headingFour">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+      <h4 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
           <i class="ri-slideshow-line me-5"></i>
           Made for Presentations
         </button>
-      </h2>
+      </h4>
       <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>
@@ -217,12 +218,12 @@
       </div>
     </div>
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingFive">
-        <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+      <h4 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
           <i class="ri-heart-line me-5"></i>
           Built with love
         </button>
-      </h2>
+      </h4>
       <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>

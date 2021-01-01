@@ -57,11 +57,9 @@ describe('x-data-display', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <x-data-display text="test">
-        <div>
-          <p>Hello Jason!</p>
-          test
-        </div>
+      <x-data-display innerhtml=" <p>Hello Jason!</p> " text="test">
+        <p>Hello Jason!</p>
+        test
       </x-data-display>
     `);
   });
@@ -78,11 +76,9 @@ describe('x-data-display', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <x-data-display text="test">
-        <div>
-          <p>Hello Jason!</p>
-          test
-        </div>
+      <x-data-display innerhtml=" <p>Hello Jason!</p> " text="test">
+        <p>Hello Jason!</p>
+        test
       </x-data-display>
     `);
   });
@@ -102,10 +98,8 @@ describe('x-data-display', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <x-data-display>
-        <div>
-          <p>Hello Forrest!</p>
-        </div>
+      <x-data-display innerHtml=" <p>Hello Forrest!</p> ">
+        <p>Hello Forrest!</p>
       </x-data-display>
     `);
   });
@@ -124,9 +118,7 @@ describe('x-data-display', () => {
 
     expect(page.root).toEqualHtml(`
       <x-data-display>
-        <div>
-          <p>Hello Tom!</p>
-        </div>
+        <p>Hello Tom!</p>
       </x-data-display>
     `);
   });

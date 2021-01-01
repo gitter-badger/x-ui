@@ -8,6 +8,7 @@ import {
 
 /**
  *  @system content
+ *  @system data
  */
 @Component({
   tag: 'x-show',

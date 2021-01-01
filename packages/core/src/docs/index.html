@@ -20,9 +20,11 @@
     <!-- Bootstrap   -->
     <script async src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"/>
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      media="print" onload="this.media='all'"/>
     <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"/>
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      media="print" onload="this.media='all'"/>
 
     <!-- Page Styles -->
     <link rel="icon" type="image/ico"
@@ -30,7 +32,8 @@
     <link rel="apple-touch-icon" sizes="180x180"
       href="/assets/icon/apple-touch-icon.png"/>
     <link rel="stylesheet"
-      href="docs/assets/styles.css" />
+      href="docs/assets/styles.css"
+      media="print" onload="this.media='all'" />
 
     <!-- Google Fonts -->
     <link rel="preconnect"
@@ -56,6 +59,7 @@
     <!-- Animate.css -->
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      media="print" onload="this.media='all'"
       />
 
     <!-- Markdown -->
@@ -110,16 +114,16 @@
                 </a>
                 <ul class="dropdown-menu"
                   aria-labelledby="navbarDropdown">
-                  <li hidden class="dropdown-item">
+                  <li class="dropdown-item">
                     <x-link href="/routing">
                       <i class="ri-route-line"></i>
-                      Content Routing
+                      Routing
                     </x-link>
                   </li>
                   <li class="dropdown-item">
                     <x-link href="/navigation">
                       <i class="ri-direction-line"></i>
-                      Routing & Navigation
+                      Navigation
                     </x-link>
                   </li>
                   <li class="dropdown-item">
@@ -306,31 +310,42 @@
 
       </x-view>
 
+      <x-view url="/routing"
+        page-title="Routing"
+        content-src="/docs/routing/index.html"
+        transition="animate__animated animate__fadeIn">
+        <x-view url="/lazy"
+          page-title="Lazy Loaded Routes"
+          content-src="/docs/routing/lazy.html">
+        </x-view>
+        <x-view url="/nesting"
+          page-title="Nesting Routes"
+          content-src="/docs/routing/nesting.html">
+          <x-view url="/deep"
+            page-title="Deep Nesting"
+            content-src="/docs/routing/nesting-deep.html">
+          </x-view>
+        </x-view>
+        <x-view url="/data"
+          page-title="Data Routes"
+          content-src="/docs/routing/data.html">
+          <x-view-do url="/custom"
+            page-title="Your Custom Selection"
+            content-src="/docs/routing/data-custom.html"
+            visit="optional">
+          </x-view-do>
+          <x-view url="/item/:item"
+            page-title="Data Route for: {route:item}"
+            content-src="/docs/routing/data-child.html">
+          </x-view>
+        </x-view>
+      </x-view>
+
       <x-view url="/navigation"
         page-title="Navigation System"
         content-src="/docs/navigation/index.html">
 
-        <x-view url="/static"
-          page-title="Static Routes"
-          content-src="/docs/navigation/static.html"
-          transition="animate__animated animate__fadeIn">
-          <x-view url="/nesting"
-            page-title="Nesting Static Routes"
-            content-src="/docs/navigation/static/nesting.html">
-            <x-view url="/deep"
-              page-title="Deep Nesting"
-              content-src="/docs/navigation/static/nesting-deep.html">
-            </x-view>
-          </x-view>
-          <x-view url="/use-data"
-            page-title="Data Routes"
-            content-src="/docs/navigation/static/data.html">
-            <x-view url="/:item"
-              page-title="Info on {route:item}"
-              content-src="/docs/navigation/static/data-child.html">
-            </x-view>
-          </x-view>
-        </x-view>
+
 
         <x-view url="/guided"
           page-title="Guided Navigation"

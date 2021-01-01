@@ -12,6 +12,10 @@ import {
   debugIf,
 } from '../../services';
 
+/**
+ *  @system content
+ *  @system data
+ */
 @Component({
   tag: 'x-data-repeat',
   styleUrl: 'x-data-repeat.scss',

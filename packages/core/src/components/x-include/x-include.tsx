@@ -2,6 +2,7 @@ import { Host, Component, h, State, Prop, Element } from '@stencil/core';
 import { warn } from '../..';
 
 /**
+ *  @system routing
  *  @system content
  */
 @Component({

@@ -1,17 +1,86 @@
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+  style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
+</x-use>
+<x-use
+  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+</x-use>
 <div class="container container-fluid mx-auto">
-  <x-markdown src="/docs/navigation/static/nesting.md"></x-markdown>
-  <x-markdown>
-    <script type="text/markdown">
-    </script>
-  </x-markdown>
+  <h1>Routing</h1>
+  <h2>Nested Routes</h2>
+  <p>
+    Nested routes are easy. You can choose to semantically nest
+    <x-link href="/components/x-view"><b>&lt;x-view&gt;</b></x-link> elements
+    and have their path's automatically inherited from the parent or declare
+    them in a flat format.
+  </p>
+  <h3>Nested Declaration</h3>
+  <p></p>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#semanticSource"
+      aria-expanded="false" aria-controls="semanticSource">
+      <i class="ri-code-s-slash-line"></i>
+      Semantic Source
+    </button>
+  </p>
+  <div class="collapse" id="semanticSource">
+    <x-markdown>
+      <script type="text/markdown">
+        ````html
+        <x-view url="/home"
+          page-title="Home">
+          <x-view url="/about"
+            page-title="About">
+          ... about content ...
+          </x-view>
+        ... home content ...
+        </x-view>
+        ````
+      </script>
+    </x-markdown>
+  </div>
+  <h3>Flat Declaration</h3>
+  <p></p>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#flatSource"
+      aria-expanded="false" aria-controls="flatSource">
+      <i class="ri-code-s-slash-line"></i>
+      Semantic Source
+    </button>
+  </p>
+  <div class="collapse" id="flatSource">
+    <x-markdown>
+      <script type="text/markdown">
+      ````html
+        <x-view url="/home"
+          page-title="Home">
+        ... home content ...
+        </x-view>
+
+        <x-view url="/home/about"
+          page-title="About">
+        ... about content ...
+        </x-view>
+      ````
+      </script>
+    </x-markdown>
+  </div>
+
+  <x-link href="/routing/nesting/deep"
+    custom="button" anchor-class="btn btn-info text-white">
+    <i class="ri-treasure-map-fill"></i>
+    Click here to go deeper!
+  </x-link>
+
   <div class="x-nav-bottom">
-    <x-link slot="start" href="/navigation/static">
-      <button class="btn btn-primary ">
+    <x-link slot="start" href="/routing/lazy">
+      <button class="btn btn-light btn-lg ">
         <i class="ri-arrow-left-s-line"></i>
-        Static Routing
+        Lazy Routing
       </button>
     </x-link>
-    <x-link slot="end" href="/navigation/static/data">
+    <x-link slot="end" href="/routing/data">
       <button class="btn btn-primary btn-lg">
         Next: Data Routes
         <i class="ri-arrow-right-s-line"></i>

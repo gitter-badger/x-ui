@@ -1,30 +1,101 @@
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+  style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
+</x-use>
+<x-use
+  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+</x-use>
 <div class="container container-fluid mx-auto">
-  <x-markdown src="/docs/navigation/static/data.md"></x-markdown>
+  <h1>Routing</h1>
+  <p class="lead">
+    Data routes are variable-routes that use URL segment expressions
+    to define a mechanism for passing data via URL in a formatted fashion.
+  </p>
+  <h2>Data Routes</h2>
+  <p>
+    This router supports segment and query-string variables and
+    we provide a simple, declarative method for using that data
+    in your application. By using special (Node.js Express-based) notation
+    in the  <x-link href="/components/x-view"><b>&lt;x-view&gt;</b></x-link>
+    element's <b>URL</b> attribute, the route data becomes available in
+    our unified [data expression](/data) system.
+  </p>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#loadSource"
+      aria-expanded="false" aria-controls="loadSource">
+      <i class="ri-code-s-slash-line"></i>
+      Data Route Source
+    </button>
+  </p>
+  <div class="collapse" id="loadSource">
+    <x-markdown>
+      <script type="text/markdown">
+        ````html
+        <x-view url="/data"
+          page-title="Data List">
 
-  <h2>Demo Data Routes</h2>
-  <li>
+          <x-view url="/item/:item"
+            page-title="{route:item} Details">
+            ... content ...
+            <x-display text="{route:item}"></x-display>
+          </x-view>
 
-    <x-link href="/navigation/static/data/pizza">
-      Select Pizza
-    </x-link>
-  </li>
-  <li>
+          <x-link href="/routing/data/item/cake">Cake</x-link>
+          <x-link href="/routing/data/item/wine">Wine</x-link>
 
-    <x-link href="/navigation/static/data/wine">
-      Select Wine
-    </x-link>
-  </li>
+        </x-view>
+        ````
+        </script>
+    </x-markdown>
+  </div>
+
+  <h3>Sample Data Routes</h3>
+
+  <p></p>
+
+  <x-link href="/routing/data/item/cake"
+    custom="button"
+    anchor-class="btn btn-info text-white">
+    <i class="ri-cake-2-line"></i>
+    Cake
+  </x-link>
+
+  <x-link href="/routing/data/item/wine"
+    custom="button"
+    anchor-class="btn btn-info text-white">
+    <i class="ri-goblet-fill"></i>
+    Wine
+  </x-link>
+
+
+  <x-link href="/routing/data/custom"
+    custom="button" x-hide-when="{storage:favorite}"
+    anchor-class="btn btn-info text-white">
+    <i class="ri-discuss-line"></i>
+    Custom Item
+  </x-link>
+
+  <x-data-display hidden x-show-when="{storage:favorite}">
+    <template>
+      <x-link href="/routing/data/item/{storage:favorite}"
+        custom="button"
+        anchor-class="btn btn-info text-white">
+        <i class="ri-user-heart-line"></i>
+        {storage:favorite}
+      </x-link>
+    </template>
+  </x-data-display>
 
   <div class="x-nav-bottom">
-    <x-link slot="start" href="/navigation/static/nesting">
+    <x-link slot="start" href="/routing/nesting">
       <button class="btn btn-light btn-lg">
         <i class="ri-arrow-left-s-line"></i>
         Nested Routes
       </button>
     </x-link>
-    <x-link slot="end" href="/navigation/guided">
+    <x-link slot="end" href="/routing">
       <button class="btn btn-primary btn-lg">
-        Next: Guided Navigation
+        Routing
         <i class="ri-arrow-right-s-line"></i>
       </button>
     </x-link>

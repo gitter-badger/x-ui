@@ -1,4 +1,4 @@
-import { Element, Component, h, Prop, State, Fragment } from '@stencil/core';
+import { Host, Element, Component, h, Prop, State, Fragment } from '@stencil/core';
 import { removeAllChildNodes } from '../../services/routing/utils/browser-utils';
 import {
   DATA_EVENTS,
@@ -103,9 +103,9 @@ export class XDataDisplay {
   render() {
     if (this.resolvedTemplate) {
       return (
-        <div innerHTML={this.resolvedTemplate}>
+        <Host innerHTML={this.resolvedTemplate}>
           { this.value }
-        </div>
+        </Host>
       );
     }
 

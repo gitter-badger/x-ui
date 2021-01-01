@@ -3,6 +3,7 @@ import { hasReference, markReference } from '../../services';
 
 /**
  *  @system content
+ *  @system routing
  */
 @Component({
   tag: 'x-use',

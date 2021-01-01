@@ -1,14 +1,50 @@
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+  style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
+</x-use>
+<x-use
+  script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+</x-use>
 <div class="container container-fluid mx-auto">
-  <x-markdown src="/docs/navigation/index.md"></x-markdown>
+  <h1>Navigation</h1>
+  <p class="lead">
+
+  </p>
+  <h2>Getting around without page refreshes!</h2>
+  <p></p>
+
+  <h3>Static Navigation</h3>
+
+  <p>
+
+  </p>
+  <x-link href="/navigation/static"
+    custom="button" anchor-class="btn btn-info text-white">
+    <i class="ri-treasure-map-line"></i>
+    Static Routing
+  </x-link>
+
+
   <x-markdown>
     <script type="text/markdown">
     </script>
   </x-markdown>
+
+  <h3>Guided Navigation</h3>
+  <p>
+    Guided navigation is for presentation-based content. This creates a back/next format with a convention-based next route automatically determined by the router.
+  </p>
+  <x-link href="/navigation/guided"
+    custom="button" anchor-class="btn btn-info text-white" >
+    <i class="ri-gps-line"></i>
+    Guided Navigation
+  </x-link>
+
+
   <div class="x-nav-bottom">
-    <x-link slot="start" href="/start">
+    <x-link slot="start" href="/routing">
       <button class="btn btn-light btn-lg">
         <i class="ri-arrow-left-s-line"></i>
-        Get Started
+        Routing
       </button>
     </x-link>
     <x-link slot="end" href="/use-data">
