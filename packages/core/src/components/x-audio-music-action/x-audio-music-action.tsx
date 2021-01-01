@@ -12,6 +12,7 @@ import {
  * should always be the child of a x-action-activator.
  *
  * @system audio
+ * @system actions
  */
 @Component({
   tag: 'x-audio-music-action',
@@ -59,7 +60,7 @@ export class XAudioMusicAction implements IActionElement {
 
   componentWillLoad() {
     if (this.parent === undefined) {
-      warn('The x-audio-action component must be wrapped with an x-action-activator component to work.');
+      warn('The x-audio-music-action component must be wrapped with an x-action-activator component to work.');
     }
   }
 

@@ -13,7 +13,6 @@ import {
 } from '../../services';
 
 /**
- *  @system content
  *  @system data
  */
 @Component({

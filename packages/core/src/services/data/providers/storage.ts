@@ -4,7 +4,7 @@ import { DATA_EVENTS, IDataProvider } from '../interfaces';
 export class StorageProvider implements IDataProvider {
   constructor(private localStorage = window.localStorage) {
     this.changed = new EventEmitter();
-    window?.addEventListener('storage', () => {
+    document.body?.addEventListener('storage', () => {
       this.changed.emit(DATA_EVENTS.DataChanged);
     });
   }

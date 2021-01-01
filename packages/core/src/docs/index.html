@@ -129,19 +129,7 @@
                   <li class="dropdown-item">
                     <x-link href="/use-data">
                       <i class="ri-database-2-line"></i>
-                      Embedding Data
-                    </x-link>
-                  </li>
-                  <li class="dropdown-item">
-                    <x-link href="/audio">
-                      <i class="ri-music-line"></i>
-                      Incorporating Audio
-                    </x-link>
-                  </li>
-                  <li hidden class="dropdown-item">
-                    <x-link href="/video">
-                      <i class="ri-video-line"></i>
-                      Interactive Video
+                      Declarative Data
                     </x-link>
                   </li>
                   <li class="dropdown-item">
@@ -150,6 +138,19 @@
                       Event Actions
                     </x-link>
                   </li>
+                  <li class="dropdown-item">
+                    <x-link href="/audio">
+                      <i class="ri-music-line"></i>
+                      Reactive Audio
+                    </x-link>
+                  </li>
+                  <li hidden class="dropdown-item">
+                    <x-link href="/video">
+                      <i class="ri-video-line"></i>
+                      Interactive Video
+                    </x-link>
+                  </li>
+
                   <li hidden class="dropdown-item">
                     <x-link href="/document">
                       <i class="ri-plug-2-line"></i>
@@ -320,23 +321,23 @@
         </x-view>
         <x-view url="/nesting"
           page-title="Nesting Routes"
-          content-src="/docs/routing/nesting.html">
+          content-src="/docs/routing/nesting/index.html">
           <x-view url="/deep"
             page-title="Deep Nesting"
-            content-src="/docs/routing/nesting-deep.html">
+            content-src="/docs/routing/nesting/deep.html">
           </x-view>
         </x-view>
         <x-view url="/data"
           page-title="Data Routes"
-          content-src="/docs/routing/data.html">
+          content-src="/docs/routing/data/index.html">
           <x-view-do url="/custom"
             page-title="Your Custom Selection"
-            content-src="/docs/routing/data-custom.html"
+            content-src="/docs/routing/data/custom.html"
             visit="optional">
           </x-view-do>
           <x-view url="/item/:item"
             page-title="Data Route for: {route:item}"
-            content-src="/docs/routing/data-child.html">
+            content-src="/docs/routing/data/child.html">
           </x-view>
         </x-view>
       </x-view>
@@ -345,27 +346,25 @@
         page-title="Navigation System"
         content-src="/docs/navigation/index.html">
 
-
-
         <x-view url="/guided"
           page-title="Guided Navigation"
           content-src="/docs/navigation/guided.html">
 
           <x-view url="/demo"
             page-title="Guided Demo"
-            content-src="/docs/navigation/guided/demo-complete.html">
+            content-src="/docs/navigation/guided/demo/complete.html">
 
             <x-view-do url="/video"
               page-title="Guided: Video"
               visit="always"
-              content-src="/docs/navigation/guided/demo-video.html">
+              content-src="/docs/navigation/guided/demo/video.html">
             </x-view-do>
 
             <x-view-do url="/animation"
               page-title="Guided: Animated HTML"
               visit="always"
               duration="30"
-              content-src="/docs/navigation/guided/demo-timed.html">
+              content-src="/docs/navigation/guided/demo/timed.html">
             </x-view-do>
           </x-view>
 
@@ -375,21 +374,21 @@
 
             <x-view url="/demo"
               page-title="Sequential Demo"
-              content-src="/docs/navigation/guided/demo-complete.html">
+              content-src="/docs/navigation/guided/demo/complete.html">
               <x-view-do url="/step-1"
                 page-title="Step 1"
                 visit="always"
-                content-src="/docs/navigation/guided/demo-step1.html">
+                content-src="/docs/navigation/guided/demo/step1.html">
               </x-view-do>
               <x-view-do url="/step-2"
                 page-title="Step 2"
                 visit="always"
-                content-src="/docs/navigation/guided/demo-step2.html">
+                content-src="/docs/navigation/guided/demo/step2.html">
               </x-view-do>
               <x-view-do url="/step-3"
                 page-title="Step 3"
                 visit="always"
-                content-src="/docs/navigation/guided/demo-step3.html">
+                content-src="/docs/navigation/guided/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -405,24 +404,24 @@
             content-src="/docs/navigation/guided/smart.html">
             <x-view url="/demo"
               page-title="Smart Demo"
-              content-src="/docs/navigation/guided/demo-complete.html">
+              content-src="/docs/navigation/guided/demo/complete.html">
               <x-view-do url="/step-1"
                 page-title="Step 1"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step1.html">
+                content-src="/docs/navigation/guided/demo/step1.html">
               </x-view-do>
               <x-view-do url="/step-2"
                 page-title="Step 2"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step2.html">
+                content-src="/docs/navigation/guided/demo/step2.html">
               </x-view-do>
               <x-view-do url="/step-3"
                 page-title="Step 3"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step3.html">
+                content-src="/docs/navigation/guided/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -439,25 +438,25 @@
 
             <x-view url="/demo"
               page-title="Timed Demo"
-              content-src="/docs/navigation/guided/demo-complete.html">
+              content-src="/docs/navigation/guided/demo/complete.html">
 
               <x-view-do url="/step-1"
                 page-title="Step 1"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step1.html">
+                content-src="/docs/navigation/guided/demo/step1.html">
               </x-view-do>
               <x-view-do url="/step-2"
                 page-title="Step 2"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step2.html">
+                content-src="/docs/navigation/guided/demo/step2.html">
               </x-view-do>
               <x-view-do url="/step-3"
                 page-title="Step 3"
                 visit="always"
                 duration="10"
-                content-src="/docs/navigation/guided/demo-step3.html">
+                content-src="/docs/navigation/guided/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -470,14 +469,14 @@
             <x-view-do url="/video"
               page-title="Timed w/Video"
               visit="optional"
-              content-src="/docs/navigation/guided/demo-video.html">
+              content-src="/docs/navigation/guided/demo/video.html">
             </x-view-do>
 
             <x-view-do url="/animation"
               page-title="Timed w/Duration"
               visit="optional"
               duration="30"
-              content-src="/docs/navigation/guided/demo-timed.html">
+              content-src="/docs/navigation/guided/demo/timed.html">
             </x-view-do>
           </x-view>
 
@@ -497,10 +496,24 @@
       <x-view url="/use-data"
         page-title="Data System"
         content-src="/docs/data/index.html">
-
+        <x-view url="/expressions"
+          page-title="Data Expressions"
+          content-src="/docs/data/expressions.html">
+        </x-view>
         <x-view url="/providers"
           page-title="Data Providers"
           content-src="/docs/data/providers.html">
+        </x-view>
+        <x-view url="/navigation"
+          page-title="Data Navigation"
+          content-src="/docs/data/navigation.html">
+        </x-view>
+        <x-view url="/display"
+          page-title="Data Display"
+          content-src="/docs/data/display.html">
+        </x-view>
+
+        <x-view url="/demo">
           <x-view-do url="/session-data"
             page-title="Session Data"
             when="!{session:favorite}"
@@ -512,24 +525,13 @@
             content-src="/docs/data/storage.html">
           </x-view-do>
         </x-view>
-        <x-view url="/navigation"
-          page-title="Data Navigation"
-          content-src="/docs/data/navigation.html">
-        </x-view>
-        <x-view url="/display"
-          page-title="Data Display"
-          content-src="/docs/data/display.html">
-        </x-view>
-        <x-view url="/expressions"
-          page-title="Data Expressions"
-          content-src="/docs/data/expressions.html">
-        </x-view>
       </x-view>
 
       <x-view url="/actions"
-        page-title="Action Systems"
+        page-title="Action"
         content-src="/docs/actions/index.html">
-        <x-view-do url=" /events"
+
+        <x-view-do url="/events"
           visit="optional"
           content-src="/docs/actions/events.html">
           <x-action-activator activate="OnEnter">
@@ -543,6 +545,7 @@
               data='{"message": "Testing on-exit action"}'></x-action>
           </x-action-activator>
         </x-view-do>
+
         <x-view-do url="/timed"
           visit="optional"
           duration="30"
@@ -553,10 +556,12 @@
               data='{"message": "3-seconds has passed."}'></x-action>
           </x-action-activator>
         </x-view-do>
+
         <x-view-do url="/elements"
           visit="optional"
           content-src="/docs/actions/elements.html">
         </x-view-do>
+
       </x-view>
 
       <x-view url="/audio"
@@ -592,8 +597,7 @@
       </x-view>
 
       <!-- Not Found Route -->
-      <x-view url="*"
-        page-title="Page not Found"
+      <x-view  page-title="Page not Found"
         content-src="/docs/not-found.html">
       </x-view>
     </x-ui>

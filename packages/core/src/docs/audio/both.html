@@ -70,20 +70,19 @@
   <p>
     Again, we play the music by sending an <x-link href="/actions">event action</x-link> with
     start command using the <x-link href="/components/x-action-activator">
-    <b>&lt;x-action-activator&gt;</b></x-link> and
-    <x-link href="/components/x-audio-action"><b>&lt;x-audio-action&gt;</b></x-link>
-    components with the command, audio-type and track-id.
+    <b>&lt;x-action-activator&gt;</b></x-link>,
+    <x-link href="/components/x-audio-music-action"><b>&lt;x-audio-music-action&gt;</b></x-link> and
+    <x-link href="/components/x-audio-sound-action"><b>&lt;x-audio-sound-action&gt;</b></x-link>
+    components with their command and track-id.
   </p>
   <p>
     <x-action-activator
       activate="OnElementEvent"
       multiple>
-      <x-audio-action
+      <x-audio-sound-action
         command="start"
-        track-id="cheer"
-        type="sound"
-        discard="none">
-      </x-audio-action>
+        track-id="cheer">
+      </x-audio-sound-action>
       <button class="btn btn-info text-white">
         <i class="ri-play-circle-line"></i>
         Play Sound
@@ -91,11 +90,10 @@
     </x-action-activator>
     <x-action-activator
       activate="OnElementEvent">
-      <x-audio-action
+      <x-audio-music-action
         command="start"
-        track-id="music"
-        type="music">
-      </x-audio-action>
+        track-id="music">
+      </x-audio-music-action>
       <button type="button" class="btn btn-info text-white">
         <i class="ri-play-circle-line"></i>
         Play Music
@@ -117,21 +115,18 @@
         <x-action-activator
           activate="OnElementEvent"
           multiple>
-          <x-audio-action
+          <x-audio-sound-action
             command="start"
-            track-id="cheer"
-            type="sound"
-            discard="none">
-          </x-audio-action>
+            track-id="cheer">
+          </x-audio-sound-action>
           <button class="btn btn-info text-white">Play Sound</button>
         </x-action-activator>
         <x-action-activator
           activate="OnElementEvent">
-          <x-audio-action
+          <x-audio-music-action
             command="start"
-            track-id="music"
-            type="music">
-          </x-audio-action>
+            track-id="music">
+          </x-audio-music-action>
           <button type="button" class="btn btn-info text-white">Play Music</button>
         </x-action-activator>
         ````

@@ -1,4 +1,22 @@
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js"
+  style-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css">
+</x-use>
+<x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
+</x-use>
 <div class="container container-fluid mx-auto">
+  <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
+    <li class="list-group-item fw-bold">Data Components</li>
+    <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
+      <template>
+        <li class="list-group-item">
+          <x-link href="/components/{data:tag}">
+            <h5>&lt;{data:tag}&gt;</h5>
+          </x-link>
+        </li>
+      </template>
+    </x-data-repeat>
+  </ul>
+
   <x-markdown src="/docs/data/index.md"></x-markdown>
 
   <div class="x-nav-bottom">

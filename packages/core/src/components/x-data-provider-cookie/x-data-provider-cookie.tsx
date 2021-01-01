@@ -9,7 +9,7 @@ import {
 } from '../..';
 
 /**
- *  @system data
+ *  @system providers
  */
 @Component({
   tag: 'x-data-provider-cookie',

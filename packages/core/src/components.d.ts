@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, AudioType, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
+import { ActionActivationStrategy, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
 import { HistoryType } from "./services";
 export namespace Components {
     interface XAction {
@@ -52,28 +52,6 @@ export namespace Components {
           * The time, in seconds at which the contained actions should be submitted.  For use with activate="AtTime" Only!
          */
         "time": number;
-    }
-    interface XAudioAction {
-        /**
-          * The command to execute.
-         */
-        "command": 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
-        /**
-          * Get the underlying actionEvent instance. Used by the x-action-activator element.
-         */
-        "getAction": () => Promise<EventAction<any>>;
-        /**
-          * The track to target.
-         */
-        "trackId"?: string;
-        /**
-          * The track to target.
-         */
-        "type": AudioType;
-        /**
-          * The value payload for the command.
-         */
-        "value": string|boolean|number;
     }
     interface XAudioMusicAction {
         /**
@@ -367,7 +345,7 @@ export namespace Components {
         /**
           * How should this page be presented (coming soon)
          */
-        "display": 'page'|'modal'|'full';
+        "display": 'page' | 'modal' | 'full';
         /**
           * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */
@@ -410,12 +388,6 @@ declare global {
     var HTMLXActionActivatorElement: {
         prototype: HTMLXActionActivatorElement;
         new (): HTMLXActionActivatorElement;
-    };
-    interface HTMLXAudioActionElement extends Components.XAudioAction, HTMLStencilElement {
-    }
-    var HTMLXAudioActionElement: {
-        prototype: HTMLXAudioActionElement;
-        new (): HTMLXAudioActionElement;
     };
     interface HTMLXAudioMusicActionElement extends Components.XAudioMusicAction, HTMLStencilElement {
     }
@@ -522,7 +494,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "x-action": HTMLXActionElement;
         "x-action-activator": HTMLXActionActivatorElement;
-        "x-audio-action": HTMLXAudioActionElement;
         "x-audio-music-action": HTMLXAudioMusicActionElement;
         "x-audio-music-load": HTMLXAudioMusicLoadElement;
         "x-audio-player": HTMLXAudioPlayerElement;
@@ -582,24 +553,6 @@ declare namespace LocalJSX {
           * The time, in seconds at which the contained actions should be submitted.  For use with activate="AtTime" Only!
          */
         "time"?: number;
-    }
-    interface XAudioAction {
-        /**
-          * The command to execute.
-         */
-        "command"?: 'start'|'pause'|'resume'|'mute'|'volume'|'seek';
-        /**
-          * The track to target.
-         */
-        "trackId"?: string;
-        /**
-          * The track to target.
-         */
-        "type"?: AudioType;
-        /**
-          * The value payload for the command.
-         */
-        "value"?: string|boolean|number;
     }
     interface XAudioMusicAction {
         /**
@@ -905,7 +858,7 @@ declare namespace LocalJSX {
         /**
           * How should this page be presented (coming soon)
          */
-        "display"?: 'page'|'modal'|'full';
+        "display"?: 'page' | 'modal' | 'full';
         /**
           * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
          */
@@ -938,7 +891,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "x-action": XAction;
         "x-action-activator": XActionActivator;
-        "x-audio-action": XAudioAction;
         "x-audio-music-action": XAudioMusicAction;
         "x-audio-music-load": XAudioMusicLoad;
         "x-audio-player": XAudioPlayer;
@@ -964,7 +916,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "x-action": LocalJSX.XAction & JSXBase.HTMLAttributes<HTMLXActionElement>;
             "x-action-activator": LocalJSX.XActionActivator & JSXBase.HTMLAttributes<HTMLXActionActivatorElement>;
-            "x-audio-action": LocalJSX.XAudioAction & JSXBase.HTMLAttributes<HTMLXAudioActionElement>;
             "x-audio-music-action": LocalJSX.XAudioMusicAction & JSXBase.HTMLAttributes<HTMLXAudioMusicActionElement>;
             "x-audio-music-load": LocalJSX.XAudioMusicLoad & JSXBase.HTMLAttributes<HTMLXAudioMusicLoadElement>;
             "x-audio-player": LocalJSX.XAudioPlayer & JSXBase.HTMLAttributes<HTMLXAudioPlayerElement>;

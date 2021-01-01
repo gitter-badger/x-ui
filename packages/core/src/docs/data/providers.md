@@ -2,6 +2,13 @@
 
 > The Data Provider system is a way to normalize data access for use within  Data Expressions. 
 
+* Browser Session: **session**
+* Browser Storage: **storage**
+* Cookies: **cookie**
+* Route: **route**
+* Query: **query**
+* Inline Data: **data**
+
 Data Providers _provide_ the underlying data-store for expressions to resolve using data from a variety of sources. Also, since custom providers can be added, you can extend your HTML with customizations, personalization and route-conditions with ANY data-set.
 
 **Expression Format:** ```{ provider : key ? default } ```

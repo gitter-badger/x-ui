@@ -12,11 +12,10 @@
 <x-action-activator
   activate="AtTime"
   time="5">
-  <x-audio-action
+  <x-audio-sound-action
     command="start"
-    track-id="buzzer"
-    type="sound">
-  </x-audio-action>
+    track-id="buzzer">
+  </x-audio-sound-action>
 </x-action-activator>
 
 
@@ -63,8 +62,8 @@
     We play the sound by sending an <x-link href="/actions">event action</x-link> with
     start command after 5 seconds. We use the <x-link href="/components/x-action-activator">
     <b>&lt;x-action-activator&gt;</b></x-link> component and
-    <x-link href="/components/x-audio-action"><b>&lt;x-audio-action&gt;</b></x-link>
-    components with the command, audio-type and track-id.
+    <x-link href="/components/x-audio-sound-action"><b>&lt;x-audio-sound-action&gt;</b></x-link>
+    components with the command and track-id.
   </p>
   <p>
     <button class="btn btn-light" type="button"
@@ -80,11 +79,10 @@
         <x-action-activator
           activate="AtTime"
           time="5">
-          <x-audio-action
+          <x-audio-sound-action
             command="start"
-            track-id="buzzer"
-            type="sound">
-          </x-audio-action>
+            track-id="buzzer">
+          </x-audio-sound-action>
         </x-action-activator>
         ````
         </script>

@@ -7,7 +7,6 @@ import {
 } from '../..';
 
 /**
- *  @system content
  *  @system data
  */
 @Component({

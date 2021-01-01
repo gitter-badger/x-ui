@@ -119,10 +119,6 @@ export class XSwipe {
     else if (startY > endY && startY - endY >= thresholdY)
       swipeDirection.up = true;
 
-    if (swipeDirection.up || swipeDirection.down) {
-      return swipeDirection;
-    }
-
     if (startX > endX && startX - endX >= thresholdX)
       swipeDirection.left = true;
     else if (startX < endX && endX - startX >= thresholdX)

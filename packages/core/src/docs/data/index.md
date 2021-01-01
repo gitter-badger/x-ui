@@ -1,4 +1,4 @@
-# Declarative Data & HTML
+# Declarative Data
 
 ## Using Data
   
@@ -17,9 +17,8 @@
 
 ## Data Providers
 
-<li>
-  <x-link href="/use-data/providers">
-    Data Providers
-  </x-link>
-</li>
+<x-link href="/use-data/providers"
+  custom="button" anchor-class="btn btn-info text-white ">
+  Data Providers
+</x-link>
 

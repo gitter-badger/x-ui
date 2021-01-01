@@ -1,5 +1,5 @@
 import { EventEmitter } from '../../actions';
-import { IDataProvider } from '../interfaces';
+import { IDataProvider, DATA_EVENTS } from '../interfaces';
 
 export class SessionProvider implements IDataProvider {
   constructor(private sessionStorage = window.sessionStorage) {
@@ -12,6 +12,7 @@ export class SessionProvider implements IDataProvider {
 
   async set(key: string, value: any) {
     this.sessionStorage?.setItem(key, value);
+    this.changed.emit(DATA_EVENTS.DataChanged)
   }
 
   changed:EventEmitter;

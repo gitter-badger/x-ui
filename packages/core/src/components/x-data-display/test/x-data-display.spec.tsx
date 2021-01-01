@@ -117,7 +117,7 @@ describe('x-data-display', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <x-data-display>
+      <x-data-display innerHtml=" <p>Hello Tom!</p> ">
         <p>Hello Tom!</p>
       </x-data-display>
     `);

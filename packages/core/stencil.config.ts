@@ -7,6 +7,17 @@ export const config: Config = {
   plugins: [
     sass(),
   ],
+  bundles: [
+    { components: ['x-ui', 'x-view', 'x-view-do', 'x-link', 'x-swipe'] },
+    { components: [
+      'x-audio-player',
+      'x-audio-music-load',
+      'x-audio-sound-load',
+      'x-audio-music-action',
+      'x-audio-sound-action']
+    }
+  ],
+  preamble: 'view.DO 2021',
   globalStyle: 'src/global/app.scss',
   globalScript: 'src/global/app.ts',
   devServer: {
@@ -17,7 +28,8 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: 'loader'
+      esmLoaderPath: 'loader',
+      empty: true,
     },
     {
       type: 'dist-custom-elements-bundle',

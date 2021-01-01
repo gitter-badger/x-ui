@@ -8,7 +8,6 @@
 
 \* _If there are any dots in the key, the evaluator attempts to parse the base value as JSON, then uses the dot-notation to select a value from the object. For example, the expression ````{session:user.name}```` means the session value 'user' is a JSON object, parse it and replace with the 'name' property._
 
-> See [data expressions](/data/expressions) for full documentation
 
 **Providers:**
 
@@ -19,7 +18,7 @@
 * Query: **query**
 * Inline Data: **data**
 
-> See [data providers](/data/providers) to learn how to add custom data providers.
+> See [data providers](/use-data/providers) to learn how to add custom data providers.
 
 
 

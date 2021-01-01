@@ -1,17 +1,17 @@
 {
   "name": "@viewdo/x-ui",
   "version": "0.1.0",
-  "description": "view.DO X-UI",
+  "description": "view.DO <x-ui/>",
   "license": "MIT",
   "main": "dist/index.cjs.js",
-  "module": "dist/custom-elements/index.js",
+  "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
   "types": "dist/custom-elements/index.d.ts",
   "loader": "dist/loader",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/x-ui/index.esm.js",
+  "unpkg": "dist/x-ui/x-ui.js",
   "files": [
     "dist/"
   ],

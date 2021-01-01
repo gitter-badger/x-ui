@@ -46,6 +46,10 @@ export class AudioPlayer {
     [AudioType.Sound]: []
   };
 
+  private get hasAudio(): boolean {
+    return this.queue[AudioType.Music].length > 0 || this.queue[AudioType.Sound].length > 0;
+  }
+
   @State() isPlaying: boolean;
 
   /**
@@ -100,12 +104,10 @@ export class AudioPlayer {
       }
       case AUDIO_COMMANDS.Queue: {
         const audio = this.getQueuedAudio(data as AudioTrack);
+        this.addToQueue(audio.type, audio);
+        eventBus.emit(AUDIO_EVENTS.Queued);
         if (!this.current[audio.type]) {
           this.playNext(audio.type, audio);
-          eventBus.emit(AUDIO_EVENTS.Played);
-        } else {
-          this.addToQueue(audio.type, audio);
-          eventBus.emit(AUDIO_EVENTS.Queued);
         }
         break;
       }
@@ -177,13 +179,13 @@ export class AudioPlayer {
   }
 
   private playNext(type:AudioType, audio?: QueuedAudio) {
-    debugIf(this.debug, `play next requested for ${type}`);
+    debugIf(this.debug, `play next for ${type}`);
     const current = this.current[type];
     if (current) {
       this.haltAudio(type, DiscardStrategy.Next);
     }
 
-    const nextUp = audio || this.queue[type]?.find(a => a.mode != LoadStrategy.Load);
+    const nextUp = audio || this.queue[type]?.find(a => a.mode == LoadStrategy.Queue);
 
     if (nextUp) {
       if (nextUp.track) {
@@ -195,6 +197,7 @@ export class AudioPlayer {
         }
         nextUp.events.once(AUDIO_EVENTS.Played, () => {
           trackPlayed(nextUp.trackId);
+          eventBus.emit(AUDIO_EVENTS.Played);
         });
       }
       this.current = {...this.current, [type]: nextUp };
@@ -261,15 +264,24 @@ export class AudioPlayer {
 
   render() {
     if (this.display) {
-      return (
-        <Host>
-          <slot />
-          { this.isPlaying
-            ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
-            : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
-          }
-        </Host>
-        );
+      if (this.hasAudio) {
+        return (
+          <Host>
+            <slot />
+            { this.isPlaying
+              ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
+              : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
+            }
+          </Host>
+          );
+      } else {
+        return (
+          <Host>
+            <slot />
+            <i class="ri-speaker-line fs-2"></i>
+          </Host>
+          );
+      }
     }
   }
 }

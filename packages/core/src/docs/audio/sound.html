@@ -66,18 +66,17 @@
     We play the sound by sending an <x-link href="/actions">event action</x-link> with
     start command. We can use the <x-link href="/components/x-action-activator">
     <b>&lt;x-action-activator&gt;</b></x-link> component and special
-    <x-link href="/components/x-audio-action"><b>&lt;x-audio-action&gt;</b></x-link>
-    components with the command, audio-type and track-id.
+    <x-link href="/components/x-audio-sound-action"><b>&lt;x-audio-sound-action&gt;</b></x-link>
+    components with the command, and track-id.
   </p>
   <p>
     <x-action-activator
       activate="OnElementEvent"
       multiple>
-      <x-audio-action
+      <x-audio-sound-action
         command="start"
-        track-id="buzzer"
-        type="sound">
-      </x-audio-action>
+        track-id="buzzer">
+      </x-audio-sound-action>
       <button type="button" class="btn btn-info text-white">
         <i class="ri-play-circle-line"></i>
         Sound
@@ -98,11 +97,10 @@
         <x-action-activator
           activate="OnElementEvent"
           multiple>
-          <x-audio-action
+          <x-audio-sound-action
             command="start"
-            track-id="buzzer"
-            type="sound">
-          </x-audio-action>
+            track-id="buzzer">
+          </x-audio-sound-action>
           <button type="button" class="btn btn-info">Sound</button>
         </x-action-activator>
         ````

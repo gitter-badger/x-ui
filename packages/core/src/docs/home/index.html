@@ -39,7 +39,7 @@
       <i x-show-when="didVisit('/routing')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
       <x-link href="/routing">
         <i class="ri-route-line"></i>
-        Content Routing
+        Routing
       </x-link>
     </li>
     <li class="list-group-item">
@@ -51,19 +51,11 @@
       </x-link>
     </li>
     <li class="list-group-item">
-      <i x-hide-when="didVisit('/audio')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/audio')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/audio">
-        <i class="ri-music-line"></i>
-        Incorporating Audio
-      </x-link>
-    </li>
-    <li hidden class="list-group-item">
-      <i x-hide-when="didVisit('/video')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/video')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/video">
-        <i class="ri-video-line"></i>
-        Interactive Video
+      <i x-hide-when="didVisit('/use-data')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/use-data')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <x-link href="/use-data">
+        <i class="ri-database-2-line"></i>
+        Declarative Data
       </x-link>
     </li>
     <li class="list-group-item">
@@ -75,11 +67,19 @@
       </x-link>
     </li>
     <li class="list-group-item">
-      <i x-hide-when="didVisit('/use-data')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/use-data')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/use-data">
-        <i class="ri-database-2-line"></i>
-        Using Data
+      <i x-hide-when="didVisit('/audio')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/audio')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <x-link href="/audio">
+        <i class="ri-music-line"></i>
+        Reactive Audio
+      </x-link>
+    </li>
+    <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/video')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/video')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <x-link href="/video">
+        <i class="ri-video-line"></i>
+        Interactive Video
       </x-link>
     </li>
     <li hidden class="list-group-item">
