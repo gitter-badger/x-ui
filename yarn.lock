@@ -2111,7 +2111,14 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.92":
+"@types/lodash-es@^4.17.4":
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.4.tgz#b2e440d2bf8a93584a9fd798452ec497986c9b97"
+  integrity sha512-BBz79DCJbD2CVYZH67MBeHZRX++HF+5p8Mo5MzjZi64Wac39S3diedJYHZtScbRVf4DjZyN6LzA0SB0zy+HSSQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*", "@types/lodash@^4.14.92":
   version "4.14.166"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.166.tgz#07e7f2699a149219dbc3c35574f126ec8737688f"
   integrity sha512-A3YT/c1oTlyvvW/GQqG86EyqWNrT/tisOIh2mW3YCgcx71TNjiTZA3zYZWA5BCmtsOTXjhliy4c4yEkErw6njA==
@@ -2238,6 +2245,11 @@
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
+
+"@types/searchjs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/searchjs/-/searchjs-1.0.0.tgz#987ecc3c4d91f9505d48160ddcf45fcbade65d67"
+  integrity sha512-g7dZSN5buR4vYgCuwwKRyzJJCdQ83m8rz23jNxlDWrn71Yeh8cHL29XMVVAPsPqItIt3N/Qt8bvN7x5IEIc5Mg==
 
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
@@ -9126,10 +9138,10 @@ humanize-url@^1.0.0:
     normalize-url "^1.0.0"
     strip-url-auth "^1.0.0"
 
-husky@4.3.5:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-4.3.5.tgz#ab8d2a0eb6b62fef2853ee3d442c927d89290902"
-  integrity sha512-E5S/1HMoDDaqsH8kDF5zeKEQbYqe3wL9zJDyqyYqc8I4vHBtAoxkDBGXox0lZ9RI+k5GyB728vZdmnM4bYap+g==
+husky@4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-4.3.6.tgz#ebd9dd8b9324aa851f1587318db4cccb7665a13c"
+  integrity sha512-o6UjVI8xtlWRL5395iWq9LKDyp/9TE7XMOTvIpEVzW638UcGxTmV5cfel6fsk/jbZSTlvfGVJf2svFtybcIZag==
   dependencies:
     chalk "^4.0.0"
     ci-info "^2.0.0"
@@ -15089,6 +15101,11 @@ scss-tokenizer@^0.2.3:
   dependencies:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
+
+searchjs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/searchjs/-/searchjs-1.1.0.tgz#c9f96e9761ffc69a31b4c6334897f136ceeccd49"
+  integrity sha512-reIbCxanRxsbrzwDyJKH7UuxjUWJTz5LVcTEIxQ+7joLDaNkomaLZ6YerF6BcvTPdJR7E2Z7TzFkjPI4ksiW7g==
 
 section-matter@^1.0.0:
   version "1.0.0"
