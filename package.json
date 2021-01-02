@@ -32,7 +32,7 @@
     "docker:push": "docker push viewdo/x-ui-docs"
   },
   "devDependencies": {
-    "@babel/core": "7.12.9",
+    "@babel/core": "7.12.10",
     "@stencil/core": "^2.3.0",
     "@stencil/eslint-plugin": "^0.3.1",
     "@types/howler": "^2.2.1",
