@@ -1,12 +1,12 @@
-# X-SHOW
+# X-DATA-SHOW
 
 This tag conditionally renders child elements based on the configured predicate applied to the when value predicate. To learn more about predicates, check out the [expressions](/data/expressions) documentation.
 
 ## Usage
 ````html
-<x-show when="<expression>">
+<x-data-show when="<expression>">
  ... contents ...
-</x-show>
+</x-data-show>
 ````
 
 <!-- Auto Generated Below -->

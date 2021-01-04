@@ -1,16 +1,16 @@
 
 <div class="container container-fluid mx-auto">
 
-  <x-show when="!{storage:name}">
+  <x-data-show when="!{storage:name}">
     <h1>Introductions</h1>
     <p>The View.DO Experience UI system helps build a personalized, conversational UI for the modern web.</p>
     <p>To demonstrate these capabilities, tell us what to call you and your name will show up in surprising ways.</p>
-  </x-show>
+  </x-data-show>
 
-  <x-show when="{storage:name}">
+  <x-data-show when="{storage:name}">
     <h1>Your Profile</h1>
     <p>This data does not leave your browser. It is only for demonstration purposes.</p>
-  </x-show>
+  </x-data-show>
 
   <div class="form-floating mb-3">
     <input id="name" type="text" required class="form-control"

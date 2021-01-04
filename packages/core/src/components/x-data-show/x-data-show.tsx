@@ -10,11 +10,10 @@ import {
  *  @system data
  */
 @Component({
-  tag: 'x-show',
-  styleUrl: 'x-show.scss',
+  tag: 'x-data-show',
   shadow: false,
 })
-export class XShow {
+export class XDataShow {
   @State() show = true;
 
   /**
@@ -45,4 +44,5 @@ export class XShow {
     if (this.show) return (<Host><slot/></Host>);
     return (<Host hidden><slot/></Host>);
   }
+
 }
