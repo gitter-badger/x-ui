@@ -1,5 +1,4 @@
 import { Component, h, Prop, Element, State, Host, Watch, writeTask } from '@stencil/core';
-import '../x-swipe/x-swipe';
 import '../x-view/x-view';
 import {
   EventEmitter,
@@ -19,7 +18,6 @@ import {
   restoreElementChildTimedNodes,
   warn,
   wrapFragment,
-  ISwipeEvent,
   eventBus,
 } from '../..';
 
@@ -201,6 +199,8 @@ export class XViewDo {
       clearInterval(this.timer);
       this.timer = null;
       this.lastTime = 0;
+
+
     }
     return valid;
   }
@@ -237,7 +237,6 @@ export class XViewDo {
       await this.fetchHtml();
       this.el.removeAttribute('hidden');
       writeTask(() => this.resolveChildren());
-
     } else {
       this.el.setAttribute('hidden', '');
     }
@@ -350,16 +349,6 @@ export class XViewDo {
     });
   }
 
-  private handleSwipe(ev: CustomEvent<ISwipeEvent>) {
-    const { left, right } = ev.detail;
-    if (right) {
-      this.back(this.el.localName, 'swipe');
-    }
-
-    if (left) {
-      this.next(this.el.localName, 'swipe');
-    }
-  }
 
   get classes() {
     if (this.match == null) {
@@ -378,9 +367,7 @@ export class XViewDo {
       <Host class={this.classes}>
         <slot />
         {this.exact ? (
-          <x-swipe onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)}>
-            <slot name="content" />
-          </x-swipe>
+          <slot name="content" />
         ) : null}
       </Host>
     );

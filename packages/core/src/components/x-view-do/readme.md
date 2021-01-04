@@ -232,19 +232,6 @@ This attribute instructs **\<x-view-do\>** to inject the current time percentage
 | `when`             | `when`              | If present, the expression must evaluate to true for this route to be sequenced by the parent view. The existence of this value overrides the visit strategy                                                         | `string`                                                               | `undefined`          |
 
 
-## Dependencies
-
-### Depends on
-
-- [x-swipe](../x-swipe)
-
-### Graph
-```mermaid
-graph TD;
-  x-view-do --> x-swipe
-  style x-view-do fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

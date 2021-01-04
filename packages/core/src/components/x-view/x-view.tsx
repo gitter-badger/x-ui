@@ -1,12 +1,10 @@
 import { h, Component, Element, Host, Prop, State, Watch, writeTask } from '@stencil/core';
-import '../x-swipe/x-swipe';
 import '../x-view-do/x-view-do';
 import {
   eventBus,
   DATA_EVENTS,
   debugIf,
   hasVisited,
-  ISwipeEvent,
   markVisit,
   resolveElementVisibility,
   resolveNext,
@@ -184,36 +182,12 @@ export class XView {
     }
   }
 
-  private back(element:string, eventName: string) {
-    debugIf(this.debug, `x-view: back fired from ${element}:${eventName}`);
-    RouterService.instance.history.goBack();
-  }
-
-  private next(element:string, eventName: string) {
-    debugIf(this.debug, `x-view: next fired from ${element}:${eventName}`);
-
-    RouterService.instance.history.goForward();
-  }
-
-  private handleSwipe(ev: CustomEvent<ISwipeEvent>) {
-    const { left, right } = ev.detail;
-    if (right) {
-      this.back(this.el.localName, 'swipe');
-    }
-
-    if (left) {
-      this.next(this.el.localName, 'swipe');
-    }
-  }
-
   render() {
     debugIf(this.debug, `x-view: ${this.url} render`);
     return (
       <Host class={this.route?.transition}>
         <slot />
-        <x-swipe onSwipe={(e: CustomEvent<ISwipeEvent>) => this.handleSwipe(e)} >
-          <slot name="content" />
-        </x-swipe>
+        <slot name="content" />
       </Host>
     );
   }

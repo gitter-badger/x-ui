@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ActionActivationStrategy, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, ISwipeEvent, LoadStrategy, VisitStrategy } from ".";
+import { ActionActivationStrategy, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, LoadStrategy, VisitStrategy } from ".";
 import { HistoryType } from "./services";
 export namespace Components {
     interface XAction {
@@ -193,6 +193,13 @@ export namespace Components {
          */
         "noRender": boolean;
     }
+    interface XDataShow {
+        /**
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+         */
+        "when": string;
+    }
     interface XInclude {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
@@ -229,27 +236,6 @@ export namespace Components {
           * Remote Template URL
          */
         "src": string;
-    }
-    interface XShow {
-        /**
-          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
-          * @example {session:user.name}
-         */
-        "when": string;
-    }
-    interface XSwipe {
-        /**
-          * How many units must be covered in the x-axis to determine if it was a swipe
-         */
-        "thresholdX": number;
-        /**
-          * How many units must be covered in the y-axis to determine if it was a swipe
-         */
-        "thresholdY": number;
-        /**
-          * The amount of touch-time required before issuing an event
-         */
-        "timeThreshold": number;
     }
     interface XUi {
         /**
@@ -437,6 +423,12 @@ declare global {
         prototype: HTMLXDataRepeatElement;
         new (): HTMLXDataRepeatElement;
     };
+    interface HTMLXDataShowElement extends Components.XDataShow, HTMLStencilElement {
+    }
+    var HTMLXDataShowElement: {
+        prototype: HTMLXDataShowElement;
+        new (): HTMLXDataShowElement;
+    };
     interface HTMLXIncludeElement extends Components.XInclude, HTMLStencilElement {
     }
     var HTMLXIncludeElement: {
@@ -454,18 +446,6 @@ declare global {
     var HTMLXMarkdownElement: {
         prototype: HTMLXMarkdownElement;
         new (): HTMLXMarkdownElement;
-    };
-    interface HTMLXShowElement extends Components.XShow, HTMLStencilElement {
-    }
-    var HTMLXShowElement: {
-        prototype: HTMLXShowElement;
-        new (): HTMLXShowElement;
-    };
-    interface HTMLXSwipeElement extends Components.XSwipe, HTMLStencilElement {
-    }
-    var HTMLXSwipeElement: {
-        prototype: HTMLXSwipeElement;
-        new (): HTMLXSwipeElement;
     };
     interface HTMLXUiElement extends Components.XUi, HTMLStencilElement {
     }
@@ -502,11 +482,10 @@ declare global {
         "x-data-display": HTMLXDataDisplayElement;
         "x-data-provider-cookie": HTMLXDataProviderCookieElement;
         "x-data-repeat": HTMLXDataRepeatElement;
+        "x-data-show": HTMLXDataShowElement;
         "x-include": HTMLXIncludeElement;
         "x-link": HTMLXLinkElement;
         "x-markdown": HTMLXMarkdownElement;
-        "x-show": HTMLXShowElement;
-        "x-swipe": HTMLXSwipeElement;
         "x-ui": HTMLXUiElement;
         "x-use": HTMLXUseElement;
         "x-view": HTMLXViewElement;
@@ -694,6 +673,13 @@ declare namespace LocalJSX {
          */
         "noRender"?: boolean;
     }
+    interface XDataShow {
+        /**
+          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
+          * @example {session:user.name}
+         */
+        "when": string;
+    }
     interface XInclude {
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
@@ -730,31 +716,6 @@ declare namespace LocalJSX {
           * Remote Template URL
          */
         "src"?: string;
-    }
-    interface XShow {
-        /**
-          * The data expression to obtain a predicate for conditionally rendering the inner-contents of this element.
-          * @example {session:user.name}
-         */
-        "when": string;
-    }
-    interface XSwipe {
-        /**
-          * Handle the touch start event, store the coordinates and set the timer for touch event
-         */
-        "onSwipe"?: (event: CustomEvent<ISwipeEvent>) => void;
-        /**
-          * How many units must be covered in the x-axis to determine if it was a swipe
-         */
-        "thresholdX"?: number;
-        /**
-          * How many units must be covered in the y-axis to determine if it was a swipe
-         */
-        "thresholdY"?: number;
-        /**
-          * The amount of touch-time required before issuing an event
-         */
-        "timeThreshold"?: number;
     }
     interface XUi {
         /**
@@ -899,11 +860,10 @@ declare namespace LocalJSX {
         "x-data-display": XDataDisplay;
         "x-data-provider-cookie": XDataProviderCookie;
         "x-data-repeat": XDataRepeat;
+        "x-data-show": XDataShow;
         "x-include": XInclude;
         "x-link": XLink;
         "x-markdown": XMarkdown;
-        "x-show": XShow;
-        "x-swipe": XSwipe;
         "x-ui": XUi;
         "x-use": XUse;
         "x-view": XView;
@@ -924,11 +884,10 @@ declare module "@stencil/core" {
             "x-data-display": LocalJSX.XDataDisplay & JSXBase.HTMLAttributes<HTMLXDataDisplayElement>;
             "x-data-provider-cookie": LocalJSX.XDataProviderCookie & JSXBase.HTMLAttributes<HTMLXDataProviderCookieElement>;
             "x-data-repeat": LocalJSX.XDataRepeat & JSXBase.HTMLAttributes<HTMLXDataRepeatElement>;
+            "x-data-show": LocalJSX.XDataShow & JSXBase.HTMLAttributes<HTMLXDataShowElement>;
             "x-include": LocalJSX.XInclude & JSXBase.HTMLAttributes<HTMLXIncludeElement>;
             "x-link": LocalJSX.XLink & JSXBase.HTMLAttributes<HTMLXLinkElement>;
             "x-markdown": LocalJSX.XMarkdown & JSXBase.HTMLAttributes<HTMLXMarkdownElement>;
-            "x-show": LocalJSX.XShow & JSXBase.HTMLAttributes<HTMLXShowElement>;
-            "x-swipe": LocalJSX.XSwipe & JSXBase.HTMLAttributes<HTMLXSwipeElement>;
             "x-ui": LocalJSX.XUi & JSXBase.HTMLAttributes<HTMLXUiElement>;
             "x-use": LocalJSX.XUse & JSXBase.HTMLAttributes<HTMLXUseElement>;
             "x-view": LocalJSX.XView & JSXBase.HTMLAttributes<HTMLXViewElement>;

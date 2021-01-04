@@ -94,19 +94,6 @@ For each child element with this attribute, the value of the attribute is evalua
 | `url` _(required)_ | `url`               | The url for this route, including the parent's routes.                            | `string`  | `undefined` |
 
 
-## Dependencies
-
-### Depends on
-
-- [x-swipe](../x-swipe)
-
-### Graph
-```mermaid
-graph TD;
-  x-view --> x-swipe
-  style x-view fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
