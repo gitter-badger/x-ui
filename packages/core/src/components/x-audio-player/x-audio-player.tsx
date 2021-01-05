@@ -264,24 +264,18 @@ export class AudioPlayer {
 
   render() {
     if (this.display) {
-      if (this.hasAudio) {
-        return (
-          <Host>
-            <slot />
-            { this.isPlaying
+      return (
+        <Host>
+          <slot />
+          { this.hasAudio
+            ? (this.isPlaying
               ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
               : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
-            }
-          </Host>
-          );
-      } else {
-        return (
-          <Host>
-            <slot />
-            <i class="ri-speaker-line fs-2"></i>
-          </Host>
-          );
-      }
+              )
+            : <i class="ri-speaker-line fs-2"></i>
+          }
+        </Host>
+        );
     }
   }
 }
