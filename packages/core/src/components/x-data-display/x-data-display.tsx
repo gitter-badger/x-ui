@@ -22,7 +22,7 @@ export class XDataDisplay {
   @Element() el: HTMLXDataDisplayElement;
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
-  @State() innerData: any = {};
+  @State() innerData: any;
   @State() value: string;
 
   /**

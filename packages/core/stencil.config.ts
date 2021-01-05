@@ -38,9 +38,8 @@ export const config: Config = {
     },
     {
       type: 'docs-json',
-      file: `dist/components.json`
+      file: `dist/collection/components.json`
     },
-    // create components(.d.ts|json) into www
     {
       type: 'docs-json',
       file: `../../www/data/x-components.json`,

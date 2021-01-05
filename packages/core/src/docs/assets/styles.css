@@ -1,5 +1,5 @@
 :root {
-  --bs-primary: #a06cb4;
+  --bs-primary: #620686;
   --text-color: #000;
   --content-max-width: 1200px;
 }
@@ -50,7 +50,7 @@ h4 {
   color: var(--bs-primary);
 }
 
-h2, h3, h4, h5, h6 {
+h2, h3, h4 {
   margin: .75em 0 .25em 0;
 }
 
@@ -62,17 +62,18 @@ h2, h3, h4, h5, h6 {
   margin-bottom: 1em;
 }
 
+
 a,
 a:link,
 a:visited,
 a:active
 {
-  color: var(--bs-primary);
+  color: #3e3f3e ;
   text-decoration: none;
 }
 
 a:hover {
-  color: #a0ec88;
+  color: var(--bs-primary);
   text-decoration: underline;
 }
 

@@ -1,3 +1,4 @@
+
 <div class="collapse navbar-collapse"
   id="navbarSupportedContent">
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -10,14 +11,14 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle"
         href="#"
-        id="navbarDropdown"
+        id="navbarGuidesDropdown"
         role="button"
         data-bs-toggle="dropdown"
         aria-expanded="false">
         Guides
       </a>
       <ul class="dropdown-menu"
-        aria-labelledby="navbarDropdown">
+        aria-labelledby="navbarGuidesDropdown">
         <li class="dropdown-item d-sm-block d-md-none">
           <x-link href="/routing">
             <i class="ri-rocket-line"></i>
@@ -79,14 +80,14 @@
       data-intro="The <b>x-data-repeat</b> element rendered this list from a remote JSON data-source. <br/><br/> Check out the <a href='documentation/components/x-data-repeat'>documentation</a> to see what else you can do.">
       <a class="nav-link dropdown-toggle"
         href="#"
-        id="navbarDropdown"
+        id="navbarComponentsDropdown"
         role="button"
         data-bs-toggle="dropdown"
         aria-expanded="false">
         Components
       </a>
       <ul class="dropdown-menu"
-        aria-labelledby="navbarDropdown">
+        aria-labelledby="navbarComponentsDropdown">
         <li class="dropdown-item-text fw-bold">Routing</li>
         <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
           <template>

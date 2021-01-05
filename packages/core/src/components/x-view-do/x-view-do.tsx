@@ -1,4 +1,4 @@
-import { Component, h, Prop, Element, State, Host, Watch, writeTask } from '@stencil/core';
+import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
 import '../x-view/x-view';
 import {
   EventEmitter,
@@ -105,7 +105,7 @@ export class XViewDo {
    * When this value exists, the page will
    * automatically progress when the duration in seconds has passed.
    */
-  @Prop() nextAfter?: number;
+  @Prop() nextAfter: number = 0;
 
   /**
    * Remote URL for this Route's content.
@@ -266,8 +266,9 @@ export class XViewDo {
     if (this.match?.isExact) {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
+      resolveElementValues(this.el);
       resolveElementVisibility(this.el);
-      writeTask(() => this.resolveChildren());
+      this.resolveChildren();
     }
   }
 
@@ -311,19 +312,15 @@ export class XViewDo {
       el.removeAttribute('x-back');
     });
 
-    // Capture timed nodes
-    this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
-    debugIf(this.debug && this.timedNodes.length > 0, `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
-
-    resolveElementValues(this.el);
-    resolveElementVisibility(this.el);
-
-    this.setupTimer();
-
     // activate on-enter actions
     this.actionActivators
       .filter(activator => activator.activate === ActionActivationStrategy.OnEnter)
       .forEach(activator => activator.activateActions());
+
+    // Capture timed nodes
+    this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
+    debugIf(this.debug && this.timedNodes.length > 0, `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
+    this.setupTimer();
 
     await this.route.loadCompleted();
   }
@@ -335,6 +332,8 @@ export class XViewDo {
 
     this.timeEvent = new EventEmitter();
     this.lastTime = 0;
+
+    debugIf(this.debug, `x-view-do: starting timer w/ ${duration} duration`);
 
     if (video) {
       video.addEventListener(timeUpdateEvent, () => {
@@ -371,6 +370,7 @@ export class XViewDo {
           this.next('timer', timeUpdateEvent);
         }
       };
+
       this.timer = requestAnimationFrame(() => {
         emitTime(time);
       });

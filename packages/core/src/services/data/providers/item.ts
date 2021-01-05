@@ -2,7 +2,7 @@ import { EventEmitter } from '../../actions/event-emitter';
 import { DATA_EVENTS, IDataProvider } from '../interfaces';
 
 export class DataItemProvider implements IDataProvider {
-  constructor(private data: any) {
+  constructor(private data: any, private setter?: (key, value) => Promise<void>) {
     this.changed = new EventEmitter();
   }
 
@@ -11,7 +11,11 @@ export class DataItemProvider implements IDataProvider {
     return this.data[key];
   }
   async set(key: string, value: string): Promise<void> {
-    this.data[key] = value;
+    if (this.setter) {
+      await this.setter(key, value);
+    } else {
+      this.data[key] = value;
+    }
     this.changed.emit(DATA_EVENTS.DataChanged);
   }
 

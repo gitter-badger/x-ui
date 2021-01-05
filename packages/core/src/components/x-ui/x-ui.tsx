@@ -24,6 +24,7 @@ import {
   InterfaceListener,
   EventAction,
   eventBus,
+  resolveElementVisibility,
 } from '../../services';
 
 /**
@@ -98,7 +99,7 @@ export class XUI {
    */
   @Prop() debug: boolean = false;
 
-  @Listen('actionEvent', {
+  @Listen('eventAction', {
     passive: true,
     target: 'body',
     capture: true,
@@ -178,16 +179,17 @@ export class XUI {
     this.listeners.push(listener);
   }
 
+  componentDidLoad() {
+    log('x-ui: initialized');
+    resolveElementVisibility(this.el);
+  }
+
   disconnectedCallback() {
     clearDataProviders();
     this.actionsSubscription();
     this.eventSubscription();
     eventBus.removeAllListeners();
     actionBus.removeAllListeners();
-  }
-
-  componentDidLoad() {
-    log('x-xui: initialized');
   }
 
   render() {
