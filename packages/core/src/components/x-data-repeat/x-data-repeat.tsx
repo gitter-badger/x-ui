@@ -21,6 +21,8 @@ import {
   shadow: false,
 })
 export class XDataRepeat {
+  private subscriptionData: () => void;
+  private subscriptionRoutes: () => void;
   @Element() el: HTMLXDataRepeatElement;
   @State() resolvedItems: Array<any> = [];
   @State() innerTemplate: string;
@@ -83,11 +85,11 @@ export class XDataRepeat {
 
   async componentWillLoad() {
     debugIf(this.debug, 'x-data-repeat: loading');
-    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+    this.subscriptionData = eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveHtml();
     });
 
-    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+    this.subscriptionRoutes = eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.resolveHtml();
     });
 
@@ -169,6 +171,11 @@ export class XDataRepeat {
             })), Promise.resolve());
 
     }
+  }
+
+  disconnectedCallback() {
+    this.subscriptionData();
+    this.subscriptionRoutes();
   }
 
   render() {

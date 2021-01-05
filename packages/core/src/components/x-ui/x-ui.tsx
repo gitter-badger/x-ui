@@ -1,4 +1,5 @@
 import { ROUTE_EVENTS } from '../../services/routing/interfaces';
+import { clearDataProviders } from '../../services/data/providers/factory';
 import {
   Component,
   h,
@@ -34,7 +35,8 @@ import {
   shadow: true,
 })
 export class XUI {
-
+  private eventSubscription: () => void;
+  private actionsSubscription: () => void;
   private listeners: Array<IEventActionListener> = [];
   @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
@@ -128,11 +130,11 @@ export class XUI {
     if (this.debug) log('x-ui: initializing <debug>');
     else log('x-ui: initializing');
 
-    actionBus.on('*', (_topic, args) => {
+    this.actionsSubscription = actionBus.on('*', (_topic, args) => {
       this.actions.emit(args);
     });
 
-    eventBus.on('*', (topic, args) => {
+    this.eventSubscription = eventBus.on('*', (topic, args) => {
       this.events.emit(args);
       if(topic == ROUTE_EVENTS.RouteChanged) {
         this.el.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]').forEach(async (el) => {
@@ -177,10 +179,9 @@ export class XUI {
   }
 
   disconnectedCallback() {
-    this.destroyListeners();
-  }
-
-  private destroyListeners() {
+    clearDataProviders();
+    this.actionsSubscription();
+    this.eventSubscription();
     eventBus.removeAllListeners();
     actionBus.removeAllListeners();
   }

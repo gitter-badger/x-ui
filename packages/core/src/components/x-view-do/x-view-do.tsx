@@ -30,6 +30,7 @@ import {
   shadow: true,
 })
 export class XViewDo {
+  private subscription: () => void;
   private timedNodes: Array<TimedNode> = [];
   private timer: any;
   private timeEvent: EventEmitter;
@@ -175,7 +176,7 @@ export class XViewDo {
 
     await this.resolveView();
 
-    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+    this.subscription = eventBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view-do: data changed `);
       await this.resolveView();
     });
@@ -262,16 +263,12 @@ export class XViewDo {
   private async resolveView() {
     debugIf(this.debug, `x-view-do: ${this.url} resolve view called`);
     clearInterval(this.timer);
-
     if (this.match?.isExact) {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
-      this.el.removeAttribute('hidden');
+      resolveElementVisibility(this.el);
       writeTask(() => this.resolveChildren());
-    } else {
-      this.el.setAttribute('hidden', '');
     }
-    resolveElementVisibility(this.el);
   }
 
   private async resolveChildren() {
@@ -393,6 +390,13 @@ export class XViewDo {
     });
   }
 
+  disconnectedCallback() {
+    clearInterval(this.timer);
+    this.timeEvent = null;
+    this.subscription();
+    this.route.destroy();
+  }
+
 
   get classes() {
     if (this.match == null) {
@@ -408,11 +412,9 @@ export class XViewDo {
     debugIf(this.debug, `x-view-do: ${this.url} render`);
 
     return (
-      <Host class={this.classes}>
+      <Host hidden={!this.match?.isExact} class={this.classes}>
         <slot />
-        {this.match?.isExact ? (
-          <slot name="content" />
-        ) : null}
+        <slot name="content" />
       </Host>
     );
   }

@@ -162,6 +162,7 @@ export class AudioPlayer {
     const index = queue.indexOf(audio);
     if (index > -1) delete queue[index];
     this.queue = {...this.queue, [type]: queue.filter(x => !!x) };
+    audio?.destroy();
   }
 
   private discardFromQueue(type:AudioType, ...reasons: DiscardStrategy[]) {
@@ -259,6 +260,10 @@ export class AudioPlayer {
 
   public disconnectedCallback(): void {
     interfaceState.hasAudio = false;
+    this.haltAudio(AudioType.Sound, DiscardStrategy.Route, DiscardStrategy.Next, DiscardStrategy.None);
+    this.haltAudio(AudioType.Music, DiscardStrategy.Route, DiscardStrategy.Next, DiscardStrategy.None);
+    this.discardFromQueue(AudioType.Sound, DiscardStrategy.Route, DiscardStrategy.Next, DiscardStrategy.None);
+    this.discardFromQueue(AudioType.Music, DiscardStrategy.Route, DiscardStrategy.Next, DiscardStrategy.None);
     this.current = {};
   }
 

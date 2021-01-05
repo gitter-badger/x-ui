@@ -23,6 +23,7 @@ import {
   shadow: true,
 })
 export class XView {
+  private subscription: () => void;
   private route: Route;
   @Element() el!: HTMLXViewElement;
   @State() match: MatchResults;
@@ -207,6 +208,11 @@ export class XView {
       this.el.classList.remove('active-route');
     }
 
+  }
+
+  disconnectedCallback() {
+    this.subscription();
+    this.route.destroy();
   }
 
   render() {

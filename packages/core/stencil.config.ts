@@ -17,9 +17,8 @@ export const config: Config = {
       'x-audio-sound-action']
     }
   ],
+  buildEs5: true,
   preamble: 'view.DO 2021',
-  globalStyle: 'src/global/app.scss',
-  globalScript: 'src/global/app.ts',
   devServer: {
     openBrowser: false,
     reloadStrategy: 'pageReload',
@@ -29,7 +28,7 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: 'loader',
-      empty: true,
+      empty: true
     },
     {
       type: 'dist-custom-elements-bundle',
@@ -58,12 +57,12 @@ export const config: Config = {
           src: 'docs/*.html', dest: './'
         },
         {
-          src: 'components/**/*.md',
+          src: 'components/**/*.{md,html}',
           dest: 'docs',
           keepDirStructure: true
         },
         {
-          src: 'services/**/*.md',
+          src: 'services/**/*.{md,html}',
           dest: 'docs',
           keepDirStructure: true
         },

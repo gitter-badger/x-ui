@@ -13,6 +13,7 @@ describe('x-view-do', () => {
       <x-view-do hidden="" url="/go">
         <mock:shadow-root>
           <slot></slot>
+          <slot name="content"></slot>
         </mock:shadow-root>
       </x-view-do>
     `);

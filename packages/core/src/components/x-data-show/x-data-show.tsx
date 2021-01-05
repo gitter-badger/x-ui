@@ -14,6 +14,8 @@ import {
   shadow: false,
 })
 export class XDataShow {
+  private subscriptionData: () => void;
+  private subscriptionRoutes: () => void;
   @State() show = true;
 
   /**
@@ -24,10 +26,10 @@ export class XDataShow {
   @Prop() when!: string;
 
   componentWillLoad() {
-    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+    this.subscriptionData = eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.evaluatePredicate();
     });
-    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+    this.subscriptionRoutes = eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.evaluatePredicate();
     });
   }
@@ -38,6 +40,11 @@ export class XDataShow {
 
   private async evaluatePredicate() {
     this.show = await evaluatePredicate(this.when);
+  }
+
+  disconnectedCallback() {
+    this.subscriptionData();
+    this.subscriptionRoutes();
   }
 
   render() {

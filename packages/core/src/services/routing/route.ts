@@ -5,7 +5,7 @@ import { hasExpression, resolveExpression } from '../data/expression-evaluator';
 import { eventBus } from '..';
 
 export class Route {
-
+  private subscription: () => void;
   public match: MatchResults;
   public scrollOnNextRender: boolean = false;
   public previousMatch: MatchResults | null = null;
@@ -20,7 +20,7 @@ export class Route {
     public scrollTopOffset: number,
     matchSetter: (m: MatchResults) => void,
   ) {
-    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+    this.subscription = eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       this.previousMatch = this.match;
       this.match = this.router?.matchPath({
         path: path,
@@ -71,5 +71,10 @@ export class Route {
         this.routeElement.ownerDocument.title = `${this.router.appTitle}`;
       }
     }
+  }
+
+
+  public destroy() {
+    this.subscription();
   }
 }

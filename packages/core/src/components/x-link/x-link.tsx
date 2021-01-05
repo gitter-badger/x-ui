@@ -10,6 +10,7 @@ import { MatchResults, RouterService, eventBus, ROUTE_EVENTS } from '../..';
   shadow: false,
 })
 export class XViewLink {
+  private subscription: () => void;
   @Element() el!: HTMLXLinkElement;
   @State() match: MatchResults | null = null;
 
@@ -88,7 +89,7 @@ export class XViewLink {
   @Prop() ariaLabel?: string;
 
   componentWillLoad() {
-    eventBus.on(ROUTE_EVENTS.RouteChanged, () => {
+    this.subscription = eventBus.on(ROUTE_EVENTS.RouteChanged, () => {
       this.match = this.router?.matchPath({
         path: this.href,
         exact: this.exact,
@@ -110,6 +111,10 @@ export class XViewLink {
 
     e.preventDefault();
     router.history?.push(this.href);
+  }
+
+  disconnectedCallback() {
+    this.subscription();
   }
 
   // Get the URL for this route link without the root from the router

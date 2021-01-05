@@ -17,6 +17,8 @@ import {
   shadow: false,
 })
 export class XDataDisplay {
+  private subscriptionData: () => void;
+  private subscriptionRoutes: () => void;
   @Element() el: HTMLXDataDisplayElement;
   @State() innerTemplate: string;
   @State() resolvedTemplate: string;
@@ -63,11 +65,11 @@ export class XDataDisplay {
   }
 
   async componentWillLoad() {
-    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+    this.subscriptionData = eventBus.on(DATA_EVENTS.DataChanged, async () => {
       await this.resolveTemplate();
     });
 
-    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+    this.subscriptionRoutes = eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       await this.resolveTemplate();
     });
 
@@ -98,6 +100,11 @@ export class XDataDisplay {
     if (this.innerTemplate) {
       this.resolvedTemplate = await resolveExpression(this.innerTemplate, this.innerData);
     }
+  }
+
+  disconnectedCallback() {
+    this.subscriptionData();
+    this.subscriptionRoutes();
   }
 
   render() {
