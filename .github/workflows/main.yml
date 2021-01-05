@@ -36,10 +36,12 @@ jobs:
         run: yarn
         env:
           CI: true
+      - run: yarn build
       - run: yarn test
         env:
           CI: true
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v1.1.2
         with:
+          path-to-lcov: ./packages/core/coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
