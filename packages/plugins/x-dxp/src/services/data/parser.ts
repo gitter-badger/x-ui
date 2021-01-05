@@ -1,6 +1,6 @@
 import get from 'lodash/get';
-import { Experience } from '../models';
-import { formatter, getLocalDate } from './utils';
+import { Experience } from '../../models';
+import { formatter, getLocalDate } from '../utils';
 
 export type Comparison = 'gt' | 'lt' | 'eq' | 'lte' | 'gte' | 'not' | null;
 

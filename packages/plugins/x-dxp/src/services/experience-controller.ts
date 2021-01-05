@@ -1,21 +1,18 @@
-import { OfflineFetchOptions } from './fetch.service';
+import { FetchService, OfflineFetchOptions } from './api/fetch-service';
 import { ExperienceInformation } from '../models';
 import {
   PreviewExperienceKey,
   getExperienceRequestUrl,
   getExperienceCSSUrl,
-  getExperienceScriptUrl } from './api.conventions';
+  getExperienceScriptUrl } from './api/conventions';
 
-import { ApiService } from './api.service';
-import { StorageService } from './storage.service';
-import { SessionService } from './session.service';
-import { FetchService } from './fetch.service';
+import { ApiService } from './api/api-service';
+import { StorageService } from './data/storage-service';
+import { SessionService } from './data/session-service';
 import { logger, urlService, state } from '.';
 import { Experience } from '../models';
 
 export class ExperienceController {
-
-
   private api: ApiService;
   public session: SessionService;
   public storage: StorageService;
@@ -57,7 +54,6 @@ export class ExperienceController {
     console.log('%cview%c.DO',
       'color: #7566A0; font-size: 2em; font-family: Verdana;',
       'color: #1A658F; font-size: 2em; font-family: Trebuchet MS; font-weight: 800');
-
   }
 
 
@@ -107,8 +103,8 @@ export class ExperienceController {
     }
   }
 
-  private async refreshExperience() {
-    let experienceInfo = await this.api.getExperience(this.session.xid, true);
+  private async refreshExperience(xid: string) {
+    let experienceInfo = await this.api.getExperience(xid, true);
     if(experienceInfo) {
       state.experience = new Experience(this, experienceInfo);
     }
@@ -173,32 +169,32 @@ export class ExperienceController {
 
   public async setData(xid: string, key: string, value: any): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId, `set-data`, { [key]:encodeURIComponent(value)});
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async setMilestone(xid: string, milestone: string): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId,'set-milestone', { value: encodeURIComponent(milestone)});
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async recordEvent(xid: string, event: string): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId,'record-event', { value: encodeURIComponent(event)});
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async setComplete(xid: string): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId, 'set-complete');
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async setConverted(xid: string, label?: string): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId, 'set-converted', label ? { label } : {});
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async setChildEntity(xid: string, ocid: string): Promise<void> {
     await this.api.getRequest(xid, this.session.sessionId, 'set-child-entity', { ocid });
-    this.refreshExperience();
+    this.refreshExperience(xid);
   }
 
   public async repersonalize(xid: string, contactData: { [key: string]: string; }): Promise<boolean> {

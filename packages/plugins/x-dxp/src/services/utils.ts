@@ -1,4 +1,4 @@
-import { LoggingService } from './logging.service';
+import { LoggingService } from './logging';
 
 export function requireValue(value: string, name: string): void {
   if(value == undefined || value == '')

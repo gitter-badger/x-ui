@@ -1,4 +1,4 @@
-import { ExperienceController } from '../services/experience.service';
+import { ExperienceController } from '../services/experience-controller';
 import { ExperienceInformation } from './experienceinformation';
 
 export class Experience extends ExperienceInformation {

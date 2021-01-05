@@ -1,5 +1,5 @@
-import { Namespace } from '../models/namespace';
-import { requireValue } from './utils'
+import { Namespace } from '../../models/namespace';
+import { requireValue } from '../utils'
 
 export const PreviewExperienceKey = '$example';
 

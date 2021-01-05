@@ -1,6 +1,6 @@
-import { logger } from '.';
-import { SessionService } from './session.service';
-import { fetchRetry, promiseTimeout, stringToHash } from './utils';
+import { logger } from '..';
+import { SessionService } from '../data/session-service';
+import { fetchRetry, promiseTimeout, stringToHash } from '../utils';
 
 /**
  * Adds offline support to window.fetch - returning previous responses when offline, offline is detected when navigator.onLine = false or a request times-out

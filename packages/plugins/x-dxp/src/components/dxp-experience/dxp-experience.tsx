@@ -1,10 +1,10 @@
 import { Component, Prop, Event, EventEmitter, Host, h, State, Method, Element } from '@stencil/core';
-import { getXAPIUrlFromNamespace } from '../../services/api.conventions';
+import { getXAPIUrlFromNamespace } from '../../services/api/conventions';
 import { onChange, logger, urlService as url, state } from '../../services';
 import { promiseTimeout } from '../../services/utils';
 import { Experience, ExperienceInformation } from '../..';
 import { Namespace } from '../../models/namespace';
-import { ExperienceController } from '../../services/experience.service';
+import { ExperienceController } from '../../services/experience-controller';
 
 @Component({
   tag: 'dxp-experience',

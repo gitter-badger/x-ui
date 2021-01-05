@@ -1,7 +1,7 @@
 import { Component, h, State, Prop, Element } from '@stencil/core';
 import { Experience } from '../../models';
 import { state, onChange } from '../../services';
-import { ExperienceDataParser, Comparison } from '../../services/experience.data.parser';
+import { ExperienceDataParser, Comparison } from '../../services/data/parser';
 
 
 /**

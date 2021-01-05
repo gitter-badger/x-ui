@@ -1,12 +1,12 @@
-import { FetchService } from './fetch.service';
+import { FetchService } from './fetch-service';
 import {
   getExperienceRequestUrl,
   getErrorLogUrl,
   getFunnelExperienceUrl,
-  getPreviewExperienceUrl} from './api.conventions';
-import { urlService, logger } from '.';
-import { ExperienceInformation } from '..';
-import { ApiResponse } from '../models/apiresponse';
+  getPreviewExperienceUrl} from '../api/conventions';
+import { urlService, logger } from '..';
+import { ExperienceInformation } from '../..';
+import { ApiResponse } from '../../models/apiresponse';
 
 const SessionHeaderKey = 'dxp-session-id';
 

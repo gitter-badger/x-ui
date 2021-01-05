@@ -11,7 +11,7 @@
   "loader": "dist/loader",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/x-ui-dxp/x-ui-dxp.js",
+  "unpkg": "dist/x-dxp/x-dxp.esm.js",
   "files": [
     "dist/"
   ],

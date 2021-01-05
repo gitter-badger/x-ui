@@ -1,8 +1,8 @@
-import { UrlService } from './url.service';
-import { StorageService } from './storage.service';
-import { SessionService } from './session.service';
-import { LoggingService } from './logging.service';
-import { state, onChange } from './state.service';
+import { UrlService } from './urls';
+import { StorageService } from './data/storage-service';
+import { SessionService } from './data/session-service';
+import { LoggingService } from './logging';
+import { state, onChange } from './state';
 
 const urlService = new UrlService();
 const storageService = new StorageService();

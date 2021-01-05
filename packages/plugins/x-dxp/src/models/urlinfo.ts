@@ -7,9 +7,9 @@ export class UrlInfo {
     const a = document.createElement('a');
     a.href = currentUrl;
 
-    const urlSearchArr = a.search.substring(1).split('&');
+    const urlSearchArr = a.search?.substring(1).split('&');
 
-    urlSearchArr.forEach(parameter => {
+    urlSearchArr?.forEach(parameter => {
       const pair = parameter.split('=');
       const key = decodeURI(pair[0]);
       let value: string | number | boolean = decodeURI(pair[1]);
@@ -33,7 +33,7 @@ export class UrlInfo {
     this.hostname = a.hostname;
     this.host = a.host;
     this.port = a.port;
-    this.hash = a.hash.substr(1);
+    this.hash = a.hash?.substr(1);
     this.pathname = a.pathname;
     this.search = a.search;
     this.parameters = urlsParams;

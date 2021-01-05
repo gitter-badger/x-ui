@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Namespace } from "./models/namespace";
 import { Experience } from ".";
-import { Comparison } from "./services/experience.data.parser";
+import { Comparison } from "./services/data/parser";
 export namespace Components {
     interface DxpActionListener {
         /**
@@ -34,6 +34,8 @@ export namespace Components {
           * @example clip:5|capitalize
          */
         "modify": string;
+    }
+    interface DxpDataProvider {
     }
     interface DxpExperience {
         /**
@@ -118,6 +120,12 @@ declare global {
         prototype: HTMLDxpDataElement;
         new (): HTMLDxpDataElement;
     };
+    interface HTMLDxpDataProviderElement extends Components.DxpDataProvider, HTMLStencilElement {
+    }
+    var HTMLDxpDataProviderElement: {
+        prototype: HTMLDxpDataProviderElement;
+        new (): HTMLDxpDataProviderElement;
+    };
     interface HTMLDxpExperienceElement extends Components.DxpExperience, HTMLStencilElement {
     }
     var HTMLDxpExperienceElement: {
@@ -139,6 +147,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "dxp-action-listener": HTMLDxpActionListenerElement;
         "dxp-data": HTMLDxpDataElement;
+        "dxp-data-provider": HTMLDxpDataProviderElement;
         "dxp-experience": HTMLDxpExperienceElement;
         "dxp-experience-demo": HTMLDxpExperienceDemoElement;
         "dxp-show": HTMLDxpShowElement;
@@ -170,6 +179,8 @@ declare namespace LocalJSX {
           * @example clip:5|capitalize
          */
         "modify"?: string;
+    }
+    interface DxpDataProvider {
     }
     interface DxpExperience {
         /**
@@ -247,6 +258,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "dxp-action-listener": DxpActionListener;
         "dxp-data": DxpData;
+        "dxp-data-provider": DxpDataProvider;
         "dxp-experience": DxpExperience;
         "dxp-experience-demo": DxpExperienceDemo;
         "dxp-show": DxpShow;
@@ -258,6 +270,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "dxp-action-listener": LocalJSX.DxpActionListener & JSXBase.HTMLAttributes<HTMLDxpActionListenerElement>;
             "dxp-data": LocalJSX.DxpData & JSXBase.HTMLAttributes<HTMLDxpDataElement>;
+            "dxp-data-provider": LocalJSX.DxpDataProvider & JSXBase.HTMLAttributes<HTMLDxpDataProviderElement>;
             "dxp-experience": LocalJSX.DxpExperience & JSXBase.HTMLAttributes<HTMLDxpExperienceElement>;
             "dxp-experience-demo": LocalJSX.DxpExperienceDemo & JSXBase.HTMLAttributes<HTMLDxpExperienceDemoElement>;
             "dxp-show": LocalJSX.DxpShow & JSXBase.HTMLAttributes<HTMLDxpShowElement>;

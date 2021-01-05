@@ -1,7 +1,7 @@
 import { Component, h, Host, Prop, State } from '@stencil/core';
 import { Experience } from '../../models';
 import { state, onChange } from '../../services';
-import { ExperienceDataParser } from '../../services/experience.data.parser';
+import { ExperienceDataParser } from '../../services/data/parser';
 
 /**
  * This tag renders the values from the current experience to the page. It supports optional modifiers for formatting.

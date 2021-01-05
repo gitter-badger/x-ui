@@ -26,7 +26,11 @@ export const config: Config = {
       buildDir: 'x-dxp',
       serviceWorker: null, // disable service workers
       copy: [
-        { src: '**/*.md' },
+        {
+          src: '**/*.md',
+          dest: 'docs',
+          keepDirStructure: true
+        },
       ],
     },
   ],
