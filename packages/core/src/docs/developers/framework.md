@@ -1,7 +1,7 @@
 ## Framework integrations 👨‍💻
 
 ### Angular
-Using `x-ui` components within an Angular project:
+Using `x-ui` elementswithin an Angular project:
 
 #### Including the Custom Elements Schema
 

@@ -16,18 +16,14 @@
     <input id="name" type="text" required class="form-control"
       onblur="localStorage.setItem('name', this.value)"
       onchange="localStorage.setItem('name', this.value)"
-      value-from="{storage:name}"/>
+      x-value-from="{storage:name}"/>
     <label for="floatingInput">Nickname</label>
   </div>
 
   <div class="x-nav-bottom">
-    <button slot="start" x-back class="btn btn-light btn-lg">
-      <i class="ri-arrow-left-s-line"></i>
-      Back
-    </button>
     <button slot="end" x-next class="btn btn-primary btn-lg">
-      Next
-      <i class="ri-arrow-right-s-line"></i>
+      Continue
+      &#x2B9E;
     </button>
   </div>
 </div>

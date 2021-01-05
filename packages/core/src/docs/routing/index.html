@@ -12,7 +12,7 @@
       <template>
         <li class="list-group-item">
           <x-link href="/components/{data:tag}">
-            <h5>&lt;{data:tag}&gt;</h5>
+            &lt;{data:tag}&gt;
           </x-link>
         </li>
       </template>
@@ -22,25 +22,23 @@
   <h1>Routing</h1>
   <p class="lead">
     Content routing is a simple declarative approach for creating multi-page
-    applications from a single HTML file, using the browser's URL path to
-    determine what content should be displayed.
+    applications from a single HTML file. The browsers URL path will
+    determine what content is be displayed.
   </p>
 
-
-  <h2>A Simple Router</h2>
+  <h2>Simple Routing</h2>
   <p>
-    Routing doesn't need to be complex. URLs are the best way for identifying and locating
-    content, but until now - you had to choose between development efficiency and
-    production complexity. Have your HTML-only cake, and eat it too.
+    The following example shows a very simple routing implementation.
   </p>
   <p>
     <button class="btn btn-light" type="button"
       data-bs-toggle="collapse" data-bs-target="#loadSource"
       aria-expanded="false" aria-controls="loadSource">
       <i class="ri-code-s-slash-line"></i>
-      A Simple Router
+      View Simple Routing Source
     </button>
   </p>
+
   <div class="collapse" id="loadSource">
     <x-markdown>
       <script type="text/markdown">
@@ -72,59 +70,58 @@
     </x-markdown>
   </div>
 
-  <h3 class="mt-3">See Examples</h3>
-  <p>
-    <span class="brand">&lt;x-ui/&gt;</span> supports most real-world routing
-    needs and takes further by using HTML to construct semantic route rules.
-    Check out how easy it is to handle advanced routing needs.
-  </p>
-
-  <x-link href="/routing/lazy"
-    custom="button"
-    anchor-class="btn btn-info text-white">
-    <i class="ri-rest-time-line"></i>
-    Lazy Loaded Routes
-  </x-link>
-
-  <x-link href="/routing/nesting"
-    custom="button"
-    anchor-class="btn btn-info text-white">
-    <i class="ri-stack-line"></i>
-    Nested Routes
-  </x-link>
-
-  <x-link href="/routing/data"
-    custom="button"
-    anchor-class="btn btn-info text-white">
-    <i class="ri-stack-line"></i>
-    Data Routes
-  </x-link>
-
   <h3 class="mt-3">How does it work?</h3>
-  <p>
-    <span class="brand">&lt;x-ui/&gt;</span> works very similarly to typical web
-    frameworks, minus the framework. You can organize HTML fragments as separate files
-    where it makes sense.
-  </p>
-  <p>
+    <p>
     By wrapping content in an <x-link href="/components/x-view"><b>&lt;x-view&gt;</b></x-link>
     or <x-link href="/components/x-view-do"><b>&lt;x-view-do&gt;</b></x-link>
     elements and setting the <b>url</b>, the contained-content won't be displayed
     until the URL path matches the path set in the <b>url</b> attribute.
   </p>
+  <blockquote>
+    These elements work very similarly to typical web
+    frameworks, minus the framework. You can organize HTML fragments as separate files
+    where it makes sense.
+  </blockquote>
 
+  <h2 class="mt-3">Complex Examples</h2>
+  <p>
+    These elements support most real-world routing needs.
+    Check out how easy it is to handle advanced routing needs.
+  </p>
 
+  <div style="display:flex;flex-direction:row;flex-flow:nowrap;gap:.3em; ">
+    <x-link href="/routing/lazy"
+      custom="button"
+      anchor-class="btn btn-info text-white" style="display:table-cell">
+      <i class="ri-rest-time-line d-none d-sm-inline"></i>
+      Lazy Loaded Routes
+    </x-link>
+
+    <x-link href="/routing/nesting"
+      custom="button"
+      anchor-class="btn btn-info text-white" style="display:table-cell">
+      <i class="ri-stack-line d-none d-sm-inline"></i>
+      Nested Routes
+    </x-link>
+
+    <x-link href="/routing/data"
+      custom="button"
+      anchor-class="btn btn-info text-white" style="display:table-cell">
+      <i class="ri-database-line d-none d-sm-inline"></i>
+      Data Routes
+    </x-link>
+  </div>
 
   <div class="x-nav-bottom">
     <x-link slot="start" href="/start"
       custom="button" anchor-class="btn btn-light btn-lg">
-      <i class="ri-arrow-left-s-line"></i>
-      Installation
+      &#x2B9C;
+      Install
     </x-link>
     <x-link slot="end" href="/navigation"
       custom="button" anchor-class="btn btn-primary btn-lg">
       Next: Navigation
-      <i class="ri-arrow-right-s-line"></i>
+      &#x2B9E;
     </x-link>
   </div>
 </div>

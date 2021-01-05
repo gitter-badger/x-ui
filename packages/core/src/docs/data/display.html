@@ -13,14 +13,14 @@
 
   <x-data-display>
     <template>
-      <h2>Spirit Animal: <x-link href="/use-data/storage-data">{storage:animal}</x-link> </h2>
+      <h2>Spirit Animal: <x-link href="/use-data/storage">{storage:animal}</x-link> </h2>
     </template>
   </x-data-display>
 
 
   <h3>Visits in session:</h3>
   <ul>
-    <x-data-repeat items="{session:visit}">
+    <x-data-repeat items="{session:visits}">
       <template>
         <li>{data:item}</li>
       </template>
@@ -29,7 +29,7 @@
 
   <h3>Visits in storage:</h3>
   <ul>
-    <x-data-repeat items="{storage:visit}">
+    <x-data-repeat items="{storage:visits}">
       <template>
         <li>{data:item}</li>
       </template>
@@ -52,14 +52,14 @@
   <div class="x-nav-bottom">
     <x-link slot="start" href="/use-data">
       <button class="btn btn-light btn-lg">
-        <i class="ri-arrow-left-s-line"></i>
+        &#x2B9C;
         Using Data
       </button>
     </x-link>
     <x-link slot="end" href="/use-data/expressions">
       <button class="btn btn-primary btn-lg">
         Next: Data Expressions
-        <i class="ri-arrow-right-s-line"></i>
+        &#x2B9E;
       </button>
     </x-link>
   </div>

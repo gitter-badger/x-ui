@@ -7,6 +7,7 @@ export class DataItemProvider implements IDataProvider {
   }
 
   async get(key: string): Promise<string> {
+    if (key == 'item') return this.data;
     return this.data[key];
   }
   async set(key: string, value: string): Promise<void> {

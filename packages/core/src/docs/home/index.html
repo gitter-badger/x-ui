@@ -5,139 +5,68 @@
 </x-use>
 <div class="container container-fluid container-md mx-auto">
 
+  <h1 class="mb-5">
+    Modern web-application functionality
+    without leaving the comfort of HTML.
+  </h1>
 
-
-  <h1>What is <span class="brand">&lt;x-ui/&gt;</span>?</h1>
   <p class="lead">
-    <b class="brand">&lt;x-ui/&gt;</b> (aka, experience UI) is
-    the first UI component toolkit built specifically for turning
-    static content into interactive web experiences.
+    Experience UI is a suite of custom HTML elements
+    that turns a static HTML file into single-page web-appliations experiences.
   </p>
 
-  <p onclick="introJs().start()" class="p-2 lead bg-info bg-gradient text-white" style="cursor: pointer;display:flex;flex-direction: row;gap:1ch;">
+  <p class="p-2 lead bg-info bg-gradient text-white" style="display:flex;flex-direction:row;gap:1ch;">
+    <i class="ri-play-line fs-1"></i>
     <span>
-      <i class="ri-play-line text-light fs-1"></i>
-    </span>
-    <span>
-      This documentation was created with <b class="brand text-white">&lt;x-ui/&gt;</b>.
-      See how complex routing, guided navigation, automatic presentations, data-binding and more
-      work when you take the tour. Click to begin.
+      This documentation was created with these experience elements.
+      View-source or <a onclick="introJs().start()">take the tour</a> to see how complex routing,
+      guided navigation, automatic presentations, data-binding and
+      more is made possible!
     </span>
   </p>
 
-  <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/start')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/start')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/start">
-        <i class="ri-rocket-2-line"></i>
-        Get Started
-      </x-link>
-    </li>
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/routing')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/routing')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/routing">
-        <i class="ri-route-line"></i>
-        Routing
-      </x-link>
-    </li>
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/navigation">
-        <i class="ri-direction-line"></i>
-        Navigation
-      </x-link>
-    </li>
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/use-data')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/use-data')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/use-data">
-        <i class="ri-database-2-line"></i>
-        Declarative Data
-      </x-link>
-    </li>
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/actions')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/actions')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/actions">
-        <i class="ri-flashlight-line"></i>
-        Event Actions
-      </x-link>
-    </li>
-    <li class="list-group-item">
-      <i x-hide-when="didVisit('/audio')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/audio')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/audio">
-        <i class="ri-music-line"></i>
-        Reactive Audio
-      </x-link>
-    </li>
-    <li hidden class="list-group-item">
-      <i x-hide-when="didVisit('/video')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/video')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/video">
-        <i class="ri-video-line"></i>
-        Interactive Video
-      </x-link>
-    </li>
-    <li hidden class="list-group-item">
-      <i x-hide-when="didVisit('/interface')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/interface')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/interface">
-        <i class="ri-plug-2-line"></i>
-        Plugins & Providers
-      </x-link>
-    </li>
-    <li hidden class="list-group-item">
-      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
-      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
-      <x-link href="/developers">
-        <i class="ri-git-pull-request-line"></i>
-        Contributing
-      </x-link>
-    </li>
-  </ul>
+  <div class="float-end ms-3 mt-2 d-none d-sm-block">
+    <x-include src="/docs/guides.html"></x-include>
+  </div>
 
-  <h2>Pure HTML</h2>
+  <h2>What is it?</h2>
   <p>
-    <b class="brand">&lt;x-ui/&gt;</b> components make single-page apps simple!
-    We created special elements for expressing routes, navigation, dynamic-content,
-    data-binding and much more, using HTML semantics and no JavaScript.
+    <b class="brand">&lt;x-ui/&gt;</b> experience elements turn pure HTML into a single-page application.
+    Content routing, guided navigation, data-binding, dynamic content, and even event-based actions are simple
+    to add to any page with little scripting an no framework. <b>PLUS</b>, our convention-over-configuration
+    approach dramatically simplifies complex functionality.
+  </p>
+  <blockquote>
+    These elements offer application functionality
+    for websites built without a web-application.
+  </blockquote>
+
+  <h2>How does this help?</h2>
+  <p>
+    Frameworks exist to minimize the effort to create and maintain web pages. They do
+    that well, but at a high costs and long-term commitment not suited for
+    simple use-cases.
   </p>
   <p>
-    <b>PLUS</b> we use a convention-over-configuration approach to dramatically
-    simplify everything. There is no longer a need to be an experienced web developer
-    to create robust web experiences - if you know HTML and CSS you can start
-    building NOW.
-  </p>
-
-  <h3>How does this help?</h3>
-  <p>
-    For most developers, building a web-app begins by choosing an app framework or static
+    To get these time-saving features, developers must choose e framework or static
     site generation tool. These tools are often complex and time-consuming to learn, set up
     and operate. Once a framework is adopted, you are locked-in and it's difficult to change
     direction, without a costly endeavor.
   </p>
-  <p>
-    Frameworks exist to minimize the effort to create and maintain web pages. They do
-    that well, but at a high costs and a long-term commitment not suited for
-    every use-case.
-  </p>
 
-  <h3>No Framework, No Problem</h3>
+  <h3>No Framework Necessary</h3>
   <p>
     <b class="brand">&lt;x-ui/&gt;</b> is different. Without transpilation, a framework or
     even a build-process, developers get the same time-saving techniques (layouts, routing,
-    data-binding, etc) using specialized web components directly in HTML. They are so easy
-    to bring into any project; these tools can be quickly added to any site or page
-    with a simple script reference. No need to check if your site is compatible -- if you
-    can inject a <b>&lt;script&gt;</b> tag, you can start using these today.
+    data-binding, etc) using specialized elements directly in the HTML.
+  </p>
+  <p>
+    There is no need to check if your site is compatible -- if you
+    can include a <b>&lt;script&gt;</b> tag, you can start turn your static HTML site
+    into developer-friend web-application today.
   </p>
 
-  <h4>Features</h4>
-
+  <h4>Features:</h4>
   <div class="accordion accordion-flush" id="specialFeatures">
     <div class="accordion-item">
       <h4 class="accordion-header " id="headingOne">
@@ -151,7 +80,7 @@
         aria-labelledby="headingOne" data-bs-parent="#specialFeatures">
         <div class="accordion-body">
           <ul>
-            <li>Content Routes w/Lazy Loaded HTML</li>
+            <li>Application-like Routes w/Lazy Loaded HTML</li>
             <li>Support for Data Routes for Data-Driven Content</li>
             <li>Use Route Data Directly in HTML w/Route and URL Data Providers</li>
           </ul>
@@ -217,28 +146,30 @@
         </div>
       </div>
     </div>
-    <div class="accordion-item">
-      <h4 class="accordion-header" id="headingFive">
-        <button class="accordion-button collapsed fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
-          <i class="ri-heart-line me-5"></i>
-          Built with love
-        </button>
-      </h4>
-      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#specialFeatures">
-        <div class="accordion-body">
-          <ul>
-            <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
-            <li><b>Themeable:</b> BYO UI and themes. <b class="brand">&lt;x-ui/&gt;</b> stays out of the way. </li>
-            <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
-            <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
-            <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
-            <li><b>Trackable:</b> Analytics & Behavior Tracking Plugins</li>
-            <li><b>Extensible:</b> The provider system makes it easy to integrate with anything.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
+
+  <h2>What it is not.</h2>
+  <p>
+    <b class="brand">&lt;x-ui/&gt;</b> experience elements are not a UI Framework.
+    These elements work with the UI framework of your choice and offer no opinions
+    on how your content should look.
+  </p>
+
+
+
+
+  <h4>
+    Built with Love
+  </h4>
+  <ul>
+    <li><b>Fast:</b> Lightweight and lightening fast: No Framework & Lazy Loaded</li>
+    <li><b>Themeable:</b> BYO UI and themes. <b class="brand">&lt;x-ui/&gt;</b> stays out of the way. </li>
+    <li><b>Extensible:</b> BYO Data with a plugin system to easily connect your data</li>
+    <li><b>Typed:</b> Built with TypeScript so you can enjoy completely typed components</li>
+    <li><b>Portable:</b> Native web components with hooks to integrate with any framework </li>
+    <li><b>Trackable:</b> Analytics & Behavior Tracking Plugins</li>
+    <li><b>Extensible:</b> The provider system makes it easy to integrate with anything.</li>
+  </ul>
 
   <x-data-display>
     <template>
@@ -253,8 +184,8 @@
   <div class="x-nav-bottom">
     <x-link slot="end" href="/start">
       <button class="btn btn-primary btn-lg">
-        First: Get Started
-        <i class="ri-arrow-right-s-line"></i>
+        Get Started
+        &#x2B9E;
       </button>
     </x-link>
   </div>

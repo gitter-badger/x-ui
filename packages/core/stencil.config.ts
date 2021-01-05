@@ -8,7 +8,7 @@ export const config: Config = {
     sass(),
   ],
   bundles: [
-    { components: ['x-ui', 'x-view', 'x-view-do', 'x-link', 'x-swipe'] },
+    { components: ['x-ui', 'x-view', 'x-view-do', 'x-link'] },
     { components: [
       'x-audio-player',
       'x-audio-music-load',

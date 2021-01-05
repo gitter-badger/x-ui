@@ -20,6 +20,7 @@ import { getLocation, getUrl } from './utils/location-utils';
 import { matchPath } from './utils/match-path';
 import { ROUTE_EVENTS } from './interfaces';
 import { debugIf, interfaceState } from '..';
+import { Route } from './route';
 
 const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
   browser: createBrowserHistory,
@@ -30,7 +31,7 @@ export class RouterService {
   location: LocationSegments;
   history: RouterHistory;
 
-  private constructor(
+  constructor(
     private writeTask: (t:RafCallback) => void,
     private events: IEventEmitter,
     private actions: IEventEmitter,
@@ -142,30 +143,22 @@ export class RouterService {
     this.events.removeAllListeners();
   }
 
-  static instance: RouterService;
-
-  static initialize(
-    writeTask: (t:RafCallback) => void,
-    events: IEventEmitter,
-    actions: IEventEmitter,
-    rootElement: HTMLElement,
-    historyType: HistoryType,
-    root: string,
-    titleSuffix: string,
-    transition?: string,
-    scrollTopOffset = 0,
+  createRoute(
+    routeElement: HTMLElement,
+    path: string,
+    exact: boolean,
+    pageTitle: string,
+    transition: string,
+    scrollTopOffset: number,
+    matchSetter: (m: MatchResults) => void,
   ) {
-    this.instance = new RouterService(
-      writeTask,
-      events,
-      actions,
-      rootElement,
-      historyType,
-      root,
-      titleSuffix,
+    return new Route(this,
+      routeElement,
+      path,
+      exact,
+      pageTitle,
       transition,
-      scrollTopOffset);
-
-    return this.instance;
+      scrollTopOffset,
+      matchSetter);
   }
 }

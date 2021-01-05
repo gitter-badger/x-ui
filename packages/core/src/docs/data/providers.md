@@ -81,7 +81,7 @@ export interface IDataProvider {
 ````
 
 ### Data Changed Event
-To notify the system that your underlying data has changed, the interface includes a simple event emitter. Emit 'data-changed' from your __changed__ emitter and all components using your value will re-render with the new data value.
+To notify the system that your underlying data has changed, the interface includes a simple event emitter. Emit 'data-changed' from your __changed__ emitter and all elementsusing your value will re-render with the new data value.
 
 ### Sample Data Provider
 

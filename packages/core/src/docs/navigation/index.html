@@ -8,27 +8,41 @@
 
   <h1>Navigation</h1>
   <p class="lead">
-
+    Getting around without page refreshes!
   </p>
-  <h2>Getting around without page refreshes!</h2>
-  <p></p>
-
-  <h3>Static Navigation</h3>
-
+  <h2>Simple Navigation</h2>
   <p>
-
+    Regular anchor <b>&lt;a&gt;</b> tags always work, but you can speed page
+    rendering by using special <x-link href="/components/x-link?group=navigation">
+     <b>&lt;x-link&gt;</b></x-link> elements.
   </p>
-  <x-link href="/navigation/static"
-    custom="button" anchor-class="btn btn-info text-white">
-    <i class="ri-treasure-map-line"></i>
-    Static Navigation
-  </x-link>
-  <x-markdown>
-    <script type="text/markdown">
-    </script>
-  </x-markdown>
+  <p>
+    <button class="btn btn-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#loadSource"
+      aria-expanded="false" aria-controls="loadSource">
+      <i class="ri-code-s-slash-line"></i>
+      View Simple Navigation Source
+    </button>
+  </p>
 
-  <h3>Guided Navigation</h3>
+  <div class="collapse" id="loadSource">
+    <x-markdown>
+      <script type="text/markdown">
+        ````html
+        <x-view url="page-1" page-title="Page 1">
+          <h1>Hello World!</h1>
+          <x-link href="page-2">Page 2</x-link>
+        </x-view>
+        <x-view url="page-2" page-title="Page 2">
+          <h1>Another Page</h1>
+          <x-link href="page-1">Page 1</x-link>
+        </x-view>
+        ````
+        </script>
+    </x-markdown>
+  </div>
+
+  <h2>Guided Navigation</h2>
   <p>
     Guided navigation is for presentation-based content. This creates a back/next format with a convention-based next route automatically determined by the router.
   </p>
@@ -38,18 +52,17 @@
     Guided Navigation
   </x-link>
 
-
   <div class="x-nav-bottom">
     <x-link slot="start" href="/routing">
       <button class="btn btn-light btn-lg">
-        <i class="ri-arrow-left-s-line"></i>
+        &#x2B9C;
         Routing
       </button>
     </x-link>
     <x-link slot="end" href="/use-data">
       <button class="btn btn-primary btn-lg">
-        Next: Using Data
-        <i class="ri-arrow-right-s-line"></i>
+        Next: Data
+        &#x2B9E;
       </button>
     </x-link>
   </div>

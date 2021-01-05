@@ -1,167 +1,147 @@
-<nav class="navbar navbar-expand-sm navbar-light text-primary bg-light sticky-lg-top">
-  <div class="container-fluid">
-    <button slot="start"
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div slot="start" class="navbar-brand">
-      <x-link href="/home">
-        <h1 class="tag-line" title="view.DO Experience UI HTML">
-          &lt;x-ui/&gt;
-        </h1>
+<div class="collapse navbar-collapse"
+  id="navbarSupportedContent">
+  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item d-none d-md-block">
+      <x-link class="nav-link" active-class="hide"
+        href="/start">
+        <b>Get Started</b>
       </x-link>
-    </div>
-    <div class="collapse navbar-collapse"
-      id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item d-none d-md-block">
-          <x-link class="nav-link"
-            href="/start">
-            <b>Get Started</b>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Guides
+      </a>
+      <ul class="dropdown-menu"
+        aria-labelledby="navbarDropdown">
+        <li class="dropdown-item d-sm-block d-md-none">
+          <x-link href="/routing">
+            <i class="ri-rocket-line"></i>
+            Get Started
           </x-link>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Guides
-          </a>
-          <ul class="dropdown-menu"
-            aria-labelledby="navbarDropdown">
-            <li class="dropdown-item">
-              <x-link href="/routing">
-                <i class="ri-route-line"></i>
-                Content Routing
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/navigation">
-                <i class="ri-direction-line"></i>
-                Guided Navigation
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/use-data">
-                <i class="ri-database-2-line"></i>
-                Embedding Data
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/audio">
-                <i class="ri-music-line"></i>
-                Incorporating Audio
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/video">
-                <i class="ri-video-line"></i>
-                Interactive Video
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/actions">
-                <i class="ri-flashlight-line"></i>
-                Event Actions
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/document">
-                <i class="ri-plug-2-line"></i>
-                Plugins & Providers
-              </x-link>
-            </li>
-            <li class="dropdown-item">
-              <x-link href="/developers">
-                <i class="ri-git-pull-request-line"></i>
-                Contributing
-              </x-link>
-            </li>
-          </ul>
+        <li class="dropdown-item">
+          <x-link href="/routing">
+            <i class="ri-route-line"></i>
+            Static Routing
+          </x-link>
         </li>
-        <li class="nav-item dropdown"
-          data-intro="The <b>x-data-repeat</b> element rendered this list from a remote JSON data-source. <br/><br/> Check out the <a href='documentation/components/x-data-repeat'>documentation</a> to see what else you can do.">
-          <a class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Components
-          </a>
-          <ul class="dropdown-menu"
-            aria-labelledby="navbarDropdown">
-            <li class="dropdown-item-text">Routing</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
-              <template>
-                <li class="dropdown-item">
-                  <x-link href="/components/{data:tag}">
-                    &lt;{data:tag}&gt;
-                  </x-link>
-                </li>
-              </template>
-            </x-data-repeat>
-            <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Layout & Content</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]">
-              <template>
-                <li class="dropdown-item">
-                  <x-link href="/components/{data:tag}">
-                    &lt;{data:tag}&gt;
-                  </x-link>
-                </li>
-              </template>
-            </x-data-repeat>
-            <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Embedding Data</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
-              <template>
-                <li class="dropdown-item">
-                  <x-link href="/components/{data:tag}">
-                    &lt;{data:tag}&gt;
-                  </x-link>
-                </li>
-              </template>
-            </x-data-repeat>
-            <li><hr class="dropdown-divider"></li>
-            <li class="dropdown-item-text">Event Actions</li>
-            <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]">
-              <template>
-                <li class="dropdown-item">
-                  <x-link href="/components/{data:tag}">
-                    &lt;{data:tag}&gt;
-                  </x-link>
-                </li>
-              </template>
-            </x-data-repeat>
-          </ul>
+        <li class="dropdown-item">
+          <x-link href="/navigation">
+            <i class="ri-direction-line"></i>
+            In-page Navigation
+          </x-link>
+        </li>
+        <li class="dropdown-item">
+          <x-link href="/use-data">
+            <i class="ri-database-2-line"></i>
+            Data Binding
+          </x-link>
+        </li>
+        <li class="dropdown-item">
+          <x-link href="/actions">
+            <i class="ri-flashlight-line"></i>
+            Event Actions
+          </x-link>
+        </li>
+        <li class="dropdown-item">
+          <x-link href="/audio">
+            <i class="ri-music-line"></i>
+            Reactive Audio
+          </x-link>
+        </li>
+        <li hidden class="dropdown-item">
+          <x-link href="/video">
+            <i class="ri-video-line"></i>
+            Interactive Video
+          </x-link>
+        </li>
+
+        <li hidden class="dropdown-item">
+          <x-link href="/document">
+            <i class="ri-plug-2-line"></i>
+            Plugins & Providers
+          </x-link>
+        </li>
+        <li hidden class="dropdown-item">
+          <x-link href="/developers">
+            <i class="ri-git-pull-request-line"></i>
+            Contributing
+          </x-link>
         </li>
       </ul>
-      <div style="display: flex; flex-direction: row; gap:1em;">
-        <a href="https://github.com/viewdo/x-ui"
-          title="Check out the source on GitHub"
-          target="_blank">
-          <i class="ri-github-line fs-2"></i>
-        </a>
-        <x-data-display>
+    </li>
+    <li class="nav-item dropdown"
+      data-intro="The <b>x-data-repeat</b> element rendered this list from a remote JSON data-source. <br/><br/> Check out the <a href='documentation/components/x-data-repeat'>documentation</a> to see what else you can do.">
+      <a class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Components
+      </a>
+      <ul class="dropdown-menu"
+        aria-labelledby="navbarDropdown">
+        <li class="dropdown-item-text fw-bold">Routing</li>
+        <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
           <template>
-            <x-link href="/home/name"
-              title="{storage:name}"
-              data-intro="Click this to see a <b>x-view-do</b> component in action. It creates a special sub-route with automated navigation. It's conditioned using data expressions. <br/><br/> Check out the <a href='documentation/components/x-view-do'>documentation</a> to see what else you can do.">
-              <i class="ri-user-5-line fs-2"></i>
-            </x-link>
+            <li class="dropdown-item">
+              <x-link href="/components/{data:tag}?group=routing">
+                &lt;{data:tag}&gt;
+              </x-link>
+            </li>
           </template>
-        </x-data-display>
-      </div>
-    </div>
-
-  </div>
-</nav>
+        </x-data-repeat>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item-text fw-bold">Content</li>
+        <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='content']]">
+          <template>
+            <li class="dropdown-item">
+              <x-link href="/components/{data:tag}?group=content">
+                &lt;{data:tag}&gt;
+              </x-link>
+            </li>
+          </template>
+        </x-data-repeat>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item-text fw-bold">Embedded Data</li>
+        <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
+          <template>
+            <li class="dropdown-item">
+              <x-link href="/components/{data:tag}?group=data">
+                &lt;{data:tag}&gt;
+              </x-link>
+            </li>
+          </template>
+        </x-data-repeat>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item-text fw-bold">Event Actions</li>
+        <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='actions']]">
+          <template>
+            <li class="dropdown-item">
+              <x-link href="/components/{data:tag}?group=actions">
+                &lt;{data:tag}&gt;
+              </x-link>
+            </li>
+          </template>
+        </x-data-repeat>
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-item-text fw-bold">Audio</li>
+        <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='audio']]">
+          <template>
+            <li class="dropdown-item">
+              <x-link href="/components/{data:tag}?group=audio">
+                &lt;{data:tag}&gt;
+              </x-link>
+            </li>
+          </template>
+        </x-data-repeat>
+      </ul>
+    </li>
+  </ul>
+</div>

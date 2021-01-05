@@ -1,0 +1,80 @@
+
+<ul class="list-group btn-group-xl">
+  <x-link href="/start" active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/start')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/start')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-rocket-2-line"></i>
+      Get Started
+    </li>
+  </x-link>
+  <x-link href="/routing" active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/routing')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/routing')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-route-line"></i>
+      Static Routing
+    </li>
+  </x-link>
+  <x-link href="/navigation"active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-direction-line"></i>
+      In-Page Navigation
+    </li>
+  </x-link>
+  <x-link href="/use-data" active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/use-data')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/use-data')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-database-2-line"></i>
+      Data Binding
+    </li>
+  </x-link>
+  <x-link href="/actions" active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/actions')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/actions')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-flashlight-line"></i>
+      Event Actions
+    </li>
+  </x-link>
+
+  <x-link href="/audio" active-class="hide">
+    <li class="list-group-item">
+      <i x-hide-when="didVisit('/audio')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/audio')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-music-line"></i>
+      Reactive Audio
+    </li>
+  </x-link>
+
+  <x-link href="/video"  active-class="hide">
+    <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/video')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/video')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-video-line"></i>
+      Interactive Video
+    </li>
+  </x-link>
+
+  <x-link href="/interface">
+    <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/interface')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/interface')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-plug-2-line"></i>
+      Plugins & Providers
+    </li>
+  </x-link>
+
+  <x-link href="/developers">
+    <li hidden class="list-group-item">
+      <i x-hide-when="didVisit('/navigation')" class="ri-checkbox-blank-line float-end fs-5 text-secondary ms-2"></i>
+      <i x-show-when="didVisit('/navigation')" class="ri-checkbox-fill float-end text-success fs-5  ms-2" hidden></i>
+      <i class="ri-git-pull-request-line"></i>
+      Contributing
+    </li>
+  </x-link>
+
+</ul>

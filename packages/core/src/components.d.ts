@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ActionActivationStrategy, CookieConsent, DataProviderRegistration, DiscardStrategy, EventAction, LoadStrategy, VisitStrategy } from ".";
-import { HistoryType } from "./services";
+import { HistoryType, RouterService } from "./services";
 export namespace Components {
     interface XAction {
         /**
@@ -256,11 +256,15 @@ export namespace Components {
         /**
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
-        "pathMode": HistoryType;
+        "mode": HistoryType;
         /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
         "root": string;
+        /**
+          * This is the router service instantiated with this component.
+         */
+        "router": RouterService;
         /**
           * Header height or offset for scroll-top on this and all views.
          */
@@ -745,6 +749,10 @@ declare namespace LocalJSX {
          */
         "fullPage"?: boolean;
         /**
+          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
+         */
+        "mode"?: HistoryType;
+        /**
           * Listen for actionBus events.
          */
         "onActions"?: (event: CustomEvent<any>) => void;
@@ -753,13 +761,13 @@ declare namespace LocalJSX {
          */
         "onEvents"?: (event: CustomEvent<any>) => void;
         /**
-          * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
-         */
-        "pathMode"?: HistoryType;
-        /**
           * This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths.
          */
         "root"?: string;
+        /**
+          * This is the router service instantiated with this component.
+         */
+        "router"?: RouterService;
         /**
           * Header height or offset for scroll-top on this and all views.
          */

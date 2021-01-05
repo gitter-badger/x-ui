@@ -7,7 +7,7 @@
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
   <title>Loading...</title>
   <meta http-equiv="x-ua-compatible" content="IE=Edge">
-  <meta name="description" content="New web components to put some do in your view">
+  <meta name="description" content="New HTML elementsto put some do in your view">
   <meta name="og:title" content="" />
   <meta name="og:description" content="" />
   <meta name="og:image" content="" />
@@ -145,7 +145,7 @@
           </x-link>
         </ion-buttons>
         <ion-buttons slot="end">
-          <x-show when="{storage:name}">
+          <x-data-show when="{storage:name}">
             <x-link href="/home/name">
               <ion-chip>
                 <ion-avatar>
@@ -156,7 +156,7 @@
                 </label>
               </ion-chip>
             </x-link>
-          </x-show>
+          </x-data-show>
           <x-preferences-popover-button></x-preferences-popover-button>
         </ion-buttons>
       </div>

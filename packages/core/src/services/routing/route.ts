@@ -5,12 +5,13 @@ import { hasExpression, resolveExpression } from '../data/expression-evaluator';
 import { eventBus } from '..';
 
 export class Route {
-  public router: RouterService;
+
   public match: MatchResults;
   public scrollOnNextRender: boolean = false;
   public previousMatch: MatchResults | null = null;
 
   constructor(
+    public router: RouterService,
     public routeElement: HTMLElement,
     public path: string,
     exact: boolean,
@@ -19,8 +20,6 @@ export class Route {
     public scrollTopOffset: number,
     matchSetter: (m: MatchResults) => void,
   ) {
-    this.router = RouterService.instance;
-
     eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       this.previousMatch = this.match;
       this.match = this.router?.matchPath({
