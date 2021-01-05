@@ -1,10 +1,11 @@
 import { Parser } from 'expr-eval';
 import { requireValue } from '../utils/misc-utils';
-import { getDataProvider } from './providers/factory';
+import { getDataProvider, addDataProvider, removeDataProvider } from './providers/factory';
 import { ExpressionContext } from './interfaces';
 import { warn } from '../logging';
 import { toBoolean } from '../utils/string-utils';
 import { hasVisited } from '../routing/visits';
+import { DataItemProvider } from './providers/item';
 
 const expressionRegEx = /{([\w-]*):([\w_]*)(?:\.([\w_.-]*))?(?:\?([\w_.-]*))?}/g;
 const expressionEvaluator = new Parser();
@@ -38,10 +39,12 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
   // make a copy to avoid side effects
   let result = valueExpression.slice();
 
+  if (data) addDataProvider('data', new DataItemProvider(data));
+
   // replace each match
   let match: string | RegExpExecArray;
   // eslint-disable-next-line no-cond-assign
-  while (match = expressionRegEx.exec(valueExpression)) {
+  while (match = expressionRegEx.exec(result)) {
     const expression = match[0];
     const providerKey = match[1];
     const dataKey = match[2];
@@ -51,10 +54,6 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
     const provider = getDataProvider(providerKey);
     // eslint-disable-next-line no-await-in-loop
     let value = (await provider?.get(dataKey)) || defaultValue;
-
-    if (providerKey === 'data' && data) {
-      value = (dataKey === 'item') ? data : data[dataKey] || defaultValue;
-    }
 
     if (propKey) {
       const obj = (typeof value === 'string') ? JSON.parse(value || '{}') : value;
@@ -68,6 +67,9 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
 
     result = result.replace(expression, value);
   }
+
+  if (data) removeDataProvider('data');
+
   return result;
 }
 

@@ -4,9 +4,9 @@ import { DATA_EVENTS, IDataProvider } from '../interfaces';
 export class StorageProvider implements IDataProvider {
   constructor(private localStorage = window.localStorage) {
     this.changed = new EventEmitter();
-    document.body?.addEventListener('storage', () => {
+    window?.addEventListener('storage', () => {
       this.changed.emit(DATA_EVENTS.DataChanged);
-    });
+    }, { passive: true, capture: true });
   }
 
   async get(key: string): Promise<string|null> {

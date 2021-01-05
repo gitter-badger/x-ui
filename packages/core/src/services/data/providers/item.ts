@@ -1,9 +1,8 @@
 import { EventEmitter } from '../../actions/event-emitter';
 import { DATA_EVENTS, IDataProvider } from '../interfaces';
 
-export class InMemoryProvider implements IDataProvider {
-  data = {};
-  constructor() {
+export class DataItemProvider implements IDataProvider {
+  constructor(private data: any) {
     this.changed = new EventEmitter();
   }
 
@@ -15,8 +14,5 @@ export class InMemoryProvider implements IDataProvider {
     this.changed.emit(DATA_EVENTS.DataChanged);
   }
 
-  changed:EventEmitter;
+  changed: EventEmitter;
 }
-
-
-

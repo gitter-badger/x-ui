@@ -84,7 +84,6 @@ export class XDataRepeat {
   async componentWillLoad() {
     debugIf(this.debug, 'x-data-repeat: loading');
     eventBus.on(DATA_EVENTS.DataChanged, async () => {
-      await this.resolveItemsExpression();
       await this.resolveHtml();
     });
 
@@ -93,24 +92,9 @@ export class XDataRepeat {
     });
 
     if (this.childTemplate !== null) {
-      this.innerTemplate = this.childTemplate.innerHTML;
+      this.innerTemplate = this.childTemplate.innerHTML.slice();
     } else warnIf(this.debug, 'x-data-repeat: missing child <template> tag');
 
-    if (this.childScript !== null) {
-      try {
-        this.resolvedItems = arrify(JSON.parse(this.childScript.innerText || '[]'));
-      } catch (error) {
-        warnIf(this.debug, `x-data-repeat: unable to deserialize JSON: ${error}`);
-      }
-    } else if (this.itemsSrc) {
-      await this.fetchJson();
-    } else if (this.items) {
-      await this.resolveItemsExpression();
-    } else {
-      warnIf(this.debug, 'x-data-repeat: you must include at least one of the following: items, json-src or a <script> element with a JSON array.');
-    }
-
-    // removeAllChildNodes(this.el);
     await this.resolveHtml();
   }
 
@@ -123,7 +107,7 @@ export class XDataRepeat {
       if (response.status === 200) {
         const data = await response.json();
         this.resolvedItems = arrify(data);
-        debugIf(this.debug, `x-data-repeat: remote items ${JSON.stringify(data)}`);
+        // debugIf(this.debug, `x-data-repeat: remote items: ${JSON.stringify(data)}`);
       } else {
         warnIf(this.debug, `x-data-repeat: Unable to retrieve from ${this.itemsSrc}`);
       }
@@ -149,34 +133,48 @@ export class XDataRepeat {
     debugIf(this.debug, 'x-data-repeat: resolving html');
     if (this.noRender) return;
 
-    if (!this.items && this.resolvedTemplate) return;
-
-    debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.resolvedItems || [])}`);
-    if (this.resolvedItems && this.innerTemplate) {
-      this.resolvedTemplate = '';
-      let items = this.resolvedItems;
-      if (this.filter) {
-        const filter = jsonata(this.filter);
-        items = arrify(filter.evaluate(this.resolvedItems));
+    if (this.childScript !== null) {
+      try {
+        this.resolvedItems = arrify(JSON.parse(this.childScript.innerText || '[]'));
+      } catch (error) {
+        warnIf(this.debug, `x-data-repeat: unable to deserialize JSON: ${error}`);
       }
+    } else if (this.itemsSrc) {
+      await this.fetchJson();
+    } else if (this.items) {
+      await this.resolveItemsExpression();
+    } else {
+      warnIf(this.debug, 'x-data-repeat: you must include at least one of the following: items, json-src or a <script> element with a JSON array.');
+    }
 
-      items
+    // debugIf(this.debug, `x-data-repeat: innerItems ${JSON.stringify(this.resolvedItems || [])}`);
+    if (this.resolvedItems && this.innerTemplate) {
+      let resolvedTemplate = '';
+      let items = this.resolvedItems;
+
+      if (this.filter) {
+        let filterString = this.filter.slice();
+        if (hasExpression(filterString)) {
+          filterString = await resolveExpression(filterString);
+        }
+        const filter = jsonata(filterString);
+        debugIf(this.debug, `x-data-repeat: filtering: ${filterString}`);
+        items = arrify(filter.evaluate(this.resolvedItems));      }
+
+      this.resolvedTemplate = await items
         .reduce((previousPromise, item) => previousPromise
-          .then(() => resolveExpression(this.innerTemplate, item)
+          .then(() => resolveExpression(this.innerTemplate.slice(), item)
             .then((html) => {
-              this.resolvedTemplate += html;
+              return resolvedTemplate += html;
             })), Promise.resolve());
+
     }
   }
 
   render() {
-    if (this.resolvedTemplate) {
-      return (
-        <Host innerHTML={this.resolvedTemplate}>
-        </Host>
-      );
-    }
-
-    return null;
+    return (
+      <Host innerHTML={this.resolvedTemplate}>
+      </Host>
+    );
   }
 }

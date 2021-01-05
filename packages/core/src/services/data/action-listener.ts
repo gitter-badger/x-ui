@@ -41,7 +41,7 @@ export class DataListener implements IEventActionListener {
   registerProvider(name: string, provider: IDataProvider) {
     provider.changed.on(DATA_EVENTS.DataChanged, () => {
       debugIf(state.debug, `data-provider: ${name} changed`);
-      this.eventBus.emit(DATA_EVENTS.DataChanged);
+      this.eventBus.emit(DATA_EVENTS.DataChanged, {});
     });
     addDataProvider(name, provider as IDataProvider);
   }

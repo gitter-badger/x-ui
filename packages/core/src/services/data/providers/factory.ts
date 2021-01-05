@@ -26,6 +26,10 @@ export function getDataProviders(): DataProviders {
   return providers;
 }
 
+export function removeDataProvider(name: string) {
+  delete providers[name];
+}
+
 export function clearDataProviders() {
   Object.keys(providers).forEach((key) => {
     delete providers[key];
