@@ -34,19 +34,19 @@
   },
   "devDependencies": {
     "@babel/core": "7.12.10",
-    "@stencil/core": "^2.3.0",
-    "@stencil/eslint-plugin": "^0.3.1",
-    "@types/howler": "^2.2.1",
+    "@stencil/core": "2.3.0",
+    "@stencil/eslint-plugin": "0.3.1",
+    "@types/howler": "2.2.1",
     "@types/jest": "26.0.19",
     "@types/node": "14.14.20",
     "@types/puppeteer": "5.4.2",
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
-    "@typescript-eslint/parser": "^4.11.1",
+    "@typescript-eslint/eslint-plugin": "4.11.1",
+    "@typescript-eslint/parser": "4.11.1",
     "chalk": "4.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "6.8.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react": "7.21.5",
     "http-proxy-middleware": "1.0.6",
     "husky": "4.3.6",
     "jest": "26.6.3",
@@ -63,8 +63,8 @@
     "yargs": "16.2.0"
   },
   "resolutions": {
-    "**/@typescript-eslint/eslint-plugin": "^4.11.1",
-    "**/@typescript-eslint/parser": "^4.11.1"
+    "**/@typescript-eslint/eslint-plugin": "4.11.1",
+    "**/@typescript-eslint/parser": "4.11.1"
   },
   "jest": {
     "preset": "@stencil/core/testing"
