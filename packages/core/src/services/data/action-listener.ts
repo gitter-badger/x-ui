@@ -1,5 +1,4 @@
-import { IEventEmitter } from '../../../dist/types/services/actions/interfaces';
-import { EventAction, IEventActionListener } from '../actions';
+import { IEventEmitter, EventAction, IEventActionListener } from '../actions';
 import { } from '../actions/event-emitter';
 import { state } from '../interface/state';
 import { debugIf, warn } from '../logging';

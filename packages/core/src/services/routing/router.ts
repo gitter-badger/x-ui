@@ -14,11 +14,11 @@ import {
   RouterHistory,
   RouteViewOptions,
   ROUTE_COMMANDS,
-  ROUTE_TOPIC
+  ROUTE_TOPIC,
+  ROUTE_EVENTS,
 } from './interfaces';
 import { getLocation, getUrl } from './utils/location-utils';
 import { matchPath } from './utils/match-path';
-import { ROUTE_EVENTS } from './interfaces';
 import { debugIf, interfaceState } from '..';
 import { Route } from './route';
 
