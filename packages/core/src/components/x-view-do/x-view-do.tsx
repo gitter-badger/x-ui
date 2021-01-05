@@ -1,6 +1,5 @@
 import { Component, h, Prop, Element, State, Host, Watch, writeTask } from '@stencil/core';
 import '../x-view/x-view';
-import { MatchResults } from '../../../dist/types/services/routing/interfaces';
 import {
   EventEmitter,
   Route,
@@ -19,6 +18,7 @@ import {
   warn,
   wrapFragment,
   eventBus,
+  MatchResults,
 } from '../..';
 
 /**

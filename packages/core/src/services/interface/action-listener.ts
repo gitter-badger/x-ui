@@ -1,5 +1,4 @@
-import { IEventEmitter } from '../../../dist/types/services/actions/interfaces';
-import { EventAction, IEventActionListener } from '../actions';
+import { EventAction, IEventEmitter, IEventActionListener } from '../actions';
 import { debugIf } from '../logging';
 import { kebabToCamelCase } from '../utils/string-utils';
 import { InterfaceProvider, INTERFACE_COMMANDS, INTERFACE_TOPIC, INTERFACE_EVENTS } from './interfaces';
