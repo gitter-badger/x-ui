@@ -5,9 +5,9 @@ name: Main CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -45,5 +45,3 @@ jobs:
         with:
           path-to-lcov: ./packages/core/coverage/lvoc.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      #- run: bash <(curl -s --retry 5 --retry-delay 2 --connect-timeout 2 https://codecov.io/bash)
