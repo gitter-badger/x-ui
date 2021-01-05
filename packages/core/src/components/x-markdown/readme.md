@@ -69,6 +69,7 @@ You can pass in your markdown inline too.
 
 | Property   | Attribute   | Description                                                                                                  | Type      | Default     |
 | ---------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `baseUrl`  | `base-url`  | Base Url for embedded links                                                                                  | `string`  | `undefined` |
 | `noRender` | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
 | `src`      | `src`       | Remote Template URL                                                                                          | `string`  | `undefined` |
 

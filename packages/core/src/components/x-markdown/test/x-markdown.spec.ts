@@ -9,7 +9,7 @@ describe('x-markdown', () => {
       supportsShadowDom: false
     });
     expect(page.root).toEqualHtml(`
-      <x-markdown>
+      <x-markdown hidden="">
       </x-markdown>
     `);
   });

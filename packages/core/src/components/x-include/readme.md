@@ -31,10 +31,10 @@ Or, just include it in one of the components **\<x-view\>** or  **\<x-view-do\>*
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                  | Type      | Default     |
-| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
-| `noRender` | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
-| `src`      | `src`       | Remote Template URL                                                                                          | `string`  | `undefined` |
+| Property           | Attribute   | Description                                                                                                  | Type      | Default     |
+| ------------------ | ----------- | ------------------------------------------------------------------------------------------------------------ | --------- | ----------- |
+| `noRender`         | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
+| `src` _(required)_ | `src`       | Remote Template URL                                                                                          | `string`  | `undefined` |
 
 
 ----------------------------------------------

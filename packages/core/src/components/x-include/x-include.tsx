@@ -1,5 +1,5 @@
 import { Host, Component, h, State, Prop, Element } from '@stencil/core';
-import { warn } from '../..';
+import { resolveElementVisibility, RouterService, warn, resolveExpression, eventBus, ROUTE_EVENTS, DATA_EVENTS } from '../..';
 
 /**
  *  @system content
@@ -14,9 +14,8 @@ export class XInclude {
 
   /**
    * Remote Template URL
-   * @required
    */
-  @Prop() src: string;
+  @Prop() src!: string;
 
   /**
    * If set, disables auto-rendering of this instance.
@@ -27,13 +26,37 @@ export class XInclude {
   @Prop({ mutable: true}) noRender: boolean = false;
 
   async componentWillLoad() {
-    await this.fetchHtml();
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveContent();
+    });
+
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+      await this.resolveContent();
+    });
   }
 
-  private async fetchHtml() {
-    if (this.noRender || this.content) return;
+  async componentWillRender() {
+    await this.resolveContent();
+  }
+
+  componentDidRender() {
+    resolveElementVisibility(this.el);
+    if (RouterService.instance) {
+      this.el.querySelectorAll('a[href^=http]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const href = a.getAttribute('href');
+          e.preventDefault();
+          RouterService.instance.history.push(href);
+        })
+      });
+    }
+  }
+
+  private async resolveContent() {
+    if (this.noRender) return;
     try {
-      const response = await fetch(this.src);
+      const src = await resolveExpression(this.src);
+      const response = await fetch(src);
       if (response.status === 200) {
         const data = await response.text();
         this.content = data;

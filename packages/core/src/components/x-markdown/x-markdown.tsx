@@ -1,5 +1,13 @@
 import { Component, h, Host, State, Prop, Element } from '@stencil/core';
-import { convertToFragment, warn } from '../..';
+import {
+  resolveElementVisibility,
+  RouterService,
+  warn,
+  resolveExpression,
+  eventBus,
+  DATA_EVENTS,
+  ROUTE_EVENTS
+} from '../..';
 
 /**
  *  @system content
@@ -17,6 +25,12 @@ export class XMarkdown {
    * Remote Template URL
    */
   @Prop() src: string;
+
+
+  /**
+   * Base Url for embedded links
+   */
+  @Prop() baseUrl: string;
 
   /**
    * If set, disables auto-rendering of this instance.
@@ -39,28 +53,54 @@ export class XMarkdown {
   }
 
   async componentWillLoad() {
+    eventBus.on(DATA_EVENTS.DataChanged, async () => {
+      await this.resolveContent();
+    });
+
+    eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
+      await this.resolveContent();
+    });
+
+    await this.resolveContent();
+  }
+
+  private async resolveContent() {
+    if (this.noRender) return;
+
+    let content = '';
     if (this.src) {
-      await this.setContentFromSrc();
+      content = await this.getContentFromSrc();
     } else if (this.childScript) {
-      this.setContentFromScript();
+      content = this.getContentFromScript();
+    }
+
+    const div = document.createElement('div');
+    div.className = 'markdown-body';
+    div.innerHTML = content;
+    this.highlight(div);
+    this.content = div.innerHTML;
+  }
+
+  componentDidRender() {
+    resolveElementVisibility(this.el);
+    if (RouterService.instance) {
+      this.el.querySelectorAll('a[href^=http]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const href = a.getAttribute('href');
+          e.preventDefault();
+          RouterService.instance.history.push(href);
+        })
+      });
     }
   }
 
-  async componentWillRender() {
-    if (this.content) {
-      const md = await this.buildFragment(this.content);
-      this.clearDom();
-      await this.stampDom(md);
-    }
-  }
-
-  private async setContentFromSrc() {
-    if (this.noRender || this.content) return;
+  private async getContentFromSrc() {
     try {
-      const response = await fetch(this.src);
+      const src = await resolveExpression(this.src);
+      const response = await fetch(src);
       if (response.status === 200) {
         const data = await response.text();
-        this.content = window['marked'] ? window['marked'](data, { baseUrl: this.getBaseUrl(this.src)}) : null;
+        return window['marked'] ? window['marked'](data, { baseUrl: this.baseUrl }) : null;
       } else {
         warn(`x-markdown: unable to retrieve from ${this.src}`);
       }
@@ -69,34 +109,16 @@ export class XMarkdown {
     }
   }
 
-  private async setContentFromScript() {
+  private getContentFromScript() {
     const el = this.childScript;
     const md = this.dedent(el.text);
-    this.content = window['marked'] ? window['marked'](md) : null;
-  }
-
-  private onload(node: HTMLScriptElement) {
-    return new Promise((resolve, reject) => {
-      node.onload = resolve;
-      node.onerror = (err: any) => reject(err.path ? err.path[0] : err.composedPath()[0]);
-    });
+    return window['marked'] ? window['marked'](md) : null;
   }
 
   private dedent(innerText:string) {
     const str = innerText.replace(/^\n/, '');
     const match = str.match(/^\s+/);
     return match ? str.replace(new RegExp(`^${match[0]}`, 'gm'), '') : str;
-  }
-
-  private clearDom() {
-    const nodes = this.el.querySelectorAll('[class^=markdown]');
-    nodes.forEach((n: { remove: () => any; }) => n.remove());
-  }
-
-  private getBaseUrl(src: string) {
-    const a = document.createElement('a');
-    a.href = src;
-    return a.href.substring(0, a.href.lastIndexOf('/') + 1);
   }
 
   private highlight(container: { querySelectorAll: (arg0: string) => any; }) {
@@ -112,25 +134,15 @@ export class XMarkdown {
     }
   }
 
-  // Construct md nodes and return promise that resolves to doc frag
-  private async buildFragment(results:string) {
-    const html = `<div class="markdown-body">${results}</div>`;
-    const frag = convertToFragment(html);
-    this.highlight(frag.firstElementChild);
-    return frag;
-  }
-
-  // Stamps a fragment into DOM
-  private async stampDom(frag: { querySelectorAll: (arg0: string) => any; firstElementChild: any; }) {
-    const links = [...frag.querySelectorAll('link[rel="stylesheet"]')];
-    this.el.appendChild(frag.firstElementChild);
-    // Wrap all link elements with onload listener
-    await Promise.all(links.map((l) => this.onload(l))).catch(() => {
-      warn('x-markdown: An external stylesheet failed to load');
-    });
-  }
 
   render() {
-    return (<Host></Host>);
+    if (this.content) {
+      return (
+        <Host>
+          <div innerHTML={this.content}></div>
+        </Host>
+      );
+    }
+    return (<Host hidden></Host>);
   }
 }
