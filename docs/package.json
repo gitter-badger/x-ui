@@ -7,20 +7,20 @@
   "dependencies": {
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
-    "gatsby": "2.29.1",
+    "gatsby": "2.29.3",
     "gatsby-image": "2.8.0",
-    "gatsby-plugin-manifest": "2.9.0",
-    "gatsby-plugin-mdx": "1.7.0",
-    "gatsby-plugin-offline": "3.0.19",
+    "gatsby-plugin-manifest": "2.9.1",
+    "gatsby-plugin-mdx": "1.7.1",
+    "gatsby-plugin-offline": "3.7.1",
     "gatsby-plugin-react-helmet": "3.7.0",
     "gatsby-plugin-sass": "2.8.0",
-    "gatsby-plugin-sharp": "2.11.1",
+    "gatsby-plugin-sharp": "2.11.2",
     "gatsby-plugin-sitemap": "2.9.0",
     "gatsby-remark-mermaid": "2.1.0",
-    "gatsby-remark-prismjs": "3.3.25",
-    "gatsby-source-filesystem": "2.8.0",
-    "gatsby-transformer-json": "2.2.17",
-    "gatsby-transformer-remark": "2.13.0",
+    "gatsby-remark-prismjs": "3.10.0",
+    "gatsby-source-filesystem": "2.8.1",
+    "gatsby-transformer-json": "2.8.0",
+    "gatsby-transformer-remark": "2.13.1",
     "gatsby-transformer-sharp": "2.9.0",
     "gh-pages": "3.1.0",
     "mermaid": "8.8.4",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "nodemon": "1.19.4",
-    "prettier": "1.19.1"
+    "prettier": "2.2.1"
   },
   "keywords": [
     "gatsby"
