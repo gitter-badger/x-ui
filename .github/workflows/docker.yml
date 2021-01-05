@@ -16,6 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: |-
+        yarn
         yarn build
         yarn docker:build
     - name: Push to Docker Hub
