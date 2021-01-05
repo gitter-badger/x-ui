@@ -2,7 +2,7 @@ import { Element, Component, State, Prop, h } from '@stencil/core';
 import { MatchResults, RouterService, eventBus, ROUTE_EVENTS } from '../..';
 
 /**
- *  @system routing
+ *  @system navigation
  */
 @Component({
   tag: 'x-link',
@@ -12,6 +12,10 @@ import { MatchResults, RouterService, eventBus, ROUTE_EVENTS } from '../..';
 export class XViewLink {
   @Element() el!: HTMLXLinkElement;
   @State() match: MatchResults | null = null;
+
+  private get router(): RouterService {
+    return this.el.closest('x-ui')?.router;
+  }
 
   /**
    *
@@ -85,16 +89,22 @@ export class XViewLink {
 
   componentWillLoad() {
     eventBus.on(ROUTE_EVENTS.RouteChanged, () => {
-      this.match = RouterService.instance.matchPath({
+      this.match = this.router?.matchPath({
         path: this.href,
         exact: this.exact,
+        strict: this.strict,
       });
+    });
+    this.match = this.router?.matchPath({
+      path: this.href,
+      exact: this.exact,
+      strict: this.strict,
     });
   }
 
   private handleClick(e: MouseEvent) {
-    const router = RouterService.instance;
-    if (!router || router?.isModifiedEvent(e) || !router?.history || !this.href || !router?.root) {
+    const router = this.router;
+    if (!router || router?.isModifiedEvent(e) || !router?.history || !this.href) {
       return;
     }
 

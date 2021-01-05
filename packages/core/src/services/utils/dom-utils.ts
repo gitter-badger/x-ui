@@ -24,16 +24,8 @@ export function wrapFragment(html:string, slot?: string, id?: string): HTMLDivEl
   return wrapper;
 }
 
-export function resolveChildRemoteHtml() {
-  const manualRendering = document.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]');
-  manualRendering.forEach(async (el) => {
-    el.removeAttribute('no-render');
-  });
-}
-
 export async function resolveElementVisibility(element: HTMLElement) {
-  const hideWhenElements = element.querySelectorAll('[x-hide-when]');
-  hideWhenElements.forEach(async (el) => {
+  element.querySelectorAll('[x-hide-when]').forEach(async (el) => {
     const expression = el.getAttribute('x-hide-when');
     const hide = await evaluatePredicate(expression);
     if (hide) {
@@ -43,8 +35,7 @@ export async function resolveElementVisibility(element: HTMLElement) {
     }
   });
 
-  const showWhenElements = element.querySelectorAll('[x-show-when]');
-  showWhenElements.forEach(async (el) => {
+  element.querySelectorAll('[x-show-when]').forEach(async (el) => {
     const expression = el.getAttribute('x-show-when');
     const show = await evaluatePredicate(expression);
 
@@ -193,12 +184,12 @@ export function restoreElementChildTimedNodes(
 }
 
 export async function resolveElementValues(element:HTMLElement) {
-  const valueElements = element.querySelectorAll('*[value-from]');
-  valueElements.forEach(async (el) => {
-    const expression = el.getAttribute('value-from');
+  element.querySelectorAll('[x-value-from]').forEach(async (el) => {
+    const expression = el.getAttribute('x-value-from');
     if (hasExpression(expression)) {
       const value = await resolveExpression(expression);
       el.setAttribute('value', value);
     }
   });
+
 }

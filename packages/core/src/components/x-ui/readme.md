@@ -31,15 +31,7 @@ This component is the root container for all routing. It provides an entry-point
 * Event Action event delegation to and from the bus
 * Page title
 
-> If you want to have a special page for routes that are not resolved. Add a route wildcard route as the last route **`<x-view url="*">`**.
-
-
-For more information on routing, check out the [documentation](/routing). Also, check out the documentation for [**`<x-view>`**](/components/x-view) and [**`<x-view-do>`**](/components/x-view-do) components
-
-
-
-
-
+For more information on routing, check out the [routing](/routing) documentation. Also, check out the [**`<x-view>`**](/components/x-view) and [**`<x-view-do>`**](/components/x-view-do) components.
 
 <!-- Auto Generated Below -->
 
@@ -51,8 +43,9 @@ For more information on routing, check out the [documentation](/routing). Also, 
 | `appTitle`        | `app-title`         | This is the application / site title. If the views or dos have titles, this is added as a suffix.                            | `string`              | `undefined` |
 | `debug`           | `debug`             | Turn on debugging to get helpful messages from the routing, data and action systems.                                         | `boolean`             | `false`     |
 | `fullPage`        | `full-page`         | Set this to false if you don't want the UI component to take up the full page size.   *                                      | `boolean`             | `true`      |
-| `pathMode`        | `path-mode`         | Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA                     | `"browser" \| "hash"` | `'browser'` |
+| `mode`            | `mode`              | Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA                     | `"browser" \| "hash"` | `'browser'` |
 | `root`            | `root`              | This is the root path that the actual page is, if it isn't '/', then the router needs to know where to begin creating paths. | `string`              | `'/'`       |
+| `router`          | --                  | This is the router service instantiated with this component.                                                                 | `RouterService`       | `undefined` |
 | `scrollTopOffset` | `scroll-top-offset` | Header height or offset for scroll-top on this and all views.                                                                | `number`              | `undefined` |
 | `startUrl`        | `start-url`         | This is the start path a user should land on when they first land on this app.                                               | `string`              | `'/'`       |
 | `transition`      | `transition`        | Navigation transition between routes. This is a CSS animation class.                                                         | `string`              | `'fade-in'` |
@@ -60,10 +53,10 @@ For more information on routing, check out the [documentation](/routing). Also, 
 
 ## Events
 
-| Event          | Description                      | Type               |
-| -------------- | -------------------------------- | ------------------ |
-| `action`       | Listen to all X-UI actions here. | `CustomEvent<any>` |
-| `routeChanged` | Listen to all X-UI events here.  | `CustomEvent<any>` |
+| Event     | Description                  | Type               |
+| --------- | ---------------------------- | ------------------ |
+| `actions` | Listen for actionBus events. | `CustomEvent<any>` |
+| `events`  | Listen for eventBus events.  | `CustomEvent<any>` |
 
 
 ----------------------------------------------

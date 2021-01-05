@@ -3,7 +3,7 @@
   display: block;
 }
 
-:host(.fill) {
+:host([full-page]) {
   display: flex;
   flex-flow: column;
   height: 100%;

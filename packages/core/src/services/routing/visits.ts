@@ -8,11 +8,11 @@ warnIf(!supportsSession, 'session-storage is not supported');
 const supportsStorage = storageAvailable(window, 'localStorage');
 warnIf(!supportsStorage, 'local-storage is not supported');
 
-const visitKey = 'visit';
+const visitKey = 'visits';
 let memoryState = [];
 
-function parseVisits(visited:string) {
-  return JSON.parse(visited || '[]');
+function parseVisits(visits:string) {
+  return JSON.parse(visits || '[]');
 }
 
 function stringifyVisits(visits: Array<string>) {

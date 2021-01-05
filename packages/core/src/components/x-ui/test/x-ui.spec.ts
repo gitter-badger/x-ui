@@ -10,7 +10,7 @@ describe('x-ui', () => {
       html: `<x-ui></x-ui>`,
     });
     expect(page.root).toEqualHtml(`
-      <x-ui class="fill">
+      <x-ui>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>

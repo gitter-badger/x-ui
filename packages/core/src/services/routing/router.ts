@@ -16,7 +16,7 @@ import {
   ROUTE_COMMANDS,
   ROUTE_TOPIC
 } from './interfaces';
-import { getLocation, getUrl, normalizeChildUrl } from './utils/location-utils';
+import { getLocation, getUrl } from './utils/location-utils';
 import { matchPath } from './utils/match-path';
 import { ROUTE_EVENTS } from './interfaces';
 import { debugIf, interfaceState } from '..';
@@ -29,7 +29,6 @@ const HISTORIES: { [key in HistoryType]: (win: Window) => RouterHistory } = {
 export class RouterService {
   location: LocationSegments;
   history: RouterHistory;
-
 
   private constructor(
     private writeTask: (t:RafCallback) => void,
@@ -63,9 +62,7 @@ export class RouterService {
     addDataProvider('query', new RoutingDataProvider(
       (key:string) => this.location?.query[key]));
 
-    writeTask(() => {
-      this.events.emit(ROUTE_EVENTS.RouteChanged, this.location);
-    })
+    this.events.emit(ROUTE_EVENTS.RouteChanged, this.location);
   }
 
   handleEvent(actionEvent: EventAction<NavigateTo|NavigateNext>) {
@@ -130,7 +127,11 @@ export class RouterService {
   }
 
   normalizeChildUrl(childUrl:string, parentUrl: string) {
-    return normalizeChildUrl(childUrl, parentUrl);
+    let normalizedUrl = childUrl;
+    if (!childUrl.startsWith(parentUrl)) {
+      normalizedUrl = `${parentUrl}/${childUrl}`;
+    }
+    return normalizedUrl.replace('//', '/');
   }
 
   isModifiedEvent(ev: MouseEvent) {

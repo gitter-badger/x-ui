@@ -1,10 +1,10 @@
 import { Component, h, Prop, Element, State, Host, Watch, writeTask } from '@stencil/core';
 import '../x-view/x-view';
+import { MatchResults } from '../../../dist/types/services/routing/interfaces';
 import {
   EventEmitter,
   Route,
   VisitStrategy,
-  RouterService,
   debugIf,
   captureElementChildTimedNodes,
   resolveElementVisibility,
@@ -36,9 +36,8 @@ export class XViewDo {
   private lastTime: number;
   private route: Route;
   @Element() el: HTMLXViewDoElement;
-  @State() match: boolean;
-  @State() exact: boolean;
-  @State() content: any;
+  @State() match: MatchResults;
+  @State() fetched: boolean;
 
   /**
    * The title for this view. This is prefixed
@@ -66,6 +65,24 @@ export class XViewDo {
    */
   @Prop() url!: string;
 
+  @Watch('url')
+  validatePath(newValue: string, _oldValue: string) {
+    const isBlank = typeof newValue !== 'string' || newValue === '';
+    const has2chars = typeof newValue === 'string' && newValue.length >= 2;
+    if (isBlank) {
+      throw new Error('url: required');
+    }
+    if (!has2chars) {
+      throw new Error('url: too short');
+    }
+  }
+
+  /**
+   * The url for this route should only be matched
+   * when it is exact.
+  */
+  @Prop() exact: boolean = true;
+
   /**
    * The visit strategy for this do.
    * once: persist the visit and never force it again
@@ -84,10 +101,10 @@ export class XViewDo {
   @Prop() when?: string;
 
   /**
-   * Set a duration in milliseconds for this view. When this value exists, the page will
+   * When this value exists, the page will
    * automatically progress when the duration in seconds has passed.
    */
-  @Prop() duration?: number;
+  @Prop() nextAfter?: number;
 
   /**
    * Remote URL for this Route's content.
@@ -105,16 +122,12 @@ export class XViewDo {
    */
   @Prop() debug: boolean = false;
 
-  @Watch('url')
-  validatePath(newValue: string, _oldValue: string) {
-    const isBlank = typeof newValue !== 'string' || newValue === '';
-    const has2chars = typeof newValue === 'string' && newValue.length >= 2;
-    if (isBlank) {
-      throw new Error('url: required');
-    }
-    if (!has2chars) {
-      throw new Error('url: too short');
-    }
+  private get duration() {
+    return this.childVideo?.duration || this.nextAfter;
+  }
+
+  private get routeContainer() {
+    return this.el.closest('x-ui');
   }
 
   private get childVideo(): HTMLVideoElement {
@@ -133,20 +146,38 @@ export class XViewDo {
     return Array.from(this.el.querySelectorAll('x-action-activator'));
   }
 
-  componentWillLoad() {
+  async componentWillLoad() {
     debugIf(this.debug, `x-view-do: ${this.url} loading`);
 
-    this.route = new Route(RouterService.instance, this.el, this.url, true, this.pageTitle, this.transition, this.scrollTopOffset, async match => {
-      this.match = !!match;
-      this.exact = match?.isExact;
-      await this.resolveView();
-      writeTask(() => resolveElementVisibility(this.el));
+    if (!this.routeContainer) {
+      warn(`x-view-do: ${this.url} cannot load outside of an x-ui element`);
+      return;
+    }
+
+    this.route = this.routeContainer.router.createRoute(
+      this.el,
+      this.url,
+      this.exact,
+      this.pageTitle,
+      this.transition || this.routeContainer?.transition,
+      this.scrollTopOffset,
+      async (match) => {
+        this.match = match;
+        await this.resolveView();
+      }
+    );
+
+    this.match = this.route.router.matchPath({
+      path: this.url,
+      exact: this.exact,
+      strict: true,
     });
+
+    await this.resolveView();
 
     eventBus.on(DATA_EVENTS.DataChanged, async () => {
       debugIf(this.debug, `x-view-do: data changed `);
       await this.resolveView();
-      writeTask(() => resolveElementVisibility(this.el));
     });
 
     // Attach enter-key for next
@@ -157,21 +188,23 @@ export class XViewDo {
     });
   }
 
+  async componentWillRender() {
+    debugIf(this.debug, `x-view-do: ${this.url} will render`);
+  }
+
   componentDidRender() {
     debugIf(this.debug, `x-view-do: ${this.url} did render`);
-    writeTask(() => resolveElementVisibility(this.el));
   }
 
   private async fetchHtml() {
-    if (!this.contentSrc) return;
+    if (!this.contentSrc || this.fetched) return;
 
-    this.el.querySelector('#content')?.remove();
     try {
       const response = await fetch(this.contentSrc);
       if (response.status === 200) {
         const data = await response.text();
-        this.content = data;
         this.el.appendChild(wrapFragment(data, 'content', 'content'));
+        this.fetched = true;
       } else {
         warn(`x-view-do: ${this.url} Unable to retrieve from ${this.contentSrc}`);
       }
@@ -199,8 +232,6 @@ export class XViewDo {
       clearInterval(this.timer);
       this.timer = null;
       this.lastTime = 0;
-
-
     }
     return valid;
   }
@@ -208,7 +239,7 @@ export class XViewDo {
   private back(element: string, eventName: string) {
     debugIf(this.debug, `x-view-do: back fired from ${element}:${eventName}`);
     if (this.beforeExit()) {
-      RouterService.instance.history.goBack();
+      this.route.router?.history.goBack();
     }
   }
 
@@ -221,9 +252,9 @@ export class XViewDo {
       }
       markVisit(this.url);
       if (route) {
-        RouterService.instance.history.push(route);
+        this.route.router?.history.push(route);
       } else {
-        RouterService.instance.goToParentRoute();
+        this.route.router?.goToParentRoute();
       }
     }
   }
@@ -232,7 +263,7 @@ export class XViewDo {
     debugIf(this.debug, `x-view-do: ${this.url} resolve view called`);
     clearInterval(this.timer);
 
-    if (this.exact) {
+    if (this.match?.isExact) {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
       this.el.removeAttribute('hidden');
@@ -240,35 +271,48 @@ export class XViewDo {
     } else {
       this.el.setAttribute('hidden', '');
     }
+    resolveElementVisibility(this.el);
   }
 
   private async resolveChildren() {
     debugIf(this.debug, `x-view-do: ${this.url} resolve children called`);
 
     // Attach next
-    const nextElement = this.el.querySelector('[x-next]');
-    nextElement?.addEventListener('click', e => {
-      e.preventDefault();
-      this.next(nextElement?.localName, 'clicked');
+    this.el.querySelectorAll('[x-next]').forEach(el => {
+      const route = el.getAttribute('x-next');
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        this.next(el?.localName, 'clicked', route);
+      });
+      el.removeAttribute('x-next');
     });
-    nextElement?.removeAttribute('x-next');
 
-    // Attach route
+    // Attach routes
     this.el.querySelectorAll('[x-link]').forEach(el => {
       el.addEventListener('click', e => {
         e.preventDefault();
         const route = el.getAttribute('x-link');
         this.next(el.localName, 'clicked', route);
       });
+      el.removeAttribute('x-link');
+    });
+
+    this.el.querySelectorAll('a[href]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const url = el.getAttribute('href');
+        this.next(el.localName, 'clicked', url);
+      });
     });
 
     // Attach back
-    const backElement = this.el?.querySelector('[x-back]');
-    backElement?.addEventListener('click', e => {
-      e.preventDefault();
-      this.back(nextElement?.localName, 'clicked');
+    this.el.querySelectorAll('[x-back]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        this.back(el.localName, 'clicked');
+      });
+      el.removeAttribute('x-back');
     });
-    backElement?.removeAttribute('x-back');
 
     // Capture timed nodes
     this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
@@ -289,7 +333,7 @@ export class XViewDo {
 
   private setupTimer() {
     const video = this.childVideo;
-    const { debug, duration = video?.duration || 0 } = this;
+    const { debug, duration } = this;
     const timeUpdateEvent = 'timeupdate';
 
     this.timeEvent = new EventEmitter();
@@ -336,7 +380,7 @@ export class XViewDo {
     }
 
     this.timeEvent.on(timeUpdateEvent, time => {
-      const { debug, el, timedNodes, duration = video?.duration } = this;
+      const { debug, el, timedNodes, duration } = this;
 
       this.actionActivators
         .filter(activator => activator.activate === ActionActivationStrategy.AtTime)
@@ -354,7 +398,7 @@ export class XViewDo {
     if (this.match == null) {
       return this.route?.transition;
     }
-    if (this.exact) {
+    if (this.match?.isExact) {
       return `${this.route?.transition || ''} active-route-exact`;
     }
     return '';
@@ -366,7 +410,7 @@ export class XViewDo {
     return (
       <Host class={this.classes}>
         <slot />
-        {this.exact ? (
+        {this.match?.isExact ? (
           <slot name="content" />
         ) : null}
       </Host>

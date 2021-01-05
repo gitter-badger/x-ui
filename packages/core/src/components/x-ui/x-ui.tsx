@@ -22,7 +22,6 @@ import {
   DataListener,
   InterfaceListener,
   EventAction,
-  resolveChildRemoteHtml,
   eventBus,
 } from '../../services';
 
@@ -35,10 +34,16 @@ import {
   shadow: true,
 })
 export class XUI {
-  private router: RouterService;
+
   private listeners: Array<IEventActionListener> = [];
   @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
+
+  /**
+   * This is the router service instantiated with this
+   * component.
+   */
+  @Prop() router: RouterService;
 
   /**
    * This is the root path that the actual page is,
@@ -52,7 +57,7 @@ export class XUI {
    * To support browser history, the HTTP server
    * must be setup for a PWA
    */
-  @Prop() pathMode: HistoryType = 'browser';
+  @Prop() mode: HistoryType = 'browser';
 
   /**
    * Header height or offset for scroll-top on this
@@ -102,19 +107,20 @@ export class XUI {
   }
 
   /**
-   * Listen to all X-UI actions here.
+   * Listen for actionBus events.
    */
-  @Event({
-    composed: true,
-  }) action: EventEmitter<any>;
+  @Event() actions: EventEmitter<any>;
 
   /**
-   * Listen to all X-UI events here.
+   * Listen for eventBus events.
    */
-  @Event({
-    eventName: 'routeChanged',
-    composed: true,
-  }) event: EventEmitter<any>;
+  @Event() events: EventEmitter<any>;
+
+  private get childViews(): Array<HTMLXViewElement> {
+    if (!this.el.hasChildNodes()) return [];
+    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW')
+      .map((v) => v as HTMLXViewElement);
+  }
 
   componentWillLoad() {
     interfaceState.debug = this.debug;
@@ -123,32 +129,38 @@ export class XUI {
     else log('x-ui: initializing');
 
     actionBus.on('*', (_topic, args) => {
-      this.action.emit(args);
+      this.actions.emit(args);
     });
 
     eventBus.on('*', (topic, args) => {
-      this.event.emit(args);
-      if (topic == ROUTE_EVENTS.RouteChanged) {
-        this.location = args as LocationSegments;
-        setTimeout(() => {
-          resolveChildRemoteHtml();
-        }, 100);
+      this.events.emit(args);
+      if(topic == ROUTE_EVENTS.RouteChanged) {
+        this.el.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]').forEach(async (el) => {
+          el.removeAttribute('no-render');
+        });
       }
     });
 
-    this.router = RouterService.initialize(
+    this.router = new RouterService(
       writeTask,
       eventBus,
       actionBus,
       this.el,
-      this.pathMode,
+      this.mode,
       this.root,
       this.appTitle,
       this.transition,
       this.scrollTopOffset);
 
-    if (this.startUrl !== '/' && this.router.location.pathname === '/') {
-      this.router.history.push(this.router.getUrl(this.startUrl, this.root));
+    this.childViews.forEach(v => {
+      if (v.url)
+        v.url = this.router.normalizeChildUrl(v.url, this.root);
+      v.transition = v.transition || this.transition;
+    });
+
+    if (this.startUrl !== '/' && this.router.location.pathname === this.root) {
+      const startUrl = this.router.normalizeChildUrl(this.startUrl, this.root)
+      this.router.history.push(this.router.getUrl(startUrl, this.root));
     }
 
     const dataListener = new DataListener();
@@ -179,7 +191,7 @@ export class XUI {
 
   render() {
     return (
-      <Host class={{ fill: this.fullPage }}>
+      <Host>
         <slot></slot>
       </Host>
     );

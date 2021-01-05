@@ -44,7 +44,7 @@ export async function resolveExpression(valueExpression: string, data?: any): Pr
   // replace each match
   let match: string | RegExpExecArray;
   // eslint-disable-next-line no-cond-assign
-  while (match = expressionRegEx.exec(result)) {
+  while (match = expressionRegEx.exec(valueExpression)) {
     const expression = match[0];
     const providerKey = match[1];
     const dataKey = match[2];

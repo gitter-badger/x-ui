@@ -207,7 +207,6 @@ export namespace Components {
         "noRender": boolean;
         /**
           * Remote Template URL
-          * @required
          */
         "src": string;
     }
@@ -228,6 +227,10 @@ export namespace Components {
         "strict": boolean;
     }
     interface XMarkdown {
+        /**
+          * Base Url for embedded links
+         */
+        "baseUrl": string;
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
          */
@@ -303,6 +306,10 @@ export namespace Components {
          */
         "debug": boolean;
         /**
+          * The url for this route should only be matched when it is exact.
+         */
+        "exact": boolean;
+        /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
         "pageTitle": string;
@@ -333,9 +340,13 @@ export namespace Components {
          */
         "display": 'page' | 'modal' | 'full';
         /**
-          * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+          * The url for this route should only be matched when it is exact.
          */
-        "duration"?: number;
+        "exact": boolean;
+        /**
+          * When this value exists, the page will automatically progress when the duration in seconds has passed.
+         */
+        "nextAfter"?: number;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
@@ -687,9 +698,8 @@ declare namespace LocalJSX {
         "noRender"?: boolean;
         /**
           * Remote Template URL
-          * @required
          */
-        "src"?: string;
+        "src": string;
     }
     interface XLink {
         "activeClass"?: string;
@@ -708,6 +718,10 @@ declare namespace LocalJSX {
         "strict"?: boolean;
     }
     interface XMarkdown {
+        /**
+          * Base Url for embedded links
+         */
+        "baseUrl"?: string;
         /**
           * If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute.
          */
@@ -731,13 +745,13 @@ declare namespace LocalJSX {
          */
         "fullPage"?: boolean;
         /**
-          * Listen to all X-UI actions here.
+          * Listen for actionBus events.
          */
-        "onAction"?: (event: CustomEvent<any>) => void;
+        "onActions"?: (event: CustomEvent<any>) => void;
         /**
-          * Listen to all X-UI events here.
+          * Listen for eventBus events.
          */
-        "onRouteChanged"?: (event: CustomEvent<any>) => void;
+        "onEvents"?: (event: CustomEvent<any>) => void;
         /**
           * Browser (paths) or Hash (#) routing. To support browser history, the HTTP server must be setup for a PWA
          */
@@ -791,6 +805,10 @@ declare namespace LocalJSX {
          */
         "debug"?: boolean;
         /**
+          * The url for this route should only be matched when it is exact.
+         */
+        "exact"?: boolean;
+        /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */
         "pageTitle"?: string;
@@ -821,9 +839,13 @@ declare namespace LocalJSX {
          */
         "display"?: 'page' | 'modal' | 'full';
         /**
-          * Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.
+          * The url for this route should only be matched when it is exact.
          */
-        "duration"?: number;
+        "exact"?: boolean;
+        /**
+          * When this value exists, the page will automatically progress when the duration in seconds has passed.
+         */
+        "nextAfter"?: number;
         /**
           * The title for this view. This is prefixed before the app title configured in x-ui
          */

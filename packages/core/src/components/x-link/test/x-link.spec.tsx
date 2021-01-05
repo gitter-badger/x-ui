@@ -11,7 +11,7 @@ describe('x-link', () => {
     });
     expect(page.root).toEqualHtml(`
       <x-link>
-        <a></a>
+        <a class="link-active"></a>
       </x-link>
     `);
   });

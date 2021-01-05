@@ -1,8 +1,10 @@
 # X-VIEW-DO
 
-[**`<x-view-do>`**](/components/x-view-do) is a specialized child-route that can only exist inside a [**`<x-view>`**](/components/x-view). It represents a sub-route that has special presentation and workflow behaviors. These are the only routes that support audio, video and [event actions](/actions).
+The **`<x-view-do>`** element represents a specialized child-route that for its parent [**`<x-view>`**](/components/x-view) route. It represents a sub-route that has special presentation and workflow behaviors.
 
-> These  are essentially **to-do** items for the parent route. They are used to create presentation, wizards, input workflows, or step by step instructions or wherever you want guided or automatic navigation.
+> **`<x-view-do>`** are essentially **to-do** items for the parent route. 
+
+They are used to create presentation, wizards, input workflows, or step by step instructions or wherever you want guided or automatic navigation.  These are the only routes that support [audio](/audio), [video](/video) and [event actions](/actions).
 
 ## Usage
 Much like its parent, [**`<x-view>`**](/components/x-view), basic routing information is required.
@@ -14,11 +16,11 @@ Much like its parent, [**`<x-view>`**](/components/x-view), basic routing inform
     page-title="<route title>"
     display="page|modal|full"
     visit="always|once|optional"
-    when="<expression predicate>"
-    duration="<seconds before next>"
+    when="<expression predicate>"   
     content-src="<remote html"
     transition="<animation-enter>"
     scroll-top-offset=""
+    next-after="<seconds before next>"
     >
     ...
   </x-view-do>
@@ -52,7 +54,7 @@ This route will be activated once for each new  visit to the page. (Visit 'once'
 </x-view-do>
 ````
 
-> By default, the visit is 'once'. In this case, the visit is stored in local-storage. Any subsequent visits to this page with the same browser won't see it again. 
+> By default, the visit-strategy is 'once'. In this case, the visit is stored in local-storage. Any subsequent visits to this page with the same browser won't see it again. 
 
 ### Present Each Visit
 This route will be activated once for each new  session visit to the page. 
@@ -223,7 +225,8 @@ This attribute instructs **\<x-view-do\>** to inject the current time percentage
 | `contentSrc`       | `content-src`       | Remote URL for this Route's content.                                                                                                                                                                                 | `string`                                                               | `undefined`          |
 | `debug`            | `debug`             | To debug timed elements, set this value to true.                                                                                                                                                                     | `boolean`                                                              | `false`              |
 | `display`          | `display`           | How should this page be presented (coming soon)                                                                                                                                                                      | `"full" \| "modal" \| "page"`                                          | `'page'`             |
-| `duration`         | `duration`          | Set a duration in milliseconds for this view. When this value exists, the page will automatically progress when the duration in seconds has passed.                                                                  | `number`                                                               | `undefined`          |
+| `exact`            | `exact`             | The url for this route should only be matched when it is exact.                                                                                                                                                      | `boolean`                                                              | `true`               |
+| `nextAfter`        | `next-after`        | When this value exists, the page will automatically progress when the duration in seconds has passed.                                                                                                                | `number`                                                               | `undefined`          |
 | `pageTitle`        | `page-title`        | The title for this view. This is prefixed before the app title configured in x-ui                                                                                                                                    | `string`                                                               | `''`                 |
 | `scrollTopOffset`  | `scroll-top-offset` | Header height or offset for scroll-top on this view.                                                                                                                                                                 | `number`                                                               | `undefined`          |
 | `transition`       | `transition`        | Navigation transition between routes. This is a CSS animation class.                                                                                                                                                 | `string`                                                               | `undefined`          |

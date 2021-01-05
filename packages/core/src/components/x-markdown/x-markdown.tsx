@@ -40,6 +40,10 @@ export class XMarkdown {
   // eslint-disable-next-line @stencil/strict-mutable
   @Prop({ mutable: true}) noRender: boolean = false;
 
+  private get router(): RouterService {
+    return this.el.closest('x-ui')?.router;
+  }
+
   private get childScript(): HTMLScriptElement {
     if (!this.el.hasChildNodes()) return null;
     const childScripts = Array.from(this.el.childNodes)
@@ -83,12 +87,12 @@ export class XMarkdown {
 
   componentDidRender() {
     resolveElementVisibility(this.el);
-    if (RouterService.instance) {
+    if (this.router) {
       this.el.querySelectorAll('a[href^=http]').forEach(a => {
         a.addEventListener('click', (e) => {
           const href = a.getAttribute('href');
           e.preventDefault();
-          RouterService.instance.history.push(href);
+          this.router.history.push(href);
         })
       });
     }

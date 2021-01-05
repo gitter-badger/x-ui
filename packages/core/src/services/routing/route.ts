@@ -2,46 +2,40 @@ import { RouteViewOptions, MatchResults, ROUTE_EVENTS } from './interfaces';
 import { matchesAreEqual } from './utils/match-path';
 import { RouterService } from './router';
 import { hasExpression, resolveExpression } from '../data/expression-evaluator';
-import { normalizeChildUrl } from './utils/location-utils';
 import { eventBus } from '..';
 
 export class Route {
+  public router: RouterService;
   public match: MatchResults;
   public scrollOnNextRender: boolean = false;
   public previousMatch: MatchResults | null = null;
 
   constructor(
-    public router: RouterService,
     public routeElement: HTMLElement,
     public path: string,
-    public exact: boolean = false,
+    exact: boolean,
     public pageTitle: string,
     public transition: string,
     public scrollTopOffset: number,
     matchSetter: (m: MatchResults) => void,
   ) {
+    this.router = RouterService.instance;
 
     eventBus.on(ROUTE_EVENTS.RouteChanged, async () => {
       this.previousMatch = this.match;
-      this.match = this.router.matchPath({
-        path: this.path,
-        exact: this.exact,
+      this.match = this.router?.matchPath({
+        path: path,
+        exact: exact,
         strict: true,
       });
       matchSetter(this.match);
     });
-
-    this.match = this.router?.matchPath({
-      path: this.path,
-      exact: this.exact,
-      strict: true,
-    });
-    matchSetter(this.match);
   }
 
-  normalizeChildUrl(childUrl:string, parentUrl: string) {
-    return normalizeChildUrl(childUrl, parentUrl);
+  normalizeChildUrl(childUrl: string) {
+    return this.router.normalizeChildUrl(childUrl, this.path);
   }
+
 
   async loadCompleted() {
     let routeViewOptions: RouteViewOptions = {};

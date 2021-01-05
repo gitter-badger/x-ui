@@ -1,4 +1,4 @@
-# X-VIEW Component
+# X-VIEW
 
 The View component is a child component for the **`<x-ui>`** component for adding a page-route. It is a container element that displays its inner HTML for a given route or sub-route. This provides a declarative mechanism for in-page content/component routing by URL. 
 
@@ -88,6 +88,7 @@ For each child element with this attribute, the value of the attribute is evalua
 | ------------------ | ------------------- | --------------------------------------------------------------------------------- | --------- | ----------- |
 | `contentSrc`       | `content-src`       | Remote URL for this Route's content.                                              | `string`  | `undefined` |
 | `debug`            | `debug`             | Turn on debug statements for load, update and render events.                      | `boolean` | `false`     |
+| `exact`            | `exact`             | The url for this route should only be matched when it is exact.                   | `boolean` | `undefined` |
 | `pageTitle`        | `page-title`        | The title for this view. This is prefixed before the app title configured in x-ui | `string`  | `''`        |
 | `scrollTopOffset`  | `scroll-top-offset` | Header height or offset for scroll-top on this view.                              | `number`  | `undefined` |
 | `transition`       | `transition`        | Navigation transition between routes. This is a CSS animation class.              | `string`  | `undefined` |
