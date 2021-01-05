@@ -21,6 +21,7 @@
     "npm:install": "npx yarn",
     "build": "yarn workspace @viewdo/x-ui build && yarn workspace @viewdo/x-dxp build",
     "start": "yarn workspace @viewdo/x-ui start",
+    "test": "yarn workspace @viewdo/x-ui test",
     "--- lint ---": "---------------",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint './packages/core/src/**/*{.ts,.tsx}'",

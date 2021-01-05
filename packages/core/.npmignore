@@ -10,3 +10,4 @@ bit.json
 nvm.rc
 renovate.json
 *.log
+__mock__
