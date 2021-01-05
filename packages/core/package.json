@@ -35,7 +35,7 @@
     "--- production ---": "---------------",
     "build": "stencil build --docs --www",
     "--- test ---": "---------------",
-    "test": "stencil test --spec --coverage --detectOpenHandle",
+    "test": "stencil test --spec --coverage",
     "test:spec": "stencil test --spec",
     "test:e2e": "stencil test --e2e",
     "test:watch": "stencil test --spec --watch"
