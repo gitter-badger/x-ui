@@ -33,7 +33,7 @@ jobs:
             nodeModules-
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: yarn
         env:
           CI: true
       - run: yarn build
