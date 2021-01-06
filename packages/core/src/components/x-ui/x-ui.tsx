@@ -1,17 +1,7 @@
-import { ROUTE_EVENTS } from '../../services/routing/interfaces';
 import { clearDataProviders } from '../../services/data/providers/factory';
+import { Component, h, Host, Element, Event, EventEmitter, Listen, Prop, State, writeTask } from '@stencil/core';
 import {
-  Component,
-  h,
-  Host,
-  Element,
-  Event,
-  EventEmitter,
-  Listen,
-  Prop,
-  State,
-  writeTask } from '@stencil/core';
-import {
+  ROUTE_EVENTS,
   HistoryType,
   IEventActionListener,
   LocationSegments,
@@ -39,6 +29,7 @@ export class XUI {
   private eventSubscription: () => void;
   private actionsSubscription: () => void;
   private listeners: Array<IEventActionListener> = [];
+
   @Element() el!: HTMLXUiElement;
   @State() location: LocationSegments;
 
@@ -121,8 +112,9 @@ export class XUI {
 
   private get childViews(): Array<HTMLXViewElement> {
     if (!this.el.hasChildNodes()) return [];
-    return Array.from(this.el.childNodes).filter((c) => c.nodeName === 'X-VIEW')
-      .map((v) => v as HTMLXViewElement);
+    return Array.from(this.el.childNodes)
+      .filter(c => c.nodeName === 'X-VIEW')
+      .map(v => v as HTMLXViewElement);
   }
 
   componentWillLoad() {
@@ -137,32 +129,22 @@ export class XUI {
 
     this.eventSubscription = eventBus.on('*', (topic, args) => {
       this.events.emit(args);
-      if(topic == ROUTE_EVENTS.RouteChanged) {
-        this.el.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]').forEach(async (el) => {
+      if (topic == ROUTE_EVENTS.RouteChanged) {
+        this.el.querySelectorAll('.active-route-exact [no-render], .active-route [no-render]').forEach(async el => {
           el.removeAttribute('no-render');
         });
       }
     });
 
-    this.router = new RouterService(
-      writeTask,
-      eventBus,
-      actionBus,
-      this.el,
-      this.mode,
-      this.root,
-      this.appTitle,
-      this.transition,
-      this.scrollTopOffset);
+    this.router = new RouterService(writeTask, eventBus, actionBus, this.el, this.mode, this.root, this.appTitle, this.transition, this.scrollTopOffset);
 
     this.childViews.forEach(v => {
-      if (v.url)
-        v.url = this.router.normalizeChildUrl(v.url, this.root);
+      if (v.url) v.url = this.router.normalizeChildUrl(v.url, this.root);
       v.transition = v.transition || this.transition;
     });
 
     if (this.startUrl !== '/' && this.router.location.pathname === this.root) {
-      const startUrl = this.router.normalizeChildUrl(this.startUrl, this.root)
+      const startUrl = this.router.normalizeChildUrl(this.startUrl, this.root);
       this.router.history.push(this.router.getUrl(startUrl, this.root));
     }
 

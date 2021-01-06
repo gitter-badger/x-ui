@@ -3,7 +3,7 @@
     "**/node_modules",
     "**/dist/",
     "www",
-    ".scratch/",
+    ".scratch/"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

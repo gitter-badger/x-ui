@@ -1,6 +1,7 @@
 {
   "extends": "stylelint-config-sass-guidelines",
   "defaultSeverity": "warning",
+  "ignoreFiles": "**.ts",
   "plugins": [
     "stylelint-scss"
   ],
