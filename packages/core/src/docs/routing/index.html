@@ -8,7 +8,7 @@
 <div class="container container-fluid mx-auto">
   <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
     <li class="list-group-item fw-bold">Routing Components</li>
-    <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='routing']]">
+    <x-data-repeat items-src="/data/x-components.json" filter="components[docsTags[text='routing']]">
       <template>
         <li class="list-group-item">
           <x-link href="/components/{data:tag}">
@@ -118,7 +118,7 @@
       &#x2B9C;
       Install
     </x-link>
-    <x-link slot="end" href="/navigation"
+    <x-link slot="end" href="/routing/navigation"
       custom="button" anchor-class="btn btn-primary btn-lg">
       Next: Navigation
       &#x2B9E;

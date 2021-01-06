@@ -67,7 +67,11 @@
     "**/@typescript-eslint/parser": "4.12.0"
   },
   "jest": {
-    "preset": "@stencil/core/testing"
+    "preset": "@stencil/core/testing",
+    "maxConcurrency": 0,
+    "projects": [
+      "<rootDir>/packages/core/src/*"
+    ]
   },
   "browserslist": [
     ">0.2%",

@@ -4,22 +4,71 @@
 <x-use script-src="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js">
 </x-use>
 <div class="container container-fluid mx-auto">
-  <x-markdown src="/docs/navigation/guided.md"></x-markdown>
 
   <x-markdown>
-    <script type="text/markdown">
+    <script lang="markdown" type="text/markdown">
+      # Guided Navigation
+
+      You can create smart guided navigation using simple conventions, visit-tracking and data-expressions to guide users through workflows or presentations.
+
+      > Using just static HTML, this page was able to create a rich navigation system that walks a user through content in a personalized, conversational format.
+
+      ### Sequential Routes
+      By convention, routes are given an order based on how they are declared.
+
+      <x-link href="/presentations/guided/sequential"
+        custom="button" anchor-class="btn btn-info text-white">
+        <i class="ri-order-play-line"></i>
+        Basic Sequenced Navigation
+      </x-link>
+
+      ### Timed Routes
+
+      <x-link href="/presentations/guided/timed"
+        custom="button" anchor-class="btn btn-info text-white">
+        <i class="ri-guide-line"></i>
+        Automatic Navigation w/Time-based Routes
+      </x-link>
+
+      ### Smart Routing
+
+      <x-link href="/presentations/guided/smart"
+        custom="button" anchor-class="btn btn-info text-white">
+        <i class="ri-lightbulb-flash-line"></i>
+        Smart Guidance w/Visit Tracking
+      </x-link>
+
+
+      ### Rule Based Routes
+
+      <x-link href="/presentations/guided/rules"
+        custom="button" anchor-class="btn btn-info text-white">
+        <i class="ri-gps-line"></i>
+        Using Rules for Advanced Guidance
+      </x-link>
+
+      ### Convention-based Routing
+
+
+      <x-link href="/presentations/guided/tutorial"
+        custom="button" anchor-class="btn btn-info text-white">
+        <i class="ri-book-3-line"></i>
+          Learn more about convention-based routing
+      </x-link>
+
+
     </script>
   </x-markdown>
   <div class="x-nav-bottom">
-    <x-link slot="start" href="/navigation/static">
+    <x-link slot="start" href="/presentations">
       <button class="btn btn-light btn-lg">
         &#x2B9C;
-        Routing
+        XX
       </button>
     </x-link>
-    <x-link slot="end" href="/navigation">
+    <x-link slot="end" href="/presentations">
       <button class="btn btn-primary btn-lg">
-        Navigation
+        XX
         &#x2B9E;
       </button>
     </x-link>

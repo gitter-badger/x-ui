@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
   <head>
     <title>view.DO :: &lt;x-ui/&gt; </title>
-    <base href="/" />
+
     <meta charset="utf-8" />
     <meta name="viewport"                               content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <meta http-equiv="x-ua-compatible"                  content="IE=Edge">
@@ -30,15 +30,23 @@
     <link rel="icon" type="image/ico"
       href="https://storage.googleapis.com/viewdo-static/view-do/fav-touch-icons/storyplayer/favicon.ico"/>
     <link rel="stylesheet"
-      href="docs/assets/styles.css"
+      href="/docs/assets/styles.css"
       media="print" onload="this.media='all'"/>
 
+    <!-- Default theme. ~960B -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css"
+      />
+    <!-- Library and all of its components are lazy loaded, so nothing to sweat about here. ~3kB -->
+    <script type="module"
+      src="https://cdn.jsdelivr.net/npm/@vime/core@^5/dist/vime/vime.esm.js"
+      ></script>
+
     <!-- Experience UI -->
-    <script type="module" src="x-ui/x-ui.esm.js"></script>
-    <script nomodule="" src="x-ui/x-ui.js"></script>
+    <script type="module" src="/x-ui/x-ui.esm.js"></script>
     <link rel="stylesheet"
-      href="x-ui/x-ui.css"
-      media="print" onload="this.media='all'"/>
+      href="/x-ui/x-ui.css"/>
 
     <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-data-repeat.entry.js" />
     <link rel="preload" as="script" crossorigin="anonymous" href="/x-ui/x-ui.entry.js" />
@@ -90,7 +98,7 @@
               </h1>
             </x-link>
           </div>
-          <x-include src="docs/header.html"></x-include>
+          <x-include src="/docs/header.html"></x-include>
           <div>
             <x-audio-player title="Audio" display>
             </x-audio-player>
@@ -204,6 +212,27 @@
 
       </x-view>
 
+      <x-view url="content"
+        page-title="Dynamic Content"
+        content-src="/docs/content/index.html">
+        <x-view url="include"
+          page-title="Remote HTML"
+          content-src="/docs/content/include.html">
+        </x-view>
+        <x-view url="markdown"
+          page-title="Markdown"
+          content-src="/docs/content/markdown.html">
+        </x-view>
+        <x-view url="use"
+          page-title="HTML Dependencies"
+          content-src="/docs/content/use.html">
+        </x-view>
+        <x-view url="data"
+          page-title="Data Templates"
+          content-src="/docs/content/data.html">
+        </x-view>
+      </x-view>
+
       <x-view url="presentations"
         page-title="Guided Routing"
         content-src="/docs/presentations/index.html">
@@ -214,19 +243,59 @@
 
           <x-view url="/demo"
             page-title="Guided Demo"
-            content-src="/docs/presentations/guided/demo/complete.html">
+            content-src="/docs/presentations/demo/index.html">
 
             <x-view-do url="/video"
-              page-title="Guided: Video"
+              page-title="Guided: Intro"
               visit="always"
-              content-src="/docs/presentations/guided/demo/video.html">
+              content-src="/docs/presentations/demo/video.html"
+              >
+              <x-action-activator activate="AtTime" time="9.9">
+                <x-action
+                  topic="routing"
+                  command="navigate-to"
+                  data='{"url":"video-1"}'>
+                </x-action>
+              </x-action-activator>
+            </x-view-do>
+            <x-view-do url="/video-1"
+              page-title="Guided: Part 1"
+              visit="always"
+              content-src="/docs/presentations/demo/video.html"
+              >
+              <x-action-activator activate="AtTime" time="9.9">
+                <x-action
+                  topic="routing"
+                  command="navigate-to"
+                  data='{"url":"video-2"}'>
+                </x-action>
+              </x-action-activator>
+            </x-view-do>
+            <x-view-do url="/video-2"
+              page-title="Guided: Part 2"
+              visit="always"
+              content-src="/docs/presentations/demo/video.html"
+              >
+              <x-action-activator activate="AtTime" time="9.9">
+                <x-action
+                  topic="routing"
+                  command="navigate-to"
+                  data='{"url":"video-3"}'>
+                </x-action>
+              </x-action-activator>
+            </x-view-do>
+            <x-view-do url="/video-3"
+              page-title="Guided: Part 3"
+              visit="always"
+              content-src="/docs/presentations/demo/video.html"
+              >
             </x-view-do>
 
             <x-view-do url="/animation"
               page-title="Guided: Animated HTML"
               visit="always"
               next-after="30"
-              content-src="/docs/presentations/guided/demo/timed.html">
+              content-src="/docs/presentations/demo/timed.html">
             </x-view-do>
           </x-view>
 
@@ -236,21 +305,21 @@
 
             <x-view url="/demo"
               page-title="Sequential Demo"
-              content-src="/docs/presentations/guided/demo/complete.html">
+              content-src="/docs/presentations/demo/complete.html">
               <x-view-do url="/step-1"
                 page-title="Step 1"
                 visit="always"
-                content-src="/docs/presentations/guided/demo/step1.html">
+                content-src="/docs/presentations/demo/step1.html">
               </x-view-do>
               <x-view-do url="/step-2"
                 page-title="Step 2"
                 visit="always"
-                content-src="/docs/presentations/guided/demo/step2.html">
+                content-src="/docs/presentations/demo/step2.html">
               </x-view-do>
               <x-view-do url="/step-3"
                 page-title="Step 3"
                 visit="always"
-                content-src="/docs/presentations/guided/demo/step3.html">
+                content-src="/docs/presentations/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -266,24 +335,24 @@
             content-src="/docs/presentations/guided/smart.html">
             <x-view url="demo"
               page-title="Smart Demo"
-              content-src="/docs/presentations/guided/demo/complete.html">
+              content-src="/docs/presentations/demo/complete.html">
               <x-view-do url="step-1"
                 page-title="Step 1"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step1.html">
+                content-src="/docs/presentations/demo/step1.html">
               </x-view-do>
               <x-view-do url="step-2"
                 page-title="Step 2"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step2.html">
+                content-src="/docs/presentations/demo/step2.html">
               </x-view-do>
               <x-view-do url="step-3"
                 page-title="Step 3"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step3.html">
+                content-src="/docs/presentations/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -300,25 +369,25 @@
 
             <x-view url="demo"
               page-title="Timed Demo"
-              content-src="/docs/presentations/guided/demo/complete.html">
+              content-src="/docs/presentations/demo/complete.html">
 
               <x-view-do url="step-1"
                 page-title="Step 1"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step1.html">
+                content-src="/docs/presentations/demo/step1.html">
               </x-view-do>
               <x-view-do url="step-2"
                 page-title="Step 2"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step2.html">
+                content-src="/docs/presentations/demo/step2.html">
               </x-view-do>
               <x-view-do url="step-3"
                 page-title="Step 3"
                 visit="always"
                 next-after="10"
-                content-src="/docs/presentations/guided/demo/step3.html">
+                content-src="/docs/presentations/demo/step3.html">
                 <x-action-activator activate="OnExit">
                   <x-action topic="routing"
                     command="navigate-to"
@@ -331,14 +400,14 @@
             <x-view-do url="video"
               page-title="Timed w/Video"
               visit="optional"
-              content-src="/docs/presentations/guided/demo/video.html">
+              content-src="/docs/presentations/demo/video.html">
             </x-view-do>
 
             <x-view-do url="animation"
               page-title="Auto Next"
               visit="optional"
               next-after="30"
-              content-src="/docs/presentations/guided/demo/timed.html">
+              content-src="/docs/presentations/demo/timed.html">
             </x-view-do>
           </x-view>
 
@@ -443,8 +512,7 @@
         </x-view-do>
         <x-view-do url="/timed" page-title="Timed Sound"
           visit="optional"
-          content-src="/docs/audio/timed.html"
-          debug>
+          content-src="/docs/audio/timed.html">
 
         </x-view-do>
       </x-view>

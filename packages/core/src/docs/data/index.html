@@ -6,7 +6,7 @@
 <div class="container container-fluid mx-auto">
   <ul class="list-group btn-group-xl float-end ms-3 mt-2 d-none d-sm-block">
     <li class="list-group-item fw-bold">Data Components</li>
-    <x-data-repeat items-src="data/x-components.json" filter="components[docsTags[text='data']]">
+    <x-data-repeat items-src="/data/x-components.json" filter="components[docsTags[text='data']]">
       <template>
         <li class="list-group-item">
           <x-link href="/components/{data:tag}">

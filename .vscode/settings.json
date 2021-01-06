@@ -19,12 +19,16 @@
     "loadash",
     "noslash",
     "onbeforeexit",
+    "playsinline",
     "recalc",
     "rehype",
     "searchjs",
     "stylelint",
     "unhinted",
-    "unlisten"
+    "unlisten",
+    "vime",
+    "webm",
+    "youtube"
   ],
   "stencilTools.style.extension": "scss"
 }
