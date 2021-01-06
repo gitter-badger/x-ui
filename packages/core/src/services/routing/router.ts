@@ -32,7 +32,7 @@ export class RouterService {
   history: RouterHistory;
 
   constructor(
-    private writeTask: (t:RafCallback) => void,
+    private writeTask: (t: RafCallback) => void,
     private events: IEventEmitter,
     private actions: IEventEmitter,
     public rootElement: HTMLElement,
@@ -46,27 +46,27 @@ export class RouterService {
     if (!this.history) return;
 
     this.history.listen((location: LocationSegments) => {
-      const newLocation =  getLocation(location, root);
-      this.history.location = newLocation
+      const newLocation = getLocation(location, root);
+      this.history.location = newLocation;
       this.location = newLocation;
 
-      this.events.emit(ROUTE_EVENTS.RouteChanged, newLocation)
+      this.events.emit(ROUTE_EVENTS.RouteChanged, newLocation);
     });
 
-    this.actions.on(ROUTE_TOPIC, (e) => this.handleEvent(e));
+    this.actions.on(ROUTE_TOPIC, e => {
+      this.handleEvent(e);
+    });
 
     this.location = getLocation(this.history.location, root);
 
-    addDataProvider('route', new RoutingDataProvider(
-      (key:string) => this.location?.params[key]));
+    addDataProvider('route', new RoutingDataProvider((key: string) => this.location?.params[key]));
 
-    addDataProvider('query', new RoutingDataProvider(
-      (key:string) => this.location?.query[key]));
+    addDataProvider('query', new RoutingDataProvider((key: string) => this.location?.query[key]));
 
     this.events.emit(ROUTE_EVENTS.RouteChanged, this.location);
   }
 
-  handleEvent(actionEvent: EventAction<NavigateTo|NavigateNext>) {
+  handleEvent(actionEvent: EventAction<NavigateTo | NavigateNext>) {
     debugIf(interfaceState.debug, `router-service: action received ${JSON.stringify(actionEvent)}`);
 
     if (actionEvent.command === ROUTE_COMMANDS.NavigateNext) {
@@ -88,7 +88,7 @@ export class RouterService {
   };
 
   goToParentRoute() {
-    const {history} = this;
+    const { history } = this;
     if (!history) return;
 
     const parentSegments = history.location.pathParts.slice(0, history.location?.pathParts.length - 1);
@@ -100,7 +100,7 @@ export class RouterService {
   }
 
   scrollTo(scrollToLocation?: number) {
-    const {history} = this;
+    const { history } = this;
     if (!history) return;
 
     if (scrollToLocation == null || !history) {
@@ -117,17 +117,17 @@ export class RouterService {
     this.writeTask(() => history.win.scrollTo(0, scrollToLocation));
   }
 
-  matchPath(options: MatchOptions = {}): MatchResults|null {
+  matchPath(options: MatchOptions = {}): MatchResults | null {
     if (!this.location) return null;
 
     return matchPath(this.location, options);
   }
 
-  getUrl(url:string, root?: string) {
+  getUrl(url: string, root?: string) {
     return getUrl(url, root || this.root);
   }
 
-  normalizeChildUrl(childUrl:string, parentUrl: string) {
+  normalizeChildUrl(childUrl: string, parentUrl: string) {
     let normalizedUrl = childUrl;
     if (!childUrl.startsWith(parentUrl)) {
       normalizedUrl = `${parentUrl}/${childUrl}`;
@@ -136,29 +136,14 @@ export class RouterService {
   }
 
   isModifiedEvent(ev: MouseEvent) {
-    return (ev.metaKey || ev.altKey || ev.ctrlKey || ev.shiftKey);
+    return ev.metaKey || ev.altKey || ev.ctrlKey || ev.shiftKey;
   }
 
   destroy() {
     this.events.removeAllListeners();
   }
 
-  createRoute(
-    routeElement: HTMLElement,
-    path: string,
-    exact: boolean,
-    pageTitle: string,
-    transition: string,
-    scrollTopOffset: number,
-    matchSetter: (m: MatchResults) => void,
-  ) {
-    return new Route(this,
-      routeElement,
-      path,
-      exact,
-      pageTitle,
-      transition,
-      scrollTopOffset,
-      matchSetter);
+  createRoute(routeElement: HTMLElement, path: string, exact: boolean, pageTitle: string, transition: string, scrollTopOffset: number, matchSetter: (m: MatchResults) => void) {
+    return new Route(this, routeElement, path, exact, pageTitle, transition, scrollTopOffset, matchSetter);
   }
 }

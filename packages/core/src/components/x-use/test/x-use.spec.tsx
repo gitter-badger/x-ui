@@ -12,4 +12,30 @@ describe('x-use', () => {
       </x-use>
     `);
   });
+
+  it('renders inline script', async () => {
+    const page = await newSpecPage({
+      components: [XUse],
+      html: `<x-use nowait script-src="https://foo.js" inline></x-use>`,
+    });
+
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+      <x-use nowait script-src="https://foo.js" inline><script src="https://foo.js"></script>
+      </x-use>
+    `);
+  });
+
+  it('renders inline styles', async () => {
+    const page = await newSpecPage({
+      components: [XUse],
+      html: `<x-use nowait style-src="https://foo.css" inline></x-use>`,
+    });
+
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(`
+      <x-use nowait style-src="https://foo.css" inline><link href="https://foo.css" rel="stylesheet"/>
+      </x-use>
+    `);
+  });
 });

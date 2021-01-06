@@ -3,20 +3,13 @@ import { debugIf } from '../logging';
 
 export type TimedNode = {
   start: number;
-  end: number
-  classIn: string|null;
-  classOut: string|null;
-  element: HTMLElement,
+  end: number;
+  classIn: string | null;
+  classOut: string | null;
+  element: HTMLElement;
 };
 
-// Converts HTML string into document fragment
-export function convertToFragment(html:string):DocumentFragment {
-  const tpl = document.createElement('template');
-  tpl.innerHTML = html;
-  return tpl.content;
-}
-
-export function wrapFragment(html:string, slot?: string, id?: string): HTMLDivElement {
+export function wrapFragment(html: string, slot?: string, id?: string): HTMLDivElement {
   const wrapper = document.createElement('div');
   if (slot) wrapper.slot = slot;
   if (id) wrapper.id = id;
@@ -25,7 +18,7 @@ export function wrapFragment(html:string, slot?: string, id?: string): HTMLDivEl
 }
 
 export async function resolveElementVisibility(element: HTMLElement) {
-  element.querySelectorAll('[x-hide-when]').forEach(async (el) => {
+  element.querySelectorAll('[x-hide-when]').forEach(async el => {
     const expression = el.getAttribute('x-hide-when');
     const hide = await evaluatePredicate(expression);
     if (hide) {
@@ -35,7 +28,7 @@ export async function resolveElementVisibility(element: HTMLElement) {
     }
   });
 
-  element.querySelectorAll('[x-show-when]').forEach(async (el) => {
+  element.querySelectorAll('[x-show-when]').forEach(async el => {
     const expression = el.getAttribute('x-show-when');
     const show = await evaluatePredicate(expression);
 
@@ -47,33 +40,23 @@ export async function resolveElementVisibility(element: HTMLElement) {
   });
 }
 
-export function captureElementChildTimedNodes(
-  el: HTMLElement,
-  defaultDuration: number) {
+export function captureElementChildTimedNodes(el: HTMLElement, defaultDuration: number) {
   const timedNodes: Array<TimedNode> = [];
-  el.querySelectorAll('[x-in-time], [x-out-time]')
-    .forEach((element: HTMLElement) => {
-      timedNodes.push({
-        start: parseFloat(element.getAttribute('x-in-time')) || 0,
-        end: parseFloat(element.getAttribute('x-out-time')) || defaultDuration,
-        classIn: element.getAttribute('x-in-class'),
-        classOut: element.getAttribute('x-out-class'),
-        element,
-      });
+  el.querySelectorAll('[x-in-time], [x-out-time]').forEach((element: HTMLElement) => {
+    timedNodes.push({
+      start: parseFloat(element.getAttribute('x-in-time')) || 0,
+      end: parseFloat(element.getAttribute('x-out-time')) || defaultDuration,
+      classIn: element.getAttribute('x-in-class'),
+      classOut: element.getAttribute('x-out-class'),
+      element,
     });
+  });
   return timedNodes;
 }
 
-export function resolveElementChildTimedNodesByTime(
-  element:HTMLElement,
-  timedNodes: Array<TimedNode>,
-  time:number,
-  duration: number,
-  debug: boolean) {
-  timedNodes.forEach((node) => {
-    if (node.start > -1
-      && (time >= node.start)
-      && (node.end > -1 ? (time < node.end) : true)) {
+export function resolveElementChildTimedNodesByTime(element: HTMLElement, timedNodes: Array<TimedNode>, time: number, duration: number, debug: boolean) {
+  timedNodes.forEach(node => {
+    if (node.start > -1 && time >= node.start && (node.end > -1 ? time < node.end : true)) {
       debugIf(debug, `x-view-do: node ${node.element.id} is after start: ${node.start} before end: ${node.end}`);
       // time is after start and before end, if it exists
       if (node.classIn) {
@@ -91,7 +74,7 @@ export function resolveElementChildTimedNodesByTime(
       }
     }
 
-    if (node.end > -1 && (time > node.end)) {
+    if (node.end > -1 && time > node.end) {
       // time is after end, if it exists
       debugIf(debug, `x-view-do: node ${node.element.id} is after end: ${node.end}`);
       if (node.classIn && node.element.classList.contains(node.classIn)) {
@@ -116,35 +99,33 @@ export function resolveElementChildTimedNodesByTime(
 
   // resolve x-time-to
   const timeValueElements = element.querySelectorAll('[x-time-to]');
-  timeValueElements.forEach((el) => {
+  timeValueElements.forEach(el => {
     const seconds = Math.floor(time);
     const attributeName = el.getAttribute('x-time-to');
     if (attributeName) {
       el.setAttribute(attributeName, seconds.toString());
     } else {
-      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.childNodes.forEach(cn => el.removeChild(cn));
       el.appendChild(document.createTextNode(seconds.toString()));
     }
   });
 
   // resolve x-percentage-to
   const timePercentageValueElements = element.querySelectorAll('[x-percentage-to]');
-  timePercentageValueElements.forEach((el) => {
+  timePercentageValueElements.forEach(el => {
     const attributeName = el.getAttribute('x-percentage-to');
     const percentage = time / duration;
     if (attributeName) {
       el.setAttribute(attributeName, percentage.toString());
     } else {
-      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.childNodes.forEach(cn => el.removeChild(cn));
       el.appendChild(document.createTextNode(`${Math.round(percentage * 100)}%`));
     }
   });
 }
 
-export function restoreElementChildTimedNodes(
-  element:HTMLElement,
-  timedNodes: Array<TimedNode>) {
-  timedNodes.forEach((node) => {
+export function restoreElementChildTimedNodes(element: HTMLElement, timedNodes: Array<TimedNode>) {
+  timedNodes.forEach(node => {
     if (node.classIn && node.element.classList.contains(node.classIn)) {
       node.element.classList.remove(node.classIn);
     }
@@ -160,36 +141,42 @@ export function restoreElementChildTimedNodes(
 
   // resolve x-time-to
   const timeValueElements = element.querySelectorAll('[x-time-to]');
-  timeValueElements.forEach((el) => {
+  timeValueElements.forEach(el => {
     const attributeName = el.getAttribute('x-time-to');
     if (attributeName) {
       el.setAttribute(attributeName, '0');
     } else {
-      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.childNodes.forEach(cn => el.removeChild(cn));
       el.appendChild(document.createTextNode('0'));
     }
   });
 
   // resolve x-percentage-to
   const timePercentageValueElements = element.querySelectorAll('[x-percentage-to]');
-  timePercentageValueElements.forEach((el) => {
+  timePercentageValueElements.forEach(el => {
     const attributeName = el.getAttribute('x-percentage-to');
     if (attributeName) {
       el.setAttribute(attributeName, '0');
     } else {
-      el.childNodes.forEach((cn) => el.removeChild(cn));
+      el.childNodes.forEach(cn => el.removeChild(cn));
       el.appendChild(document.createTextNode('0%'));
     }
   });
 }
 
-export async function resolveElementValues(element:HTMLElement) {
-  element.querySelectorAll('[x-value-from]').forEach(async (el) => {
+export async function resolveElementValues(element: HTMLElement) {
+  element.querySelectorAll('[x-value-from]').forEach(async el => {
     const expression = el.getAttribute('x-value-from');
     if (hasExpression(expression)) {
       const value = await resolveExpression(expression);
       el.setAttribute('value', value);
     }
   });
-
 }
+
+export function removeAllChildNodes(parent: HTMLElement) {
+  while (parent?.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+

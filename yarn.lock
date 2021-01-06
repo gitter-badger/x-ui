@@ -539,7 +539,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@2.3.0", "@stencil/core@^2.0.1", "@stencil/core@^2.2.0":
+"@stencil/core@2.3.0", "@stencil/core@^2.0.1":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.3.0.tgz#9190df3a0064537730be1546545e13531d701da8"
   integrity sha512-VZ/Ox0E1kngcmHbJhHUufuLELi+xG3of3LuRI3X2AMWyE82JUVYlOEsQci/YBZWpfc9BS9I36R88prBew22oew==
@@ -817,14 +817,6 @@
     expr-eval "^2.0.2"
     howler "^2.2.1"
     jsonata "^1.8.4"
-
-"@vime/core@^5.0.25":
-  version "5.0.25"
-  resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.0.25.tgz#51e0310074076f5426f50703c54e872924873140"
-  integrity sha512-vZAlLDB+U0LKwg6XE8vYzWk+7DklQh52FmPqOrI/dDeWUui9gb1hdWYYPhpmPZpofOxkgwS4HbOOYRQz4nipEg==
-  dependencies:
-    "@stencil/core" "^2.2.0"
-    stencil-wormhole "^3.2.2"
 
 abab@^2.0.3:
   version "2.0.5"
@@ -3725,11 +3717,6 @@ listr2@^3.2.2:
     rxjs "^6.6.3"
     through "^2.3.8"
 
-lit-html@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-1.3.0.tgz#c80f3cc5793a6dea6c07172be90a70ab20e56034"
-  integrity sha512-0Q1bwmaFH9O14vycPHw8C/IeHMk/uSDldVLIefu/kfbTBGIc44KGH6A8p1bDfxUfHdc8q6Ct7kQklWoHgr4t1Q==
-
 load-json-file@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
@@ -5258,11 +5245,6 @@ stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
-
-stencil-wormhole@^3.2.2:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/stencil-wormhole/-/stencil-wormhole-3.4.0.tgz#7cdcd571a40024dcd1f944e0b18cb6a4630e84d9"
-  integrity sha512-TXqH4dUzHtJfWAVF7lU36AyeI3H/0Mj0lFJOPzWxZVb+nDmAsNlu8GUxA7zn4/DgZDNS3eenB8H1pFUkMTkgDw==
 
 string-argv@0.3.1:
   version "0.3.1"

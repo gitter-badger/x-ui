@@ -1,4 +1,4 @@
-import { IEvents, Listener, IEventEmitter } from "./interfaces";
+import { IEvents, Listener, IEventEmitter } from './interfaces';
 
 export class EventEmitter implements IEventEmitter {
   readonly events: IEvents = {};
@@ -43,7 +43,7 @@ export class EventEmitter implements IEventEmitter {
 
   public emit(event: string, ...args: any[]): void {
     if (typeof this.events[event] === 'object') {
-      [...this.events[event]].forEach((listener) => listener.apply(this, args));
+      [...this.events[event]].forEach(listener => listener.apply(this, args));
     }
 
     if (event !== '*') {
@@ -59,7 +59,7 @@ export class EventEmitter implements IEventEmitter {
   }
 
   public once(event: string, listener: Listener): () => void {
-    const remove: (() => void) = this.on(event, (...args: any[]) => {
+    const remove: () => void = this.on(event, (...args: any[]) => {
       remove();
       listener.apply(this, args);
       this.recalcWildcardEvents();

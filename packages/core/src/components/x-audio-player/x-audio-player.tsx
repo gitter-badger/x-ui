@@ -18,10 +18,8 @@ import {
   LoadStrategy,
   ROUTE_EVENTS,
   eventBus,
-}
-from '../..';
+} from '../..';
 import { audioState, warn } from '../../services';
-
 
 /**
  *
@@ -30,20 +28,19 @@ import { audioState, warn } from '../../services';
 @Component({
   tag: 'x-audio-player',
   styleUrl: 'x-audio-player.scss',
-  shadow: false,
+  shadow: true,
 })
 export class AudioPlayer {
+  @Element() el: HTMLXAudioPlayerElement;
 
-  @Element() el: HTMLXAudioPlayerElement
-
-  @State() current: { [key:string ]: QueuedAudio } = {
+  @State() current: { [key: string]: QueuedAudio } = {
     [AudioType.Music]: null,
-    [AudioType.Sound]: null
+    [AudioType.Sound]: null,
   };
 
   @State() queue: { [key: string]: Array<QueuedAudio> } = {
     [AudioType.Music]: [],
-    [AudioType.Sound]: []
+    [AudioType.Sound]: [],
   };
 
   private get hasAudio(): boolean {
@@ -66,11 +63,9 @@ export class AudioPlayer {
    */
   @Prop() debug: boolean;
 
-
-
   componentWillLoad() {
     if (audioState.hasAudio) {
-      warn('x-audio-player: duplicate players have no effect')
+      warn('x-audio-player: duplicate players have no effect');
       return;
     }
 
@@ -87,13 +82,13 @@ export class AudioPlayer {
     audioState.hasAudio = true;
   }
 
-  private getQueuedAudio(data:AudioTrack) {
+  private getQueuedAudio(data: AudioTrack) {
     const audio = new QueuedAudio(data);
     audio.events.once(AUDIO_EVENTS.Ended, () => this.soundEnded(audio.type));
     return audio;
   }
 
-  private commandReceived(command:string, data: AudioTrack|AudioRequest) {
+  private commandReceived(command: string, data: AudioTrack | AudioRequest) {
     switch (command) {
       case AUDIO_COMMANDS.Load: {
         const audio = this.getQueuedAudio(data as AudioTrack);
@@ -146,33 +141,33 @@ export class AudioPlayer {
     }
   }
 
-  private soundEnded(type:AudioType) {
+  private soundEnded(type: AudioType) {
     this.isPlaying = false;
     debugIf(this.debug, `${type} player ended`);
     this.playNext(type);
   }
 
-  private addToQueue(type:AudioType, audio:QueuedAudio) {
+  private addToQueue(type: AudioType, audio: QueuedAudio) {
     debugIf(this.debug, `queued`);
     if (this.queue[type].includes(audio)) return;
 
     const queue = [...this.queue[type], audio];
-    this.queue = {...this.queue, [type]: [...queue]};
+    this.queue = { ...this.queue, [type]: [...queue] };
   }
 
-  private removeFromQueue(type:AudioType, audio:QueuedAudio) {
+  private removeFromQueue(type: AudioType, audio: QueuedAudio) {
     debugIf(this.debug, `dequeued`);
     const queue = [...this.queue[type]];
     const index = queue.indexOf(audio);
     if (index > -1) delete queue[index];
-    this.queue = {...this.queue, [type]: queue.filter(x => !!x) };
+    this.queue = { ...this.queue, [type]: queue.filter(x => !!x) };
     audio?.destroy();
   }
 
-  private discardFromQueue(type:AudioType, ...reasons: DiscardStrategy[]) {
-    const eligibleAudio = (audio:QueuedAudio) => !reasons.includes(audio.discard);
+  private discardFromQueue(type: AudioType, ...reasons: DiscardStrategy[]) {
+    const eligibleAudio = (audio: QueuedAudio) => !reasons.includes(audio.discard);
     const queue = this.queue[type]?.filter(eligibleAudio) || [];
-    this.queue = { ...this.queue, [type]: queue};
+    this.queue = { ...this.queue, [type]: queue };
   }
 
   private start(start: AudioRequest) {
@@ -183,7 +178,7 @@ export class AudioPlayer {
     }
   }
 
-  private playNext(type:AudioType, audio?: QueuedAudio) {
+  private playNext(type: AudioType, audio?: QueuedAudio) {
     debugIf(this.debug, `play next for ${type}`);
     const current = this.current[type];
     if (current) {
@@ -205,7 +200,7 @@ export class AudioPlayer {
           eventBus.emit(AUDIO_EVENTS.Played);
         });
       }
-      this.current = {...this.current, [type]: nextUp };
+      this.current = { ...this.current, [type]: nextUp };
       nextUp.start();
       this.isPlaying = true;
     }
@@ -222,8 +217,7 @@ export class AudioPlayer {
     debugIf(this.debug, `resumed`);
     this.current[AudioType.Music]?.resume();
     this.current[AudioType.Sound]?.resume();
-    this.isPlaying = this.current[AudioType.Music]?.isPlaying
-                  || this.current[AudioType.Sound]?.isPlaying;
+    this.isPlaying = this.current[AudioType.Music]?.isPlaying || this.current[AudioType.Sound]?.isPlaying;
   }
 
   private mute(request: AudioRequest) {
@@ -254,7 +248,7 @@ export class AudioPlayer {
     const current = this.current[type];
     if (current) {
       current.stop();
-      this.current = {...this.current, [type]:null};
+      this.current = { ...this.current, [type]: null };
       if (reasons.includes(current.discard)) {
         this.removeFromQueue(type, current);
         current.destroy();
@@ -272,19 +266,12 @@ export class AudioPlayer {
   }
 
   render() {
-    if (this.display) {
-      return (
-        <Host>
-          <slot />
-          { this.hasAudio
-            ? (this.isPlaying
-              ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
-              : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i>
-              )
-            : <i class="ri-speaker-line fs-2"></i>
-          }
-        </Host>
-        );
-    }
+    return (
+      <Host hidden={this.display}>
+        {this.hasAudio ? this.isPlaying
+        ? <i onClick={() => this.pause()} class="ri-pause-fill fs-2"></i>
+        : <i onClick={() => this.resume()} class="ri-play-line fs-2"></i> : null}
+      </Host>
+    );
   }
 }

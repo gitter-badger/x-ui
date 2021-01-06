@@ -18,6 +18,7 @@
     "jsonata",
     "loadash",
     "noslash",
+    "nowait",
     "onbeforeexit",
     "playsinline",
     "recalc",

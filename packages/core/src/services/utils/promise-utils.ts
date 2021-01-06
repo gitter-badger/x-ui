@@ -20,11 +20,11 @@ export function promiseTimeout(ms: number, promise: Promise<any>): Promise<any> 
     }, ms);
 
     promise
-      .then((res) => {
+      .then(res => {
         clearTimeout(timer);
         resolve(res);
       })
-      .catch((err) => {
+      .catch(err => {
         clearTimeout(timer);
         reject(err);
       });
@@ -37,7 +37,7 @@ export function promiseTimeout(ms: number, promise: Promise<any>): Promise<any> 
  * @return {void}
  */
 export function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -50,10 +50,7 @@ export function sleep(ms: number) {
  * @param {(t: T) => Promise<boolean>} predicate
  * @return {*}  {(Promise<T | undefined>)}
  */
-export async function findAsyncSequential<T>(
-  array: T[],
-  predicate: (t: T) => Promise<boolean>,
-): Promise<T | undefined> {
+export async function findAsyncSequential<T>(array: T[], predicate: (t: T) => Promise<boolean>): Promise<T | undefined> {
   for (const t of array) {
     // eslint-disable-next-line no-await-in-loop
     if (await predicate(t)) {
@@ -62,4 +59,3 @@ export async function findAsyncSequential<T>(
   }
   return null;
 }
-

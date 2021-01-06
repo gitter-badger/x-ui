@@ -1,15 +1,9 @@
 import { IEventEmitter, EventAction, IEventActionListener } from '../actions';
-import { } from '../actions/event-emitter';
+import {} from '../actions/event-emitter';
 import { state } from '../interface/state';
 import { debugIf, warn } from '../logging';
 import { storageAvailable } from '../routing/utils/browser-utils';
-import {
-  DataProviderRegistration, DATA_COMMANDS,
-  DATA_EVENTS, DATA_PROVIDER,
-  DATA_TOPIC,
-  IDataProvider,
-  SetData
-} from './interfaces';
+import { DataProviderRegistration, DATA_COMMANDS, DATA_EVENTS, DATA_PROVIDER, DATA_TOPIC, IDataProvider, SetData } from './interfaces';
 import { addDataProvider, getDataProvider } from './providers/factory';
 import { SessionProvider } from './providers/session';
 import { StorageProvider } from './providers/storage';
@@ -17,13 +11,11 @@ import { StorageProvider } from './providers/storage';
 export class DataListener implements IEventActionListener {
   private eventBus: IEventEmitter;
 
-  public initialize(
-    window: Window,
-    actionBus: IEventEmitter,
-    eventBus: IEventEmitter)
-  {
+  public initialize(window: Window, actionBus: IEventEmitter, eventBus: IEventEmitter) {
     this.eventBus = eventBus;
-    actionBus.on(DATA_TOPIC, (e) => this.handleAction(e));
+    actionBus.on(DATA_TOPIC, e => {
+      this.handleAction(e);
+    });
 
     this.registerBrowserProviders(window);
   }
@@ -45,8 +37,7 @@ export class DataListener implements IEventActionListener {
     addDataProvider(name, provider as IDataProvider);
   }
 
-
-  handleAction(actionEvent: EventAction<DataProviderRegistration|SetData>) {
+  handleAction(actionEvent: EventAction<DataProviderRegistration | SetData>) {
     debugIf(state.debug, `data-listener: action received {command:${actionEvent.command}}`);
     if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data as DataProviderRegistration;
@@ -58,12 +49,11 @@ export class DataListener implements IEventActionListener {
       if (provider && values) {
         const instance = getDataProvider(provider);
         if (instance) {
-          Object.keys(values).forEach(async (key) => {
+          Object.keys(values).forEach(async key => {
             await instance.set(key, values[key]);
           });
         }
       }
     }
   }
-
 }

@@ -98,6 +98,7 @@ If inline is present, the source would be nested inside this element, otherwise 
 | `inline`    | `inline`     | When inline the link/script tags are rendered in-place rather than added to the head. | `boolean` | `undefined` |
 | `module`    | `module`     | Import the script file as a module.                                                   | `boolean` | `undefined` |
 | `noModule`  | `no-module`  | Declare the script only for use when modules aren't supported                         | `boolean` | `undefined` |
+| `nowait`    | `nowait`     |                                                                                       | `boolean` | `undefined` |
 | `scriptSrc` | `script-src` | The script file to reference.                                                         | `string`  | `undefined` |
 | `styleSrc`  | `style-src`  | The css file to reference                                                             | `string`  | `undefined` |
 

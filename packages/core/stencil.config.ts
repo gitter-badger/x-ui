@@ -4,18 +4,10 @@ import { sass } from '@stencil/sass';
 // const scssVariables = 'src/scss/variables.scss';
 export const config: Config = {
   namespace: 'x-ui',
-  plugins: [
-    sass(),
-  ],
+  plugins: [sass()],
   bundles: [
     { components: ['x-ui', 'x-view', 'x-view-do', 'x-link'] },
-    { components: [
-      'x-audio-player',
-      'x-audio-music-load',
-      'x-audio-sound-load',
-      'x-audio-music-action',
-      'x-audio-sound-action']
-    }
+    { components: ['x-audio-player', 'x-audio-music-load', 'x-audio-sound-load', 'x-audio-music-action', 'x-audio-sound-action'] },
   ],
   buildEs5: true,
   preamble: 'view.DO 2021',
@@ -28,7 +20,7 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: 'loader',
-      empty: true
+      empty: true,
     },
     {
       type: 'dist-custom-elements-bundle',
@@ -38,7 +30,7 @@ export const config: Config = {
     },
     {
       type: 'docs-json',
-      file: `dist/collection/components.json`
+      file: `dist/collection/components.json`,
     },
     {
       type: 'docs-json',
@@ -53,17 +45,18 @@ export const config: Config = {
       copy: [
         { src: 'docs', dest: './', keepDirStructure: true },
         {
-          src: 'docs/*.html', dest: './'
+          src: 'docs/*.html',
+          dest: './',
         },
         {
           src: 'components/**/*.{md,html}',
           dest: 'docs',
-          keepDirStructure: true
+          keepDirStructure: true,
         },
         {
           src: 'services/**/*.{md,html}',
           dest: 'docs',
-          keepDirStructure: true
+          keepDirStructure: true,
         },
       ],
     },

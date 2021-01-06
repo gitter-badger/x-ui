@@ -30,7 +30,7 @@ export class XUI {
   private actionsSubscription: () => void;
   private listeners: Array<IEventActionListener> = [];
 
-  @Element() el!: HTMLXUiElement;
+  @Element() el: HTMLXUiElement;
   @State() location: LocationSegments;
 
   /**

@@ -6,7 +6,7 @@ describe('x-markdown', () => {
     const page = await newSpecPage({
       components: [XMarkdown],
       html: `<x-markdown></x-markdown>`,
-      supportsShadowDom: false
+      supportsShadowDom: false,
     });
     expect(page.root).toEqualHtml(`
       <x-markdown hidden="">

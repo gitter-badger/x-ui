@@ -1,12 +1,13 @@
 import { Element, Host, Component, Event, EventEmitter, Prop, State, h } from '@stencil/core';
 import {
   EventAction,
-  DATA_TOPIC, DATA_COMMANDS,
+  DATA_TOPIC,
+  DATA_COMMANDS,
   DataProviderRegistration,
   CookieConsent,
   CookieProvider,
   evaluatePredicate,
-} from '../..';
+  IDataProvider } from '../..';
 
 /**
  *  @system providers
@@ -17,7 +18,7 @@ import {
   shadow: true,
 })
 export class XDataProviderCookie {
-  private customProvider = new CookieProvider();
+  private customProvider: IDataProvider;
   @Element() el: HTMLXDataProviderCookieElement;
   @State() hide = false;
 
@@ -60,6 +61,7 @@ export class XDataProviderCookie {
   private consentKey = 'cookie-consent';
 
   async componentWillLoad() {
+    this.customProvider = new CookieProvider();
     const consented = await this.customProvider.get(this.consentKey);
     if (consented) {
       this.hide = true;
@@ -83,13 +85,13 @@ export class XDataProviderCookie {
 
   componentDidLoad() {
     const acceptElement = this.el.querySelector('[x-accept]');
-    acceptElement?.addEventListener('click', (e) => {
+    acceptElement?.addEventListener('click', e => {
       e.preventDefault();
       this.handleConsentResponse(true);
     });
 
     const rejectElement = this.el.querySelector('[x-reject]');
-    rejectElement?.addEventListener('click', (e) => {
+    rejectElement?.addEventListener('click', e => {
       e.preventDefault();
       this.handleConsentResponse(false);
     });
@@ -107,14 +109,14 @@ export class XDataProviderCookie {
       });
       this.customProvider.set(this.consentKey, 'true');
     }
-    this.didConsent.emit({consented});
+    this.didConsent.emit({ consented });
     this.hide = true;
   }
 
   render() {
     return (
       <Host hidden={this.hide}>
-        <slot/>
+        <slot />
       </Host>
     );
   }

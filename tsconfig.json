@@ -1,9 +1,9 @@
 {
   "exclude": [
-    "**/node_modules",
-    "**/dist/",
+    "node_modules",
+    "dist",
     "www",
-    ".scratch/"
+    ".scratch"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
@@ -20,6 +20,6 @@
     "jsxFactory": "h",
     "preserveConstEnums": true,
     "resolveJsonModule": true,
-    "stripInternal": true,
+    "stripInternal": true
   }
 }

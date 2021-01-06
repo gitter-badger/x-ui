@@ -9,15 +9,11 @@ describe('audio-player', () => {
       components: [AudioPlayer],
       html: `<x-audio-player></x-audio-player>`,
     });
-    expect(page.root).toBeDefined();
-    // TODO: Audio player
-    // expect(page.root).toEqualHtml(`
-    //   <audio-player>
-    //     <mock:shadow-root>
-    //       <slot></slot>
-    //     </mock:shadow-root>
-    //   </audio-player>
-    // `);
+    expect(page.root).toEqualHtml(`
+    <x-audio-player>
+      <mock:shadow-root>
+      </mock:shadow-root>
+    </x-audio-player>
+    `);
   });
-})
-
+});

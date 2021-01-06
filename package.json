@@ -67,11 +67,7 @@
   },
   "jest": {
     "preset": "@stencil/core/testing",
-    "maxConcurrency": 1,
-    "projects": [
-      "<rootDir>/packages/core/src/*",
-      "<rootDir>/packages/plugins/**/src/*"
-    ]
+    "maxConcurrency": 1
   },
   "browserslist": [
     ">0.2%",

@@ -291,6 +291,7 @@ export namespace Components {
           * Declare the script only for use when modules aren't supported
          */
         "noModule": boolean;
+        "nowait": boolean;
         /**
           * The script file to reference.
          */
@@ -794,6 +795,7 @@ declare namespace LocalJSX {
           * Declare the script only for use when modules aren't supported
          */
         "noModule"?: boolean;
+        "nowait"?: boolean;
         /**
           * The script file to reference.
          */

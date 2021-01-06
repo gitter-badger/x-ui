@@ -1,3 +1,4 @@
+import { MockWindow } from '@stencil/core/mock-doc';
 import { EventAction, IEventEmitter, IEventActionListener } from '../actions';
 import { debugIf } from '../logging';
 import { kebabToCamelCase } from '../utils/string-utils';
@@ -10,17 +11,13 @@ export class InterfaceListener implements IEventActionListener {
   defaultProvider: DefaultInterfaceProvider;
   eventBus: IEventEmitter;
 
-  initialize(
-    window: Window,
-    actionBus: IEventEmitter,
-    eventBus: IEventEmitter): void
-  {
+  initialize(window: Window | MockWindow, actionBus: IEventEmitter, eventBus: IEventEmitter): void {
     this.eventBus = eventBus;
-    actionBus.on(INTERFACE_TOPIC, (e) => this.handleAction(e));
+    actionBus.on(INTERFACE_TOPIC, e => this.handleAction(e));
     this.registerBrowserProviders(window);
   }
 
-  registerBrowserProviders(win: Window) {
+  registerBrowserProviders(win: Window | MockWindow) {
     this.defaultProvider = new DefaultInterfaceProvider(win);
     setInterfaceProvider('default', this.defaultProvider);
   }
@@ -28,17 +25,17 @@ export class InterfaceListener implements IEventActionListener {
   setProvider(name: string, provider: InterfaceProvider) {
     debugIf(state.debug, `interface-provider: ${name} changed`);
 
-    provider?.onChange('theme', (theme) => {
+    provider?.onChange('theme', theme => {
       this.defaultProvider.state.theme = theme;
       this.eventBus.emit(INTERFACE_EVENTS.ThemeChanged);
     });
 
-    provider?.onChange('muted', (muted) => {
+    provider?.onChange('muted', muted => {
       this.defaultProvider.state.muted = muted;
       this.eventBus.emit(INTERFACE_EVENTS.SoundChanged);
     });
 
-    provider?.onChange('autoplay', (autoplay) => {
+    provider?.onChange('autoplay', autoplay => {
       this.defaultProvider.state.autoplay = autoplay;
       this.eventBus.emit(INTERFACE_EVENTS.AutoPlayChanged);
     });
@@ -59,13 +56,13 @@ export class InterfaceListener implements IEventActionListener {
       const commandFuncKey = kebabToCamelCase(actionEvent.command);
 
       // use the registered provider unless it doesn't implement this command
-      const commandFunc = currentProvider[commandFuncKey]
+      const commandFunc =
+        currentProvider[commandFuncKey] ||
         // fallback to the built-in provider
-        || this.defaultProvider[commandFuncKey];
+        this.defaultProvider[commandFuncKey];
       if (commandFunc && typeof commandFunc === 'function') {
-        await commandFunc(actionEvent.data);
+        commandFunc.call(this.defaultProvider, actionEvent.data);
       }
     }
   }
-
 }

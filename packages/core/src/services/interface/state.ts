@@ -22,11 +22,8 @@ const { state, onChange } = createStore<StateModel>({
   references: [],
 });
 
-onChange('theme', (t) => localStorage.setItem('theme', t.toString()));
-onChange('muted', (m) => localStorage.setItem('muted', m.toString()));
-onChange('autoplay', (a) => localStorage.setItem('autoplay', a.toString()));
+onChange('theme', t => localStorage.setItem('theme', t.toString()));
+onChange('muted', m => localStorage.setItem('muted', m.toString()));
+onChange('autoplay', a => localStorage.setItem('autoplay', a.toString()));
 
-export {
-  state,
-  onChange,
-};
+export { state, onChange };

@@ -1,12 +1,5 @@
 import { Host, Element, Component, h, Prop, State, Fragment } from '@stencil/core';
-import { removeAllChildNodes } from '../../services/routing/utils/browser-utils';
-import {
-  DATA_EVENTS,
-  eventBus,
-  resolveExpression,
-  ROUTE_EVENTS,
-  warn,
-} from '../../services';
+import { DATA_EVENTS, eventBus, resolveExpression, ROUTE_EVENTS, warn, removeAllChildNodes } from '../../services';
 
 /**
  *  @system data
@@ -39,13 +32,13 @@ export class XDataDisplay {
    * attribute.
    */
   // eslint-disable-next-line @stencil/strict-mutable
-  @Prop({ mutable: true}) noRender: boolean = false;
+  @Prop({ mutable: true }) noRender: boolean = false;
 
   get childTemplate(): HTMLTemplateElement {
     if (!this.el.hasChildNodes()) return null;
     const childTemplates = Array.from(this.el.childNodes)
-      .filter((c) => c.nodeName === 'TEMPLATE')
-      .map((v) => v as HTMLTemplateElement);
+      .filter(c => c.nodeName === 'TEMPLATE')
+      .map(v => v as HTMLTemplateElement);
 
     if (childTemplates.length > 0) {
       return childTemplates[0];
@@ -56,8 +49,8 @@ export class XDataDisplay {
   private get childScript(): HTMLScriptElement {
     if (!this.el.hasChildNodes()) return null;
     const childScripts = Array.from(this.el.childNodes)
-      .filter((c) => c.nodeName === 'SCRIPT')
-      .map((v) => v as HTMLScriptElement);
+      .filter(c => c.nodeName === 'SCRIPT')
+      .map(v => v as HTMLScriptElement);
 
     if (childScripts.length > 0) {
       return childScripts[0];
@@ -110,15 +103,11 @@ export class XDataDisplay {
 
   render() {
     if (this.resolvedTemplate) {
-      return (
-        <Host innerHTML={this.resolvedTemplate}>
-          { this.value }
-        </Host>
-      );
+      return <Host innerHTML={this.resolvedTemplate}>{this.value}</Host>;
     }
 
     if (this.value) {
-      return <Fragment>{ this.value }</Fragment>;
+      return <Fragment>{this.value}</Fragment>;
     }
 
     return null;

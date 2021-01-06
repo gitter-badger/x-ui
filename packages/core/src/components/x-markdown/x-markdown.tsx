@@ -1,13 +1,5 @@
 import { Component, h, Host, State, Prop, Element } from '@stencil/core';
-import {
-  resolveElementVisibility,
-  RouterService,
-  warn,
-  resolveExpression,
-  eventBus,
-  DATA_EVENTS,
-  ROUTE_EVENTS
-} from '../..';
+import { resolveElementVisibility, RouterService, warn, resolveExpression, eventBus, DATA_EVENTS, ROUTE_EVENTS } from '../..';
 
 /**
  *  @system content
@@ -26,7 +18,6 @@ export class XMarkdown {
    */
   @Prop() src: string;
 
-
   /**
    * Base Url for embedded links
    */
@@ -38,7 +29,7 @@ export class XMarkdown {
    * attribute.
    */
   // eslint-disable-next-line @stencil/strict-mutable
-  @Prop({ mutable: true}) noRender: boolean = false;
+  @Prop({ mutable: true }) noRender: boolean = false;
 
   private get router(): RouterService {
     return this.el.closest('x-ui')?.router;
@@ -47,8 +38,8 @@ export class XMarkdown {
   private get childScript(): HTMLScriptElement {
     if (!this.el.hasChildNodes()) return null;
     const childScripts = Array.from(this.el.childNodes)
-      .filter((c) => c.nodeName === 'SCRIPT')
-      .map((v) => v as HTMLScriptElement);
+      .filter(c => c.nodeName === 'SCRIPT')
+      .map(v => v as HTMLScriptElement);
 
     if (childScripts.length > 0) {
       return childScripts[0];
@@ -89,11 +80,11 @@ export class XMarkdown {
     resolveElementVisibility(this.el);
     if (this.router) {
       this.el.querySelectorAll('a[href^=http]').forEach(a => {
-        a.addEventListener('click', (e) => {
+        a.addEventListener('click', e => {
           const href = a.getAttribute('href');
           e.preventDefault();
           this.router.history.push(href);
-        })
+        });
       });
     }
   }
@@ -119,15 +110,15 @@ export class XMarkdown {
     return window['marked'] ? window['marked'](md) : null;
   }
 
-  private dedent(innerText:string) {
+  private dedent(innerText: string) {
     const str = innerText.replace(/^\n/, '');
     const match = str.match(/^\s+/);
     return match ? str.replace(new RegExp(`^${match[0]}`, 'gm'), '') : str;
   }
 
-  private highlight(container: { querySelectorAll: (arg0: string) => any; }) {
+  private highlight(container: { querySelectorAll: (arg0: string) => any }) {
     const unhinted = container.querySelectorAll('pre>code:not([class*="language-"])');
-    unhinted.forEach((n: { innerText: string; classList: { add: (arg0: string) => void; }; }) => {
+    unhinted.forEach((n: { innerText: string; classList: { add: (arg0: string) => void } }) => {
       // Dead simple language detection :)
       // eslint-disable-next-line no-nested-ternary
       const lang = n.innerText.match(/^\s*</) ? 'markup' : n.innerText.match(/^\s*(\$|#)/) ? 'bash' : 'js';
@@ -138,7 +129,6 @@ export class XMarkdown {
     }
   }
 
-
   render() {
     if (this.content) {
       return (
@@ -147,6 +137,6 @@ export class XMarkdown {
         </Host>
       );
     }
-    return (<Host hidden></Host>);
+    return <Host hidden></Host>;
   }
 }

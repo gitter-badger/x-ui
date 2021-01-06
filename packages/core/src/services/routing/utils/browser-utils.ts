@@ -35,9 +35,3 @@ export const supportsHistory = (win: Window) => {
 export const getConfirmation = (win: Window, message: string, callback: (confirmed: boolean) => {}) => (
   callback(win.confirm(message))
 );
-
-export function removeAllChildNodes(parent: HTMLElement) {
-  while (parent?.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
