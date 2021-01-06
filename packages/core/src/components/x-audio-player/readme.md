@@ -1,11 +1,11 @@
 # X-AUDIO-PLAYER
 
-This component is responsible for playing audio requested via the [Event Action ](/actions) bus. Internally it holds two players, one for music and another for sounds.
+This component is responsible for playing audio requested via the [action](/actions) bus. Internally it holds two players, one for music and another for sounds.
 
 The audio-tracks are declaratively defined in HTML to respond to user interactions. Unlike a typical playlist, the audio items are configured with behavior rules that help orchestrate overlapping sound and music sound.
 
 ## Display
-This player can be configured to display in full or minimal mode. When fully displayed, it works and looks like a normal player, however there won't be track information display. Play, pause and scrub actions acts on all of the players simultaneously.
+This player can be configured to display in full or minimal mode. When displayed, it shows a single icon when a file is loaded and a different icon when it is playing. Clicking it should toggle pause for both of the players simultaneously.
 
 ## Usage
 

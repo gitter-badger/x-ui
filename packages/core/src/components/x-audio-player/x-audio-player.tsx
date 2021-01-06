@@ -52,6 +52,8 @@ export class AudioPlayer {
 
   @State() isPlaying: boolean;
 
+  @State() muted: boolean = interfaceState.muted;
+
   /**
    * The display mode for this player. The display
    * is merely a facade to manage basic controls.
@@ -63,6 +65,8 @@ export class AudioPlayer {
    *
    */
   @Prop() debug: boolean;
+
+
 
   componentWillLoad() {
     if (audioState.hasAudio) {

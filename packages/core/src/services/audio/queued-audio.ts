@@ -2,7 +2,6 @@ import { Howl } from 'howler';
 import { AudioTrack, AUDIO_EVENTS } from './interfaces';
 import { debug, EventEmitter } from '../..';
 
-
 export class QueuedAudio extends AudioTrack {
   private sound: Howl;
   events: EventEmitter;

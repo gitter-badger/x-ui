@@ -5,3 +5,5 @@ export * from './interface';
 export * from './logging';
 export * from './routing';
 export * from './utils';
+export * from './video';
+

@@ -1,6 +1,7 @@
 import { Component, h, Prop, Element, State, Host, Watch } from '@stencil/core';
 import '../x-view/x-view';
 import {
+  EventAction,
   EventEmitter,
   Route,
   VisitStrategy,
@@ -19,6 +20,11 @@ import {
   wrapFragment,
   eventBus,
   MatchResults,
+  interfaceState,
+  actionBus,
+  VIDEO_TOPIC,
+  VIDEO_COMMANDS,
+  VIDEO_EVENTS,
 } from '../..';
 
 /**
@@ -31,6 +37,7 @@ import {
 })
 export class XViewDo {
   private subscription: () => void;
+  private subscriptionVideoActions: () => void;
   private timedNodes: Array<TimedNode> = [];
   private timer: any;
   private timeEvent: EventEmitter;
@@ -132,15 +139,7 @@ export class XViewDo {
   }
 
   private get childVideo(): HTMLVideoElement {
-    if (!this.el.hasChildNodes()) return null;
-    const childVideos = Array.from(this.el.childNodes)
-      .filter(c => c.nodeName === 'VIDEO')
-      .map(v => v as HTMLVideoElement);
-
-    if (childVideos.length > 0) {
-      return childVideos[0];
-    }
-    return null;
+    return this.el.querySelector('vm-player,video');
   }
 
   private get actionActivators(): Array<HTMLXActionActivatorElement> {
@@ -217,6 +216,8 @@ export class XViewDo {
   private beforeExit() {
     const inputElements = this.el.querySelectorAll('input');
     let valid = true;
+    this.childVideo?.pause();
+
     inputElements.forEach(i => {
       i.blur();
       if (i.reportValidity() === false) {
@@ -229,6 +230,10 @@ export class XViewDo {
         .forEach(activator => {
           activator.activateActions();
         });
+
+      if (this.subscriptionVideoActions) {
+        this.subscriptionVideoActions();
+      }
       restoreElementChildTimedNodes(this.el, this.timedNodes);
       clearInterval(this.timer);
       this.timer = null;
@@ -263,12 +268,15 @@ export class XViewDo {
   private async resolveView() {
     debugIf(this.debug, `x-view-do: ${this.url} resolve view called`);
     clearInterval(this.timer);
+    this.childVideo?.pause();
     if (this.match?.isExact) {
       debugIf(this.debug, `x-view-do: ${this.url} on-enter`);
       await this.fetchHtml();
       resolveElementValues(this.el);
       resolveElementVisibility(this.el);
       this.resolveChildren();
+      this.setupTimer();
+      await this.route.loadCompleted();
     }
   }
 
@@ -320,15 +328,12 @@ export class XViewDo {
     // Capture timed nodes
     this.timedNodes = captureElementChildTimedNodes(this.el, this.duration);
     debugIf(this.debug && this.timedNodes.length > 0, `x-view-do: ${this.url} found time-child nodes: ${JSON.stringify(this.timedNodes)}`);
-    this.setupTimer();
-
-    await this.route.loadCompleted();
   }
 
   private setupTimer() {
     const video = this.childVideo;
     const { debug, duration } = this;
-    const timeUpdateEvent = 'timeupdate';
+    const timeUpdateEvent = 'vmCurrentTimeChange';
 
     this.timeEvent = new EventEmitter();
     this.lastTime = 0;
@@ -336,16 +341,27 @@ export class XViewDo {
     debugIf(this.debug, `x-view-do: starting timer w/ ${duration} duration`);
 
     if (video) {
+      this.subscriptionVideoActions = actionBus.on(VIDEO_TOPIC, (ev: EventAction<any>) => {
+        debugIf(this.debug, `x-audio-player: event received ${ev.topic}:${ev.command}`);
+        this.commandReceived(ev.command, ev.data);
+      });
+
       video.addEventListener(timeUpdateEvent, () => {
         this.timeEvent.emit(timeUpdateEvent, video.currentTime);
         this.lastTime = video.currentTime;
       });
-      video.addEventListener('click', () => {
-        this.childVideo.play();
+
+      video.addEventListener('vmPlaybackEnded', () => {
+        this.next('video', 'ended');
       });
+
       video.addEventListener('end', () => {
         this.next('video', 'ended');
       });
+
+      if (interfaceState.autoplay) {
+        video?.play();
+      }
     } else {
       let time = 0;
       const started = performance.now();
@@ -388,6 +404,56 @@ export class XViewDo {
 
       resolveElementChildTimedNodesByTime(el, timedNodes, time, duration, debug);
     });
+  }
+
+  private mute(muted:boolean) {
+    if (!this.childVideo) return;
+
+    this.childVideo.muted = muted;
+    if (muted)
+      eventBus.emit(VIDEO_EVENTS.Muted)
+    else
+      eventBus.emit(VIDEO_EVENTS.Unmuted);
+  }
+
+  private play() {
+    this.childVideo?.play();
+    eventBus.emit(VIDEO_EVENTS.Played);
+  }
+  private pause() {
+    this.childVideo?.pause();
+    eventBus.emit(VIDEO_EVENTS.Paused);
+  }
+
+  private resume() {
+    this.childVideo?.play();
+    eventBus.emit(VIDEO_EVENTS.Resumed);
+  }
+
+  private commandReceived(command:string, data) {
+    switch (command) {
+
+      case VIDEO_COMMANDS.Play: {
+        this.play();
+        break;
+      }
+      case VIDEO_COMMANDS.Pause: {
+        this.pause();
+        eventBus.emit(VIDEO_EVENTS.Paused);
+        break;
+      }
+      case VIDEO_COMMANDS.Resume: {
+        this.resume();
+        eventBus.emit(VIDEO_EVENTS.Resumed);
+        break;
+      }
+      case VIDEO_COMMANDS.Mute: {
+        this.mute(data.value);
+        eventBus.emit(VIDEO_EVENTS.Muted);
+        break;
+      }
+
+    }
   }
 
   disconnectedCallback() {

@@ -120,9 +120,6 @@ export class XView {
       async (match) => {
         this.match = match;
         await this.resolveView();
-        if (match?.isExact) {
-          markVisit(match.url);
-        }
       }
     );
 
@@ -191,6 +188,7 @@ export class XView {
           // eslint-disable-next-line no-console
           this.route.router?.history.push(nextDo.url);
         } else {
+          markVisit(this.match.url);
           await this.fetchHtml();
           this.el.classList.add('active-route-exact');
           if (this.route.transition)
