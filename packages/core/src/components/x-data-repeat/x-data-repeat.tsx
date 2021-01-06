@@ -14,6 +14,7 @@ import {
 
 /**
  *  @system data
+ *  @system content
  */
 @Component({
   tag: 'x-data-repeat',
