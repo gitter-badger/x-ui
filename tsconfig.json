@@ -1,9 +1,10 @@
 {
   "exclude": [
-    "node_modules",
-    "dist",
-    "www",
-    ".scratch"
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/www/**",
+    ".scratch/**",
+    "**/__mocks__/**"
   ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

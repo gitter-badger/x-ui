@@ -37,14 +37,14 @@ export class AudioActionListener {
   public resume() {
   }
 
-  public mute(mute: boolean = false) {
+  public mute(_mute: boolean = false) {
   }
 
-  public seek(type: AudioType, trackId: string, seek: number) {
+  public seek(_type: AudioType, _trackId: string, _seek: number) {
 
   }
 
-  public volume(request: AudioRequest) {
+  public volume(_request: AudioRequest) {
   }
 
 
