@@ -3,6 +3,7 @@
   "less.validate": false,
   "scss.validate": false,
   "cSpell.words": [
+    "Codacy",
     "Delimeter",
     "HTMLX",
     "Stackedit",
@@ -28,6 +29,7 @@
     "plusplus",
     "recalc",
     "rehype",
+    "sarif",
     "searchjs",
     "stylelint",
     "unhinted",
