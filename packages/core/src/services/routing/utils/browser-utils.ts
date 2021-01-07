@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export const storageAvailable = (win: any, type: 'localStorage' | 'sessionStorage') => {
   const storage = win[type];
   const x = '__storage_test__';

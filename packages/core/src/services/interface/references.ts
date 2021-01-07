@@ -1,15 +1,15 @@
-import { state } from './state';
+import { interfaceState } from './state';
 
 export function hasReference(url: string) {
-  return state.references.includes(url);
+  return interfaceState.references.includes(url);
 }
 
 export function markReference(url: string) {
-  state.references = [...new Set([...state.references, url])];
+  interfaceState.references = [...new Set([...interfaceState.references, url])];
 }
 
 export function clearReferences() {
-  state.references = [];
+  interfaceState.references = [];
 }
 
 export interface ISwipeEvent {

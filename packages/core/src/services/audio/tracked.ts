@@ -1,13 +1,13 @@
 import { audioState } from './state';
 
-export function hasPlayed(url: string) {
-  return audioState.tracked.includes(url);
+export function hasPlayed(trackId: string) {
+  return audioState.playedAudio.includes(trackId);
 }
 
-export function trackPlayed(url: string) {
-  audioState.tracked = [...new Set([...audioState.tracked, url])];
+export function trackPlayed(trackId: string) {
+  audioState.playedAudio = [...new Set([...audioState.playedAudio, trackId])];
 }
 
 export function clearTracked() {
-  audioState.tracked = [];
+  audioState.playedAudio = [];
 }

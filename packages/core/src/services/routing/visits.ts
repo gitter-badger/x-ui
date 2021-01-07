@@ -1,5 +1,5 @@
 import { warnIf } from '../logging';
-import { onChange, state } from './state';
+import { onRoutingStateChange, routingState } from './state';
 import { storageAvailable } from './utils/browser-utils';
 
 const supportsSession = storageAvailable(window, 'sessionStorage');
@@ -47,32 +47,32 @@ export async function setStoredVisits(visits: Array<string>) {
   }
 }
 
-onChange('storedVisits', async (a) => setStoredVisits(a));
-onChange('sessionVisits', async (a) => setSessionVisits(a));
+onRoutingStateChange('storedVisits', async (a) => setStoredVisits(a));
+onRoutingStateChange('sessionVisits', async (a) => setSessionVisits(a));
 
 getStoredVisits()
   .then((v) => {
-    state.storedVisits = v;
+    routingState.storedVisits = v;
   });
 
 getSessionVisits()
   .then((v) => {
-    state.sessionVisits = v;
+    routingState.sessionVisits = v;
   });
 
 export function hasVisited(url: string) {
-  return state.sessionVisits.includes(url) || state.storedVisits.includes(url);
+  return routingState.sessionVisits.includes(url) || routingState.storedVisits.includes(url);
 }
 
 export function markVisit(url: string) {
-  state.sessionVisits = [...new Set([...state.sessionVisits, url])];
+  routingState.sessionVisits = [...new Set([...routingState.sessionVisits, url])];
 }
 
 export function storeVisit(url: string) {
-  state.storedVisits = [...new Set([...state.storedVisits, url])];
+  routingState.storedVisits = [...new Set([...routingState.storedVisits, url])];
 }
 
 export function clearVisits() {
-  state.sessionVisits = [];
-  state.storedVisits = [];
+  routingState.sessionVisits = [];
+  routingState.storedVisits = [];
 }

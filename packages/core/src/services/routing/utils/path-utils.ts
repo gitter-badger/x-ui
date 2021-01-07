@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { LocationSegments } from '../interfaces';
 
 export const hasBasename = (path: string, prefix: string) => (new RegExp(`^${prefix}(\\/|\\?|#|$)`, 'i')).test(path);

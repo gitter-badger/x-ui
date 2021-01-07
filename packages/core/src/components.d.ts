@@ -24,7 +24,7 @@ export namespace Components {
         /**
           * This is the topic this action-command is targeting.
          */
-        "topic": 'data'|'routing'|'document'|'audio'|'video';
+        "topic": 'data' | 'routing' | 'document' | 'audio' | 'video';
     }
     interface XActionActivator {
         /**
@@ -99,6 +99,9 @@ export namespace Components {
         "trackId": string;
     }
     interface XAudioPlayer {
+        /**
+          * Use debug for verbose logging. Useful for figuring thing out.
+         */
         "debug": boolean;
         /**
           * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
@@ -134,7 +137,6 @@ export namespace Components {
         "mode": LoadStrategy;
         /**
           * The path to the audio-file.
-          * @required
          */
         "src": string;
         /**
@@ -521,7 +523,7 @@ declare namespace LocalJSX {
         /**
           * This is the topic this action-command is targeting.
          */
-        "topic"?: 'data'|'routing'|'document'|'audio'|'video';
+        "topic"?: 'data' | 'routing' | 'document' | 'audio' | 'video';
     }
     interface XActionActivator {
         /**
@@ -591,6 +593,9 @@ declare namespace LocalJSX {
         "trackId"?: string;
     }
     interface XAudioPlayer {
+        /**
+          * Use debug for verbose logging. Useful for figuring thing out.
+         */
         "debug"?: boolean;
         /**
           * The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed.
@@ -622,7 +627,6 @@ declare namespace LocalJSX {
         "mode"?: LoadStrategy;
         /**
           * The path to the audio-file.
-          * @required
          */
         "src": string;
         /**

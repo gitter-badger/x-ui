@@ -1,4 +1,4 @@
-
+/* istanbul ignore file */
 
 export enum ROUTE_COMMANDS {
   NavigateNext = 'navigate-next',

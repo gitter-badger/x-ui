@@ -36,15 +36,7 @@ export class XMarkdown {
   }
 
   private get childScript(): HTMLScriptElement {
-    if (!this.el.hasChildNodes()) return null;
-    const childScripts = Array.from(this.el.childNodes)
-      .filter(c => c.nodeName === 'SCRIPT')
-      .map(v => v as HTMLScriptElement);
-
-    if (childScripts.length > 0) {
-      return childScripts[0];
-    }
-    return null;
+    return this.el.querySelector('script');
   }
 
   async componentWillLoad() {
@@ -70,7 +62,6 @@ export class XMarkdown {
     }
 
     const div = document.createElement('div');
-    div.className = 'markdown-body';
     div.innerHTML = content;
     this.highlight(div);
     this.content = div.innerHTML;
@@ -106,14 +97,14 @@ export class XMarkdown {
 
   private getContentFromScript() {
     const el = this.childScript;
-    const md = this.dedent(el.text);
+    const md = this.dedent(el.innerText);
     return window['marked'] ? window['marked'](md) : null;
   }
 
   private dedent(innerText: string) {
-    const str = innerText.replace(/^\n/, '');
-    const match = str.match(/^\s+/);
-    return match ? str.replace(new RegExp(`^${match[0]}`, 'gm'), '') : str;
+    const str = innerText?.replace(/^\n/, '');
+    const match = str?.match(/^\s+/);
+    return match ? str?.replace(new RegExp(`^${match[0]}`, 'gm'), '') : str;
   }
 
   private highlight(container: { querySelectorAll: (arg0: string) => any }) {

@@ -52,6 +52,7 @@ You can pass in your markdown inline too.
 
 <!-- Auto Generated Below -->
 
+
 ## Properties
 
 | Property   | Attribute   | Description                                                                                                  | Type      | Default     |
@@ -60,6 +61,7 @@ You can pass in your markdown inline too.
 | `noRender` | `no-render` | If set, disables auto-rendering of this instance. To fetch the contents change to false or remove attribute. | `boolean` | `false`     |
 | `src`      | `src`       | Remote Template URL                                                                                          | `string`  | `undefined` |
 
----
 
-_Built with [StencilJS](https://stenciljs.com/)_
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

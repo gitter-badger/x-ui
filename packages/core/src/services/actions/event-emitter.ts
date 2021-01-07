@@ -47,13 +47,14 @@ export class EventEmitter implements IEventEmitter {
     }
 
     if (event !== '*') {
-      this.emit('*', ...args);
+      this.emit('*', event, ...args);
+      return;
     }
 
     for (const rawWcEvent of this.wildcardEvents) {
       const wcEvent = rawWcEvent.slice(0, rawWcEvent.endsWith('.*') ? -2 : -1);
       if (!event.endsWith('*') && event !== wcEvent && event.startsWith(wcEvent)) {
-        this.emit(rawWcEvent, event);
+        this.emit(rawWcEvent, event, ...args);
       }
     }
   }

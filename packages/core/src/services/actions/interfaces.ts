@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export interface IEventEmitter  {
   on(event: string, listener: Listener): () => void;
   removeListener(event: string, listener: Listener): void;
@@ -27,6 +29,7 @@ export interface EventAction<T> {
 }
 
 export type Listener = (...args: any[]) => void;
+
 
 export interface IEvents {
   [event: string]: Listener[]

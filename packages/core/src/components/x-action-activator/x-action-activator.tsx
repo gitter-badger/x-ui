@@ -1,12 +1,5 @@
 import { Component, Element, Prop, h, Host, Method, State } from '@stencil/core';
-import {
-  actionBus,
-  ActionActivationStrategy,
-  EventAction,
-  warn,
-  debugIf,
-  IActionElement,
-} from '../..';
+import { actionBus, ActionActivationStrategy, EventAction, warn, debugIf, IActionElement } from '../..';
 
 /**
  * @system actions
@@ -47,51 +40,42 @@ export class XActionActivator {
   @Prop() time: number;
 
   /**
-  * Turn on debug statements for load, update and render events.
-  */
+   * Turn on debug statements for load, update and render events.
+   */
   @Prop() debug = false;
 
   /**
-  * Allow the actions to fire more than once per the event.
-  */
+   * Allow the actions to fire more than once per the event.
+   */
   @Prop() multiple = false;
 
   /**
-  *
-  */
+   *
+   */
   @Method()
   activateActions(): Promise<void> {
     if (!this.multiple && this.activated) return;
     // activate children
-    this.actions.forEach((action) => {
+    this.actions.forEach(action => {
       const dataString = JSON.stringify(action.data);
       debugIf(this.debug, `x-action-activator:  ${this.parent?.url} Activating [${this.activate}~{topic: ${action?.topic}, command:${action?.command}, data: ${dataString}}]`);
 
-      try {
-        actionBus.emit(action.topic, action);
-      } catch (err) {
-        warn(`x-action-activator: ${err}`);
-      }
+      actionBus.emit(action.topic, action);
     });
     this.activated = true;
     return Promise.resolve();
   }
 
   private get parent(): HTMLXViewDoElement | HTMLXViewElement {
-    return this.el.closest('x-view-do')
-      || this.el.closest('x-view');
+    return this.el.closest('x-view-do') || this.el.closest('x-view');
   }
 
   private get childActions(): Array<IActionElement> {
+    const actions = Array.from(this.el.querySelectorAll('x-action'));
 
-    const actions = Array.from(this.el
-      .querySelectorAll('x-action'));
+    const audioMusicActions = Array.from(this.el.querySelectorAll('x-audio-music-action'));
 
-    const audioMusicActions = Array.from(this.el
-      .querySelectorAll('x-audio-music-action'));
-
-    const audioSoundActions = Array.from(this.el
-      .querySelectorAll('x-audio-sound-action'));
+    const audioSoundActions = Array.from(this.el.querySelectorAll('x-audio-sound-action'));
 
     return [...actions, ...audioMusicActions, ...audioSoundActions];
   }
@@ -102,7 +86,7 @@ export class XActionActivator {
       warn(`x-action-activator: ${this.parent?.url} no children actions detected`);
       return;
     }
-    this.childActions.forEach(async (a) => {
+    this.childActions.forEach(async a => {
       const action = await a.getAction();
       // eslint-disable-next-line no-console
       const dataString = JSON.stringify(action.data);
@@ -113,18 +97,16 @@ export class XActionActivator {
     if (this.activate === ActionActivationStrategy.OnElementEvent) {
       let element: ChildNode;
       if (this.targetElement) {
-        element = this.el.parentElement?.querySelector(this.targetElement);
+        element = this.el.querySelector(this.targetElement);
       } else {
-        element = Array.from(this.el.childNodes)
-          .filter((e) => e.nodeType === e.ELEMENT_NODE)
-          .find((el) => !el.nodeName.startsWith('X-'));
+        element = this.el.querySelector(':not(x-action):not(x-audio-music-action):not(x-audio-sound-action)');
       }
 
       if (element === undefined) {
         warn(`x-action-activator: ${this.parent?.url} no elements found for '${this.targetElement}'`);
       } else {
         debugIf(this.debug, `x-action-activator: element found ${element.nodeName}`);
-        element?.addEventListener(this.targetEvent, async () => {
+        element.addEventListener(this.targetEvent, async () => {
           debugIf(this.debug, `x-action-activator: ${this.parent?.url} received ${element.nodeName} ${this.targetEvent} event`);
           await this.activateActions();
         });
@@ -135,7 +117,7 @@ export class XActionActivator {
   render() {
     return (
       <Host>
-        <slot/>
+        <slot />
       </Host>
     );
   }

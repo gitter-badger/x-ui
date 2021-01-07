@@ -164,7 +164,7 @@ Hard discards or play-src should ease out the audio with a .5 second fade-out be
 
 | Property  | Attribute | Description                                                                                                                                    | Type      | Default     |
 | --------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `debug`   | `debug`   |                                                                                                                                                | `boolean` | `undefined` |
+| `debug`   | `debug`   | Use debug for verbose logging. Useful for figuring thing out.                                                                                  | `boolean` | `undefined` |
 | `display` | `display` | The display mode for this player. The display is merely a facade to manage basic controls. No track information or duration will be displayed. | `boolean` | `undefined` |
 
 

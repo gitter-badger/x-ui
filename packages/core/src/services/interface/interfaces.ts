@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { OnChangeHandler } from '@stencil/store/dist/types';
 
 export class InterfaceState {

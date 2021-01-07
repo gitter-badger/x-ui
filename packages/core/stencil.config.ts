@@ -16,6 +16,9 @@ export const config: Config = {
     reloadStrategy: 'pageReload',
     port: 3333,
   },
+  testing: {
+
+  },
   outputTargets: [
     {
       type: 'dist',

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { createStore } from '@stencil/store';
 
 class StateModel {
@@ -11,6 +12,6 @@ const { state, onChange } = createStore<StateModel>({
 });
 
 export {
-  state,
-  onChange,
+  state as routingState,
+  onChange as onRoutingStateChange,
 };

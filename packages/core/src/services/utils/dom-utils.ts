@@ -1,4 +1,6 @@
-import { evaluatePredicate, hasExpression, resolveExpression } from '../data/expression-evaluator';
+/* istanbul ignore file */
+
+import { evaluatePredicate, hasExpression, resolveExpression } from '..';
 import { debugIf } from '../logging';
 
 export type TimedNode = {
@@ -179,4 +181,3 @@ export function removeAllChildNodes(parent: HTMLElement) {
     parent.removeChild(parent.firstChild);
   }
 }
-

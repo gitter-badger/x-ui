@@ -5,7 +5,7 @@ import { kebabToCamelCase } from '../utils/string-utils';
 import { InterfaceProvider, INTERFACE_COMMANDS, INTERFACE_TOPIC, INTERFACE_EVENTS } from './interfaces';
 import { DefaultInterfaceProvider } from './providers/default';
 import { getInterfaceProvider, setInterfaceProvider } from './providers/factory';
-import { state } from './state';
+import { interfaceState } from './state';
 
 export class InterfaceListener implements IEventActionListener {
   defaultProvider: DefaultInterfaceProvider;
@@ -13,7 +13,9 @@ export class InterfaceListener implements IEventActionListener {
 
   initialize(window: Window | MockWindow, actionBus: IEventEmitter, eventBus: IEventEmitter): void {
     this.eventBus = eventBus;
-    actionBus.on(INTERFACE_TOPIC, e => this.handleAction(e));
+    actionBus.on(INTERFACE_TOPIC, e => {
+      this.handleAction(e);
+    });
     this.registerBrowserProviders(window);
   }
 
@@ -23,7 +25,7 @@ export class InterfaceListener implements IEventActionListener {
   }
 
   setProvider(name: string, provider: InterfaceProvider) {
-    debugIf(state.debug, `interface-provider: ${name} changed`);
+    debugIf(interfaceState.debug, `interface-provider: ${name} changed`);
 
     provider?.onChange('theme', theme => {
       this.defaultProvider.state.theme = theme;
@@ -44,7 +46,7 @@ export class InterfaceListener implements IEventActionListener {
   }
 
   async handleAction(actionEvent: EventAction<any>) {
-    debugIf(state.debug, `document-listener: action received ${JSON.stringify(actionEvent)}`);
+    debugIf(interfaceState.debug, `document-listener: action received ${JSON.stringify(actionEvent)}`);
 
     if (actionEvent.command === INTERFACE_COMMANDS.RegisterProvider) {
       const { name = 'unknown', provider } = actionEvent.data;

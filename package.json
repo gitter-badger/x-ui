@@ -67,7 +67,8 @@
   },
   "jest": {
     "preset": "@stencil/core/testing",
-    "maxConcurrency": 1
+    "maxConcurrency": 1,
+    "detectOpenHandles": true
   },
   "browserslist": [
     ">0.2%",

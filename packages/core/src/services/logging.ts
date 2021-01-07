@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-
+/* istanbul ignore file */
 const prefix = '%cview.DO UI%c ';
 
 const colors = {

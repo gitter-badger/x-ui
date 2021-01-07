@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 type CookieAttributes = BaseCookieAttributes & SameSiteCookieAttributes;
 
 interface BaseCookieAttributes {

@@ -16,11 +16,16 @@
     "hashbang",
     "jfrom",
     "jsonata",
+    "linebreak",
     "loadash",
     "noslash",
     "nowait",
     "onbeforeexit",
+    "onloaderror",
+    "onplayerror",
+    "paren",
     "playsinline",
+    "plusplus",
     "recalc",
     "rehype",
     "searchjs",
@@ -31,5 +36,6 @@
     "webm",
     "youtube"
   ],
-  "stencilTools.style.extension": "scss"
+  "stencilTools.style.extension": "scss",
+  "liveServer.settings.port": 5501
 }

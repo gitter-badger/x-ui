@@ -1,4 +1,5 @@
-/* eslint-disable no-param-reassign */
+/* istanbul ignore file */
+
 import { Key, Path, pathToRegexp } from './path-to-regex';
 import { LocationSegments, MatchOptions, MatchResults } from '../interfaces';
 import { valueEqual } from './location-utils';
@@ -9,11 +10,11 @@ interface CompileOptions {
 }
 
 let cacheCount = 0;
-const patternCache: {[key: string]: any } = {};
+const patternCache: { [key: string]: any } = {};
 const cacheLimit = 10000;
 
 // Memoized function for creating the path match regex
-const compilePath = (pattern: Path, options: CompileOptions): { re: RegExp, keys: Key[]} => {
+const compilePath = (pattern: Path, options: CompileOptions): { re: RegExp; keys: Key[] } => {
   const cacheKey = `${options.end}${options.strict}`;
   const cache = patternCache[cacheKey] || (patternCache[cacheKey] = {});
   const cachePattern = JSON.stringify(pattern);
@@ -65,7 +66,7 @@ export function matchPath(location: LocationSegments, options: MatchOptions = {}
     params: keys.reduce((memo, key: Key, index) => {
       memo[key.name] = values[index];
       return memo;
-    }, {} as {[key: string]: string}),
+    }, {} as { [key: string]: string }),
   };
 
   if (result.isExact) {
@@ -84,8 +85,5 @@ export const matchesAreEqual = (a: MatchResults | null, b: MatchResults | null) 
     return false;
   }
 
-  return a && b
-    && a.path === b.path
-    && a.url === b.url
-    && valueEqual(a.params, b.params);
+  return a && b && a.path === b.path && a.url === b.url && valueEqual(a.params, b.params);
 };

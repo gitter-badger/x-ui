@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { createStore } from '@stencil/store';
 
 class StateModel {
@@ -5,25 +7,29 @@ class StateModel {
   theme: 'light' | 'dark' | string;
   muted: boolean;
   autoplay: boolean;
-  hasAudio: boolean;
   storedVisits: Array<string>;
   sessionVisits: Array<string>;
   references: Array<string>;
 }
 
-const { state, onChange } = createStore<StateModel>({
+const store = createStore<StateModel>({
   debug: false,
   theme: localStorage.getItem('theme') || null,
   muted: localStorage.getItem('muted') === 'true',
   autoplay: localStorage.getItem('autoplay') === 'true',
-  hasAudio: false,
   storedVisits: [],
   sessionVisits: [],
   references: [],
 });
 
-onChange('theme', t => localStorage.setItem('theme', t.toString()));
-onChange('muted', m => localStorage.setItem('muted', m.toString()));
-onChange('autoplay', a => localStorage.setItem('autoplay', a.toString()));
+const { state, onChange } = store;
 
-export { state, onChange };
+onChange('theme', t => localStorage?.setItem('theme', t?.toString()));
+onChange('muted', m => localStorage?.setItem('muted', m?.toString()));
+onChange('autoplay', a => localStorage?.setItem('autoplay', a?.toString()));
+
+export {
+  store as interfaceStore,
+  state as interfaceState,
+  onChange as onInterfaceChange
+};

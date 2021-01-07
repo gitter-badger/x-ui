@@ -1,4 +1,6 @@
-export const AUDIO_TOPIC ='audio';
+/* istanbul ignore file */
+
+export const AUDIO_TOPIC = 'audio';
 
 export enum AUDIO_COMMANDS {
   Play = 'play',
@@ -15,19 +17,23 @@ export enum AUDIO_COMMANDS {
 export enum AUDIO_EVENTS {
   Played = 'played',
   Queued = 'queued',
+  Dequeued = 'dequeued',
   Loaded = 'loaded',
   Started = 'started',
   Paused = 'paused',
   Resumed = 'resumed',
   Stopped = 'stopped',
   Muted = 'muted',
-  Ended = 'ended'
+  Ended = 'ended',
+  Looped = 'looped',
+  Errored = 'errored',
+  Discarded = 'discarded',
 }
 
 export enum DiscardStrategy {
   Route = 'route',
   Next = 'next',
-  None = 'none'
+  None = 'none',
 }
 
 export enum LoadStrategy {
@@ -38,22 +44,5 @@ export enum LoadStrategy {
 
 export enum AudioType {
   Sound = 'sound',
-  Music = 'music'
-}
-
-export class AudioTrack {
-  trackId:string;
-  type: AudioType;
-  src:string;
-  mode: LoadStrategy;
-  discard: DiscardStrategy;
-  track: boolean;
-  loop: boolean;
-}
-
-
-export class AudioRequest {
-  trackId: string;
-  type: AudioType;
-  value: any;
+  Music = 'music',
 }

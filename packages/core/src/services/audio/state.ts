@@ -1,16 +1,21 @@
+/* istanbul ignore file */
+
 import { createStore } from '@stencil/store';
 
 class StateModel {
   hasAudio: boolean;
-  tracked: Array<string>;
+  playedAudio: Array<string>;
 }
 
-const { state, onChange } = createStore<StateModel>({
+const store = createStore<StateModel>({
   hasAudio: false,
-  tracked: [],
+  playedAudio: [],
 });
 
+const { state, onChange } = store;
+
 export {
+  store as audioStore,
   state as audioState,
-  onChange,
+  onChange as onAudioStateChange,
 };

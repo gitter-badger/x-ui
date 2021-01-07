@@ -1,4 +1,5 @@
 /* eslint-disable no-continue */
+/* istanbul ignore file */
 /**
  * TS adaption of https://github.com/pillarjs/path-to-regexp/blob/master/index.js
  */

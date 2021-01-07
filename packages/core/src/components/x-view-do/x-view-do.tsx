@@ -341,8 +341,8 @@ export class XViewDo {
     debugIf(this.debug, `x-view-do: starting timer w/ ${duration} duration`);
 
     if (video) {
-      this.subscriptionVideoActions = actionBus.on(VIDEO_TOPIC, (ev: EventAction<any>) => {
-        debugIf(this.debug, `x-audio-player: event received ${ev.topic}:${ev.command}`);
+      this.subscriptionVideoActions = actionBus.on(VIDEO_TOPIC, (e, ev: EventAction<any>) => {
+        debugIf(this.debug, `x-audio-player: event received ${e}:${ev.command}`);
         this.commandReceived(ev.command, ev.data);
       });
 

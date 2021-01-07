@@ -1,4 +1,6 @@
 /* eslint-disable no-mixed-operators */
+/* istanbul ignore file */
+
 import { parsePath, parseQueryString } from './path-utils';
 import { LocationSegments } from '../interfaces';
 

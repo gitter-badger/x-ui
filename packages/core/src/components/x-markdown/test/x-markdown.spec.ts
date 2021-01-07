@@ -13,4 +13,32 @@ describe('x-markdown', () => {
       </x-markdown>
     `);
   });
+
+  it('renders markup from inline md', async () => {
+    const page = await newSpecPage({
+      components: [XMarkdown],
+    });
+
+    page.win['marked'] = (_data, _options) => {
+      return '<h1>Hello</h1>';
+    };
+
+    page.setContent(
+      `<x-markdown>
+        <script># Hello</script>
+       </x-markdown>`,
+    );
+
+    await page.waitForChanges();
+
+    expect(page.root).toEqualHtml(`
+      <x-markdown><script># Hello</script>
+        <div>
+          <h1>
+          Hello
+          </h1>
+        </div>
+      </x-markdown>
+    `);
+  });
 });

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { EventEmitter } from '../actions/event-emitter';
 
 export interface IDataProvider {

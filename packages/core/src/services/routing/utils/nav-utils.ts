@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /**
  * Returns true if browser fires popstate on hash change.
  * IE10 and IE11 do not.

@@ -1,6 +1,5 @@
 import { IEventEmitter, EventAction, IEventActionListener } from '../actions';
-import {} from '../actions/event-emitter';
-import { state } from '../interface/state';
+import { interfaceState } from '../interface/state';
 import { debugIf, warn } from '../logging';
 import { storageAvailable } from '../routing/utils/browser-utils';
 import { DataProviderRegistration, DATA_COMMANDS, DATA_EVENTS, DATA_PROVIDER, DATA_TOPIC, IDataProvider, SetData } from './interfaces';
@@ -31,14 +30,14 @@ export class DataListener implements IEventActionListener {
 
   registerProvider(name: string, provider: IDataProvider) {
     provider.changed.on(DATA_EVENTS.DataChanged, () => {
-      debugIf(state.debug, `data-provider: ${name} changed`);
+      debugIf(interfaceState.debug, `data-provider: ${name} changed`);
       this.eventBus.emit(DATA_EVENTS.DataChanged, {});
     });
     addDataProvider(name, provider as IDataProvider);
   }
 
   handleAction(actionEvent: EventAction<DataProviderRegistration | SetData>) {
-    debugIf(state.debug, `data-listener: action received {command:${actionEvent.command}}`);
+    debugIf(interfaceState.debug, `data-listener: action received {command:${actionEvent.command}}`);
     if (actionEvent.command === DATA_COMMANDS.RegisterDataProvider) {
       const { name, provider } = actionEvent.data as DataProviderRegistration;
       if (name && provider) {

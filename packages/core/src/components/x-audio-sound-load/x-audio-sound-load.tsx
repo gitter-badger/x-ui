@@ -19,6 +19,11 @@ export class XAudioSoundLoad {
   @Element() el: HTMLXAudioSoundLoadElement;
 
   /**
+   * The path to the audio-file.
+   */
+  @Prop() src!: string;
+
+  /**
    * The identifier for this music track
    */
   @Prop() trackId!: string;
@@ -26,18 +31,13 @@ export class XAudioSoundLoad {
    /**
    * This is the topic this action-command is targeting.
    */
-  @Prop() mode: LoadStrategy = LoadStrategy.Load;
+  @Prop() mode: LoadStrategy;
 
    /**
    * The discard strategy the player should use for this file.
    */
-  @Prop() discard: DiscardStrategy = DiscardStrategy.Route;
+  @Prop() discard: DiscardStrategy;
 
-   /**
-   * The path to the audio-file.
-   * @required
-   */
-  @Prop() src!: string;
 
    /**
    * Set this attribute to have the audio file tracked
@@ -49,15 +49,15 @@ export class XAudioSoundLoad {
   private getAction() {
     return {
       topic: AUDIO_TOPIC,
-      command: this.mode,
+      command: this.mode || LoadStrategy.Load,
       data: {
         trackId: this.trackId || this.src,
         src: this.src,
-        discard: this.discard,
+        discard: this.discard || DiscardStrategy.Route,
         loop: false,
         track: this.track,
         type: AudioType.Sound,
-        mode: this.mode,
+        mode: this.mode || LoadStrategy.Load,
       },
     };
   }

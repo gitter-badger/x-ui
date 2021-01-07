@@ -71,13 +71,13 @@ If audio has replay set to true, re-entry to the originating state will re-activ
 
 ## Properties
 
-| Property               | Attribute  | Description                                                                                                 | Type                                                                    | Default                 |
-| ---------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------- |
-| `discard`              | `discard`  | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route` | `DiscardStrategy.Route` |
-| `mode`                 | `mode`     | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`          | `LoadStrategy.Load`     |
-| `src` _(required)_     | `src`      | The path to the audio-file.                                                                                 | `string`                                                                | `undefined`             |
-| `track`                | `track`    | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                               | `false`                 |
-| `trackId` _(required)_ | `track-id` | The identifier for this music track                                                                         | `string`                                                                | `undefined`             |
+| Property               | Attribute  | Description                                                                                                 | Type                                                                    | Default     |
+| ---------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------- |
+| `discard`              | `discard`  | The discard strategy the player should use for this file.                                                   | `DiscardStrategy.Next \| DiscardStrategy.None \| DiscardStrategy.Route` | `undefined` |
+| `mode`                 | `mode`     | This is the topic this action-command is targeting.                                                         | `LoadStrategy.Load \| LoadStrategy.Play \| LoadStrategy.Queue`          | `undefined` |
+| `src` _(required)_     | `src`      | The path to the audio-file.                                                                                 | `string`                                                                | `undefined` |
+| `track`                | `track`    | Set this attribute to have the audio file tracked in session effectively preventing it from playing again.. | `boolean`                                                               | `false`     |
+| `trackId` _(required)_ | `track-id` | The identifier for this music track                                                                         | `string`                                                                | `undefined` |
 
 
 ----------------------------------------------
